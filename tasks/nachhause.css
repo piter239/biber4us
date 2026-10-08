@@ -1,1 +1,38 @@
-/* Stile fuer .t-nachhause */
+/* Aufgabe Nach Hause */
+.nh-board { display: grid; gap: 0.9rem; min-width: 0; }
+.nh-pool { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0.75rem; border-radius: var(--radius); background: var(--slot); border: 2px dashed var(--slot-line); width: max-content; max-width: 100%; }
+.nh-pool-l { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin-right: 0.2rem; }
+.nh-tok {
+  appearance: none; border: 3px solid transparent; background: var(--paper); border-radius: 10px; width: 4.2rem; height: 4.2rem;
+  display: grid; place-items: center; cursor: grab; touch-action: manipulation; padding: 0;
+}
+.nh-tok img { pointer-events: none; max-width: 70%; max-height: 80%; width: auto; height: auto; }
+.nh-tok.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.nh-tok.used { background: transparent; border: 2px dashed var(--slot-line); cursor: default; }
+.nh-tok:disabled { cursor: default; }
+.nh-mapwrap { min-width: 0; max-width: 40rem; display: grid; gap: 0.6rem; }
+.nh-map { display: block; width: 100%; height: auto; border-radius: 10px; overflow: visible; touch-action: manipulation; }
+.nh-spot { cursor: pointer; outline: none; }
+.nh-hit { fill: transparent; }
+.nh-dot { fill: var(--accent); opacity: 0.6; stroke: var(--paper); stroke-width: 3; }
+.nh-spot.has .nh-dot { opacity: 0; }
+.nh-spot.armed .nh-dot { opacity: 0.95; r: 17; }
+.nh-spot.armed .nh-hit, .nh-spot.over .nh-hit { fill: color-mix(in srgb, var(--accent) 22%, transparent); stroke: var(--accent); stroke-width: 4; stroke-dasharray: 10 8; }
+.nh-spot:focus-visible .nh-hit { fill: color-mix(in srgb, var(--focus) 25%, transparent); stroke: var(--focus); stroke-width: 6; }
+.nh-spot:hover .nh-hit { fill: color-mix(in srgb, var(--accent) 16%, transparent); }
+.nh-arrow { pointer-events: none; filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.35)); }
+.nh-route { fill: none; stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; pointer-events: none; }
+.nh-route.hase { stroke: var(--c4); }
+.nh-route.igel { stroke: var(--c5); stroke-dasharray: 26 18; }
+.nh-end { pointer-events: none; }
+.nh-end circle { stroke: var(--paper); stroke-width: 4; }
+.nh-end.ok circle { fill: var(--ok); }
+.nh-end.bad circle { fill: var(--bad); }
+.nh-end text { fill: #fff; font-size: 34px; font-weight: 800; font-family: var(--font-body); }
+.nh-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; font-size: 0.95rem; }
+.nh-legend li { display: flex; align-items: center; gap: 0.6rem; }
+.nh-sw { flex: none; width: 2.2rem; height: 0; border-top: 6px solid var(--c4); border-radius: 3px; }
+.nh-sw.igel { border-top-style: dashed; border-color: var(--c5); }
+@media (max-width: 40rem) {
+  .nh-tok { width: 3.6rem; height: 3.6rem; }
+}

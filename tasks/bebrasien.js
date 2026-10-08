@@ -104,7 +104,7 @@
       svg('path', { d: 'M-9 -1c1-4 4-6 8-6 3 0 5 1 6 3z', class: 'bb-glass' }),
       svg('path', { d: 'M-12 11h20', class: 'bb-skid' }));
     var s = svg('svg', { class: 'bb-map', viewBox: '0 0 850 450', role: 'group', 'aria-label': 'Karte mit sieben Inseln A bis G und den Fährverbindungen' },
-      defs, svg('path', { class: 'bb-sea', d: 'M92 30C140-10 300 20 350 70c80 45 130 30 210-20 50-30 120-20 160 20 30 30 40 70 120 100 70 40 95 90 90 150-8 70-60 130-120 120-70-8-130 10-170 40-60 40-120 50-180 10-40-25-70 0-130 25C190 440 100 380 55 340 10 290 5 250 40 190 70 140 60 60 92 30z' }),
+      defs, svg('path', { class: 'bb-sea', d: 'M70 80C100 20 260 35 330 78C420 118 470 100 520 58C580 12 650 22 690 70C730 115 800 130 830 195C855 260 810 375 725 395C660 410 600 395 550 418C480 442 400 430 360 405C300 382 240 428 170 410C100 392 40 340 18 285C0 220 55 170 62 125C64 105 66 92 70 80z' }),
       grp('bb-edges', edges), svg('g', { class: 'bb-route-layer', 'aria-hidden': 'true' }), grp('bb-isls', isl), heli);
     return s;
   }

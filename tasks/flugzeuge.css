@@ -5,7 +5,7 @@
 .fl-board { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: 1.25rem 2.5rem; align-items: start; }
 .fl-board > section { min-width: 0; }
 .fl-hangar h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
-.fl-table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; border: 2px solid var(--slot-line); border-radius: 10px; overflow: hidden; background: var(--paper); color: var(--ink); }
+.fl-table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; border: 2px solid var(--slot-line); border-radius: 10px; overflow: hidden; background: var(--surface); color: var(--ink); }
 .fl-cap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .fl-table th, .fl-table td { padding: 0.2rem 0.4rem; border-bottom: 2px solid var(--slot-line); vertical-align: middle; }
 .fl-table tr:last-child th, .fl-table tr:last-child td { border-bottom: 0; }
@@ -16,8 +16,8 @@
 button.fl-slot {
   appearance: none; border: 3px dashed var(--slot-line); background: var(--slot); border-radius: 9px; padding: 2px; cursor: pointer; touch-action: manipulation;
 }
-.fl-slot.fixed { padding: 2px; }
-.fl-slot img { max-height: 100%; width: auto; max-width: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.fl-slot.fixed { padding: 3px; background: var(--paper); border: 3px solid transparent; border-radius: 9px; }
+.fl-slot img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 .fl-ghost {
   display: block; width: 70%; height: 80%;
   background: var(--muted); opacity: 0.45;
@@ -39,7 +39,7 @@ button.fl-slot:disabled { cursor: default; }
   appearance: none; height: 4.6rem; width: 100%; padding: 4px; border: 3px solid transparent; border-radius: 9px;
   background: var(--paper); box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); cursor: grab; touch-action: manipulation; display: grid; place-items: center;
 }
-.fl-chip img { max-height: 100%; max-width: 100%; width: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.fl-chip img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 .fl-chip.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
 .fl-chip.dragging { opacity: 0.4; }
 .fl-chip:disabled { cursor: default; }
