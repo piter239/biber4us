@@ -1,0 +1,31 @@
+/* Aufgabe Spiel am Strand */
+.t-strand22-wrap { display: grid; justify-items: center; gap: 0.5rem; --t-strand22-stone: #1d1d22; --t-strand22-shine: #6b6b75; }
+.t-strand22-fig { width: 100%; max-width: 36rem; }
+.t-strand22-small { max-width: 28rem; margin: 0.5rem 0; --t-strand22-stone: #1d1d22; --t-strand22-shine: #6b6b75; }
+.t-strand22-svg { display: block; width: 100%; height: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.t-strand22-status { margin: 0; color: var(--muted); font-size: 0.95rem; text-align: center; }
+
+.t-strand22-sand { fill: var(--slot); stroke: var(--slot-line); stroke-width: 4; stroke-linejoin: round; }
+.t-strand22-furrow { fill: none; stroke: color-mix(in srgb, var(--slot-line) 55%, var(--ink)); stroke-width: 24; stroke-linecap: round; stroke-linejoin: round; }
+.t-strand22-hollow { fill: color-mix(in srgb, var(--slot-line) 55%, var(--ink)); }
+
+.t-strand22-shellbody { fill: var(--paper); stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; }
+.t-strand22-ribs path { fill: none; stroke: var(--slot-line); stroke-width: 3; stroke-linecap: round; }
+.t-strand22-shell .t-strand22-shellbody { fill: var(--surface); }
+.t-strand22-stone { fill: var(--t-strand22-stone); stroke: var(--paper); stroke-width: 2.5; }
+.t-strand22-shine { fill: none; stroke: var(--t-strand22-shine); stroke-width: 5; stroke-linecap: round; }
+
+.t-strand22-badge circle { fill: var(--surface); stroke: var(--ink); stroke-width: 2.5; }
+.t-strand22-badge text { font: 700 24px var(--font-body); fill: var(--ink); }
+.t-strand22-block path { fill: none; stroke: var(--bad); stroke-width: 12; stroke-linecap: round; }
+.t-strand22-ring { fill: none; stroke-width: 9; }
+.t-strand22-ring.right { stroke: var(--ok); }
+.t-strand22-ring.wrong { stroke: var(--bad); }
+
+.t-strand22-hit { cursor: pointer; outline: none; }
+.t-strand22-area { fill: transparent; stroke: none; }
+.t-strand22-hit .ghost { opacity: 0; transition: opacity 0.12s; pointer-events: none; }
+.t-strand22-hit:hover .ghost, .t-strand22-hit:focus-visible .ghost { opacity: 0.6; }
+.t-strand22-hit:focus-visible .t-strand22-area { stroke: var(--focus); stroke-width: 8; fill: color-mix(in srgb, var(--focus) 16%, transparent); }
+.t-strand22-hit[aria-disabled="true"] { cursor: default; }
+.t-strand22-hit[aria-disabled="true"]:hover .ghost { opacity: 0; }

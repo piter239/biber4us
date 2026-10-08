@@ -7,19 +7,19 @@
 .t-schatzsuche23-bigwrap { background: var(--surface2); border-radius: 12px; padding: 0.4rem; }
 .t-schatzsuche23-cell { fill: var(--surface); stroke: var(--muted); stroke-width: 2; }
 .t-schatzsuche23-seen > .t-schatzsuche23-cell { fill: var(--line); }
-.t-schatzsuche23-cand > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 55%, var(--surface)); }
+.t-schatzsuche23-cand > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 70%, var(--surface)); }
 .t-schatzsuche23-ring { fill: none; stroke: transparent; stroke-width: 3; }
 .t-schatzsuche23-cand { cursor: pointer; outline: none; }
-.t-schatzsuche23-cand:hover > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 75%, var(--surface)); }
+.t-schatzsuche23-cand:hover > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 88%, var(--surface)); }
 .t-schatzsuche23-cand:focus-visible .t-schatzsuche23-ring { stroke: var(--focus); stroke-width: 4; }
-.t-schatzsuche23-cand.on > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 75%, var(--surface)); }
+.t-schatzsuche23-cand.on > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 88%, var(--surface)); }
 .t-schatzsuche23-cand.on .t-schatzsuche23-ring { stroke: var(--accent); stroke-width: 5; }
 .t-schatzsuche23-cand.right .t-schatzsuche23-ring { stroke: var(--ok); }
 .t-schatzsuche23-cand.wrong .t-schatzsuche23-ring { stroke: var(--bad); }
 .t-schatzsuche23-locked .t-schatzsuche23-cand { cursor: default; }
-.t-schatzsuche23-locked .t-schatzsuche23-cand:hover > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 55%, var(--surface)); }
-.t-schatzsuche23-locked .t-schatzsuche23-cand.on:hover > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 75%, var(--surface)); }
-.t-schatzsuche23-axis { fill: var(--muted); font: 700 14px var(--font-body); }
+.t-schatzsuche23-locked .t-schatzsuche23-cand:hover > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 70%, var(--surface)); }
+.t-schatzsuche23-locked .t-schatzsuche23-cand.on:hover > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 88%, var(--surface)); }
+.t-schatzsuche23-axis { fill: var(--muted); font: 700 18px var(--font-body); }
 .t-schatzsuche23-dist { fill: var(--ink); font: 700 24px var(--font-body); }
 .t-schatzsuche23-star { fill: var(--c2); stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
 .t-schatzsuche23-cross { stroke: var(--bad); stroke-width: 5; stroke-linecap: round; }

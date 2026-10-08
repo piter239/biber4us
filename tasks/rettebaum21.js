@@ -16,7 +16,7 @@
     { id: 'b3', parent: 'b5', x: 200, y: 205, w: 3, bend: 8, name: 'Blattast links ganz oben', t: 0.5 },
     { id: 'c8', parent: null, x: 420, y: 560, w: 8, bend: 12, name: 'mittlerer Hauptast' },
     { id: 'd4', parent: 'c8', x: 390, y: 420, w: 4, bend: -10, name: 'Ast Mitte links', t: 0.45 },
-    { id: 'd3', parent: 'd4', x: 265, y: 350, w: 3, bend: -8, name: 'Blattast Mitte links', t: 0.5 },
+    { id: 'd3', parent: 'd4', x: 288, y: 362, w: 3, bend: -8, name: 'Blattast Mitte links', t: 0.5 },
     { id: 'd5', parent: 'd4', x: 370, y: 175, w: 5, bend: 8, name: 'Blattast Mitte oben', t: 0.5 },
     { id: 'e5', parent: 'c8', x: 550, y: 430, w: 5, bend: 10, name: 'Ast Mitte rechts', t: 0.6 },
     { id: 'e2', parent: 'e5', x: 570, y: 205, w: 2, bend: -8, name: 'Blattast Mitte rechts oben', t: 0.5 },

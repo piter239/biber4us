@@ -72,9 +72,9 @@
     renderSim();
     var turned = lastChanged.length - 1;
     live.textContent = 'Spielzug ' + moves + ': ' + (turned === 0 ? 'keine Karte wurde umgedreht, ' : turned + (turned === 1 ? ' aufgedeckte Karte wurde verdeckt, ' : ' aufgedeckte Karten wurden verdeckt, ')) +
-      '1 verdeckte Karte wurde aufgedeckt. Jetzt sind ' + countUp(cards) + ' Karten aufgedeckt.';
+      '1 verdeckte Karte wurde aufgedeckt. Jetzt ' + (countUp(cards) === 1 ? 'ist 1 Karte' : 'sind ' + countUp(cards) + ' Karten') + ' aufgedeckt.';
   }
-  function doAll() { while (moves < MOVES) { lastChanged = step(cards); moves++; } renderSim(); live.textContent = 'Nach 16 Spielzügen: ' + countUp(cards) + ' Karten aufgedeckt.'; }
+  function doAll() { while (moves < MOVES) { lastChanged = step(cards); moves++; } renderSim(); live.textContent = 'Nach 16 Spielzügen: ' + countUp(cards) + (countUp(cards) === 1 ? ' Karte' : ' Karten') + ' aufgedeckt.'; }
   function doBack() { resetSim(); renderSim(); }
 
   function parsed() {

@@ -162,7 +162,7 @@
     s.appendChild(village(v[0], v[1]));
     s.appendChild(school(sc[0], sc[1]));
     s.appendChild(builder(bd[0], bd[1]));
-    var t1 = pt(318, 205), t2 = pt(1590, 218);
+    var t1 = pt(318, 205), t2 = portrait ? [331, 1676] : [1590, 218];
     s.appendChild(tag(t1[0], t1[1], 'Start'));
     s.appendChild(tag(t2[0], t2[1], 'Schule'));
     return s;

@@ -81,14 +81,14 @@
   var el, api, boardSvg, statusEl, sel, locked, mark;
 
   function bigBoard() {
-    var ox = 26, oy = 24, W = ox + BIG.cols * CS + 4, H = oy + BIG.rows * CS + 4;
+    var ox = 30, oy = 28, W = ox + BIG.cols * CS + 4, H = oy + BIG.rows * CS + 4;
     var s = svg('svg', {
       class: P + 'svg ' + P + 'big', viewBox: '0 0 ' + W + ' ' + H, role: 'group',
       'aria-label': 'Großes Spielbrett mit 7 Spalten (A bis G) und 4 Zeilen (1 bis 4). Blau markiert sind die fünf möglichen Schatzfelder A1, B1, C1, A2 und C2.'
     });
     var gCells = svg('g', null), gLab = svg('g', { 'aria-hidden': 'true' }), gMark = svg('g', { 'aria-hidden': 'true' });
-    for (var c = 0; c < BIG.cols; c++) gLab.appendChild(svg('text', { x: ox + c * CS + CS / 2, y: 17, class: P + 'axis', 'text-anchor': 'middle' }, COLS.charAt(c)));
-    for (var r = 0; r < BIG.rows; r++) gLab.appendChild(svg('text', { x: 11, y: oy + r * CS + CS / 2 + 5, class: P + 'axis', 'text-anchor': 'middle' }, String(r + 1)));
+    for (var c = 0; c < BIG.cols; c++) gLab.appendChild(svg('text', { x: ox + c * CS + CS / 2, y: 21, class: P + 'axis', 'text-anchor': 'middle' }, COLS.charAt(c)));
+    for (var r = 0; r < BIG.rows; r++) gLab.appendChild(svg('text', { x: 13, y: oy + r * CS + CS / 2 + 6, class: P + 'axis', 'text-anchor': 'middle' }, String(r + 1)));
     var visited = {};
     PATH.forEach(function (p) { visited[name(p.c, p.r)] = p; });
     for (var rr = 0; rr < BIG.rows; rr++) for (var cc = 0; cc < BIG.cols; cc++) {
@@ -186,7 +186,7 @@
         h('span', null, svg('svg', { viewBox: '-16 -16 32 32', width: 22, height: 22, 'aria-hidden': 'true' }, snow()), ' weiter weg vom Schatz'));
       el.replaceChildren(h('div', { class: P + 'wrap' },
         h('section', { class: P + 'part', 'aria-label': 'Erster Versuch' }, h('h3', null, 'Erster Versuch'), h('div', { class: P + 'smallwrap' }, smallBoard()), legend),
-        h('section', { class: P + 'part', 'aria-label': 'Größeres Spielbrett' }, h('h3', null, 'Größeres Spielbrett'),
+        h('section', { class: P + 'part', 'aria-label': 'Zweiter Versuch mit größerem Spielbrett' }, h('h3', null, 'Zweiter Versuch'),
           h('div', { class: P + 'bigwrap' }, boardSvg), h('p', { class: P + 'sr' }, pathText()), statusEl)));
       boardSvg.addEventListener('click', function (e) {
         var g = e.target.closest('[data-cell]');

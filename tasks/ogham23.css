@@ -34,7 +34,11 @@
 .t-ogham23-word.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
 .t-ogham23-word:disabled { cursor: default; }
 @media (max-width: 34rem) {
-  .t-ogham23-codes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 0.75rem; }
-  .t-ogham23-pool { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
-  .t-ogham23-code { max-width: 7.5rem; }
+  .t-ogham23-codes, .t-ogham23-pool { gap: 0.4rem; }
+  .t-ogham23-fig { padding: 0.3rem 0.1rem; }
+  .t-ogham23-slot { padding: 0.1rem; border-width: 2px; min-height: 2.6rem; }
+  .t-ogham23-wtxt, .t-ogham23-word { font-size: 0.68rem; letter-spacing: 0; }
+  .t-ogham23-ph { font-size: 0.68rem; }
+  .t-ogham23-word { padding: 0.3rem 0.1rem; border-width: 2px; }
+  .t-ogham23-num { font-size: 0.8rem; }
 }
