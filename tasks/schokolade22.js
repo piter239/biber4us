@@ -100,7 +100,7 @@
 
   function changed() {
     var s = layout();
-    api.changed(s.ok ? infoText(s) : '');
+    api.changed('');
   }
 
   function move(i, x, y) {

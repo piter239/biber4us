@@ -152,7 +152,7 @@
     explanation: function () {
       return '<p>Das Herz besteht aus <strong>zwei Kreisen</strong> und einem <strong>um 45 Grad gedrehten Quadrat</strong>. Tina braucht also „verdopple Kreis“, damit es zwei Kreise gibt, und „drehe Quadrat“, damit das Quadrat auf der Spitze steht. Nur Antwort A hat beides. ' +
         'Bei B wird ein Quadrat verdoppelt statt des Kreises, bei C wird der Kreis gedreht statt des Quadrats, und bei D wird gar nichts gedreht.</p>' +
-        '<div class="' + P + 'expl">' + heartSvg(P + 'sh', true) + '<span>Das Herz: zwei Kreise und ein gedrehtes Quadrat. Mit A braucht Tina dafür vier Schritte: verdoppeln, drehen, zwei Kreise an die richtige Stelle schieben.</span></div>' +
+        '<div class="' + P + 'expl">' + heartSvg(P + 'hf', true) + '<span>Das Herz: zwei Kreise und ein gedrehtes Quadrat. Mit A braucht Tina dafür vier Schritte: verdoppeln, drehen, zwei Kreise an die richtige Stelle schieben.</span></div>' +
         '<p>So arbeitet auch ein Computerprogramm: Es besteht aus einer Folge von Anweisungen, und die meisten davon wenden eine Operation auf ein Objekt an. Hier sind die Objekte Kreis und Quadrat, die Operationen drehen, verschieben und verdoppeln.</p>';
     },
     mount: function (root, a) {
@@ -177,7 +177,7 @@
         return h('div', { class: P + 'card' }, btn, tg, flow);
       });
       var fig = h('div', { class: P + 'fig', role: 'group', 'aria-label': 'Aus Kreis und Quadrat soll ein Herz werden' });
-      fig.innerHTML = startSvg() + '<span class="' + P + 'arrow" aria-hidden="true">?</span>' + heartSvg(P + 'sh', false);
+      fig.innerHTML = startSvg() + '<span class="' + P + 'arrow" aria-hidden="true">?</span>' + heartSvg(P + 'hf', false);
       el.replaceChildren(h('div', { class: P + 'board' }, fig,
         h('div', { class: P + 'opts', role: 'radiogroup', 'aria-label': 'Antworten' }, cards)));
       refresh();
