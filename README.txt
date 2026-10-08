@@ -19,3 +19,9 @@ Speicherung
 sync.js gleicht Profile und Ergebnisse ueber die db-Funktion der Artifact-Umgebung mit dem Server ab
 (Dokument progress/<Konto-Id>; Regeln: progress lesen = admin, progress/{self} lesen/schreiben = interact).
 Ohne diese Umgebung bleibt alles im Browser (localStorage). Die Seite #familie zeigt Besitzern/Editoren alle Profile.
+
+Veroeffentlichung mit Dateianzahl-Limit
+---------------------------------------
+python3 tools/bundle.py <Zielordner> fasst alle tasks/*.js und tasks/*.css zu tasks.bundle.js / tasks.bundle.css
+zusammen und schreibt einen index.html, der nur diese beiden Dateien laedt. Fuer den gehosteten Artifact wird diese
+gebuendelte Fassung verwendet (Limit: 511 Dateien je Version). Quellen in tasks/ bleiben unveraendert.
