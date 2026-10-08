@@ -14,7 +14,7 @@
   var DAYS = 5;
   var MIN_DAYS = 4; /* A, B, C, E sind paarweise verbunden (K4); Brute Force: 4 Tage genügen */
   var SOLUTION = { A: 1, B: 2, C: 3, E: 4, D: 1, F: 1, G: 1 };
-  var W = 600, H = 470, D = 0.13; /* Knotendurchmesser als Anteil der Breite */
+  var W = 600, H = 470, D = 0.14; /* Knotendurchmesser als Anteil der Breite */
 
   function nb(id) {
     var r = [];
@@ -63,7 +63,8 @@
     else if (mode === 'check') {
       var c = conflicts(), u = used();
       if (c.length) {
-        msg = 'Tageskonflikt: ' + c.map(function (e) { return 'Klausur ' + e[0] + ' und ' + e[1]; }).join('; ') + ' liegen am selben Tag.';
+        msg = c.length > 3 ? c.length + ' Tageskonflikte (rot markiert): Verbundene Klausuren liegen am selben Tag.'
+          : 'Tageskonflikt (rot markiert): ' + c.map(function (e) { return 'Klausur ' + e[0] + ' und ' + e[1]; }).join('; ') + ' liegen am selben Tag.';
         cls = 'bad';
       } else if (u > MIN_DAYS) { msg = 'Kein Konflikt, aber ' + u + ' Tage sind zu viele. Es geht mit weniger.'; cls = 'bad'; }
       else if (u < MIN_DAYS) { msg = 'Das geht nicht mit so wenigen Tagen.'; cls = 'bad'; }

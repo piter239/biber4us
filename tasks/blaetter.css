@@ -55,7 +55,7 @@
 /* Erklärung */
 .bl-why { list-style: none; margin: 0.5rem 0; padding: 0; display: grid; gap: 0.7rem; }
 .bl-why li { display: flex; gap: 0.8rem; align-items: flex-start; }
-.bl-why strong { display: block; }
+.bl-why li > div > strong { display: block; }
 .bl-why span:not(.bl-chip):not(.bl-ico) { color: var(--muted); font-size: 0.95rem; }
 
 @media (max-width: 30rem) {

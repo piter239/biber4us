@@ -13,7 +13,7 @@
 .bt-pot.has-flower .bt-hint, .bt-pot.has-flower .bt-hint-plus { display: none; }
 .bt-pot .bt-keyring { fill: var(--muted); stroke: var(--ink); stroke-width: 1.2; }
 .bt-pot .bt-keyhole { fill: var(--surface); }
-.bt-pot .bt-keybody { fill: none; stroke: var(--ink); stroke-width: 4.2; stroke-linecap: round; }
+.bt-pot .bt-keybody { fill: none; stroke: var(--ink); stroke-width: 3.4; stroke-linecap: round; }
 .bt-pot .bt-keybody { paint-order: stroke; }
 .bt-pot.faded { opacity: 0.4; }
 
@@ -29,7 +29,7 @@
 .bt-split.s2 { left: 25%; }
 
 .bt-board { display: grid; gap: 0.9rem; }
-.bt-scroll { max-width: 36rem; }
+.bt-scroll { max-width: 44rem; }
 .bt-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0.4rem 0.3rem; }
 .bt-btn {
   appearance: none; position: relative; padding: 0.3rem 0.1rem 0.15rem; margin: 0; min-width: 0;

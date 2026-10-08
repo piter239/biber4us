@@ -1,1 +1,39 @@
-/* Stile fuer .t-lichterstern */
+/* Aufgabe Lichterstern */
+.ls-board { display: grid; justify-items: center; gap: 0.5rem; }
+.ls-fig { position: relative; width: 100%; max-width: 30rem; aspect-ratio: 480 / 470; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.ls-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+.ls-count { color: var(--muted); font-size: 0.95rem; text-align: center; }
+
+.ls-arrow { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+.ls-head { fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.ls-shape { stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
+.ls-r .ls-shape { fill: var(--c1); }
+.ls-b .ls-shape { fill: var(--c4); }
+.ls-y .ls-shape { fill: var(--c2); }
+.ls-node.off .ls-shape { fill-opacity: 0.8; stroke-opacity: 0.8; }
+.ls-glyph { fill: none; stroke: var(--accent-ink); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.ls-y .ls-glyph { stroke: color-mix(in srgb, var(--c2) 15%, black); }
+.ls-node.off .ls-glyph { stroke-width: 3; opacity: 0.75; }
+.ls-halo { fill: color-mix(in srgb, var(--c2) 45%, transparent); stroke: var(--c2); stroke-width: 2; stroke-dasharray: 3 4; stroke-linecap: round; }
+
+/* Schaltflächen über den blauen und gelben Lichtern */
+.ls-btn { position: absolute; transform: translate(-50%, -50%); width: 12.5%; aspect-ratio: 1; min-width: 40px; min-height: 40px; appearance: none; padding: 0; margin: 0; border: 0; background: transparent; border-radius: 50%; cursor: pointer; touch-action: manipulation; }
+.ls-btn:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.ls-btn.pressed { background: transparent; }
+.ls-btn:disabled { cursor: default; }
+.ls-mark { position: absolute; top: -2px; right: -4px; width: 1.4rem; height: 1.4rem; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.8rem; color: #fff; }
+.ls-btn.right .ls-mark { background: var(--ok); }
+.ls-btn.wrong .ls-mark { background: var(--bad); }
+.ls-node.bad .ls-shape { stroke: var(--bad); stroke-width: 3.5; stroke-opacity: 1; }
+.ls-node.ok.on:not(.ls-r) .ls-shape { stroke: var(--ok); stroke-width: 3; }
+
+/* Legende und Erklärung */
+.ls-legend, .ls-why { list-style: none; margin: 0.4rem 0; padding: 0; display: grid; gap: 0.5rem; }
+.ls-legend li { display: flex; gap: 0.7rem; align-items: center; }
+.ls-legend svg { flex: none; width: 2.6rem; height: 2.6rem; }
+.ls-why li { padding-left: 0.2rem; }
+
+@media (max-width: 30rem) {
+  .ls-btn { min-width: 44px; min-height: 44px; }
+}

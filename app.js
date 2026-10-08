@@ -229,6 +229,7 @@
         st.checked = true;
         refreshBar();
         showFeedback(res.correct, points, counts, false);
+        document.dispatchEvent(new CustomEvent('biber:result', { detail: { correct: !!res.correct, id: id, counted: counts } }));
         fb.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       } else if (act === 'reset' || act === 'retry') {
         mod.reset();
@@ -359,4 +360,23 @@
   });
   window.addEventListener('hashchange', route);
   route();
+
+  /* Kätzchen-Schalter im Seitenfuß (kitten.js ist eigenständig und per defer geladen) */
+  var bkToggle = document.getElementById('bkToggle'), bkMute = document.getElementById('bkMute'), bkStat = document.getElementById('bkStat');
+  function bkSync() {
+    var K = window.BiberKitten;
+    if (!K || !bkToggle) return;
+    var s = K.stats();
+    bkToggle.textContent = 'Kätzchen: ' + (s.enabled ? 'an' : 'aus');
+    bkToggle.setAttribute('aria-pressed', String(s.enabled));
+    bkMute.textContent = 'Ton: ' + (s.muted ? 'aus' : 'an');
+    bkMute.setAttribute('aria-pressed', String(!s.muted));
+    bkStat.textContent = s.seen + ' von ' + s.total + ' Überraschungen entdeckt';
+  }
+  if (bkToggle) {
+    bkToggle.addEventListener('click', function () { if (window.BiberKitten) { window.BiberKitten.setEnabled(!window.BiberKitten.stats().enabled); bkSync(); } });
+    bkMute.addEventListener('click', function () { if (window.BiberKitten) { window.BiberKitten.setMuted(!window.BiberKitten.stats().muted); bkSync(); } });
+    document.addEventListener('bk:update', bkSync);
+    window.addEventListener('load', bkSync);
+  }
 })();

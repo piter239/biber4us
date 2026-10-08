@@ -20,8 +20,7 @@
       petals + '<circle class="bt-eye" cx="30" cy="26" r="6"/></g>';
   }
   function keySvg() {
-    return '<g class="bt-keyicon"><circle cx="20" cy="70" r="6.5" class="bt-keyring"/><circle cx="20" cy="70" r="2.6" class="bt-keyhole"/>' +
-      '<path class="bt-keybody" d="M24 74 L38 88 M33 83 L37 79 M37 87 L41 83"/></g>';
+    return '<g class="bt-keyicon"><path class="bt-keybody" d="M17 73 L28 84 M23 79 L26 76 M27 83 L30 80"/><circle cx="14" cy="70" r="5.5" class="bt-keyring"/><circle cx="14" cy="70" r="2" class="bt-keyhole"/></g>';
   }
   /* opts: n (Index für Farbe und Beschriftung), flower, key, faded */
   function potSvg(n, opts) {
@@ -33,7 +32,7 @@
       (opts.flower ? flowerSvg() : '') +
       '<path class="bt-body" d="M7 62 H53 L49 89 H11 Z"/>' +
       '<rect class="bt-rim" x="4" y="58" width="52" height="9" rx="2.5"/>' +
-      '<text class="bt-letter" x="30" y="84" text-anchor="middle">' + LETTERS[n] + '</text>' +
+      '<text class="bt-letter" x="' + (opts.key ? 39 : 30) + '" y="84" text-anchor="middle">' + LETTERS[n] + '</text>' +
       (opts.key ? keySvg() : '') + '</svg>';
   }
 

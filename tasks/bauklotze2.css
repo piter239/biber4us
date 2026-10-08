@@ -3,7 +3,7 @@
 .b2-inv li { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; min-width: 0; }
 .b2-cap { display: block; text-align: center; font-weight: 700; font-size: 0.95rem; padding: 0.25rem 0.3rem; border-bottom: 1px solid var(--line); background: var(--surface2); color: var(--ink); }
 .b2-pic { display: grid; place-items: center; padding: 0.4rem; height: 5.5rem; }
-.b2-pic img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; }
+.b2-pic img { max-width: 100%; max-height: 4.7rem; width: auto; height: auto; display: block; }
 .b2-steps { margin: 0.4rem 0 1rem; padding-left: 1.6rem; }
 .b2-steps li { margin: 0.15rem 0; padding-left: 0.2rem; }
 .b2-ex { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 0.9rem; margin: 0.6rem 0 1rem; }
@@ -40,5 +40,6 @@
   .b2-ex1, .b2-ex2 { flex: 1 1 100%; }
   .b2-und { flex: 0 0 100%; text-align: center; }
   .b2-pic { height: 4.5rem; }
+  .b2-pic img { max-height: 3.7rem; }
   .b2-cap { font-size: 0.82rem; }
 }

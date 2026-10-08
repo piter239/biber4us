@@ -1,1 +1,81 @@
-/* Stile fuer .t-biberone */
+/* Aufgabe Biberone (Präfix bo-) */
+.bo-board { display: grid; gap: 1.1rem; min-width: 0; }
+.bo-board h3, .bo-sh h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; }
+.bo-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.bo-tile {
+  display: inline-grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 4px;
+  background: var(--ink); color: var(--surface); font-weight: 800; font-size: 1.05rem; line-height: 1;
+}
+.bo-stack { display: inline-flex; flex-direction: column; align-items: center; }
+.bo-link { display: block; width: 4px; height: 0.4rem; background: var(--muted); }
+.bo-eq { display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap; }
+.bo-op { font-size: 1.3rem; line-height: 1; }
+.bo-rules { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.7rem 1.4rem; padding: 0.4rem 0; }
+.bo-rcol { display: grid; gap: 0.5rem; }
+.bo-und { color: var(--muted); }
+.bo-ink { fill: var(--ink); }
+.bo-liq { stroke: none; }
+.bo-shine { fill: var(--surface); opacity: 0.4; }
+.bo-glass { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.bo-badge { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+.bo-num { font: 800 13px var(--font-body); fill: var(--ink); }
+.bo-num2 { font-size: 17px; }
+.bo-arc { fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.bo-dr { fill: var(--surface); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.bo-bk { width: 3.6rem; height: auto; display: block; }
+.bo-ex { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--band); border-radius: 8px; overflow: hidden; }
+.bo-pn { display: grid; grid-template-rows: auto 1fr; min-width: 0; border-left: 1px solid var(--line); }
+.bo-pn:first-child { border-left: 0; }
+.bo-pt { background: var(--band); font-weight: 700; text-align: center; padding: 0.35rem 0.4rem; font-size: 0.95rem; }
+.bo-pb { display: grid; justify-items: center; align-content: center; gap: 0.5rem; padding: 0.8rem 0.4rem; }
+.bo-pair { display: flex; gap: 1.2rem; justify-content: center; }
+.bo-one { display: grid; justify-items: center; gap: 0.35rem; }
+.bo-exsvg { width: min(100%, 11rem); height: auto; display: block; }
+.bo-sums { display: grid; gap: 0.25rem; }
+.bo-sums .bo-tile { width: 1.6rem; height: 1.6rem; font-size: 0.95rem; }
+.bo-ins { width: 4.2rem; height: auto; display: block; }
+.bo-inl { display: inline-block; width: 3.4rem; vertical-align: -0.55em; }
+.bo-lab { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+.bo-cont {
+  display: grid; justify-items: center; align-content: start; gap: 0.4rem; padding: 0.7rem 0.3rem 0.6rem;
+  border: 2px solid var(--line); border-radius: 12px; background: var(--surface2); min-width: 0;
+}
+.bo-cont .bo-bk { width: 4.4rem; }
+.bo-cont.right, .bo-cont.ok { border-color: var(--ok); background: var(--ok-bg); }
+.bo-cont.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.bo-goal { font-size: 0.85rem; color: var(--muted); font-weight: 600; text-align: center; }
+.bo-goal.hit { color: var(--ok); }
+.bo-pal { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.5rem; margin-top: 0.5rem; padding: 0.6rem; border: 2px solid var(--ink); border-radius: 14px; }
+.bo-btn {
+  appearance: none; border: 2px solid var(--line); background: var(--surface); border-radius: 10px;
+  padding: 0.3rem 0.1rem; cursor: pointer; display: grid; place-items: center; min-height: 3.1rem; touch-action: manipulation;
+}
+.bo-btn .bo-ins { width: 100%; max-width: 4.4rem; }
+.bo-btn:not(:disabled):hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.bo-btn:not(:disabled):active { background: color-mix(in srgb, var(--accent) 25%, var(--surface)); }
+.bo-btn:disabled { opacity: 0.55; cursor: default; }
+.bo-sh { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+.bo-sh h3 { text-transform: none; letter-spacing: 0; font-size: 0.95rem; }
+.bo-count { color: var(--ink); }
+.bo-undo { min-height: 2.4rem; padding: 0.25rem 0.9rem; font-size: 0.92rem; }
+.bo-seq { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+.bo-row { display: grid; grid-template-columns: 2.6rem 3.6rem minmax(0, 1fr); gap: 0.4rem; align-items: center; padding: 0.25rem 0.5rem; border-radius: 8px; background: var(--surface2); }
+.bo-row.bo-start { grid-template-columns: 2.6rem minmax(0, 1fr); color: var(--muted); }
+.bo-sn { font-weight: 700; color: var(--muted); font-size: 0.9rem; }
+.bo-isw { display: block; }
+.bo-isw .bo-ins { width: 3.4rem; }
+.bo-sts { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.bo-chip { display: inline-flex; gap: 0.3rem; align-items: baseline; padding: 0.05rem 0.5rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-weight: 700; font-size: 0.9rem; letter-spacing: 0.04em; }
+.bo-chip b { color: var(--muted); font-weight: 600; font-size: 0.78rem; }
+.bo-chip.chg { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
+.bo-sol { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; counter-reset: bos; }
+.bo-sol li { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.6rem; align-items: center; }
+.bo-sol .bo-ins { width: 3.2rem; }
+@media (max-width: 40rem) {
+  .bo-ex { grid-template-columns: minmax(0, 1fr); }
+  .bo-pn { border-left: 0; border-top: 1px solid var(--line); }
+  .bo-pn:first-child { border-top: 0; }
+  .bo-pal { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .bo-cont .bo-bk { width: 3.4rem; }
+  .bo-tile { width: 1.7rem; height: 1.7rem; }
+}

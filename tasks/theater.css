@@ -55,3 +55,7 @@
 .th-bg-gruen { background: var(--c6); }
 .th-bg-blau { background: var(--c4); }
 .th-bg-rosa { background: var(--c1); }
+@media (max-width: 40rem) {
+  .th-min { font-size: 82px; stroke-width: 20px; }
+  .th-iv { font-size: 84px; }
+}

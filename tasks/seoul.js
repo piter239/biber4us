@@ -176,7 +176,7 @@
     var p = sel.indexOf(id);
     if (p >= 0) sel.splice(p, 1); else sel.push(id);
     draw();
-    api.changed(summary(analyse(sel)));
+    api.changed();
   }
 
   function onClick(e) {

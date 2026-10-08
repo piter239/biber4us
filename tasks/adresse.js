@@ -33,14 +33,14 @@
     {
       id: 'D',
       states: { S: { k: 's', w: [0, 0], n: [0, 0] }, a: { w: [1, 0], n: [1, 0] }, b: { w: [2, 0], n: [2, 0] }, E: { k: 'e', w: [3, 0], n: [1, 1] } },
-      edges: [['S', 'a', AZ], ['a', 'b', '@'], { w: ['a', 'E', '.', -60, -120, 0, 50, 0, 17], n: ['a', 'E', '.'] }],
-      arcs: [['b', 'a', AZ, 120, 60, 0, -50, 0, -8]],
-      loops: [{ q: 'a', l: AZ, w: 128, n: 128 }, { q: 'E', l: AZ, w: 90, n: 0 }]
+      edges: [['S', 'a', AZ], ['a', 'b', '@'], { w: ['a', 'E', '.', -60, -120, 0, 50, 0, 6], n: ['a', 'E', '.'] }],
+      arcs: [['b', 'a', AZ, 140, 40, 0, -58, 0, -8]],
+      loops: [{ q: 'a', l: AZ, w: 118, n: 118 }, { q: 'E', l: AZ, w: 90, n: 0 }]
     }
   ];
 
   /* ------- Zeichnen ------- */
-  var DX = 108, DY = 112, X0 = 40, Y0 = { w: 78, n: 78 };
+  var DX = 118, DY = 112, X0 = 40, Y0 = { w: 78, n: 78 };
   var uid = 0;
 
   function rad(d) { return d * Math.PI / 180; }
@@ -57,9 +57,9 @@
       pos[q] = [X0 + g[0] * (lay === 'w' ? DX : 110), Y0[lay] + g[1] * DY];
       maxX = Math.max(maxX, pos[q][0]); maxY = Math.max(maxY, pos[q][1]);
     });
-    var W = maxX + X0, H = maxY + 70;
+    var W = maxX + X0, H = maxY + (lay === 'n' ? 72 : sys.id === 'D' ? 66 : 40);
     var kids = [];
-    kids.push(sv('defs', {}, sv('marker', { id: id, viewBox: '0 0 10 10', refX: '9', refY: '5', markerWidth: '8', markerHeight: '8', orient: 'auto-start-reverse' },
+    kids.push(sv('defs', {}, sv('marker', { id: id, viewBox: '0 0 10 10', refX: '8.5', refY: '5', markerWidth: '11', markerHeight: '11', markerUnits: 'userSpaceOnUse', orient: 'auto-start-reverse' },
       sv('path', { d: 'M0 0 L10 5 L0 10 z', class: 'ad-ah' }))));
 
     function lab(text, x, y, anchor) {
@@ -77,6 +77,7 @@
       kids.push(sv('path', { d: 'M' + P(p1) + 'L' + P(p2), class: 'ad-edge', 'marker-end': 'url(#' + id + ')' }));
       var mx = (p1[0] + p2[0]) / 2, my = (p1[1] + p2[1]) / 2;
       if (Math.abs(dy) < 1) kids.push(lab(text, mx, my - 9));
+      else if (pa[0] >= maxX - 1) kids.push(lab(text, mx - 9, my + 5, 'end'));
       else kids.push(lab(text, mx + 9, my + 5, 'start'));
     }
     function arc(a, b, text, sa, ea, cx, cy, lx, ly) {
@@ -93,7 +94,7 @@
       var p1 = pt(c, r + 1, th + 30), p2 = pt(c, r + 4, th - 30);
       var c1 = pt(c, r + 50, th + 42), c2 = pt(c, r + 50, th - 42);
       kids.push(sv('path', { d: 'M' + P(p1) + 'C' + P(c1) + ' ' + P(c2) + ' ' + P(p2), class: 'ad-edge', 'marker-end': 'url(#' + id + ')' }));
-      var lp = pt(c, r + 40, th);
+      var lp = pt(c, r + 30, th);
       var anchor = 'middle', lx = lp[0], ly = lp[1];
       if (Math.abs(th) < 15) { anchor = 'start'; lx += 8; ly += 5; }
       else if (th > 0) ly -= 7; else ly += 12;
@@ -113,7 +114,7 @@
       if (st.k === 's') g.push(sv('circle', { cx: f(c[0]), cy: f(c[1]), r: R, class: 'ad-s' }), sv('text', { x: f(c[0]), y: f(c[1] + 6), 'text-anchor': 'middle', class: 'ad-st' }, 'S'));
       else if (st.k === 'e') g.push(sv('circle', { cx: f(c[0]), cy: f(c[1]), r: R + 2, class: 'ad-s' }), sv('circle', { cx: f(c[0]), cy: f(c[1]), r: R - 3, class: 'ad-in' }), sv('text', { x: f(c[0]), y: f(c[1] + 6), 'text-anchor': 'middle', class: 'ad-et' }, 'E'));
       else g.push(sv('circle', { cx: f(c[0]), cy: f(c[1]), r: R, class: 'ad-q' }));
-      kids.push(sv('g', {}, g));
+      kids.push(sv.apply(null, ['g', {}].concat(g)));
     });
     var svg = sv.apply(null, ['svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'ad-svg ad-' + lay, 'aria-hidden': 'true', focusable: 'false', style: 'max-width:' + W + 'px' }].concat(kids));
     return svg;

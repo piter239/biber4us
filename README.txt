@@ -1,12 +1,14 @@
 Biber 2025 interaktiv
 =====================
 
-Interaktive Version der Aufgaben des Informatik-Biber 2025 (BWINF - GI e.V.,
-CC BY-SA 4.0), in der Reihenfolge der Aufgabenliste auf Seite 6 des Biberhefts
-(nach ungefaehr steigender Schwierigkeit).
+Interaktive Version aller 37 Aufgaben des Informatik-Biber 2025 (BWINF - GI e.V.,
+CC BY-SA 4.0). Ansicht "Alle Aufgaben" (Reihenfolge der Aufgabenliste auf Heft-Seite 6,
+ungefaehr steigende Schwierigkeit) oder "Nach Klasse" (3-4, 5-6, 7-8, 9-10, 11-13).
 
 Starten:  python3 -m http.server 8000   und   http://localhost:8000 oeffnen.
 
-Stand:    1 von 37 Aufgaben spielbar (Fingerfarben) plus Bewertungsseite.
-Dateien:  index.html, style.css, app.js, tasks.js (Aufgabenliste), assets/.
-Neue Aufgabe: Eintrag in tasks.js auf ready:true setzen und Ansicht in app.js ergaenzen.
+Dateien:  index.html, style.css, app.js (Geruest, Bewertung), tasks.js (Aufgabenliste),
+          biber.js + tasks/<id>.js/.css (ein Modul je Aufgabe, siehe tasks/README.md), assets/.
+Kaetzchen: kitten.js ist eigenstaendig und laesst sich in jede Seite einbinden:
+          <script src="kitten.js" defer></script>
+          Optionen und Schnittstelle: Kopfkommentar in kitten.js.

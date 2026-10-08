@@ -200,7 +200,7 @@
         'B an Minute ' + a.B + ', E an Minute ' + a.E + ', G an Minute ' + a.G + ', H an Minute ' + a.H + ' und das Theater (J) an Minute <strong>' + a.J + '</strong>. ' +
         'Dabei darf er nur Busse nehmen, die in der Umsteige-Haltestelle zur gleichen Zeit oder später abfahren. Dass der Weg über E, G und H der schnellste ist, liegt an den Anschlüssen: ' +
         'In G wartet genau an Minute ' + a.G + ' der grüne Bus, der in B an Minute 0 gestartet ist, und in H kommt der rosa Bus eine Minute nach Marcus.</p>' + legsHtml() +
-        '<p>Die schnellste Route führt also über <strong>' + PLAN.route.join(', ') + '</strong>. Wer in jeder Haltestelle nur den kürzesten Streckenabschnitt wählt oder immer sofort umsteigt, kommt später an. ' +
+        '<p>Die schnellste Route führt also über <strong>' + PLAN.route.join(', ') + '</strong>. ' +
         'Das Verfahren, die besten Teilergebnisse zu speichern und daraus die nächsten zu berechnen, heißt dynamische Programmierung.</p>';
     },
     mount: function (root, a) {

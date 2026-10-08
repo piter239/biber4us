@@ -13,7 +13,7 @@
 .ad-name { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; color: var(--ink); }
 .ad-dia { display: block; min-width: 0; }
 .ad-svg { display: block; width: 100%; height: auto; overflow: visible; }
-.ad-narrow { display: none; }
+.ad-n { display: none; }
 .ad-edge { fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; }
 .ad-ah { fill: var(--ink); }
 .ad-q { fill: color-mix(in srgb, var(--accent) 30%, var(--surface)); stroke: var(--accent); stroke-width: 2; }
@@ -31,8 +31,8 @@
 .ad-card.wrong .ad-mark { background: var(--bad); }
 .ad-why { margin: 0.3rem 0 0.7rem; padding-left: 1.2rem; display: grid; gap: 0.4rem; }
 @media (max-width: 40rem) {
-  .ad-wide { display: none; }
-  .ad-narrow { display: block; }
+  .ad-w { display: none; }
+  .ad-n { display: block; }
   .ad-card { grid-template-columns: 1.8rem minmax(0, 1fr); padding: 0.6rem 0.5rem; }
   .ad-name { font-size: 1.25rem; }
 }
