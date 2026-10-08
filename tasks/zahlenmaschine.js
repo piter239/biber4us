@@ -174,10 +174,10 @@
   }
 
   function build() {
+    var svg = buildMachine();
     nodes.live = h('p', { class: 'zm-live', 'aria-live': 'polite' });
     nodes.liveText = h('span', { class: 'zm-live-vis' });
     nodes.options = h('div', { class: 'zm-options', role: 'radiogroup', 'aria-label': 'Welche Aufgabe führt die Maschine aus?' });
-    var svg = buildMachine();
     var tools = h('div', { class: 'zm-tools' },
       h('button', { type: 'button', class: 'btn ghost zm-btn', onclick: function () {
         vals = [1, 2, 3, 4].map(function () { return 1 + Math.floor(Math.random() * 9); });
@@ -207,10 +207,10 @@
       '<path class="zm-wire small" d="M56,42 L38,20"/><path class="zm-wire small head" d="M37,28 L38,19 L46,22"/>' +
       '<path class="zm-wire big" d="M94,42 L112,20"/><path class="zm-wire big head" d="M104,19 L112,19 L111,27"/>' +
       '<g class="zm-switch"><rect x="43" y="42" width="64" height="30" rx="15"/><path d="M80,49 L70,57 L80,65"/></g>' +
-      '<g class="zm-in"><circle cx="28" cy="108" r="14"/><text x="28" y="110">3</text></g>' +
-      '<g class="zm-in"><circle cx="122" cy="108" r="14"/><text x="122" y="110">2</text></g>' +
-      '<g class="zm-out"><circle cx="30" cy="12" r="11"/><text x="30" y="13" class="s">2</text></g>' +
-      '<g class="zm-out"><circle cx="120" cy="12" r="11"/><text x="120" y="13" class="s">3</text></g>' +
+      '<g class="zm-sin"><circle cx="28" cy="108" r="14"/><text x="28" y="110">3</text></g>' +
+      '<g class="zm-sin"><circle cx="122" cy="108" r="14"/><text x="122" y="110">2</text></g>' +
+      '<g class="zm-sout"><circle cx="30" cy="12" r="11"/><text x="30" y="13" class="s">2</text></g>' +
+      '<g class="zm-sout"><circle cx="120" cy="12" r="11"/><text x="120" y="13" class="s">3</text></g>' +
       '</svg></span></p>',
     question: 'Welche Aufgabe führt die Maschine aus?',
     howto: 'Probiere die Maschine aus: Tippe unten auf ein Eingabefeld, um die Zahl zu ändern (oder nutze „Zufällige Zahlen“). Wähle dann die richtige Antwort.',

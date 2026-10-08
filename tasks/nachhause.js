@@ -6,7 +6,7 @@
   /* ---------- Wegenetz ----------
      Kreuzungen als "spalte,reihe": Spalten 0..4 (links nach rechts), Reihen 1..3 (von oben, die drei
      Querstraßen unter dem Fluss); Reihe 0 sind die beiden Kreuzungen oben vor den Brücken (A=1,0 und B=3,0). */
-  var XY = { // Mittelpunkte in der Karte (Koordinaten des SVG, 970 x 945)
+  var XY = { // Mittelpunkte in der Karte (Koordinaten des SVG, 1030 x 945, Ursprung 60 px links vom Kartenbild)
     '0,1': [140, 540], '1,1': [283, 535], '2,1': [455, 550], '3,1': [648, 558], '4,1': [810, 575],
     '0,2': [140, 668], '1,2': [285, 665], '2,2': [455, 675], '3,2': [655, 682], '4,2': [820, 692],
     '0,3': [115, 832], '1,3': [278, 832], '2,3': [462, 838], '3,3': [645, 838], '4,3': [840, 850],
@@ -135,8 +135,8 @@
       return btn;
     });
 
-    var s = svg('svg', { viewBox: '0 0 970 945', class: 'nh-map', role: 'group', 'aria-label': 'Karte mit Wegen, Fluss, Hasenhaus und Igelhaus' });
-    s.appendChild(svg('image', { href: 'assets/nachhause/karte.png', x: 0, y: 0, width: 970, height: 945, 'aria-hidden': 'true' }));
+    var s = svg('svg', { viewBox: '-60 0 1030 945', class: 'nh-map', role: 'group', 'aria-label': 'Karte mit Wegen, Fluss, Hasenhaus und Igelhaus' });
+    s.appendChild(svg('image', { href: 'assets/nachhause/karte.png', x: -60, y: 0, width: 1030, height: 945, 'aria-hidden': 'true' }));
 
     // Wege von Hase und Igel
     if (result) {

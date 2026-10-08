@@ -94,8 +94,8 @@
           svg('ellipse', { cx: I.x, cy: I.y, rx: I.rx * 0.74, ry: I.ry * 0.7, class: 'bb-grass' })),
         palm(I.x - I.rx * 0.12, I.y + 8, I.rx > 50 ? 1.1 : 0.9),
         palm(I.x + I.rx * 0.28, I.y + 14, 0.65),
-        svg('circle', { cx: I.x - I.rx * 0.6, cy: I.y - I.ry * 0.5, r: 11, class: 'bb-tag' }),
-        svg('text', { x: I.x - I.rx * 0.6, y: I.y - I.ry * 0.5 + 4.5, class: 'bb-tagt', 'text-anchor': 'middle', 'aria-hidden': 'true' }, id));
+        svg('circle', { cx: I.x - I.rx * 0.55, cy: I.y - I.ry * 0.5, r: 16, class: 'bb-tag' }),
+        svg('text', { x: I.x - I.rx * 0.55, y: I.y - I.ry * 0.5 + 7, class: 'bb-tagt', 'text-anchor': 'middle', 'aria-hidden': 'true' }, id));
     });
     var heli = svg('g', { class: 'bb-heli', 'aria-hidden': 'true' },
       svg('line', { x1: -16, y1: -13, x2: 16, y2: -13, class: 'bb-rotor' }),

@@ -18,15 +18,15 @@
 .zm-wire.big.head { stroke-width: 4; }
 .zm-switch rect { fill: var(--surface); stroke: var(--c2); stroke-width: 3.5; }
 .zm-switch path { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.zm-in circle, .zm-out circle { fill: var(--surface); stroke-width: 2; }
-.zm-in .zm-ring, .zm-etwa .zm-in circle { stroke: var(--ok); stroke-dasharray: 4 3; }
-.zm-out circle { stroke: var(--ink); }
-.zm-in text, .zm-out text, .zm-badge text {
+.zm-in circle, .zm-out circle, .zm-sin circle, .zm-sout circle { fill: var(--surface); stroke-width: 2; }
+.zm-in .zm-ring, .zm-sin circle { stroke: var(--ok); stroke-dasharray: 4 3; }
+.zm-out circle, .zm-sout circle { stroke: var(--ink); }
+.zm-in text, .zm-out text, .zm-sin text, .zm-sout text, .zm-badge text {
   font-family: var(--font-display); font-weight: 700; font-size: 22px; text-anchor: middle; dominant-baseline: central; fill: var(--ink); pointer-events: none;
 }
-.zm-in text { fill: var(--ok); }
-.zm-etwa .zm-in text { font-size: 18px; }
-.zm-out text.s { font-size: 14px; }
+.zm-in text, .zm-sin text { fill: var(--ok); }
+.zm-sin text { font-size: 18px; }
+.zm-sout text { font-size: 14px; }
 .zm-badge circle { fill: var(--surface2); stroke: var(--line); stroke-width: 1.5; }
 .zm-badge text { font-size: 13px; }
 .zm-in { cursor: pointer; }

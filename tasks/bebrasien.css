@@ -11,10 +11,10 @@
 .bb-isl { cursor: pointer; outline: none; }
 .bb-sand { fill: color-mix(in srgb, var(--c2) 38%, var(--surface)); stroke: transparent; stroke-width: 5; }
 .bb-grass { fill: color-mix(in srgb, var(--c6) 78%, var(--surface)); }
-.bb-trunk { fill: none; stroke: color-mix(in srgb, var(--c2) 45%, var(--ink)); stroke-width: 4; stroke-linecap: round; }
+.bb-trunk { fill: none; stroke: var(--c2); stroke-width: 4; stroke-linecap: round; }
 .bb-leaf { fill: var(--c6); }
 .bb-tag { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
-.bb-tagt { fill: var(--ink); font: 700 13px var(--font-body); }
+.bb-tagt { fill: var(--ink); font: 700 20px var(--font-body); }
 .bb-isl:hover .bb-sand { stroke: color-mix(in srgb, var(--accent) 50%, transparent); }
 .bb-isl:focus-visible .bb-sand { stroke: var(--focus); }
 .bb-isl.visited .bb-sand { stroke: var(--accent); }

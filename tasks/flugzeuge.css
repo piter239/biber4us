@@ -12,12 +12,12 @@
 .fl-table thead th { background: var(--slot); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; text-align: left; padding: 0.4rem 0.6rem; }
 .fl-table thead th:first-child { width: 5.2rem; }
 .fl-table tbody th { text-align: left; font-weight: 700; font-size: 1.15rem; padding-left: 0.7rem; border-right: 2px solid var(--slot-line); }
-.fl-slot { display: grid; place-items: center; width: 100%; height: 4.2rem; position: relative; }
+.fl-slot { display: grid; place-items: center; width: 100%; height: 4.8rem; position: relative; }
 button.fl-slot {
   appearance: none; border: 3px dashed var(--slot-line); background: var(--slot); border-radius: 9px; padding: 2px; cursor: pointer; touch-action: manipulation;
 }
 .fl-slot.fixed { padding: 3px; background: var(--paper); border: 3px solid transparent; border-radius: 9px; }
-.fl-slot img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.fl-slot img { position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 .fl-ghost {
   display: block; width: 70%; height: 80%;
   background: var(--muted); opacity: 0.45;
@@ -37,9 +37,9 @@ button.fl-slot:disabled { cursor: default; }
 .fl-cell { height: 4.6rem; border-radius: 9px; background: var(--surface2); }
 .fl-chip {
   appearance: none; height: 4.6rem; width: 100%; padding: 4px; border: 3px solid transparent; border-radius: 9px;
-  background: var(--paper); box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); cursor: grab; touch-action: manipulation; display: grid; place-items: center;
+  background: var(--paper); box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); cursor: grab; touch-action: manipulation; display: block; position: relative;
 }
-.fl-chip img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.fl-chip img { position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 .fl-chip.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
 .fl-chip.dragging { opacity: 0.4; }
 .fl-chip:disabled { cursor: default; }
