@@ -1,1 +1,51 @@
-/* Stile fuer .t-klausuren */
+/* Aufgabe Klausurenplan */
+.kl-board { display: grid; gap: 0.6rem; min-width: 0; justify-items: center; }
+.kl-cap { justify-self: start; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin: 0.2rem 0 0; }
+.kl-pal { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; width: 100%; }
+.kl-day {
+  appearance: none; border: 2px solid var(--line); background: var(--surface); border-radius: 12px; cursor: pointer;
+  display: grid; justify-items: center; gap: 0.15rem; padding: 0.35rem 0.5rem; min-width: 3.9rem; min-height: 4.2rem; touch-action: manipulation;
+}
+.kl-day:disabled { cursor: default; opacity: 0.7; }
+.kl-day.on { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.kl-dday { width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--kl-c); display: grid; place-items: center; border: 2px solid var(--ink); }
+.kl-dnum { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--surface); color: var(--ink); display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; line-height: 1; }
+.kl-erase .kl-dday { background: transparent; border-style: dashed; }
+.kl-erase .kl-dnum { background: transparent; font-size: 1.4rem; }
+.kl-dlabel { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+.kl-graph { position: relative; width: 100%; max-width: 34rem; aspect-ratio: 600 / 470; background: var(--surface2); border-radius: 12px; }
+.kl-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.kl-edge { stroke: var(--ink); stroke-width: 2.4; }
+.kl-edge.bad { stroke: var(--bad); stroke-width: 6; }
+.kl-node {
+  appearance: none; position: absolute; transform: translate(-50%, -50%); aspect-ratio: 1; padding: 0; border-radius: 50%;
+  border: 3px solid var(--ink); background: var(--surface); cursor: pointer; display: grid; place-items: center; touch-action: manipulation;
+}
+.kl-node.set { background: var(--kl-c); }
+.kl-node:hover { box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent); }
+.kl-node:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.kl-node:disabled { cursor: default; }
+.kl-node.bad { border-color: var(--bad); border-width: 5px; }
+.kl-disc { width: 56%; aspect-ratio: 1; border-radius: 50%; background: var(--surface); display: none; place-items: center; }
+.kl-node.set .kl-disc { display: grid; }
+.kl-num { color: var(--ink); font-weight: 800; font-size: 1.15rem; line-height: 1; }
+.kl-letter {
+  position: absolute; left: -4px; top: -6px; min-width: 1.15rem; height: 1.15rem; padding: 0 0.15rem; border-radius: 6px; background: var(--surface);
+  color: var(--muted); border: 1px solid var(--line); font-size: 0.7rem; font-weight: 700; line-height: 1.05rem; text-align: center; pointer-events: none;
+}
+.kl-info { font-weight: 700; font-variant-numeric: tabular-nums; }
+.kl-result { min-height: 1.5em; text-align: center; font-weight: 600; max-width: 34rem; }
+.kl-result.ok { color: var(--ok); }
+.kl-result.bad { color: var(--bad); }
+.kl-example { margin: 0.4rem 0 0.8rem; }
+.kl-example svg { display: block; max-width: 100%; height: auto; }
+.kl-exline { stroke: var(--ink); stroke-width: 2.4; }
+.kl-exnode circle { stroke: var(--ink); stroke-width: 2.5; }
+.kl-exnode .kl-extext circle { fill: var(--surface); stroke: none; }
+.kl-exnode text { fill: var(--ink); font: 800 16px var(--font-body); }
+@media (max-width: 30rem) {
+  .kl-num { font-size: 0.95rem; }
+  .kl-node { border-width: 2.5px; }
+  .kl-day { min-width: 3.3rem; padding: 0.3rem; }
+  .kl-pal { gap: 0.35rem; }
+}

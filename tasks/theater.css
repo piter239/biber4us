@@ -1,1 +1,57 @@
-/* Stile fuer .t-theater */
+/* Aufgabe Zum Theater! (Präfix th-) */
+.th-board { display: grid; gap: 0.6rem; min-width: 0; }
+.th-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.th-map { position: relative; width: 100%; max-width: 46rem; margin-inline: auto; container-type: inline-size; }
+.th-svg { display: block; width: 100%; height: auto; }
+.th-nodes { position: absolute; inset: 0; }
+.th-ink { fill: var(--ink); }
+.th-sf { fill: var(--surface); }
+.th-panel { fill: var(--surface2); }
+.th-iv { font: 800 68px var(--font-body); fill: var(--ink); }
+.th-arr { stroke: var(--ink); stroke-width: 5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.th-face { stroke: var(--surface); stroke-width: 8; fill: none; stroke-linecap: round; }
+.th-back { opacity: 0.9; }
+.th-ln { fill: none; stroke-width: 17; }
+.th-gelb { stroke: var(--c2); stroke-linecap: round; stroke-dasharray: 0 31; stroke-width: 19; }
+.th-gruen { stroke: var(--c6); stroke-dasharray: 60 26; }
+.th-blau { stroke: var(--c4); }
+.th-rosa { stroke: var(--c1); }
+.th-halo { fill: none; stroke: var(--accent); stroke-opacity: 0.38; stroke-width: 52; stroke-linecap: round; stroke-linejoin: round; }
+.th-min { font: 800 62px var(--font-body); paint-order: stroke; stroke: var(--surface); stroke-width: 16; stroke-linejoin: round; }
+.th-t-gelb { fill: var(--c2); }
+.th-t-gruen { fill: var(--c6); }
+.th-t-blau { fill: var(--c4); }
+.th-t-rosa { fill: var(--c1); }
+.th-node {
+  appearance: none; position: absolute; transform: translate(-50%, -50%);
+  width: 7%; min-width: 36px; aspect-ratio: 1; padding: 0; border-radius: 50%;
+  border: 3px solid var(--ink); background: var(--surface); color: var(--ink);
+  font-family: var(--font-body); font-weight: 800; font-size: clamp(0.95rem, 4cqw, 1.7rem); line-height: 1;
+  display: grid; place-items: center; cursor: pointer; touch-action: manipulation;
+}
+.th-node:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 18%, var(--surface)); }
+.th-st-A { border: 5px solid var(--c2); }
+.th-st-B { border: 5px solid var(--c6); }
+.th-st-C { border: 5px solid var(--c4); }
+.th-st-D { border: 5px solid var(--c1); }
+.th-node.on { background: var(--accent); color: var(--accent-ink); }
+.th-node.on:not(:disabled):hover { background: var(--accent); }
+.th-node.right { background: var(--ok-bg); color: var(--ok); border-color: var(--ok); }
+.th-node.wrong { background: var(--bad-bg); color: var(--bad); border-color: var(--bad); }
+.th-node.missing { border-color: var(--ok); border-style: dashed; color: var(--ok); }
+.th-node.right::after, .th-node.wrong::after {
+  position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 0.75rem; font-weight: 800; color: #fff;
+}
+.th-node.right::after { content: '\2713'; background: var(--ok); }
+.th-node.wrong::after { content: '\2717'; background: var(--bad); }
+.th-node:disabled { cursor: default; }
+.th-sel { color: var(--muted); font-size: 0.95rem; text-align: center; min-height: 1.5em; }
+.th-ic { display: inline-block; vertical-align: -0.2em; margin: 0 0.1em; }
+.th-legs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.th-legs li { display: grid; grid-template-columns: 1.1rem minmax(0, 1fr); gap: 0.6rem; align-items: start; }
+.th-dot { width: 0.9rem; height: 0.9rem; border-radius: 50%; margin-top: 0.4rem; }
+.th-bg-gelb { background: var(--c2); }
+.th-bg-gruen { background: var(--c6); }
+.th-bg-blau { background: var(--c4); }
+.th-bg-rosa { background: var(--c1); }

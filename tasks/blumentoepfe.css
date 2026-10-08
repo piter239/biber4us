@@ -1,1 +1,67 @@
-/* Stile fuer .t-blumentoepfe */
+/* Stile für .t-blumentoepfe (Präfix bt-) */
+.bt-pot { display: block; width: 100%; height: auto; overflow: visible; }
+.bt-pot .bt-shadow { fill: var(--line); }
+.bt-pot .bt-body { fill: color-mix(in srgb, var(--bt-tint) 55%, var(--surface)); stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
+.bt-pot .bt-rim { fill: color-mix(in srgb, var(--bt-tint) 75%, var(--surface)); stroke: var(--ink); stroke-width: 1.6; }
+.bt-pot .bt-letter { fill: var(--ink); font-family: var(--font-display); font-weight: 800; font-size: 22px; }
+.bt-pot .bt-stem { fill: none; stroke: var(--c6); stroke-width: 3; stroke-linecap: round; }
+.bt-pot .bt-leaf { fill: var(--c6); stroke: var(--ink); stroke-width: 1; stroke-linejoin: round; }
+.bt-pot .bt-petal { fill: var(--paper); stroke: var(--ink); stroke-width: 1.1; }
+.bt-pot .bt-eye { fill: var(--c2); stroke: var(--ink); stroke-width: 1; }
+.bt-pot .bt-hint { fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 3 3; }
+.bt-pot .bt-hint-plus { fill: none; stroke: var(--muted); stroke-width: 1.8; stroke-linecap: round; }
+.bt-pot.has-flower .bt-hint, .bt-pot.has-flower .bt-hint-plus { display: none; }
+.bt-pot .bt-keyring { fill: var(--muted); stroke: var(--ink); stroke-width: 1.2; }
+.bt-pot .bt-keyhole { fill: var(--surface); }
+.bt-pot .bt-keybody { fill: none; stroke: var(--ink); stroke-width: 4.2; stroke-linecap: round; }
+.bt-pot .bt-keybody { paint-order: stroke; }
+.bt-pot.faded { opacity: 0.4; }
+
+.t-blumentoepfe .bt-quote {
+  margin: 0; padding: 0.7rem 1rem; border-left: 4px solid var(--accent); background: var(--surface2);
+  border-radius: 0 var(--radius) var(--radius) 0; font-style: italic;
+}
+.bt-examples { display: grid; gap: 1rem; max-width: 40rem; }
+.bt-exrow { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 1rem; align-items: center; }
+.bt-exrow p { margin: 0; }
+.bt-ex-pots { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.2rem; }
+.bt-split { position: absolute; top: -4px; bottom: -4px; left: 50%; border-left: 3px dotted var(--ink); }
+.bt-split.s2 { left: 25%; }
+
+.bt-board { display: grid; gap: 0.9rem; }
+.bt-scroll { max-width: 36rem; }
+.bt-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0.4rem 0.3rem; }
+.bt-btn {
+  appearance: none; position: relative; padding: 0.3rem 0.1rem 0.15rem; margin: 0; min-width: 0;
+  background: none; color: var(--ink); border: 2px solid transparent; border-radius: 10px; cursor: pointer; touch-action: manipulation;
+}
+.bt-btn:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.bt-btn[aria-disabled="true"] { cursor: default; }
+.bt-btn[aria-disabled="true"]:hover { border-color: transparent; background: none; }
+.bt-btn.end { border-color: var(--accent); border-style: dashed; }
+.bt-btn.right, .bt-btn.right:hover { border-color: var(--ok); border-style: solid; background: var(--ok-bg); }
+.bt-btn.wrong, .bt-btn.wrong:hover { border-color: var(--bad); border-style: solid; background: var(--bad-bg); }
+.bt-mark {
+  position: absolute; top: -9px; right: -6px; width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.85rem; color: #fff; background: var(--ok);
+}
+.bt-btn.wrong .bt-mark { background: var(--bad); }
+
+.bt-bar {
+  height: 1.6rem; border-radius: 6px; display: grid; place-items: center; font-weight: 700; font-size: 0.9rem;
+  border: 2px solid var(--ok); background: var(--ok-bg); color: var(--ink); min-width: 0;
+}
+.bt-bar.odd { border-color: var(--c2); background: color-mix(in srgb, var(--c2) 28%, var(--surface)); }
+.bt-tools { display: flex; gap: 0.6rem; }
+.bt-trace { background: var(--surface2); border-radius: var(--radius); padding: 0.8rem 1rem; display: grid; gap: 0.5rem; max-width: 40rem; }
+.bt-trace[hidden] { display: none; }
+.bt-steps { margin: 0; padding-left: 1.3rem; display: grid; gap: 0.35rem; }
+.bt-trace p { margin: 0; }
+.bt-end.ok { color: var(--ok); }
+.bt-end.bad { color: var(--bad); }
+
+@media (max-width: 40rem) {
+  .bt-exrow { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+  .bt-ex { width: 11rem; }
+  .bt-bar { font-size: 0.8rem; }
+}

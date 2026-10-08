@@ -1,1 +1,78 @@
-/* Stile fuer .t-mehltransport */
+/* Stile für .t-mehltransport (Präfix mt-) */
+.mt-scene { display: block; width: 100%; max-width: 30rem; height: auto; }
+.mt-scene .mt-tower { fill: var(--muted); }
+.mt-scene .mt-cap { fill: var(--muted); stroke: var(--surface); stroke-width: 2; }
+.mt-scene .mt-door { fill: var(--surface); }
+.mt-scene .mt-sails rect { fill: var(--c1); }
+.mt-scene .mt-hub { fill: var(--c1); stroke: var(--surface); stroke-width: 1.5; }
+.mt-scene .mt-bags path { fill: color-mix(in srgb, var(--c2) 55%, var(--ink)); }
+.mt-scene .mt-bags .mt-knot { fill: none; stroke: color-mix(in srgb, var(--c2) 55%, var(--ink)); stroke-width: 2; }
+.mt-scene .mt-road { stroke: var(--muted); stroke-width: 3; stroke-linecap: round; fill: none; }
+.mt-scene .mt-way { stroke: var(--paper); stroke-width: 4; stroke-linecap: round; fill: none; }
+.mt-scene .mt-wall { fill: color-mix(in srgb, var(--c2) 40%, var(--paper)); }
+.mt-scene .mt-awning { fill: var(--c1); }
+.mt-scene .mt-window { fill: var(--surface); stroke: var(--c1); stroke-width: 2; }
+.mt-scene .mt-shelf { stroke: var(--c1); stroke-width: 2; }
+.mt-scene .mt-loaf { fill: color-mix(in srgb, var(--c2) 70%, var(--ink)); }
+
+.mt-perf { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.mt-perf li { display: flex; align-items: center; gap: 0.7rem; }
+.mt-carrier { width: 2.6rem; height: 2.6rem; flex: none; }
+.mt-carrier .mt-head, .mt-carrier .mt-body { fill: var(--ink); }
+.mt-carrier .mt-sack { fill: var(--ink); stroke: var(--surface); stroke-width: 1.5; }
+.mt-carrier .mt-sacknum { fill: var(--surface); font-weight: 800; font-size: 13px; font-family: var(--font-display); }
+
+.mt-board { display: grid; gap: 1.1rem; }
+.mt-opts { display: grid; gap: 0.6rem; max-width: 32rem; }
+.mt-opt {
+  appearance: none; position: relative; display: flex; align-items: center; gap: 0.7rem; min-width: 0; text-align: left;
+  padding: 0.7rem 0.9rem; min-height: 3rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600;
+}
+.mt-opt:hover { border-color: var(--accent); }
+.mt-opt[aria-disabled="true"] { cursor: default; }
+.mt-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.mt-key { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; flex: none; width: 1.7rem; }
+.mt-txt { min-width: 0; overflow-wrap: anywhere; }
+.mt-opt.selected, .mt-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.mt-opt.right, .mt-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.mt-opt.wrong, .mt-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.mt-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.mt-opt.wrong .mt-mark { background: var(--bad); }
+
+.mt-lab { max-width: 40rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.mt-lab > summary { cursor: pointer; padding: 0.7rem 0.9rem; font-weight: 700; color: var(--accent); }
+.mt-lab-body { display: grid; gap: 0.7rem; padding: 0 0.9rem 0.9rem; }
+.mt-note, .mt-stat, .mt-hint { margin: 0; }
+.mt-note { color: var(--muted); font-size: 0.95rem; }
+.mt-stat { font-weight: 700; }
+.mt-hint { color: var(--bad); min-height: 1.4em; font-size: 0.95rem; }
+.mt-timeline { display: grid; gap: 0.25rem; }
+.mt-plan {
+  list-style: none; margin: 0; padding: 0; display: flex; height: 3.2rem; border: 2px solid var(--line); border-radius: 8px; overflow: hidden;
+  background: repeating-linear-gradient(90deg, transparent 0, transparent calc(6.25% - 1px), var(--line) calc(6.25% - 1px), var(--line) 6.25%), var(--surface2);
+}
+.mt-blk { box-sizing: border-box; display: grid; place-items: center; align-content: center; min-width: 0; border-right: 2px solid var(--surface); overflow: hidden; line-height: 1.1; }
+.mt-blk b { font-size: 0.95rem; font-family: var(--font-display); }
+.mt-blk i { font-style: normal; font-size: 0.72rem; color: var(--ink); }
+.mt-blk.mt-A { background: color-mix(in srgb, var(--c4) 45%, var(--surface)); }
+.mt-blk.mt-M { background: color-mix(in srgb, var(--c2) 45%, var(--surface)); }
+.mt-blk.mt-P { background: repeating-linear-gradient(135deg, var(--surface2) 0, var(--surface2) 4px, var(--line) 4px, var(--line) 8px); }
+.mt-axis { position: relative; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); font-size: 0.78rem; color: var(--muted); padding-bottom: 1.1em; }
+.mt-axis-end { position: absolute; right: 0; top: 0; }
+.mt-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.mt-btns .btn { padding: 0.4rem 0.8rem; min-height: 2.5rem; font-size: 0.95rem; }
+
+.mt-tab { border-collapse: collapse; width: 100%; max-width: 26rem; font-size: 0.95rem; }
+.mt-tab th, .mt-tab td { padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--line); text-align: left; }
+.mt-tab td { text-align: right; white-space: nowrap; }
+.mt-tab tbody th { font-weight: 500; }
+.mt-tab .mt-best th, .mt-tab .mt-best td { font-weight: 800; color: var(--ok); }
+
+@media (max-width: 40rem) {
+  .mt-blk b { font-size: 0.8rem; }
+  .mt-blk i { font-size: 0.65rem; }
+}

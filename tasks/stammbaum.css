@@ -1,1 +1,68 @@
-/* Stile fuer .t-stammbaum */
+/* Aufgabe Stammbaum (Präfix sb-) */
+.sb-list { margin: 0.2rem 0 0.8rem; padding-left: 1.3rem; }
+.sb-list code, .sb-eqx code, .t-stammbaum .expl code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 0.95em; overflow-wrap: anywhere; }
+.sb-fig { margin: 0.8rem 0 1rem; padding: 0.6rem; background: var(--paper); border-radius: 10px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); max-width: 36rem; }
+.sb-tree { display: block; width: 100%; height: auto; }
+.sb-eqx { overflow-wrap: anywhere; }
+
+.sb-board { display: grid; gap: 1rem; justify-items: center; }
+.sb-eqwrap { width: 100%; background: var(--surface2); border-radius: 10px; padding: 0.8rem 0.6rem; }
+.sb-eq { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 0.5rem; font-size: 1.05rem; }
+.sb-side { display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.3rem 0.25rem; }
+.sb-par { font-size: 1.5rem; line-height: 1; font-weight: 300; }
+.sb-is { font-size: 1.5rem; font-weight: 800; }
+
+.sb-chip, .sb-slot, .sb-pal {
+  --sb-bg: var(--surface); --sb-line: var(--line);
+}
+.sb-v { --sb-bg: color-mix(in srgb, var(--c4) 28%, var(--surface)); --sb-line: var(--c4); }
+.sb-m { --sb-bg: color-mix(in srgb, var(--c1) 26%, var(--surface)); --sb-line: var(--c1); }
+.sb-chip {
+  display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.15rem 0.5rem 0.15rem 0.3rem; border-radius: 8px;
+  background: var(--sb-bg); border: 2px solid var(--sb-line); font-weight: 600; white-space: nowrap;
+}
+.sb-chip img { width: 1.55rem; height: auto; display: block; }
+.sb-name { padding: 0.2rem 0.55rem; border-radius: 5px; font-weight: 700; color: #fff; background: var(--c1); }
+.sb-annika { background: #e0489e; }
+.sb-daniel { background: var(--c5); }
+:root[data-theme="dark"] .sb-name { color: #0d1a1d; }
+:root[data-theme="dark"] .sb-annika { background: #f08ac4; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sb-name { color: #0d1a1d; }
+  :root:not([data-theme="light"]) .sb-annika { background: #f08ac4; }
+}
+
+.sb-slot {
+  appearance: none; margin: 0; font: inherit; color: var(--ink); cursor: pointer; touch-action: manipulation;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.3rem; min-width: 5.6rem; min-height: 2.5rem; padding: 0.2rem 0.45rem 0.2rem 0.3rem;
+  border: 3px dashed var(--slot-line); background: var(--slot); border-radius: 10px; font-weight: 600;
+}
+.sb-slot img { width: 1.55rem; height: auto; pointer-events: none; display: block; }
+.sb-slot.filled { border-style: solid; border-color: var(--sb-line); background: var(--sb-bg); }
+.sb-slot.active { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.sb-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.sb-slot:focus-visible, .sb-pal:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.sb-slot:disabled, .sb-pal:disabled { cursor: default; }
+.sb-slot.right { border-color: var(--ok); }
+.sb-slot.wrong { border-color: var(--bad); }
+.sb-ph { color: var(--muted); font-size: 0.9rem; }
+
+.sb-palette { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
+.sb-pal {
+  appearance: none; margin: 0; font: inherit; color: var(--ink); cursor: grab; touch-action: manipulation;
+  display: grid; justify-items: center; gap: 0.15rem; padding: 0.4rem 1rem 0.35rem; min-width: 6.5rem;
+  border: 3px solid var(--sb-line); background: var(--sb-bg); border-radius: 12px; font-weight: 700; font-size: 1.1rem;
+}
+.sb-pal img { width: 3.2rem; height: auto; display: block; pointer-events: none; }
+.sb-pal:hover:not(:disabled) { filter: brightness(1.06); }
+.sb-pal:disabled { opacity: 0.6; }
+
+.sb-info { margin: 0; padding: 0.5rem 0.8rem; border-radius: 8px; font-weight: 600; text-align: center; }
+.sb-info.ok { background: var(--ok-bg); color: var(--ok); }
+.sb-info.bad { background: var(--bad-bg); color: var(--bad); }
+
+@media (max-width: 26rem) {
+  .sb-eq { font-size: 0.95rem; }
+  .sb-slot { min-width: 4.9rem; padding-inline: 0.25rem; }
+  .sb-eqwrap { padding-inline: 0.3rem; }
+}

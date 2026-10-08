@@ -1,1 +1,65 @@
-/* Stile fuer .t-blaetter */
+/* Aufgabe Blätter im Wind */
+.bl-ico { display: block; width: 100%; height: 100%; background: var(--accent-ink); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain; }
+.bl-ico-s { width: 1.5rem; height: 1.5rem; background: var(--c6); display: inline-block; vertical-align: middle; }
+
+/* Tabelle im Text */
+.bl-tabwrap { margin: 0.9rem 0; }
+.bl-tab { border-collapse: collapse; width: 100%; max-width: 34rem; background: var(--surface); font-size: 0.97rem; }
+.bl-tab th, .bl-tab td { border: 1px solid var(--line); padding: 0.25rem 0.5rem; text-align: center; }
+.bl-tab thead th { background: var(--band); font-weight: 700; line-height: 1.2; }
+.bl-tab .bl-sorte { text-align: left; }
+.bl-tab .bl-ic { width: 2.4rem; padding: 0.15rem; }
+
+/* Spielfeld */
+.bl-board { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; }
+.bl-sec { min-width: 0; }
+.bl-sec h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.5rem; }
+.bl-pool { display: flex; flex-wrap: wrap; gap: 0.5rem; min-height: 5.2rem; padding: 0.5rem; border-radius: var(--radius); background: var(--surface2); }
+.bl-cell { width: 5.4rem; height: 4.6rem; border-radius: 8px; border: 2px dashed var(--line); }
+.bl-fruit { appearance: none; background: none; border: 3px solid transparent; border-radius: 12px; padding: 0.15rem; width: 5.4rem; display: grid; justify-items: center; gap: 0.1rem; cursor: grab; touch-action: manipulation; }
+.bl-fruit.dragging { opacity: 0.4; }
+.bl-fruit:disabled { cursor: default; }
+.bl-fruit.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.bl-chip { display: block; width: 2.9rem; height: 2.9rem; padding: 0.4rem; border-radius: 50%; background: var(--c6); }
+.bl-chip-s { flex: none; width: 2.4rem; height: 2.4rem; padding: 0.35rem; }
+.bl-fname { font-size: 0.78rem; font-weight: 600; line-height: 1.1; text-align: center; }
+
+/* Baum */
+.bl-treesec { max-width: 30rem; width: 100%; margin-inline: auto; }
+.bl-tree { position: relative; width: 100%; aspect-ratio: 400 / 480; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); overflow: hidden; }
+.bl-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.bl-branches path { fill: none; stroke: var(--muted); stroke-width: 6; stroke-linecap: round; opacity: 0.75; }
+.bl-q rect { stroke: var(--ink); stroke-width: 1.2; }
+.bl-q text { font-size: 14px; fill: var(--ink); font-family: var(--font-body); }
+.bl-q.q-samen rect { fill: color-mix(in srgb, var(--c3) 24%, var(--surface)); }
+.bl-q.q-schale rect { fill: color-mix(in srgb, var(--c5) 24%, var(--surface)); }
+.bl-q.q-farbe rect { fill: color-mix(in srgb, var(--c2) 40%, var(--surface)); }
+.bl-lab { font-size: 14px; font-weight: 800; fill: var(--ink); font-family: var(--font-body); }
+.bl-leaf { fill: none; stroke: var(--c6); stroke-width: 2.5; stroke-dasharray: 2 5; stroke-linecap: round; }
+.bl-leaf.target { stroke: var(--accent); stroke-width: 3; }
+.bl-leaf.over { stroke: var(--accent); stroke-dasharray: none; fill: color-mix(in srgb, var(--accent) 22%, transparent); }
+.bl-leaf.filled { fill: var(--c6); stroke: var(--c6); stroke-dasharray: none; }
+
+.bl-slot { position: absolute; transform: translate(-50%, -50%); appearance: none; padding: 0; margin: 0; border: 0; background: none; border-radius: 50%; display: grid; place-items: center; cursor: pointer; touch-action: manipulation; color: var(--c6); }
+.bl-slot .bl-ico { width: 60%; height: 60%; }
+.bl-slot.fixed { cursor: default; }
+.bl-ph { font-weight: 800; font-size: 1.2rem; color: var(--c6); opacity: 0.8; }
+.bl-slot:disabled { cursor: default; }
+.bl-slot.dragging { opacity: 0.5; }
+.bl-slot.right::after, .bl-slot.wrong::after { content: ''; position: absolute; inset: 14% 12%; border-radius: 50%; box-shadow: 0 0 0 3px var(--ok); pointer-events: none; }
+.bl-slot.wrong::after { box-shadow: 0 0 0 3px var(--bad); }
+.bl-mark { position: absolute; top: 2%; right: -6%; width: 1.5rem; height: 1.5rem; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.85rem; color: #fff; z-index: 1; }
+.bl-slot.right .bl-mark { background: var(--ok); }
+.bl-slot.wrong .bl-mark { background: var(--bad); }
+
+/* Erklärung */
+.bl-why { list-style: none; margin: 0.5rem 0; padding: 0; display: grid; gap: 0.7rem; }
+.bl-why li { display: flex; gap: 0.8rem; align-items: flex-start; }
+.bl-why strong { display: block; }
+.bl-why span:not(.bl-chip):not(.bl-ico) { color: var(--muted); font-size: 0.95rem; }
+
+@media (max-width: 30rem) {
+  .bl-tab { font-size: 0.88rem; }
+  .bl-tab th, .bl-tab td { padding: 0.2rem 0.3rem; }
+  .bl-mark { width: 1.3rem; height: 1.3rem; font-size: 0.75rem; }
+}

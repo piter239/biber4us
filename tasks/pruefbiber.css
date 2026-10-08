@@ -1,1 +1,32 @@
-/* Stile fuer .t-pruefbiber */
+.pb-flag { display: inline-block; vertical-align: -3px; margin: 0 0.1em; }
+.pb-pole { stroke: #5c3f3f; stroke-width: 2; stroke-linecap: round; fill: none; }
+.pb-flag-R .pb-cloth { fill: #990000; }
+.pb-flag-Y .pb-cloth { fill: #fff07a; stroke: #c07a1c; stroke-width: 1; }
+.pb-table { border-collapse: collapse; margin: 0.6rem 0 1rem; font-size: 0.95rem; max-width: 100%; width: min(100%, 22rem); }
+.pb-table th, .pb-table td { border: 1px solid var(--accent); padding: 0.3rem 0.7rem; text-align: left; }
+.pb-table thead th { background: var(--band); font-weight: 700; }
+.pb-table tbody td { text-align: center; }
+.pb-checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.pb-chk { padding: 0.5rem 0.75rem; border-radius: 8px; background: var(--surface); border-left: 5px solid var(--line); }
+.pb-chk.pb-ok { border-left-color: var(--ok); }
+.pb-chk.pb-bad { border-left-color: var(--bad); }
+.pb-line { display: block; margin-top: 0.15rem; }
+.pb-res { font-weight: 800; white-space: nowrap; }
+.pb-ok .pb-res { color: var(--ok); }
+.pb-bad .pb-res { color: var(--bad); }
+
+.pb-board { display: grid; gap: 0.75rem; max-width: 46rem; }
+.pb-row { position: relative; background: var(--paper); border-radius: 12px; padding: 0.5rem 0.4rem; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); }
+.pb-img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+.pb-pick {
+  appearance: none; position: absolute; top: 0.5rem; bottom: 0.5rem; padding: 0; margin: 0;
+  background: transparent; border: 3px solid transparent; border-radius: 12px; cursor: pointer; touch-action: manipulation;
+}
+.pb-pick:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.pb-pick.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+.pb-pick:disabled { cursor: default; }
+.pb-pick.right { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 18%, transparent); box-shadow: none; }
+.pb-pick.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 18%, transparent); box-shadow: none; }
+.pb-pick.missing { border-color: var(--ok); border-style: dashed; background: transparent; }
+.pb-note { margin: 0; padding: 0.55rem 0.8rem; border-radius: 8px; background: var(--surface2); font-weight: 600; }
+.pb-note[hidden] { display: none; }

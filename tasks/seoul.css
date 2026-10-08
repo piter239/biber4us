@@ -1,1 +1,32 @@
-/* Stile fuer .t-seoul */
+/* Aufgabe Entdecke Seoul! (.t-seoul / so-) */
+.t-seoul { width: 100%; display: grid; gap: 0.6rem; justify-items: center; }
+.so-board { width: min(calc(100vw - 4.7rem), 46rem); }
+.so-map { display: block; width: 100%; height: auto; overflow: visible; user-select: none; -webkit-user-select: none; }
+.so-line { stroke: var(--ink); stroke-width: 2.6; stroke-linecap: round; fill: none; pointer-events: none; }
+.so-hit { stroke: transparent; stroke-width: 44; stroke-linecap: round; fill: none; cursor: pointer; }
+.so-tag { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+.so-km { fill: var(--ink); font: 800 30px var(--font-body); pointer-events: none; }
+.so-edge { cursor: pointer; outline: none; }
+.so-edge:hover .so-tag { stroke: var(--accent); }
+.so-edge:focus-visible .so-tag { stroke: var(--focus); stroke-width: 4; }
+.so-edge:focus-visible .so-line { stroke: var(--focus); }
+.so-edge.on .so-line, .so-edge.right .so-line { stroke: var(--accent); stroke-width: 8; }
+.so-edge.on .so-tag { fill: var(--accent); stroke: var(--accent); }
+.so-edge.on .so-km { fill: var(--accent-ink); }
+.so-edge.right .so-line { stroke: var(--ok); }
+.so-edge.right .so-tag { fill: var(--ok); stroke: var(--ok); }
+.so-edge.right .so-km { fill: var(--surface); }
+.so-edge.wrong .so-line { stroke: var(--bad); stroke-width: 8; }
+.so-edge.wrong .so-tag { fill: var(--bad); stroke: var(--bad); }
+.so-edge.wrong .so-km { fill: var(--surface); }
+.so-edge.missing .so-line { stroke: var(--ok); stroke-width: 7; stroke-dasharray: 3 12; }
+.so-edge.missing .so-tag { stroke: var(--ok); stroke-width: 3; }
+.so-locked .so-edge { cursor: default; }
+.so-halo { fill: none; stroke: transparent; stroke-width: 5; }
+.so-node.visited .so-halo { stroke: var(--accent); }
+.so-start rect { fill: var(--c1); }
+.so-start text { fill: var(--surface); font: 800 22px var(--font-body); }
+.so-node image { pointer-events: none; }
+.so-status { margin: 0; text-align: center; font-weight: 700; min-height: 1.5em; color: var(--ink); }
+.so-status.warn { color: var(--muted); }
+.so-status.over { color: var(--bad); }

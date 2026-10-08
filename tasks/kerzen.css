@@ -1,1 +1,49 @@
-/* Stile fuer .t-kerzen */
+/* Aufgabe Brennende Kerzen (Präfix kz-) */
+.kz-candle { display: block; width: 100%; height: auto; overflow: visible; pointer-events: none; }
+.kz-body { fill: var(--c1); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.kz-drip { fill: none; stroke: var(--paper); stroke-width: 2; stroke-linecap: round; opacity: 0.55; }
+.kz-wick { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
+.kz-flame { fill: var(--c2); stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
+.kz-flame2 { fill: var(--paper); }
+.kz-rays path { fill: none; stroke: var(--c2); stroke-width: 2.4; stroke-linecap: round; }
+
+/* Beispiel aus dem Heft */
+.kz-ex { display: grid; gap: 0.3rem; margin: 0.5rem 0 1rem; }
+.kz-exrow { display: flex; align-items: center; gap: 0.3rem; }
+.kz-exlab { width: 6rem; flex: none; }
+.kz-small { width: 2.1rem; flex: none; }
+
+/* Spielfeld */
+.kz-board { display: grid; gap: 0.5rem; max-width: 30rem; margin: 0 auto; }
+.kz-grid { display: grid; gap: 0.35rem; background: var(--surface2); border-radius: 10px; padding: 0.4rem; }
+.kz-row { display: grid; grid-template-columns: 5.2rem minmax(0, 1fr); align-items: center; gap: 0.4rem; }
+.kz-lab { display: grid; line-height: 1.15; min-width: 0; }
+.kz-cnt { font-size: 0.82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.kz-cnt.fit { color: var(--ok); font-weight: 700; }
+.kz-cnt.over, .kz-cnt.off { color: var(--bad); font-weight: 700; }
+.kz-cells { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.3rem; min-width: 0; }
+.kz-cell {
+  appearance: none; margin: 0; padding: 0.3rem 0.2rem 0.15rem; border: 2px solid var(--line); border-radius: 8px;
+  background: var(--surface); color: var(--ink); cursor: pointer; touch-action: manipulation; min-width: 0;
+  display: block; aspect-ratio: 5 / 6;
+}
+.kz-cell:hover:not(:disabled) { border-color: var(--accent); }
+.kz-cell.on { background: var(--slot); border-color: var(--slot-line); }
+.kz-cell:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.kz-cell:disabled { cursor: default; }
+.kz-fixed { cursor: default; background: var(--slot); border-color: var(--slot-line); }
+.kz-fixedrow .kz-lab strong::after { content: ""; }
+.kz-sums { background: none; padding: 0.1rem 0.4rem; }
+.kz-sumrow .kz-cnt { font-size: 0.82rem; }
+.kz-sum {
+  display: grid; place-items: center; height: 2.1rem; border-radius: 8px; background: var(--surface2); border: 2px solid var(--line);
+  font-weight: 800; font-variant-numeric: tabular-nums;
+}
+.kz-sum.ok { border-color: var(--ok); background: var(--ok-bg); color: var(--ok); }
+.kz-sum.bad { border-color: var(--bad); background: var(--bad-bg); color: var(--bad); }
+@media (max-width: 26rem) {
+  .kz-row { grid-template-columns: 4.6rem minmax(0, 1fr); gap: 0.25rem; }
+  .kz-lab strong { font-size: 0.9rem; white-space: nowrap; }
+  .kz-exlab { width: 5rem; }
+  .kz-cell { padding: 0.2rem 0.1rem 0.1rem; }
+}
