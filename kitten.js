@@ -62,20 +62,31 @@
   function rnd(a, b) { return a + Math.random() * (b - a); }
 
   /* ---------- Speicher ---------- */
-  var KEY = 'bk.v1';
-  var mem = { off: false, mute: false, seen: {}, pets: 0, secrets: {} };
-  try {
-    var raw = localStorage.getItem(KEY);
-    if (raw) mem = Object.assign(mem, JSON.parse(raw));
-  } catch (e) { /* ohne Speicher */ }
-  if (!mem.stickers) {
-    mem.stickers = {};
-    Object.keys(mem.seen || {}).forEach(function (k) { mem.stickers['a:' + k] = true; });
-    if (mem.secrets && mem.secrets.zoomies) mem.stickers['s:zoomies'] = true;
+  /* Die Seite kann mit window.BIBER_PROFILE = {key, name} getrennte Stände pro Person anlegen (z. B. Geschwister). */
+  var KEY = (window.BIBER_PROFILE && window.BIBER_PROFILE.key) || 'bk.v1';
+  var who = (window.BIBER_PROFILE && window.BIBER_PROFILE.name) || '';
+  function loadMem() {
+    var m = { off: false, mute: false, seen: {}, pets: 0, secrets: {} };
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) m = Object.assign(m, JSON.parse(raw));
+    } catch (e) { /* ohne Speicher */ }
+    if (!m.stickers) {
+      m.stickers = {};
+      Object.keys(m.seen || {}).forEach(function (k) { m.stickers['a:' + k] = true; });
+      if (m.secrets && m.secrets.zoomies) m.stickers['s:zoomies'] = true;
+    }
+    if (m.giftN == null) m.giftN = 0;
+    if (m.giftNext == null) m.giftNext = (m.correct || 0) + 1;
+    if (!CFG.start && !m.touched) m.off = true;
+    return m;
   }
-  if (mem.giftN == null) mem.giftN = 0;
-  if (mem.giftNext == null) mem.giftNext = (mem.correct || 0) + 1;
-  if (!CFG.start && !mem.touched) mem.off = true;
+  var mem = loadMem();
+  /* Ab und zu den Namen anhängen: "Das machst Du super!" -> "Das machst Du super, Irina!" */
+  function nm(text) {
+    if (!who || Math.random() > 0.4 || text.indexOf(who) >= 0 || !/[!.]$/.test(text) || text.length > 70) return text;
+    return text.slice(0, -1) + ', ' + who + text.slice(-1);
+  }
   function persist() { mem.touched = true; try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) { /* ignorieren */ } }
 
   /* ---------- Stile ---------- */
@@ -629,12 +640,12 @@
 
   function textFor(name, kind) {
     var a = ACTIONS[name], r = Math.random();
-    if (kind === 'hard') return pick(HARD);
+    if (kind === 'hard') return nm(pick(HARD));
     if (curAcc && accLate && r < 0.7) return pick(ACC_LATE[curAcc]);
     if (r < 0.3) return null;
     if (r < 0.45) return pick(TIMEPH[dayPart()]);
     if (r < 0.55 && a && a.phrases) return pick(a.phrases);
-    return pick(r < 0.9 ? ENCOURAGE : FUN);
+    return r < 0.9 ? nm(pick(ENCOURAGE)) : pick(FUN);
   }
 
   /* ---------- Besuch ---------- */
@@ -708,7 +719,7 @@
     if (mem.pets === 10) text = 'Wir sind jetzt beste Freunde!';
     else if (mem.pets % 7 === 0 && total < STICKERS.length) text = 'Du hast schon ' + total + ' von ' + STICKERS.length + ' Stickern gesammelt. Es gibt noch mehr!';
     else if (!(mem.stickers && mem.stickers['s:hidden']) && mem.pets >= 3 && Math.random() < 0.25) text = 'Psst… Hier versteckt sich noch jemand. Schau genau hin!';
-    else text = pick(PET);
+    else text = nm(pick(PET));
     showBubble(text);
     (async function () {
       if (!await sleep(3100, t)) return;
@@ -1010,7 +1021,7 @@
     cheer: function (text) {
       streak++;
       var party = streakParty();
-      var msg = text || (party ? streak + ' richtig in Folge! Konfetti!' : streak >= 3 ? streak + ' richtig in Folge! Wahnsinn!' : pick(CORRECT));
+      var msg = text || (party ? streak + ' richtig in Folge! Konfetti!' : streak >= 3 ? streak + ' richtig in Folge! Wahnsinn!' : nm(pick(CORRECT)));
       if (busy) { showBubble(msg); return; }
       var t = ++tok; busy = true; visible = true; clearTimeout(timer);
       (async function () {
@@ -1023,7 +1034,7 @@
     },
     comfort: function (text) {
       streak = 0;
-      var msg = text || pick(WRONG);
+      var msg = text || nm(pick(WRONG));
       if (busy) { showBubble(msg); return; }
       var t = ++tok; busy = true; visible = true; clearTimeout(timer);
       (async function () {
@@ -1042,6 +1053,16 @@
     },
     setMuted: function (m) { mem.mute = !!m; persist(); announce(); },
     album: openAlbum,
+    setProfile: function (key, name) {
+      if (key === KEY) { who = name || ''; return; }
+      persist();
+      KEY = key; who = name || ''; mem = loadMem();
+      tok++; clearTimeout(timer); hideBubble();
+      if (wrap) wrap.classList.remove('bk-on', 'bk-live');
+      busy = false; visible = false; petCount = 0; streak = 0;
+      removeHidden(); announce();
+      if (!mem.off) schedule(4000);
+    },
     stats: function () { return { seen: Object.keys(mem.stickers || {}).length, total: STICKERS.length, pets: mem.pets, enabled: !mem.off, muted: !!mem.mute, secrets: Object.keys(mem.secrets).length }; },
     actions: NAMES.slice()
   };

@@ -258,3 +258,42 @@ table.res { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-widt
 /* Kätzchen-Schalter im Seitenfuß */
 .bk-foot { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; align-items: center; margin-top: 0.6rem; }
 .linkbtn { appearance: none; background: none; border: 0; padding: 0.2rem 0; font: inherit; font-size: 0.85rem; color: var(--accent); text-decoration: underline; cursor: pointer; }
+
+/* Adaptives Training und Profile */
+.train { display: grid; gap: 0.9rem; max-width: 52rem; }
+.train h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+.lvl { display: grid; gap: 0.3rem; max-width: 34rem; }
+.lvl-top { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; flex-wrap: wrap; }
+.lvl-top b { font-family: var(--font-display); font-size: 1.25rem; color: var(--accent); }
+.lvl-bar { height: 12px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.lvl-bar i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+.lvl-scale { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); }
+.rec { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr)); gap: 0.75rem; }
+.rec-card {
+  display: grid; gap: 0.3rem; height: 100%; padding: 0.9rem 1rem; border-radius: 14px;
+  background: var(--surface); border: 1px solid var(--line); color: inherit; text-decoration: none;
+}
+.rec-card:hover { border-color: var(--accent); }
+.rec-card.first { border: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); }
+.rec-card b { font-family: var(--font-display); font-size: 1.2rem; }
+.rec-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; color: var(--muted); font-size: 0.9rem; }
+.rec-why { color: var(--muted); font-size: 0.92rem; }
+.themes { display: grid; gap: 0.4rem; }
+.profile-btn {
+  appearance: none; border: 2px solid var(--accent); background: var(--surface); color: var(--accent);
+  border-radius: 999px; padding: 0.25rem 0.8rem; font-weight: 700; font-size: 0.92rem; cursor: pointer; max-width: 14rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.dlg-back { position: fixed; inset: 0; z-index: 2147483100; background: rgba(10, 20, 25, 0.55); display: grid; place-items: center; padding: 12px; }
+.dlg { width: min(560px, 100%); max-height: calc(100vh - 24px); overflow: auto; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 16px; padding: 1.1rem 1.2rem; display: grid; gap: 0.8rem; }
+.dlg h2 { font-size: 1.4rem; }
+.dlg-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.dlg-row { display: grid; gap: 0.4rem; padding: 0.6rem 0.7rem; border-radius: 12px; background: var(--surface2); }
+.dlg-row.cur { outline: 2px solid var(--accent); }
+.dlg-form { display: grid; gap: 0.6rem; }
+.dlg-form label { display: grid; gap: 0.2rem; font-weight: 600; font-size: 0.92rem; }
+.dlg-form input, .dlg-form select { font: inherit; padding: 0.5rem 0.6rem; border-radius: 8px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); }
+.dlg-form input:focus, .dlg-form select:focus { border-color: var(--accent); outline: none; }
+
+.lvl-scale { gap: 0.5rem; }
+.adj { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; align-items: center; font-size: 0.9rem; color: var(--muted); margin-top: 0.2rem; }
+.adj-line { margin: 0; }
