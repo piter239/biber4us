@@ -1,11 +1,11 @@
-/* Aufgabe Bibimbap (Klasse 5-6, mittel): Arbeitsplan für vier Geräte, Reihenfolge-Abhängigkeiten, kürzeste Zeit */
+/* Aufgabe Bibimbap (Klasse 5-6, mittel): Arbeitsplan für vier Geräte mit unterschiedlich langen Schritten, kürzeste Zeit (20 Minuten) */
 (function () {
   'use strict';
   var h = Biber.h;
 
   var COLS = 5;               /* Kästchen im Plan, je 5 Minuten */
   var MIN = 5;
-  var BEST = 2;               /* kürzester Plan: 2 Kästchen = 10 Minuten (per Brute Force geprüft) */
+  var BEST = 4;               /* kürzester Plan: 4 Kästchen = 20 Minuten (Lösung im offiziellen Heft, S. 25) */
 
   /* Geräte in der Reihenfolge des Hefts (von oben nach unten) */
   var DEVS = [
@@ -18,22 +18,25 @@
   DEVS.forEach(function (d) { DEV[d.id] = d; });
 
   /* Zutaten mit ihren Schritten (Geräte in der nötigen Reihenfolge) */
+  /* d = Gerät, n = Dauer in Kästchen (1 Kästchen = 5 Minuten): Kochen im Topf und Braten der Karotten dauern 10 Minuten */
   var INGS = [
-    { id: 'sp', name: 'Spinat', img: 'spinat', steps: ['T', 'B'], w: 70, h: 120 },
-    { id: 'sr', name: 'Sprossen', img: 'sprossen', steps: ['S', 'T'], w: 102, h: 87 },
-    { id: 'ka', name: 'Karotten', img: 'karotte', steps: ['B', 'P'], w: 40, h: 134 },
-    { id: 'ei', name: 'Ei', img: 'ei', steps: ['P'], w: 62, h: 59 }
+    { id: 'sp', name: 'Spinat', img: 'spinat', steps: [{ d: 'T', n: 2 }, { d: 'B', n: 1 }], w: 70, h: 120 },
+    { id: 'sr', name: 'Sprossen', img: 'sprossen', steps: [{ d: 'S', n: 1 }, { d: 'T', n: 2 }], w: 102, h: 87 },
+    { id: 'ka', name: 'Karotten', img: 'karotte', steps: [{ d: 'B', n: 1 }, { d: 'P', n: 2 }], w: 40, h: 134 },
+    { id: 'ei', name: 'Ei', img: 'ei', steps: [{ d: 'P', n: 1 }], w: 62, h: 59 }
   ];
+  function stepOf(ing, dev) { for (var i = 0; i < ing.steps.length; i++) if (ing.steps[i].d === dev) return ing.steps[i]; return null; }
   var ING = {};
   INGS.forEach(function (g) { ING[g.id] = g; });
-  var TOTAL = INGS.reduce(function (n, g) { return n + g.steps.length; }, 0);
+  var TOTAL = INGS.reduce(function (n, g) { return n + g.steps.reduce(function (m, st) { return m + st.n; }, 0); }, 0);   /* 10 Kästchen */
+  function boxesOf(g) { return g.steps.reduce(function (m, st) { return m + st.n; }, 0); }
 
-  /* eine richtige (und einzige) Lösung: Zeile = Gerät, Spalte = Kästchen */
+  /* der Plan aus dem offiziellen Heft (andere Pläne mit höchstens 20 Minuten sind ebenfalls richtig): Zeile = Gerät, Spalte = Kästchen */
   var SOLUTION = {
-    P: ['ei', 'ka', null, null, null],
-    T: ['sp', 'sr', null, null, null],
+    P: ['ei', 'ka', 'ka', null, null],
+    T: ['sp', 'sp', 'sr', 'sr', null],
     S: ['sr', null, null, null, null],
-    B: ['ka', 'sp', null, null, null]
+    B: ['ka', null, 'sp', null, null]
   };
 
   function pic(src, alt, w, hh, cls) {
@@ -57,17 +60,30 @@
     DEVS.forEach(function (d) { grid[d.id].forEach(function (c) { if (c === ing) n++; }); });
     return n;
   }
+  function placedOn(ing, dev, except) {
+    var n = 0;
+    grid[dev].forEach(function (c, i) { if (c === ing && i !== except) n++; });
+    return n;
+  }
   function totalPlaced() { return INGS.reduce(function (n, g) { return n + placedCount(g.id); }, 0); }
   function colOf(ing, dev) { return grid[dev].indexOf(ing); }
 
-  /* Auswertung eines Plans */
+  /* Auswertung eines Plans: jeder Schritt braucht genau n zusammenhängende Kästchen, und ein Schritt darf erst nach dem vorigen beginnen */
   function analyse(g) {
     var bad = [];
     var len = 0;
     INGS.forEach(function (ing) {
-      var cols = ing.steps.map(function (d) { return g[d].indexOf(ing.id); });
-      for (var i = 0; i < cols.length - 1; i++) if (cols[i] < 0 || cols[i + 1] < 0 || cols[i] >= cols[i + 1]) { bad.push(ing.id); break; }
-      cols.forEach(function (c) { if (c + 1 > len) len = c + 1; });
+      var ok = true, prevEnd = -1;
+      ing.steps.forEach(function (st) {
+        var cols = [];
+        g[st.d].forEach(function (v, c) { if (v === ing.id) cols.push(c); });
+        if (cols.length !== st.n) { ok = false; return; }
+        if (cols[cols.length - 1] - cols[0] !== st.n - 1) ok = false;      /* nicht zusammenhängend */
+        if (cols[0] <= prevEnd) ok = false;                                /* beginnt zu früh */
+        prevEnd = cols[cols.length - 1];
+        cols.forEach(function (c) { if (c + 1 > len) len = c + 1; });
+      });
+      if (!ok) bad.push(ing.id);
     });
     return { bad: bad, len: len };
   }
@@ -79,21 +95,24 @@
   function toAnswer() { return DEVS.map(function (d) { return grid[d.id].slice(); }); }
 
   function statusText() {
-    return totalPlaced() + ' von ' + TOTAL + ' Schritten eingeplant.';
+    return totalPlaced() + ' von ' + TOTAL + ' Kästchen belegt.';
   }
   function changed() { api.changed(statusText()); }
 
   /* Zutat in Kästchen setzen; from = [Gerät, Spalte] beim Verschieben */
   function place(ing, dev, col, from) {
     if (locked) return;
-    var def = ING[ing];
-    if (def.steps.indexOf(dev) < 0) {
-      msg = def.name + ' braucht nur ' + def.steps.map(function (d) { return DEV[d].name; }).join(' und ') + '.';
+    var def = ING[ing], st = stepOf(def, dev);
+    if (!st) {
+      msg = def.name + ' braucht nur ' + def.steps.map(function (x) { return DEV[x.d].name; }).join(' und ') + '.';
       selected = null; render(); return;
     }
     if (from) grid[from[0]][from[1]] = null;
-    var same = colOf(ing, dev);
-    if (same >= 0) grid[dev][same] = null;   /* derselbe Schritt wird nur einmal eingeplant: verschieben */
+    if (grid[dev][col] !== ing && placedOn(ing, dev, col) >= st.n) {
+      if (from) grid[from[0]][from[1]] = ing;
+      msg = def.name + ' ' + DEV[dev].verb + ' dauert nur ' + (st.n * MIN) + ' Minuten (' + st.n + (st.n === 1 ? ' Kästchen' : ' Kästchen') + ').';
+      selected = null; render(); return;
+    }
     grid[dev][col] = ing;
     msg = '';
     selected = null;
@@ -118,11 +137,11 @@
     var an = mark === 'check' ? analyse(grid) : null;
 
     var palette = INGS.map(function (g) {
-      var left = g.steps.length - placedCount(g.id);
+      var left = boxesOf(g) - placedCount(g.id);
       return h('button', {
         type: 'button', class: 'bb-ing' + (selected === g.id ? ' selected' : ''), 'data-ing': g.id,
         draggable: locked || !left ? false : 'true', disabled: locked || !left, 'aria-pressed': String(selected === g.id),
-        'aria-label': g.name + ', noch ' + left + (left === 1 ? ' Schritt' : ' Schritte') + ' einzuplanen'
+        'aria-label': g.name + ', noch ' + left + (left === 1 ? ' Kästchen' : ' Kästchen') + ' einzuplanen'
       }, h('span', { class: 'bb-tile' }, pic(g.img, '', g.w, g.h)),
         h('span', { class: 'bb-ing-name' }, g.name),
         h('span', { class: 'bb-left' }, left ? '× ' + left : '✓'));
@@ -148,7 +167,7 @@
             var okc = an.bad.indexOf(v) < 0;
             cls += okc ? '' : ' wrong';
             if (!okc) badge = h('span', { class: 'bb-mark', 'aria-hidden': 'true' }, '✗');
-          } else if (an.len === BEST) {
+          } else if (an.len <= BEST) {
             cls += ' right';
             badge = h('span', { class: 'bb-mark', 'aria-hidden': 'true' }, '✓');
           }
@@ -173,9 +192,10 @@
     var a = analyse(grid);
     if (a.bad.length) {
       return 'Bei ' + a.bad.map(function (id) { return ING[id].name; }).join(' und ') +
-        ' stimmt die Reihenfolge nicht: Ein Schritt beginnt, bevor der vorige fertig ist.';
+        ' stimmt etwas nicht: Ein Schritt dauert nicht so lange wie nötig, ist zerrissen oder beginnt, bevor der vorige fertig ist.';
     }
     if (a.len > BEST) return 'Dein Plan dauert ' + a.len * MIN + ' Minuten. Es geht schneller: in ' + BEST * MIN + ' Minuten.';
+    if (a.len < BEST) return 'Dein Plan dauert ' + a.len * MIN + ' Minuten.';
     return 'Dein Plan dauert ' + a.len * MIN + ' Minuten. Schneller geht es nicht.';
   }
 
@@ -224,10 +244,10 @@
   function onDragEnd() { dragging = null; if (!locked) render(); }
 
   function explanation() {
-    return '<p>Jede Zutat beginnt mit einem Schritt, für den ein anderes Gerät gebraucht wird. Darum können alle vier ersten Schritte zusammen in den ersten 5 Minuten laufen: ' +
-      'Spinat kochen (Topf), Sprossen wässern (Schüssel), Karotten schneiden (Brett) und Ei braten (Pfanne).</p>' +
-      '<p>In den nächsten 5 Minuten folgen gleichzeitig die zweiten Schritte: Spinat schneiden (Brett), Sprossen kochen (Topf) und Karotten braten (Pfanne). ' +
-      'Insgesamt dauert es 10 Minuten. Kürzer geht es nicht, weil drei Zutaten je zwei Schritte nacheinander brauchen.</p>' +
+    return '<p>Die Vorbereitung dauert mindestens <b>20 Minuten</b>: Sowohl der Spinat als auch die Sprossen müssen nacheinander jeweils 10 Minuten im Topf gekocht werden.</p>' +
+      '<p>Ein Plan mit genau 20 Minuten: Kocht zuerst der Spinat, können die Sprossen gleichzeitig gewässert werden. Während später die Sprossen kochen, kann der Spinat geschnitten werden. ' +
+      'In der Pfanne wird zuerst das Ei gebraten. In dieser Zeit schneidet der Koch schon die Karotten und brät sie danach.</p>' +
+      '<p>Jeder Plan, der nicht länger als 20 Minuten dauert, die richtigen Dauern verwendet und bei jeder Zutat die Schritte nacheinander in der richtigen Reihenfolge ausführt, ist richtig.</p>' +
       '<p>In der Informatik nennt man das Planen von Aufgaben auf mehreren Geräten „Scheduling“: Was nicht voneinander abhängt, darf gleichzeitig laufen.</p>';
   }
 
@@ -238,16 +258,16 @@
       icHtml('topf', 'Kochtopf') + ', Bratpfanne ' + icHtml('pfanne', 'Bratpfanne') + ', Schneidebrett ' + icHtml('brett', 'Schneidebrett') +
       ' und Schüssel ' + icHtml('schuessel', 'Schüssel') + '. Damit bereitet er die vier Zutaten für Bibimbap so vor:</p>' +
       '<div class="bb-intro"><table class="bb-recipes"><tbody>' +
-      '<tr><td>' + icHtml('spinat', 'Spinat').replace('height="40"', 'height="52"') + '</td><th scope="row">Spinat</th><td>zuerst kochen ' + icHtml('topf', 'Kochtopf') + ',<br>danach schneiden ' + icHtml('brett', 'Schneidebrett') + '</td></tr>' +
-      '<tr><td>' + icHtml('sprossen', 'Sprossen').replace('height="40"', 'height="52"') + '</td><th scope="row">Sprossen</th><td>zuerst wässern ' + icHtml('schuessel', 'Schüssel') + ',<br>danach kochen ' + icHtml('topf', 'Kochtopf') + '</td></tr>' +
-      '<tr><td>' + icHtml('karotte', 'Karotten').replace('height="40"', 'height="52"') + '</td><th scope="row">Karotten</th><td>zuerst schneiden ' + icHtml('brett', 'Schneidebrett') + ',<br>danach braten ' + icHtml('pfanne', 'Bratpfanne') + '</td></tr>' +
-      '<tr><td>' + icHtml('ei', 'Ei').replace('height="40"', 'height="52"') + '</td><th scope="row">Ei</th><td>braten ' + icHtml('pfanne', 'Bratpfanne') + '</td></tr>' +
+      '<tr><td>' + icHtml('spinat', 'Spinat').replace('height="40"', 'height="52"') + '</td><th scope="row">Spinat</th><td>zuerst kochen ' + icHtml('topf', 'Kochtopf') + ' (10 Min.),<br>danach schneiden ' + icHtml('brett', 'Schneidebrett') + ' (5 Min.)</td></tr>' +
+      '<tr><td>' + icHtml('sprossen', 'Sprossen').replace('height="40"', 'height="52"') + '</td><th scope="row">Sprossen</th><td>zuerst wässern ' + icHtml('schuessel', 'Schüssel') + ' (5 Min.),<br>danach kochen ' + icHtml('topf', 'Kochtopf') + ' (10 Min.)</td></tr>' +
+      '<tr><td>' + icHtml('karotte', 'Karotten').replace('height="40"', 'height="52"') + '</td><th scope="row">Karotten</th><td>zuerst schneiden ' + icHtml('brett', 'Schneidebrett') + ' (5 Min.),<br>danach braten ' + icHtml('pfanne', 'Bratpfanne') + ' (10 Min.)</td></tr>' +
+      '<tr><td>' + icHtml('ei', 'Ei').replace('height="40"', 'height="52"') + '</td><th scope="row">Ei</th><td>braten ' + icHtml('pfanne', 'Bratpfanne') + ' (5 Min.)</td></tr>' +
       '</tbody></table>' +
       '<img class="bb-koch" src="assets/bibimbap/koch.png" width="800" height="494" alt="Zeichnung: Ein Biber als Koch hält gleichzeitig Pfanne mit Spiegelei, Schüssel mit Sprossen, Schneidebrett mit Karotten und Topf mit Spinat."></div>' +
       '<p>Der Koch kann mit unterschiedlichen Geräten gleichzeitig arbeiten. Aber er kann ein Gerät immer nur für eine Zutat verwenden. ' +
       'Zum Beispiel kann der Koch gleichzeitig Spinat im Topf kochen und ein Ei in der Pfanne braten, aber er kann in der Pfanne nicht gleichzeitig ein Ei und Karotten braten.</p>',
     question: 'Erstelle einen Plan, mit dem der Koch die Zutaten für Bibimbap in kürzester Zeit vorbereiten kann.',
-    howto: 'Jedes Kästchen ist ein Arbeitsschritt von 5 Minuten. Ziehe eine Zutat in das Kästchen des Geräts, das sie gerade braucht. Du kannst auch erst die Zutat und dann das Kästchen antippen. Ein eingeplanter Schritt lässt sich durch Antippen wieder entfernen.',
+    howto: 'Jedes Kästchen sind 5 Minuten. Ein Schritt von 10 Minuten braucht zwei Kästchen nebeneinander, einer von 5 Minuten braucht eins. Ziehe eine Zutat in ein Kästchen des Geräts, das sie gerade braucht (oder tippe erst die Zutat, dann das Kästchen an). Ein belegtes Kästchen lässt sich durch Antippen wieder leeren.',
     explanation: explanation,
     mount: function (root, a) {
       el = root; api = a; locked = false; reset();
@@ -262,7 +282,7 @@
     isComplete: function () { return totalPlaced() === TOTAL; },
     evaluate: function () {
       var a = analyse(grid);
-      return { correct: a.bad.length === 0 && a.len === BEST, answer: toAnswer() };
+      return { correct: a.bad.length === 0 && a.len <= BEST, answer: toAnswer() };
     },
     setAnswer: function (ans) {
       grid = fromAnswer(ans);

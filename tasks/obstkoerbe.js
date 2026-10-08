@@ -3,13 +3,13 @@
   'use strict';
   var h = Biber.h;
 
-  /* Inhalt der Körbe, aus der Abbildung im Heft abgezählt (jeder Korb hat 8 Früchte).
+  /* Inhalt der Körbe (Heft S. 62, Lösungstabelle: A 3/2/3, B 5/0/3, C 2/4/2, D 3/3/1, E 1/3/4).
      Die Nummer entspricht der Reihenfolge im Heft von links nach rechts. */
   var BASKETS = {
     1: { a: 3, b: 2, p: 3 },
     2: { a: 5, b: 0, p: 3 },
     3: { a: 2, b: 4, p: 2 },
-    4: { a: 3, b: 4, p: 1 },
+    4: { a: 3, b: 3, p: 1 },
     5: { a: 1, b: 3, p: 4 }
   };
   var START = [1, 2, 3, 4, 5];
@@ -183,7 +183,7 @@
     explanation: function () {
       var list = SOLUTION.map(function (id) { var c = BASKETS[id]; return c.a + ' Äpfel, ' + c.b + ' Bananen'; }).join(' &ndash; ');
       return '<p>Zähle zuerst in jedem Korb die Äpfel: Der Korb mit den meisten Äpfeln (5) steht ganz links, der mit den wenigsten (1) ganz rechts. ' +
-        'Zwei Körbe haben gleich viele Äpfel (3), dort entscheiden die Bananen: Der Korb mit 4 Bananen steht vor dem mit 2 Bananen.</p>' +
+        'Zwei Körbe haben gleich viele Äpfel (3), dort entscheiden die Bananen: Der Korb mit 3 Bananen steht vor dem mit 2 Bananen.</p>' +
         '<p>Richtige Reihenfolge von links nach rechts: ' + list + '.</p>' +
         '<p>Auch Computer sortieren so: erst nach einem Merkmal, und bei Gleichstand nach einem zweiten.</p>';
     },

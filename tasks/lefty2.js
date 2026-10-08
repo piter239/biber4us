@@ -8,7 +8,7 @@
   var START = [4, 1], GOAL = [4, 3];
   var HW = [[2, 2], [3, 4]];                       /* Mauer an der Oberkante des Feldes (r, c) */
   var VW = [[0, 2], [2, 3], [3, 2], [4, 3]];               /* Mauer an der linken Kante des Feldes (r, c) */
-  var ONLY_SHORTEST = false;         /* Lefty 2: jede gültige Fahrt zählt, kürzeste wird gezeigt */
+  var ONLY_SHORTEST = true;          /* wie im Heft: nur der kürzeste Weg ist richtig */
 
   var DIRS = [[-1, 0], [0, 1], [1, 0], [0, -1]];           /* oben, rechts, unten, links */
   var wallSet = {};
