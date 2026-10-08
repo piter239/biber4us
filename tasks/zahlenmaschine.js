@@ -84,7 +84,7 @@
   }
 
   function buildMachine() {
-    var svg = S('svg', { class: 'zm-svg', viewBox: '0 0 400 376', role: 'group', 'aria-label': 'Zahlenmaschine mit vier Eingabefeldern unten, fünf Schaltern und vier Ausgabefeldern oben' });
+    var svg = S('svg', { class: 'zm-svg', viewBox: '0 0 400 392', role: 'group', 'aria-label': 'Zahlenmaschine mit vier Eingabefeldern unten, fünf Schaltern und vier Ausgabefeldern oben' });
     nodes = { wires: [], badges: [], inputs: [], outputs: [] };
     WIRES.forEach(function (w) {
       var b = bez(start(w), end(w), w);
@@ -129,7 +129,7 @@
       svg.appendChild(S('g', { class: 'zm-out', transform: 'translate(' + x + ',' + OUT_Y + ')', 'aria-hidden': 'true' }, S('circle', { r: R }), t));
       nodes.outputs.push(t);
     });
-    svg.appendChild(S('text', { class: 'zm-cap', x: 200, y: 372, 'text-anchor': 'middle' }, 'Eingabefelder (antippen zum Ändern)'));
+    svg.appendChild(S('text', { class: 'zm-cap', x: 200, y: 388, 'text-anchor': 'middle' }, 'Eingabefelder (antippen zum Ändern)'));
     return svg;
   }
 

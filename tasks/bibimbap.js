@@ -144,9 +144,14 @@
         var cls = 'bb-cell bb-r-' + d.id + (v ? ' filled' : '');
         var badge = null;
         if (mark === 'check' && v) {
-          var okc = an.bad.indexOf(v) < 0;
-          cls += okc ? ' right' : ' wrong';
-          badge = h('span', { class: 'bb-mark', 'aria-hidden': 'true' }, okc ? '✓' : '✗');
+          if (an.bad.length) {
+            var okc = an.bad.indexOf(v) < 0;
+            cls += okc ? '' : ' wrong';
+            if (!okc) badge = h('span', { class: 'bb-mark', 'aria-hidden': 'true' }, '✗');
+          } else if (an.len === BEST) {
+            cls += ' right';
+            badge = h('span', { class: 'bb-mark', 'aria-hidden': 'true' }, '✓');
+          }
         } else if (mark === 'solution' && v) cls += ' right';
         rows.push(h('button', {
           type: 'button', class: cls, 'data-dev': d.id, 'data-col': String(col), disabled: locked,

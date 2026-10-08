@@ -36,3 +36,6 @@
   .ok-ruler { display: none; }
   .ok-narrow-note { display: block; }
 }
+@media (max-width: 30rem) {
+  .ok-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
