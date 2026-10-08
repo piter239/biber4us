@@ -7,7 +7,7 @@
   box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); margin: 0 0.45rem;
 }
 .t-zerteilen23-cell { position: relative; display: grid; place-items: center; height: 3.4rem; }
-.t-zerteilen23-digit { font: 800 clamp(1.25rem, 6.2vw, 2rem) var(--font-display); color: #15303a; user-select: none; }
+.t-zerteilen23-digit { font: 800 clamp(1.1rem, 5.4vw, 2rem) var(--font-display); color: #15303a; user-select: none; }
 .t-zerteilen23-cut {
   appearance: none; position: absolute; top: 0; bottom: 0; right: -0.8rem; width: 1.6rem; margin: 0; padding: 0; background: transparent;
   border: 0; border-radius: 6px; cursor: pointer; display: grid; place-items: center; z-index: 2; touch-action: manipulation;
@@ -17,7 +17,7 @@
 .t-zerteilen23-cut:hover:not(:disabled) .t-zerteilen23-bar { border-left-color: #0a86a6; }
 .t-zerteilen23-cut:focus-visible { outline: 3px solid var(--focus); outline-offset: 0; }
 .t-zerteilen23-cut:disabled { cursor: default; }
-.t-zerteilen23-cut.on .t-zerteilen23-bar { border-left: 5px solid #0b6e86; height: 96%; border-radius: 3px; }
+.t-zerteilen23-cut.on .t-zerteilen23-bar { border-left: 4px solid #0b6e86; height: 96%; border-radius: 3px; }
 .t-zerteilen23-cut.right .t-zerteilen23-bar { border-left-color: #1b7a49; }
 .t-zerteilen23-cut.wrong .t-zerteilen23-bar { border-left-color: #b3261e; }
 .t-zerteilen23-lab { margin: 0; color: var(--muted); font-size: 0.95rem; text-align: center; }
