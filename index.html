@@ -8,15 +8,36 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="tasks/fingerfarben.css">
+<link rel="stylesheet" href="tasks/flugzeuge.css">
+<link rel="stylesheet" href="tasks/hivobu.css">
+<link rel="stylesheet" href="tasks/bauklotze1.css">
+<link rel="stylesheet" href="tasks/obstkoerbe.css">
+<link rel="stylesheet" href="tasks/nachhause.css">
+<link rel="stylesheet" href="tasks/zahlenmaschine.css">
+<link rel="stylesheet" href="tasks/lampe.css">
+<link rel="stylesheet" href="tasks/lefty1.css">
+<link rel="stylesheet" href="tasks/lefty2.css">
+<link rel="stylesheet" href="tasks/holz.css">
+<link rel="stylesheet" href="tasks/bebrasien.css">
+<link rel="stylesheet" href="tasks/biberholz.css">
+<link rel="stylesheet" href="tasks/momos.css">
+<link rel="stylesheet" href="tasks/bibimbap.css">
 </head>
 <body>
 <header class="site-head">
   <div class="site-head-in">
     <a class="brand" href="#">Biber <span>2025</span> interaktiv</a>
-    <nav class="nav" aria-label="Hauptnavigation">
-      <a href="#" data-nav="aufgaben">Aufgaben</a>
-      <a href="#bewertung" data-nav="bewertung">Bewertung</a>
-    </nav>
+    <div class="head-tools">
+      <div class="seg" role="group" aria-label="Klassenstufe">
+        <button type="button" data-group="3-4">Klasse 3–4</button>
+        <button type="button" data-group="5-6">Klasse 5–6</button>
+      </div>
+      <nav class="nav" aria-label="Hauptnavigation">
+        <a href="#" data-nav="aufgaben">Aufgaben</a>
+        <a href="#bewertung" data-nav="bewertung">Bewertung</a>
+      </nav>
+    </div>
   </div>
 </header>
 <main id="app"></main>
@@ -24,7 +45,23 @@
   Aufgaben: Informatik-Biber 2025, BWINF – GI e.V., Lizenz CC BY-SA 4.0 (<a href="https://bwinf.de">bwinf.de</a>).
   Diese Umsetzung steht ebenfalls unter CC BY-SA 4.0.
 </footer>
+<script src="biber.js"></script>
 <script src="tasks.js"></script>
+<script src="tasks/fingerfarben.js"></script>
+<script src="tasks/flugzeuge.js"></script>
+<script src="tasks/hivobu.js"></script>
+<script src="tasks/bauklotze1.js"></script>
+<script src="tasks/obstkoerbe.js"></script>
+<script src="tasks/nachhause.js"></script>
+<script src="tasks/zahlenmaschine.js"></script>
+<script src="tasks/lampe.js"></script>
+<script src="tasks/lefty1.js"></script>
+<script src="tasks/lefty2.js"></script>
+<script src="tasks/holz.js"></script>
+<script src="tasks/bebrasien.js"></script>
+<script src="tasks/biberholz.js"></script>
+<script src="tasks/momos.js"></script>
+<script src="tasks/bibimbap.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

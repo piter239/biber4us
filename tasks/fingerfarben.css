@@ -1,0 +1,40 @@
+.ff-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: 1.25rem 2rem; align-items: start; }
+.ff-board > section { min-width: 0; }
+.ff-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.ff-pool { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+.ff-cell { aspect-ratio: 1; border-radius: 6px; background: var(--surface2); }
+.ff-painted { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
+.ff-pair { display: grid; gap: 0.4rem; min-width: 0; }
+.ff-pair > img, .ff-card {
+  display: block; width: 100%; height: auto; aspect-ratio: 1; border-radius: 6px;
+  background: var(--paper); box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); user-select: none; -webkit-user-drag: none;
+}
+.ff-drawing { appearance: none; padding: 0; border: 3px solid transparent; background: none; border-radius: 9px; cursor: grab; touch-action: manipulation; }
+.ff-drawing img { pointer-events: none; }
+.ff-drawing.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.ff-drawing:disabled { cursor: default; }
+.ff-drawing.dragging { opacity: 0.4; }
+.ff-slot {
+  appearance: none; width: 100%; aspect-ratio: 1; padding: 0; border: 3px dashed var(--slot-line); background: var(--slot);
+  border-radius: 9px; display: grid; place-items: center; cursor: pointer; position: relative; touch-action: manipulation;
+}
+.ff-ph { color: var(--muted); font-size: 0.85rem; padding: 0.25rem; text-align: center; }
+.ff-slot img { border-radius: 4px; pointer-events: none; }
+.ff-slot.filled { border-style: solid; padding: 3px; }
+.ff-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.ff-slot.right { border-color: var(--ok); border-style: solid; }
+.ff-slot.wrong { border-color: var(--bad); border-style: solid; }
+.ff-mark { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; }
+.ff-slot.right .ff-mark { background: var(--ok); }
+.ff-slot.wrong .ff-mark { background: var(--bad); }
+.ff-slot:disabled { cursor: default; }
+.ff-why { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.ff-why li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 0.8rem; align-items: start; }
+.ff-why img { width: 64px; height: 64px; border-radius: 5px; background: var(--paper); box-shadow: 0 1px 3px rgb(0 0 0 / 0.25); }
+.ff-why strong { display: block; }
+.ff-why span { color: var(--muted); font-size: 0.95rem; }
+@media (max-width: 40rem) {
+  .ff-board { grid-template-columns: minmax(0, 1fr); }
+  .ff-pool { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ff-painted { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
