@@ -21,7 +21,7 @@
   border: 3px solid transparent; border-radius: 10px; background: var(--surface); color: var(--ink);
   font: inherit; cursor: pointer; touch-action: manipulation;
 }
-.t-gemuesebeet23-veg img { width: 100%; max-width: 3.4rem; height: auto; aspect-ratio: 1; pointer-events: none; -webkit-user-drag: none; }
+.t-gemuesebeet23-veg img { width: 100%; max-width: 3.4rem; height: auto; aspect-ratio: 1; pointer-events: none; }
 .t-gemuesebeet23-vname { font-weight: 700; font-size: 0.85rem; overflow-wrap: anywhere; text-align: center; }
 .t-gemuesebeet23-count { font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .t-gemuesebeet23-veg:hover:not(:disabled) { border-color: color-mix(in srgb, var(--accent) 50%, transparent); }
@@ -47,7 +47,7 @@
 }
 .t-gemuesebeet23-hex img {
   position: absolute; left: 14%; top: 17%; width: 72%; height: 66%; object-fit: contain;
-  pointer-events: none; user-select: none; -webkit-user-drag: none;
+  pointer-events: none; user-select: none;
 }
 div.t-gemuesebeet23-hex { cursor: default; }
 .t-gemuesebeet23-board.armed button.t-gemuesebeet23-hex:hover { --hex-fill: color-mix(in srgb, var(--accent) 30%, var(--surface)); }

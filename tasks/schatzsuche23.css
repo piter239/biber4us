@@ -6,7 +6,7 @@
 .t-schatzsuche23-smallwrap { max-width: 13rem; }
 .t-schatzsuche23-bigwrap { background: var(--surface2); border-radius: 12px; padding: 0.4rem; }
 .t-schatzsuche23-cell { fill: var(--surface); stroke: var(--muted); stroke-width: 2; }
-.t-schatzsuche23-seen > .t-schatzsuche23-cell { fill: var(--line); }
+.t-schatzsuche23-seen > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--accent) 18%, var(--surface)); }
 .t-schatzsuche23-cand > .t-schatzsuche23-cell { fill: color-mix(in srgb, var(--c4) 70%, var(--surface)); }
 .t-schatzsuche23-ring { fill: none; stroke: transparent; stroke-width: 3; }
 .t-schatzsuche23-cand { cursor: pointer; outline: none; }

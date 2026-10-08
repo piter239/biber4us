@@ -1,7 +1,7 @@
 Biber 2025 interaktiv
 =====================
 
-Interaktive Version aller 37 Aufgaben des Informatik-Biber 2025 (BWINF - GI e.V.,
+Interaktive Version aller 37 Aufgaben des Informatik-Biber 2025 und von 40 ausgewaehlten Aufgaben der Hefte 2020-2024 (BWINF - GI e.V.,
 CC BY-SA 4.0). Ansicht "Alle Aufgaben" (Reihenfolge der Aufgabenliste auf Heft-Seite 6,
 ungefaehr steigende Schwierigkeit) oder "Nach Klasse" (3-4, 5-6, 7-8, 9-10, 11-13).
 

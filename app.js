@@ -203,8 +203,8 @@
      geordnet) wie beim Elo-System angepasst: richtig bei einer Aufgabe über dem Niveau hebt es stark, falsch bei einer
      Aufgabe unter dem Niveau senkt es stark. Mit „zu leicht“ / „zu schwer“ lässt sich das Niveau von Hand verschieben
      (profile.adj). Empfohlen wird, was etwas über dem Niveau liegt; bei Fehlern kommt eine Wiederholung dazu. */
-  var N_TASKS = TASKS.length;
-  function taskD(t) { return TASKS.indexOf(t) + 1; }
+  var N_TASKS = 37;   /* Skala 1..37; t.d (0..1) ist die relative Position in der Heftliste */
+  function taskD(t) { return 1 + (N_TASKS - 1) * (t.d != null ? t.d : TASKS.indexOf(t) / Math.max(1, TASKS.length - 1)); }
   function expectedP(A, D) { return 1 / (1 + Math.exp(-(A - D) / 4)); }
   function answeredTasks(p) {
     return TASKS.filter(function (t) { return t.id && p.results[t.id]; })
@@ -222,12 +222,13 @@
   function levelLabel(A) {
     var name = STAGES[0][1];
     STAGES.forEach(function (s2) { if (A >= s2[0]) name = s2[1]; });
-    return { name: name, text: name + ' (≈ Aufgabe ' + Math.round(A) + ' von ' + N_TASKS + ')', pct: Math.max(3, Math.min(100, A / N_TASKS * 100)) };
+    return { name: name, text: name + ' (Niveau ' + Math.round(A) + ' von ' + N_TASKS + ')', pct: Math.max(3, Math.min(100, A / N_TASKS * 100)) };
   }
 
   function areaOf(t) {
     var a = (t.topic || '').split(',')[0].trim();
-    return a === 'Algorithmus' ? 'Algorithmen' : a;
+    var map = { 'Algorithmus': 'Algorithmen', 'Programmieren': 'Programmierung', 'Programmieren / Algorithmen': 'Programmierung', 'Theorie': 'Theoretische Informatik', 'Prozesse': 'Systeme', 'Methodik': 'Modellierung' };
+    return map[a] || a;
   }
   function areaStats(p) {
     var st = {};
@@ -294,7 +295,7 @@
       var t = it.task;
       var lv = levelOf(t) || 'mittel';
       return '<li><a class="rec-card' + (i === 0 ? ' first' : '') + '" href="#' + t.id + '"><span class="eyebrow">' + it.label + '</span>' +
-        '<b>' + t.title + '</b><span class="rec-meta"><span class="chip">Aufgabe ' + taskD(t) + ' von ' + N_TASKS + '</span> ' + areaOf(t) + '</span>' +
+        '<b>' + t.title + '</b><span class="rec-meta"><span class="chip">Schwierigkeit ' + Math.round(taskD(t)) + ' von ' + N_TASKS + '</span> <span class="chip">Biber ' + t.year + '</span> ' + areaOf(t) + '</span>' +
         '<span class="rec-why">' + it.why + '</span></a></li>';
     }).join('');
     var themes = areaStats(p).sort(function (x, y) { return y.n - x.n; }).map(function (x) {
@@ -330,7 +331,7 @@
         '<span class="t-title">' + t.title + '</span>' +
         '<span class="t-topic">' + t.topic + '</span>' +
         '<span class="t-state"><span class="chip ' + s.cls + '">' + s.label + '</span>' +
-        '<span class="num">' + (lv ? '<span class="chip ' + lv + '">' + lv + '</span> ' : '') + 'Heft S. ' + t.page + '</span>' +
+        '<span class="num">' + (lv ? '<span class="chip ' + lv + '">' + lv + '</span> ' : '') + 'Heft ' + t.year + ', S. ' + t.page + '</span>' +
         (alle && t.groups ? '<span class="num small">' + groupsText(t) + '</span>' : '') + '</span>';
       return isReady(t)
         ? '<li><a class="task-row" href="#' + t.id + '">' + inner + '</a></li>'
@@ -342,14 +343,14 @@
       if (rest.length) later = '<details class="later"><summary>Ab Klasse 7 · ' + rest.length + ' weitere Aufgaben (noch nicht umgesetzt)</summary><ol class="tasklist">' +
         rest.map(function (t) {
           return '<li><div class="task-row soon"><span class="rank num">·</span><span class="t-title">' + t.title +
-            '</span><span class="t-topic">' + t.topic + '</span><span class="t-state"><span class="num">Heft S. ' + t.page + '</span></span></div></li>';
+            '</span><span class="t-topic">' + t.topic + '</span><span class="t-state"><span class="num">Heft ' + t.year + ', S. ' + t.page + '</span></span></div></li>';
         }).join('') + '</ol></details>';
     }
     app.innerHTML = trainingHtml(rec) +
-      '<section class="intro" style="margin-top:2rem"><p class="eyebrow">Informatik-Biber 2025 · ' + viewLabel() + '</p>' +
+      '<section class="intro" style="margin-top:2rem"><p class="eyebrow">Informatik-Biber · ' + viewLabel() + '</p>' +
       '<h1>' + (alle ? 'Alle Aufgaben nach Schwierigkeit' : playable.length + ' Aufgaben für ' + groupLabel(store.group)) + '</h1>' +
       '<p>' + (alle
-        ? 'Alle 37 Aufgaben in der Reihenfolge der Aufgabenliste auf Seite 6 des Biberhefts, ungefähr von einfach nach schwer. ' + playable.length + ' davon sind schon spielbar, die übrigen folgen. Mit „Nach Klasse“ oben filterst du auf eine Klassenstufe.'
+        ? 'Alle ' + list.length + ' Aufgaben aus den Biberheften 2020 bis 2025, ungefähr von einfach nach schwer (Reihenfolge der Aufgabenliste auf Seite 6 jedes Hefts, heftübergreifend gemischt). ' + (playable.length < list.length ? playable.length + ' davon sind schon spielbar, die übrigen folgen. ' : '') + 'Mit „Nach Klasse“ oben filterst du auf eine Klassenstufe.'
         : 'Die Aufgaben dieser Klassenstufe stehen von einfach bis schwer, gleiche Stufen in der Reihenfolge von Seite 6 des Biberhefts. Mit „Alle Aufgaben“ oben siehst du wieder die ganze Liste.') + '</p></section>' +
       '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + playable.length + '" aria-valuenow="' + done + '"><i style="width:' + (playable.length ? done / playable.length * 100 : 0) + '%"></i></div>' +
       '<small class="num">' + done + ' von ' + playable.length + ' spielbaren Aufgaben bearbeitet</small></div>' +
@@ -382,7 +383,7 @@
       '<article class="task t-' + id + '">' +
       '<header class="task-head">' +
       '<div class="chips"><span class="chip ' + level + '">' + (alle ? level : groupLabel(store.group) + ' · ' + level) + '</span>' +
-      '<span class="chip">Platz ' + (idx + 1) + ' von ' + list.length + '</span><span class="chip">Heft S. ' + t.page + '</span>' +
+      '<span class="chip">Platz ' + (idx + 1) + ' von ' + list.length + '</span><span class="chip">Heft ' + t.year + ', S. ' + t.page + '</span>' +
       (alle ? '<span class="chip soon">' + groupsText(t) + '</span>' : '') + '</div>' +
       '<h1>' + t.title + '</h1><p class="eyebrow">' + t.topic + '</p>' +
       (mod ? '<div class="story">' + (mod.story || '') + '</div>' +
@@ -550,7 +551,7 @@
       '<section class="panel"><h2>Deine Themen</h2><div class="tbl-wrap"><table class="res"><thead><tr><th>Thema</th><th class="r">Aufgaben</th><th class="r">bearbeitet</th><th class="r">richtig</th></tr></thead><tbody>' +
       areaStats(profile()).sort(function (x, y) { return y.n - x.n; }).map(function (x) { return '<tr><td>' + x.area + '</td><td class="r num">' + x.n + '</td><td class="r num">' + x.done + '</td><td class="r num">' + x.right + '</td></tr>'; }).join('') +
       '</tbody></table></div><p class="note">Das Biber-Niveau: ' + levelLabel(abilityOf(profile())).text + '.</p></section>' +
-      '<section class="panel"><h2>' + (alle ? 'Alle 37 Aufgaben' : 'Alle Aufgaben') + '</h2><div class="tbl-wrap"><table class="res"><thead><tr><th>Nr.</th><th>Aufgabe</th><th>Stufe</th><th>Status</th><th class="r">Punkte</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+      '<section class="panel"><h2>' + (alle ? 'Alle ' + list.length + ' Aufgaben' : 'Alle Aufgaben') + '</h2><div class="tbl-wrap"><table class="res"><thead><tr><th>Nr.</th><th>Aufgabe</th><th>Stufe</th><th>Status</th><th class="r">Punkte</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
       '<p class="note">Punkteschema: einfach +6 / −2, mittel +9 / −3, schwer +12 / −4, ohne Antwort 0 (üblich beim Bebras, im Biberheft nicht angegeben). ' +
       (alle ? 'In der Ansicht „Alle Aufgaben“ zählt die Stufe der jüngsten Klassenstufe, in der die Aufgabe vorkommt; mit „Nach Klasse“ zählt die Stufe der gewählten Klasse. ' : '') +
       'Das Heft liegt ohne Lösungen vor; die Lösungen wurden aus den Aufgabenstellungen abgeleitet und sollten mit den offiziellen Lösungen abgeglichen werden.</p>' +
@@ -690,7 +691,7 @@
     var areas = areaStats(p).filter(function (a) { return a.done; }).sort(function (x, y) { return (x.right / x.done) - (y.right / y.done) || y.done - x.done; });
     var weak = areas.filter(function (a) { return a.right < a.done; }).slice(0, 3);
     return '<article class="panel fam-card"><h2>' + esc(p.name || 'Profil') + (owner ? ' <span class="note">· Konto: ' + esc(owner) + '</span>' : '') + '</h2>' +
-      '<p><b>' + lv.text + '</b> · ' + done.length + ' von ' + N_TASKS + ' Aufgaben bearbeitet, ' + right.length + ' richtig' + (wrong.length ? ', ' + wrong.length + ' falsch' : '') + ' · zuletzt aktiv: ' + fmtDate(lastActive(p)) + '</p>' +
+      '<p><b>' + lv.text + '</b> · ' + done.length + ' von ' + TASKS.filter(isReady).length + ' Aufgaben bearbeitet, ' + right.length + ' richtig' + (wrong.length ? ', ' + wrong.length + ' falsch' : '') + ' · zuletzt aktiv: ' + fmtDate(lastActive(p)) + '</p>' +
       '<div class="lvl-bar" role="img" aria-label="Niveau"><i style="width:' + lv.pct + '%"></i></div>' +
       (wrong.length ? '<p class="note">Falsch im ersten Versuch: ' + wrong.map(function (t) { return esc(t.title); }).join(', ') + '</p>' : '') +
       (weak.length ? '<p class="note">Themen mit Fehlern: ' + weak.map(function (a) { return esc(a.area) + ' (' + a.right + '/' + a.done + ')'; }).join(', ') + '</p>' : '') +
