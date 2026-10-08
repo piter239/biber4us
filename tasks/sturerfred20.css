@@ -4,15 +4,15 @@
 .t-sturerfred20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
 .t-sturerfred20-game { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.8rem 0.9rem 1rem; display: grid; gap: 0.6rem; }
 
-.t-sturerfred20-stage { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem 0.5rem 0.2rem; overflow: hidden; }
-.t-sturerfred20-scene { position: relative; }
-.t-sturerfred20-skyrow { position: relative; height: 3.6rem; }
+.t-sturerfred20-stage { max-width: 46rem; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem 0.5rem 0.2rem; overflow: hidden; }
+.t-sturerfred20-scene { position: relative; --kh: 4.4rem; --fh: 3.7rem; }
+.t-sturerfred20-skyrow { position: relative; height: calc(var(--kh) + 2.6rem); }
 .t-sturerfred20-stone {
-  appearance: none; position: absolute; bottom: 0; transform: translateX(-50%); width: 24%; min-width: 3.4rem; aspect-ratio: 300 / 146;
+  appearance: none; position: absolute; bottom: 0; transform: translateX(-50%); width: 18.75%; aspect-ratio: 300 / 146;
   padding: 0; border: 0; background: transparent; cursor: pointer; touch-action: manipulation;
 }
 .t-sturerfred20-stoneimg { display: block; width: 100%; height: auto; }
-.t-sturerfred20-onstone { position: absolute; left: 50%; bottom: 38%; width: 30%; height: auto; transform: translateX(-50%); }
+.t-sturerfred20-onstone { position: absolute; left: 50%; bottom: 42%; height: var(--kh); width: auto; transform: translateX(-50%); }
 .t-sturerfred20-stone:not(:disabled):hover .t-sturerfred20-stoneimg { filter: brightness(1.08); }
 .t-sturerfred20-stone:focus-visible, .t-sturerfred20-kang:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
 .t-sturerfred20-stone:disabled, .t-sturerfred20-kang:disabled { cursor: default; }
@@ -21,10 +21,10 @@
 
 .t-sturerfred20-row { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); align-items: end; }
 .t-sturerfred20-col { display: grid; justify-items: center; align-items: end; min-width: 0; }
-.t-sturerfred20-occ { display: grid; justify-items: center; align-items: end; height: 4.4rem; width: 100%; margin-bottom: -0.55rem; position: relative; z-index: 1; }
+.t-sturerfred20-occ { display: flex; justify-content: center; align-items: flex-end; height: var(--kh); width: 100%; margin-bottom: -0.55rem; position: relative; z-index: 1; }
 .t-sturerfred20-img { display: block; height: 100%; width: auto; max-width: 100%; object-fit: contain; }
-.t-sturerfred20-fred { height: 3.7rem; display: grid; align-items: end; }
-.t-sturerfred20-kang { appearance: none; padding: 0; border: 0; background: transparent; height: 4.4rem; max-width: 100%; cursor: pointer; touch-action: manipulation; }
+.t-sturerfred20-fred { height: var(--fh); display: block; }
+.t-sturerfred20-kang { appearance: none; padding: 0; border: 0; background: transparent; height: var(--kh); display: block; max-width: 100%; cursor: pointer; touch-action: manipulation; }
 .t-sturerfred20-kang:not(:disabled):hover .t-sturerfred20-img { filter: brightness(1.1); }
 .t-sturerfred20-stump { display: block; width: 94%; height: auto; }
 
@@ -61,8 +61,6 @@
 .t-sturerfred20-opt.wrong .t-sturerfred20-mark { background: var(--bad); }
 
 @media (max-width: 30rem) {
-  .t-sturerfred20-occ, .t-sturerfred20-kang { height: 3.6rem; }
-  .t-sturerfred20-fred { height: 3rem; }
-  .t-sturerfred20-skyrow { height: 3.2rem; }
+  .t-sturerfred20-scene { --kh: 3.4rem; --fh: 2.9rem; }
   .t-sturerfred20-rimg { height: 2.3rem; }
 }

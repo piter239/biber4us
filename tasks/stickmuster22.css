@@ -1,0 +1,63 @@
+/* Stile für stickmuster22 (Präfix t-stickmuster22-). Alle Farben über Tokens; Tasten sind in Hell und Dunkel invertiert. */
+.t-stickmuster22-board { display: grid; gap: 1.1rem; }
+.t-stickmuster22-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-stickmuster22-key { width: 2.1rem; height: 2.1rem; flex: none; display: inline-block; vertical-align: middle; }
+.t-stickmuster22-kc { fill: var(--ink); }
+.t-stickmuster22-ks { fill: none; stroke: var(--surface); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.t-stickmuster22-key.t-stickmuster22-inl { width: 1.5rem; height: 1.5rem; margin: 0 0.05rem; }
+.t-stickmuster22-keys { display: flex; flex-wrap: wrap; gap: 0.25rem; align-items: center; }
+.t-stickmuster22-key.t-stickmuster22-done { opacity: 0.35; }
+.t-stickmuster22-key.t-stickmuster22-now { filter: drop-shadow(0 0 0 transparent); outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 50%; }
+
+.t-stickmuster22-fab { fill: var(--surface2); stroke: var(--line); stroke-width: 1; }
+.t-stickmuster22-st { fill: none; stroke: var(--c1); stroke-width: 2.6; stroke-linecap: round; }
+.t-stickmuster22-cur { fill: var(--accent); }
+.t-stickmuster22-strip { display: block; width: calc(var(--n, 20) * 1.55rem); max-width: 100%; height: auto; }
+p .t-stickmuster22-strip { display: inline-block; width: 1.6rem; vertical-align: middle; }
+.t-stickmuster22-fig { margin: 0.5rem 0; max-width: 100%; }
+.t-stickmuster22-target { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.6rem 0.7rem; }
+.t-stickmuster22-target .t-stickmuster22-strip { width: 100%; max-width: 34rem; }
+.expl p .t-stickmuster22-strip { display: inline-block; width: calc(var(--n, 5) * 1.5rem); vertical-align: middle; }
+
+.t-stickmuster22-legend { list-style: none; margin: 0.4rem 0 0.8rem; padding: 0; display: grid; gap: 0.35rem; }
+.t-stickmuster22-legend li { display: flex; align-items: center; gap: 0.6rem; }
+
+.t-stickmuster22-opts { display: grid; gap: 0.7rem; }
+.t-stickmuster22-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.5rem; align-items: center; text-align: left;
+  padding: 0.6rem 0.8rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600;
+}
+.t-stickmuster22-opt:hover { border-color: var(--accent); }
+.t-stickmuster22-opt[aria-disabled="true"] { cursor: default; }
+.t-stickmuster22-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-stickmuster22-opt.selected, .t-stickmuster22-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-stickmuster22-opt.right, .t-stickmuster22-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-stickmuster22-opt.wrong, .t-stickmuster22-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-stickmuster22-letter { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+.t-stickmuster22-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-stickmuster22-opt.wrong .t-stickmuster22-mark { background: var(--bad); }
+
+.t-stickmuster22-ex { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.5rem 0.8rem; }
+.t-stickmuster22-ex summary { cursor: pointer; font-weight: 700; padding: 0.25rem 0; }
+.t-stickmuster22-exin { display: grid; gap: 0.6rem; padding: 0.5rem 0 0.4rem; }
+.t-stickmuster22-exnote { margin: 0; color: var(--muted); font-size: 0.95rem; min-height: 1.5em; }
+.t-stickmuster22-exbtns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-stickmuster22-btn {
+  appearance: none; min-height: 2.5rem; padding: 0.35rem 0.9rem; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--accent);
+}
+.t-stickmuster22-btn:disabled { opacity: 0.4; cursor: not-allowed; border-color: var(--line); }
+
+.t-stickmuster22-tablewrap { overflow-x: auto; margin: 0.6rem 0; }
+.t-stickmuster22-tab { border-collapse: collapse; }
+.t-stickmuster22-tab th, .t-stickmuster22-tab td { padding: 0.35rem 0.6rem; border: 1px solid var(--line); text-align: left; vertical-align: middle; }
+.t-stickmuster22-tab .t-stickmuster22-key { width: 1.5rem; height: 1.5rem; }
+.t-stickmuster22-tab .t-stickmuster22-keys { flex-wrap: nowrap; gap: 0.15rem; }
+.t-stickmuster22-tab .t-stickmuster22-strip { width: calc(var(--n, 5) * 1.1rem); }
+@media (max-width: 34rem) {
+  .t-stickmuster22-key { width: 1.9rem; height: 1.9rem; }
+}

@@ -1,0 +1,29 @@
+/* Aufgabe Domino (domino23) */
+.t-domino23-box { display: grid; gap: 0.9rem; min-width: 0; }
+.t-domino23-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.1rem 0.9rem; padding: 0.9rem 0.4rem; border-radius: 12px; background: var(--surface2); border: 2px solid var(--line); }
+.t-domino23-stone {
+  appearance: none; position: relative; width: 4.4rem; padding: 0.25rem; border: 3px solid transparent; border-radius: 12px; background: none; cursor: pointer;
+  transform: rotate(var(--tilt)); transition: transform 0.12s, border-color 0.12s, background 0.12s; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.t-domino23-stone:hover:not(:disabled) { transform: rotate(var(--tilt)) translateY(-3px); }
+.t-domino23-stone:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-domino23-stone:disabled { cursor: default; }
+.t-domino23-stone.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.t-domino23-stone.right { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 18%, transparent); box-shadow: none; }
+.t-domino23-stone.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 18%, transparent); box-shadow: none; }
+.t-domino23-stone.miss { border: 3px dashed var(--ok); }
+.t-domino23-svg { display: block; width: 100%; height: auto; filter: drop-shadow(1px 2px 2px rgb(0 0 0 / 0.3)); }
+.t-domino23-body { fill: var(--ink); }
+.t-domino23-mid { stroke: var(--surface); stroke-width: 2.4; stroke-linecap: round; opacity: 0.8; }
+.t-domino23-pip { fill: var(--surface); }
+.t-domino23-badge { position: absolute; top: -10px; right: -8px; width: 24px; height: 24px; border-radius: 50%; display: none; place-items: center; color: #fff; font: 800 0.9rem/1 var(--font-body); }
+.t-domino23-stone.right .t-domino23-badge { display: grid; background: var(--ok); }
+.t-domino23-stone.right .t-domino23-badge::before { content: '✓'; }
+.t-domino23-stone.wrong .t-domino23-badge { display: grid; background: var(--bad); }
+.t-domino23-stone.wrong .t-domino23-badge::before { content: '✗'; }
+.t-domino23-stone.miss .t-domino23-badge { display: grid; background: var(--ok); }
+.t-domino23-stone.miss .t-domino23-badge::before { content: '!'; }
+.t-domino23-count { margin: 0; text-align: center; color: var(--muted); min-height: 1.5em; }
+.t-domino23-steine { color: var(--muted); }
+.t-domino23-tab { border-collapse: collapse; margin: 0.4rem 0 0.8rem; }
+.t-domino23-tab th, .t-domino23-tab td { border: 1px solid var(--line); padding: 0.2rem 0.8rem; text-align: center; }

@@ -1,8 +1,8 @@
 /* Aufgabe Ballon-Maschine 2 (Biber 2024) */
-.t-ballon224-ex { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.1rem; margin: 0.5rem 0; }
-.t-ballon224-exfig { display: block; width: 5.2rem; flex: 0 0 auto; }
+.t-ballon224-ex { display: flex; flex-wrap: nowrap; align-items: center; gap: 0.1rem; margin: 0.5rem 0; max-width: 32rem; }
+.t-ballon224-exfig { display: block; flex: 1 1 0; min-width: 0; }
 .t-ballon224-exfig .t-ballon224-frame { background: var(--surface2); border-radius: 8px; }
-.t-ballon224-exarrow { font-size: 0.95rem; color: var(--muted); display: inline-flex; flex-direction: column; align-items: center; line-height: 1.1; padding: 0 0.1rem; }
+.t-ballon224-exarrow { font-size: 0.95rem; color: var(--muted); display: inline-flex; flex-direction: column; align-items: center; line-height: 1.1; padding: 0; flex: 0 0 auto; font-size: 0.8rem; }
 .t-ballon224-exarrow b { color: var(--ink); }
 .t-ballon224-board { display: grid; gap: 1rem; max-width: 34rem; margin: 0 auto; }
 .t-ballon224-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.5rem; }

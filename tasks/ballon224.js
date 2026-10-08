@@ -130,7 +130,7 @@
       });
     }
     poolBtns.forEach(function (b) { b.disabled = locked || seq.length >= N; });
-    statusEl.textContent = seq.length === 0 ? 'Tippe die Buchstaben in der Reihenfolge an, in der die Maschine sie liest.'
+    statusEl.textContent = locked ? '' : seq.length === 0 ? 'Tippe die Buchstaben in der Reihenfolge an, in der die Maschine sie liest.'
       : seq.length < N ? 'Bisher gelesen: ' + seq.join(' ') + '. Noch ' + (N - seq.length) + ' Buchstabe' + (N - seq.length === 1 ? '' : 'n') + '.'
         : 'Folge: ' + seq.join(' ') + '. Prüfe die Antwort, wenn dein Bild gleich dem Bild „So soll es werden“ ist.';
   }
