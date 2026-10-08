@@ -73,6 +73,8 @@
     Object.keys(mem.seen || {}).forEach(function (k) { mem.stickers['a:' + k] = true; });
     if (mem.secrets && mem.secrets.zoomies) mem.stickers['s:zoomies'] = true;
   }
+  if (mem.giftN == null) mem.giftN = 0;
+  if (mem.giftNext == null) mem.giftNext = (mem.correct || 0) + 1;
   if (!CFG.start && !mem.touched) mem.off = true;
   function persist() { mem.touched = true; try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) { /* ignorieren */ } }
 
@@ -369,7 +371,7 @@
 
   function size() { return window.innerWidth <= 520 ? 108 : 138; }
 
-  function place(s) {
+  function place(s, keepAcc) {
     side = s;
     var W = size(), vw = window.innerWidth, vh = window.innerHeight, m = 24;
     wrap.style.width = W + 'px'; wrap.style.height = W + 'px';
@@ -385,7 +387,7 @@
     wrap.style.transform = 'translate(-50%,-50%) rotate(' + SIDE_ROT[s] + 'deg)';
     wrap.style.setProperty('--bk-sneak', '50%');
     wrap.style.setProperty('--bk-up', '17%');
-    setAcc();
+    if (!keepAcc) setAcc();
   }
 
   function sleep(ms, t) {
@@ -527,8 +529,9 @@
     if (inS.length && Math.random() < 0.8) curAcc = pick(inS);
     else if (Math.random() < 0.2) { curAcc = pick(out); accLate = true; }
     if (curAcc) wrap.setAttribute('data-acc', curAcc); else wrap.removeAttribute('data-acc');
-    if (curAcc) unlock('h:' + curAcc);
   }
+  /* Hut-Sticker gibt es nur, wenn das Kätzchen den Hut wirklich in Ruhe zeigt (nicht beim Zoomies-Flitzen). */
+  function seenAcc() { if (curAcc) unlock('h:' + curAcc); }
 
   function textFor(name, kind) {
     var a = ACTIONS[name], r = Math.random();
@@ -562,6 +565,7 @@
     wrap.classList.remove('bk-looking');
     stage('up');
     if (!await sleep(500, t)) return;
+    seenAcc();
     if (a.custom && name === 'peekaboo') {
       stage('out'); if (!await sleep(650, t)) return;
       stage('sneak'); if (!await sleep(500, t)) return;
@@ -627,13 +631,13 @@
     if (!await sleep(500, t)) return;
     var sides = ['left', 'top', 'right', 'bottom', 'left', 'right'];
     for (var i = 0; i < sides.length; i++) {
-      place(sides[i]); clearActions();
+      place(sides[i], true); clearActions();
       wrap.classList.add('bk-happy'); stage('sneak'); void peek.offsetWidth; stage('pop');
       if (!await sleep(380, t)) return;
       stage('out');
       if (!await sleep(260, t)) return;
     }
-    place('bottom'); stage('pop'); wrap.classList.add('bk-happy'); hearts(6); sparks(4); purr(2.2);
+    place('bottom', true); stage('pop'); wrap.classList.add('bk-happy'); hearts(6); sparks(4); purr(2.2);
     showBubble('Puh! Das war schön. Danke!');
     if (!await sleep(2800, t)) return;
     petCount = 0;
@@ -673,6 +677,31 @@
 
   /* ---------- Sammelalbum ---------- */
   var HEADG = (function () { var k = kittenSvg(); return k.slice(k.indexOf('<g class="bk-head">'), k.lastIndexOf('</svg>')); })();
+  /* ---------- Geschenke: 14 verschiedene, in dieser Reihenfolge; danach zufällig ---------- */
+  function gsvg(inner) { return '<svg viewBox="0 0 60 44" aria-hidden="true">' + inner + '</svg>'; }
+  var GIFTS = [
+    { id: 'fish', name: 'Fisch', svg: FISH, line: 'Ein Fisch! Frisch gefangen, nur für Dich.' },
+    { id: 'mouse', name: 'Mäuschen', svg: MOUSE, line: 'Ein Mäuschen! Extra für Dich gejagt.' },
+    { id: 'yarn', name: 'Wollknäuel', svg: YARN, w: 36, line: 'Ein Wollknäuel! Zum Spielen und Nachdenken.' },
+    { id: 'milk', name: 'Milchschälchen', svg: gsvg('<path d="M8 16h44c0 12-8 22-22 22S8 28 8 16Z" fill="#f2c9a0" stroke="#7a4a22" stroke-width="2.4" stroke-linejoin="round"/><ellipse cx="30" cy="16" rx="22" ry="5.5" fill="#fff" stroke="#7a4a22" stroke-width="2.4"/><path d="M19 15q5-2.4 10 0" fill="none" stroke="#cfd8dc" stroke-width="1.8" stroke-linecap="round"/>'), line: 'Ein Schälchen Milch. Prost!' },
+    { id: 'feather', name: 'Feder', svg: gsvg('<path d="M6 36C12 10 34 3 54 6C47 22 30 36 6 36Z" fill="#7cc4f0" stroke="#2c6a96" stroke-width="2.4" stroke-linejoin="round"/><path d="M6 36L46 12" stroke="#2c6a96" stroke-width="2.4" stroke-linecap="round"/><path d="M19 28l4-9M29 23l3-8" stroke="#2c6a96" stroke-width="1.8" stroke-linecap="round"/>'), line: 'Eine Feder! Die ist ganz leicht zu jagen.' },
+    { id: 'treat', name: 'Leckerli', svg: gsvg('<circle cx="30" cy="24" r="15" fill="#d9a066" stroke="#7a4a22" stroke-width="2.4"/><circle cx="30" cy="28" r="5.4" fill="#b87a3e"/><circle cx="21" cy="19" r="2.8" fill="#b87a3e"/><circle cx="26.5" cy="14" r="2.8" fill="#b87a3e"/><circle cx="33.5" cy="14" r="2.8" fill="#b87a3e"/><circle cx="39" cy="19" r="2.8" fill="#b87a3e"/>'), line: 'Ein Leckerli! Teilen wir?' },
+    { id: 'bell', name: 'Glöckchen', svg: gsvg('<path d="M16 30C16 16 22 9 30 9S44 16 44 30Z" fill="#f2c230" stroke="#8a6a00" stroke-width="2.4" stroke-linejoin="round"/><rect x="12" y="30" width="36" height="5" rx="2.5" fill="#f2c230" stroke="#8a6a00" stroke-width="2.4"/><circle cx="30" cy="38.5" r="3.2" fill="#8a6a00"/><path d="M30 9V4" stroke="#8a6a00" stroke-width="2.4" stroke-linecap="round"/>'), line: 'Ein Glöckchen. Bling, bling!' },
+    { id: 'star', name: 'Goldstern', svg: gsvg('<polygon points="30,3 35.6,16.4 50,17.4 39,26.8 42.4,41 30,33.4 17.6,41 21,26.8 10,17.4 24.4,16.4" fill="#f2c230" stroke="#8a6a00" stroke-width="2.4" stroke-linejoin="round"/>'), line: 'Ein goldener Stern, weil Du so gut bist!' },
+    { id: 'flower', name: 'Blume', svg: gsvg('<path d="M30 26v16M30 36q8-2 10-9" fill="none" stroke="#4a8a3a" stroke-width="3" stroke-linecap="round"/><g fill="#f48fb1" stroke="#4a2e1a" stroke-width="1.8"><circle cx="30" cy="6.5" r="6"/><circle cx="39" cy="11" r="6"/><circle cx="39" cy="20" r="6"/><circle cx="30" cy="24" r="6"/><circle cx="21" cy="20" r="6"/><circle cx="21" cy="11" r="6"/></g><circle cx="30" cy="15.5" r="6" fill="#f2c230" stroke="#4a2e1a" stroke-width="1.8"/>'), line: 'Eine Blume. Frisch gepflückt für Dich.' },
+    { id: 'cushion', name: 'Kissen', svg: gsvg('<rect x="8" y="9" width="44" height="28" rx="9" fill="#b794f4" stroke="#5a3ea0" stroke-width="2.4"/><path d="M17 19h26M17 28h26" stroke="#fff" stroke-width="2" stroke-dasharray="3 4" opacity=".7"/><circle cx="8" cy="9" r="3.2" fill="#f2c230"/><circle cx="52" cy="9" r="3.2" fill="#f2c230"/><circle cx="8" cy="37" r="3.2" fill="#f2c230"/><circle cx="52" cy="37" r="3.2" fill="#f2c230"/>'), line: 'Ein Kissen. Für Deine Pausen!' },
+    { id: 'butterfly', name: 'Schmetterling', svg: BUTTERFLY, w: 36, line: 'Ein Schmetterling! Ganz vorsichtig…' },
+    { id: 'trophy', name: 'Pokal', svg: gsvg('<path d="M18 5h24v13c0 9-6 13-12 13S18 27 18 18Z" fill="#f2c230" stroke="#8a6a00" stroke-width="2.4" stroke-linejoin="round"/><path d="M18 9h-8c0 8 4 11 8 11M42 9h8c0 8-4 11-8 11" fill="none" stroke="#8a6a00" stroke-width="2.4"/><path d="M30 31v6M20 40h20" stroke="#8a6a00" stroke-width="3" stroke-linecap="round"/>'), line: 'Ein kleiner Pokal. Du bist spitze!' },
+    { id: 'goldfish', name: 'Goldfisch', svg: FISH.replace(/#6fb3d9/g, '#ffb347').replace(/#4a95c4/g, '#ff9a1f').replace(/#2c5f80/g, '#9a5200'), line: 'Ein Goldfisch! Der ist etwas ganz Besonderes.' },
+    { id: 'crown', name: 'Krone', svg: gsvg('<path d="M8 32V12l12 10 10-16 10 16 12-10v20Z" fill="#f2c230" stroke="#8a6a00" stroke-width="2.4" stroke-linejoin="round"/><circle cx="8" cy="10" r="3.4" fill="#e05060"/><circle cx="30" cy="4.5" r="3.4" fill="#4a9ad9"/><circle cx="52" cy="10" r="3.4" fill="#e05060"/><rect x="8" y="32" width="44" height="6" rx="3" fill="#f2c230" stroke="#8a6a00" stroke-width="2.4"/>'), line: 'Eine Krone für Dich, Rätselprofi!' }
+  ];
+  /* Abstand bis zum nächsten Geschenk (in richtigen Antworten): kurz am Anfang, langsam wachsend, zufällig gestreut */
+  var GAP_BASE = [2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 5];
+  function nextGap(given) {
+    var base = given <= GAP_BASE.length ? GAP_BASE[given - 1] : 5 + Math.floor((given - GAP_BASE.length) / 3);
+    return Math.max(2, Math.round(base * rnd(0.7, 1.4)));
+  }
+
   var STICKERS = [
     ['a:wave', 'Winken', 'Das Kätzchen winkt Dir zu.'], ['a:tail', 'Schwanzwedeln', 'Wedelt Dir Glück zu.'], ['a:kiss', 'Katzenkuss', 'Langsames Blinzeln heißt: ich mag Dich.'],
     ['a:yawn', 'Gähnen', 'Auch Kätzchen werden müde.'], ['a:ear', 'Ohrenzucken', 'Es hört Dich nachdenken.'], ['a:wash', 'Pfötchen putzen', 'Gründliche Katzenwäsche.'],
@@ -681,8 +710,8 @@
     ['a:peekaboo', 'Kuckuck', 'Weg und wieder da.'], ['a:sneeze', 'Niesen', 'Hatschi!'], ['a:stretch', 'Strecken', 'Aaah, das tut gut.'],
     ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
     ['h:xmas', 'Weihnachtsmütze', 'Ho ho ho!'], ['h:silvester', 'Partyhut', 'Prosit Neujahr!'], ['h:halloween', 'Kürbishut', 'Buh!'], ['h:ostern', 'Blumenkranz', 'Frühlingsgefühle.'], ['h:sommer', 'Sonnenbrille', 'Cool bleiben.'],
-    ['g:fish', 'Fisch', 'Geschenk für 10 richtige Antworten.'], ['g:mouse', 'Mäuschen', 'Geschenk für 20 richtige Antworten.']
-  ];
+    ['x:end']
+  ].filter(function (x) { return x[0] !== 'x:end'; }).concat(GIFTS.map(function (g, i) { return ['g:' + g.id, g.name, 'Geschenk Nr. ' + (i + 1) + ' vom Kätzchen.']; }));
   /* Zusatzzeichnungen je Sticker, im Koordinatensystem des Kopfes (viewBox 30 0 140 150) */
   var PROPS = {
     'a:wave': { svg: '<ellipse cx="162" cy="72" rx="9" ry="14" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3" transform="rotate(20 162 72)"/><path d="M174 52q8 6 6 16M176 44q12 8 10 24" fill="none" stroke="' + LINE + '" stroke-width="3" stroke-linecap="round"/>' },
@@ -701,12 +730,15 @@
     'a:sneeze': { cls: 'bk-happy', svg: '<circle cx="156" cy="100" r="5" fill="#8aa0a8"/><circle cx="170" cy="86" r="4" fill="#8aa0a8"/><circle cx="166" cy="112" r="3.5" fill="#8aa0a8"/>' },
     'a:stretch': { svg: '<ellipse cx="48" cy="26" rx="12" ry="17" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/><ellipse cx="152" cy="26" rx="12" ry="17" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/>' },
     's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
-    'g:fish': { svg: '<g transform="translate(96 112) scale(1.2)">' + FISH.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
-    'g:mouse': { svg: '<g transform="translate(96 112) scale(1.1)">' + MOUSE.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' }
+    'x:end': { svg: '' }
   };
   function stickerSvg(id) {
     var kind = id.split(':')[0], key = id.split(':')[1], pr = PROPS[id] || {};
     if (id === 's:hidden') return hidSvg(90);
+    if (kind === 'g') {
+      var gg = GIFTS.filter(function (x) { return x.id === key; })[0];
+      pr = { svg: '<g transform="translate(78 104) scale(1.45)">' + gg.svg.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' };
+    }
     var acc = kind === 'h' ? ' data-acc="' + key + '"' : '';
     var head = HEADG;
     return '<svg viewBox="10 -8 190 168" aria-hidden="true" class="' + (pr.cls || '') + '"' + acc + '><g transform="rotate(' + (pr.rot || 0) + ' 100 100)">' + head + '</g>' + (pr.svg || '') + '</svg>';
@@ -749,7 +781,7 @@
         '<b>' + (got ? s[1] : '???') + '</b><small>' + (got ? s[2] : 'Noch nicht entdeckt') + '</small></li>';
     }).join('');
     albumEl.innerHTML = '<div class="bk-album" role="dialog" aria-modal="true" aria-label="Kätzchen-Sammelalbum">' +
-      '<div class="bk-album-head"><div><h2>Sammelalbum</h2><p>' + n + ' von ' + STICKERS.length + ' Stickern gesammelt. Das Kätzchen hat noch mehr Überraschungen auf Lager.</p></div>' +
+      '<div class="bk-album-head"><div><h2>Sammelalbum</h2><p>' + n + ' von ' + STICKERS.length + ' Stickern gesammelt. Geschenke gibt es für richtige Antworten im ersten Versuch (bisher ' + (mem.correct || 0) + ').</p></div>' +
       '<button type="button" class="bk-album-close">Schließen</button></div><ul class="bk-grid">' + items + '</ul></div>';
     document.body.appendChild(albumEl);
     var close = albumEl.querySelector('.bk-album-close');
@@ -768,20 +800,27 @@
     albumEl.addEventListener('click', function (e) { if (e.target === albumEl) closeAlbum(); });
   }
 
-  /* ---------- Geschenke ---------- */
-  function gift(n) {
-    var fish = (n / 10) % 2 === 1;
+  /* ---------- Geschenk-Besuch ---------- */
+  function gift() {
+    var n = mem.correct || 0;
+    var idx = mem.giftN < GIFTS.length ? mem.giftN : Math.floor(Math.random() * GIFTS.length);
+    var g = GIFTS[idx];
+    mem.giftN = (mem.giftN || 0) + 1;
+    mem.giftNext = n + nextGap(mem.giftN);
+    persist();
+    unlock('g:' + g.id);
     var t = ++tok; busy = true; visible = true; clearTimeout(timer);
     (async function () {
       place(pick(['bottom', 'left', 'right'])); clearActions();
       wrap.classList.add('bk-on', 'bk-live'); wrap.tabIndex = 0;
       stage('up'); wrap.classList.add('bk-happy'); peek.classList.add('bk-a-happy');
       if (!await sleep(550, t)) return;
-      addFx(fish ? FISH : MOUSE, 'bk-gift', '', 5200);
+      seenAcc();
+      var w = g.w || 52;
+      addFx(g.svg, 'bk-gift', 'width:' + w + '%;left:' + ((100 - w) / 2) + '%', 5600);
       trill(); hearts(3); sparks(5);
-      showBubble(n + ' richtige Antworten! Das ist für Dich: ' + (fish ? 'ein Fisch!' : 'ein Mäuschen!'), 4200);
-      unlock(fish ? 'g:fish' : 'g:mouse');
-      if (!await sleep(4600, t)) return;
+      showBubble((n === 1 ? 'Deine erste richtige Antwort! ' : n + ' richtige Antworten! ') + g.line, 4600);
+      if (!await sleep(5000, t)) return;
       await leave(t);
     })();
   }
@@ -844,7 +883,7 @@
       var t = ++tok; busy = true; visible = true; clearTimeout(timer);
       (async function () {
         place(pick(['bottom', 'left', 'right'])); clearActions(); wrap.classList.add('bk-on', 'bk-live', 'bk-happy'); wrap.tabIndex = 0;
-        stage('up'); peek.classList.add('bk-a-happy');
+        stage('up'); peek.classList.add('bk-a-happy'); seenAcc();
         hearts(4); sparks(5);
         if (!await sleep(500, t)) return; showBubble(msg);
         if (!await sleep(3200, t)) return; await leave(t);
@@ -858,7 +897,7 @@
       (async function () {
         place(pick(['bottom', 'left', 'right'])); clearActions(); wrap.classList.add('bk-on', 'bk-live'); wrap.tabIndex = 0;
         stage('sneak'); if (!await sleep(500, t)) return;
-        stage('up'); act('tilt');
+        stage('up'); act('tilt'); seenAcc();
         if (!await sleep(600, t)) return; showBubble(msg);
         if (!await sleep(3400, t)) return; await leave(t);
       })();
@@ -888,8 +927,10 @@
       var d = (e && e.detail) || {};
       if (mem.off) return;
       if (d.correct) {
-        if (d.counted !== false) { mem.correct = (mem.correct || 0) + 1; persist(); }
-        if (d.counted !== false && mem.correct % 10 === 0) { gift(mem.correct); return; }
+        if (d.counted !== false) {
+          mem.correct = (mem.correct || 0) + 1; persist();
+          if (mem.correct >= mem.giftNext) { gift(); return; }
+        }
         api.cheer();
       } else api.comfort();
     });
