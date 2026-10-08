@@ -9,7 +9,7 @@
 .t-emma23-hl { stroke: var(--accent); stroke-opacity: 0.4; stroke-width: 40; stroke-linecap: round; }
 .t-emma23-arrow { fill: var(--accent); stroke: var(--surface); stroke-width: 5; stroke-linejoin: round; }
 .t-emma23-chip rect { fill: var(--surface); stroke: var(--line); stroke-width: 4; }
-.t-emma23-chip text { fill: var(--ink); font: 700 62px var(--font-body); }
+.t-emma23-chip text { fill: var(--ink); font: 700 74px var(--font-body); }
 .t-emma23-chip.used rect { fill: var(--surface2); stroke: var(--accent); }
 .t-emma23-node { cursor: default; outline: none; }
 .t-emma23-node .t-emma23-disc { fill: var(--paper); stroke: var(--line); stroke-width: 6; }

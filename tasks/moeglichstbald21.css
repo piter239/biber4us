@@ -1,0 +1,72 @@
+/* Stile für moeglichstbald21 (Präfix t-moeglichstbald21-). Die Karte ist eine Zeichnung und bleibt in Hell und Dunkel hell. */
+.t-moeglichstbald21-board {
+  --mb-grass: #eaf9e1; --mb-water: #39d8f8; --mb-wave: #1b6fa8; --mb-line: #8a9a8a;
+  display: grid; gap: 1.2rem;
+}
+.t-moeglichstbald21-speed { border-collapse: collapse; margin: 0.4rem 0; max-width: 100%; }
+.t-moeglichstbald21-speed th, .t-moeglichstbald21-speed td { border: 1px solid var(--line); padding: 0.35rem 0.8rem; text-align: center; }
+.t-moeglichstbald21-speed th { background: var(--band); }
+.t-moeglichstbald21-map { display: grid; grid-template-columns: minmax(0, 40rem) minmax(0, 1fr); gap: 1rem 1.4rem; align-items: start; }
+.t-moeglichstbald21-area { min-width: 0; border-radius: 6px; }
+.t-moeglichstbald21-area:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.t-moeglichstbald21-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 1px; background: var(--mb-line); border: 1px solid var(--mb-line); }
+.t-moeglichstbald21-cell, .t-moeglichstbald21-water {
+  appearance: none; position: relative; aspect-ratio: 67.5 / 72.3; min-width: 0; padding: 0; margin: 0; border: 0; border-radius: 0;
+  display: grid; place-items: center; background: var(--mb-grass); font: inherit; overflow: hidden;
+}
+.t-moeglichstbald21-cell { cursor: pointer; touch-action: manipulation; }
+.t-moeglichstbald21-cell:hover:not(:disabled) { background: color-mix(in srgb, var(--mb-grass) 80%, var(--mb-water)); }
+.t-moeglichstbald21-cell:disabled { cursor: default; }
+.t-moeglichstbald21-cell:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
+.t-moeglichstbald21-cell.trail-g { background: color-mix(in srgb, var(--c1) 30%, var(--mb-grass)); }
+.t-moeglichstbald21-cell.trail-b { background: color-mix(in srgb, var(--c4) 30%, var(--mb-grass)); }
+.t-moeglichstbald21-cell.trail-g.trail-b { background: color-mix(in srgb, var(--c5) 35%, var(--mb-grass)); }
+.t-moeglichstbald21-water { background: var(--mb-water); color: var(--mb-wave); }
+.t-moeglichstbald21-water svg { width: 55%; height: 55%; }
+.t-moeglichstbald21-veh, .t-moeglichstbald21-face { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; }
+.t-moeglichstbald21-me, .t-moeglichstbald21-start { position: absolute; inset: 0; display: block; }
+.t-moeglichstbald21-me { background: var(--mb-grass); box-shadow: inset 0 0 0 3px var(--c1); }
+.t-moeglichstbald21-me-b { box-shadow: inset 0 0 0 3px var(--c4); }
+.t-moeglichstbald21-start { opacity: 0.35; }
+.t-moeglichstbald21-ctrl { display: grid; gap: 0.5rem; align-content: start; min-width: 0; }
+.t-moeglichstbald21-whos { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-moeglichstbald21-who {
+  appearance: none; display: flex; align-items: center; gap: 0.5rem; min-height: 2.8rem; padding: 0.2rem 0.8rem 0.2rem 0.3rem; font: inherit; font-weight: 600; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 3px solid var(--line); border-radius: 999px;
+}
+.t-moeglichstbald21-who img { width: 2rem; height: 2.15rem; object-fit: contain; border-radius: 50%; background: var(--mb-grass); }
+.t-moeglichstbald21-who-g.on { border-color: var(--c1); background: color-mix(in srgb, var(--c1) 14%, var(--surface)); }
+.t-moeglichstbald21-who-b.on { border-color: var(--c4); background: color-mix(in srgb, var(--c4) 14%, var(--surface)); }
+.t-moeglichstbald21-who:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-moeglichstbald21-who:disabled { cursor: default; }
+.t-moeglichstbald21-info, .t-moeglichstbald21-msg { margin: 0; }
+.t-moeglichstbald21-info { font-weight: 600; font-size: 0.95rem; }
+.t-moeglichstbald21-msg { min-height: 3.6em; font-size: 0.95rem; color: var(--muted); }
+.t-moeglichstbald21-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-moeglichstbald21-btn { min-height: 2.5rem; padding-block: 0.3rem; }
+.t-moeglichstbald21-opts { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.6rem; max-width: 46rem; }
+.t-moeglichstbald21-opt {
+  appearance: none; position: relative; display: grid; gap: 0.1rem; justify-items: center; padding: 0.5rem 0.3rem; min-width: 0; min-height: 3.4rem; font: inherit; font-weight: 700; font-size: 0.95rem;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation;
+}
+.t-moeglichstbald21-key { font-family: var(--font-display); font-size: 1.05rem; }
+.t-moeglichstbald21-opt:hover { border-color: var(--accent); }
+.t-moeglichstbald21-opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-moeglichstbald21-opt[aria-disabled="true"] { cursor: default; }
+.t-moeglichstbald21-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-moeglichstbald21-opt.selected, .t-moeglichstbald21-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-moeglichstbald21-opt.right, .t-moeglichstbald21-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-moeglichstbald21-opt.wrong, .t-moeglichstbald21-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-moeglichstbald21-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-moeglichstbald21-opt.wrong .t-moeglichstbald21-mark { background: var(--bad); }
+@media (max-width: 52rem) {
+  .t-moeglichstbald21-map { grid-template-columns: minmax(0, 1fr); }
+  .t-moeglichstbald21-msg { min-height: 0; }
+}
+@media (max-width: 36rem) {
+  .t-moeglichstbald21-opts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .t-moeglichstbald21-speed th, .t-moeglichstbald21-speed td { padding: 0.3rem 0.4rem; font-size: 0.9rem; }
+}

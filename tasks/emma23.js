@@ -81,7 +81,7 @@
       });
       var mx = (l.x1 + l.x2) / 2, my = (l.y1 + l.y2) / 2;
       gChips.appendChild(svg('g', { class: P + 'chip' + (u ? ' used' : ''), transform: 'translate(' + mx + ' ' + my + ')' },
-        svg('rect', { x: -48, y: -42, width: 96, height: 84, rx: 22 }),
+        svg('rect', { x: -56, y: -48, width: 112, height: 96, rx: 24 }),
         svg('text', { x: 0, y: 2, 'text-anchor': 'middle', 'dominant-baseline': 'central' }, String(e[2]))));
     });
 

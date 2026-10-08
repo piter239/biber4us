@@ -43,6 +43,7 @@
 }
 .t-umstapeln24-opt.wrong .t-umstapeln24-mark { background: var(--bad); }
 @media (max-width: 34rem) {
-  .t-umstapeln24-sim .t-umstapeln24-pair { grid-template-columns: minmax(0, 1fr); }
+  .t-umstapeln24-pair { grid-template-columns: minmax(0, 1fr); }
+  .t-umstapeln24-pair > figure > .t-umstapeln24-stack { max-width: 17rem; }
   .t-umstapeln24-host { max-width: 17rem; }
 }
