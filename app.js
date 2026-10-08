@@ -4,7 +4,7 @@
   var TASKS = window.BIBER_TASKS;
   var SCORING = window.BIBER_SCORING;
   var B = window.Biber;
-  var GROUPS = ['3-4', '5-6'];
+  var GROUPS = ['3-4', '5-6', '7-8', '9-10', '11-13'];
   var LEVEL_RANK = { einfach: 0, mittel: 1, schwer: 2 };
   var STORE_KEY = 'biber2025.v3';
   var app = document.getElementById('app');
@@ -98,7 +98,7 @@
     var later = '';
     if (!alle) {
       var rest = TASKS.filter(function (t) { return !t.groups; });
-      later = '<details class="later"><summary>Ab Klasse 7 · ' + rest.length + ' weitere Aufgaben (noch nicht umgesetzt)</summary><ol class="tasklist">' +
+      if (rest.length) later = '<details class="later"><summary>Ab Klasse 7 · ' + rest.length + ' weitere Aufgaben (noch nicht umgesetzt)</summary><ol class="tasklist">' +
         rest.map(function (t) {
           return '<li><div class="task-row soon"><span class="rank num">·</span><span class="t-title">' + t.title +
             '</span><span class="t-topic">' + t.topic + '</span><span class="t-state"><span class="num">Heft S. ' + t.page + '</span></span></div></li>';
