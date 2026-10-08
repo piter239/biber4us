@@ -7,12 +7,12 @@
 .t-baumtouren24-tname { flex: 0 0 3.6rem; font-weight: 700; font-size: 0.9rem; }
 .t-baumtouren24-lt { font: 800 1.2rem/1 var(--font-body); }
 .t-baumtouren24-timg { height: 2.6rem; width: auto; max-width: 2.4rem; object-fit: contain; flex: 0 1 auto; margin-inline: auto; }
-.t-baumtouren24-img { display: block; height: 100%; width: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-baumtouren24-img { position: absolute; inset: 0.25rem; display: block; height: calc(100% - 0.5rem); width: calc(100% - 0.5rem); object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 .t-baumtouren24-pool { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.4rem; }
 .t-baumtouren24-gap { aspect-ratio: 3 / 4; border-radius: 10px; background: var(--surface2); }
 .t-baumtouren24-tree {
   appearance: none; aspect-ratio: 3 / 4; padding: 0.25rem; border: 3px solid transparent; background: var(--paper); border-radius: 10px; cursor: pointer;
-  touch-action: manipulation; box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); min-width: 0;
+  touch-action: manipulation; box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); min-width: 0; position: relative;
 }
 .t-baumtouren24-tree:hover:not(:disabled), .t-baumtouren24-tree:focus-visible { border-color: var(--accent); }
 .t-baumtouren24-tree:disabled { cursor: default; }

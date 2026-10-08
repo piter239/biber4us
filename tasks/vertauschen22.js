@@ -175,7 +175,7 @@
     setAnswer: function (ans) {
       slots = (ans || [null, null, null]).slice();
       selected = null;
-      mode = same(slots, RIGHT) ? 'solution' : 'check';
+      mode = 'check';
       render();
     },
     lock: function (on) {

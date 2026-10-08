@@ -10,6 +10,7 @@
 .t-saegerei23-gaplbl { fill: var(--ink); font-size: 12px; font-weight: 700; font-family: var(--font-body); }
 .t-saegerei23-wood rect, .t-saegerei23-logsvg rect { stroke-width: 2; }
 .t-saegerei23-wood text, .t-saegerei23-logsvg text { font-size: 13px; font-weight: 800; font-family: var(--font-body); }
+.t-saegerei23-wood.t-saegerei23-sm text { font-size: 10px; }
 .t-saegerei23-fix rect { fill: #6b4527; stroke: #3d2713; }
 .t-saegerei23-fix text { fill: #fff6e6; }
 .t-saegerei23-fix .t-saegerei23-ring { fill: #8d6238; stroke: #3d2713; stroke-width: 1.5; }

@@ -1,7 +1,7 @@
 /* Stile für malerei23 (Präfix t-malerei23-). Die Bilder behalten ihre Farben (Türkis/Mint) in Hell und Dunkel. */
 .t-malerei23-fig { margin: 0.4rem 0 0.8rem; }
-.t-malerei23-fig img { display: block; max-width: 100%; height: auto; border-radius: 6px; }
-.t-malerei23-fig2 img { max-width: min(100%, 20rem); }
+.t-malerei23-fig img { display: block; max-width: min(100%, 34rem); height: auto; }
+.t-malerei23-fig2 img { max-width: min(100%, 26rem); }
 
 .t-malerei23-board { display: grid; gap: 1.2rem; max-width: 40rem; margin: 0 auto; min-width: 0; }
 .t-malerei23-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: 0.8rem; }

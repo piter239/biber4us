@@ -1,0 +1,35 @@
+/* Aufgabe Clans von Beavaria (Heft 2021): Häuser mit festen Zeichenfarben auf hellem Papier */
+.t-clans21-wrap { display: grid; gap: 1.2rem; min-width: 0; }
+.t-clans21-wrap > section { min-width: 0; display: grid; gap: 0.6rem; }
+.t-clans21-wrap h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0; }
+.t-clans21-board { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
+.t-clans21-clan {
+  appearance: none; position: relative; margin: 0; padding: 0.35rem 0.4rem 1.2rem; background: var(--paper); border: 3px solid var(--line); border-radius: 12px; cursor: pointer;
+  min-width: 3.4rem; max-width: 100%; touch-action: manipulation; box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+}
+.t-clans21-clan:disabled { cursor: default; }
+.t-clans21-clan:not(:disabled):hover { border-color: var(--accent); }
+.t-clans21-clan.sel { border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-clans21-clan:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-clans21-houses { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 0.1rem; max-width: 12.5rem; }
+.t-clans21-house { width: 2.2rem; height: auto; display: block; }
+.t-clans21-cnt {
+  position: absolute; left: 50%; bottom: 0.15rem; transform: translateX(-50%); min-width: 1.5rem; height: 1.3rem; padding: 0 0.35rem; border-radius: 999px;
+  background: #1d2a2e; color: #fff; font: 800 0.85rem/1.3rem var(--font-body); text-align: center;
+}
+.t-clans21-hint { text-align: center; font-size: 0.97rem; min-height: 1.5em; }
+.t-clans21-ctl { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.5rem 0.8rem; }
+.t-clans21-total { font-weight: 800; min-width: 9rem; text-align: center; font-variant-numeric: tabular-nums; }
+.t-clans21-log { margin: 0; padding-left: 1.4rem; font-size: 0.93rem; color: var(--muted); }
+.t-clans21-log:empty { display: none; }
+.t-clans21-opts { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.t-clans21-opt { display: block; position: relative; cursor: pointer; flex: 1 1 8rem; min-width: 0; }
+.t-clans21-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-clans21-card { display: flex; gap: 0.4rem; align-items: center; justify-content: center; padding: 0.7rem 0.6rem; border: 3px solid var(--line); border-radius: 10px; background: var(--surface); height: 100%; box-sizing: border-box; font-size: 1.05rem; }
+.t-clans21-opt input:checked + .t-clans21-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-clans21-opt input:focus-visible + .t-clans21-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-clans21-opt input:disabled { cursor: default; }
+.t-clans21-opt.right .t-clans21-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-clans21-opt.wrong .t-clans21-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-clans21-opt.right .t-clans21-mark { color: var(--ok); }
+.t-clans21-opt.wrong .t-clans21-mark { color: var(--bad); }

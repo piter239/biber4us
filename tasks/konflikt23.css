@@ -31,3 +31,5 @@
 .t-konflikt23-tab th { color: var(--muted); font-weight: 700; }
 .t-konflikt23-tab tr.ok td:last-child { color: var(--ok); font-weight: 800; }
 .t-konflikt23-tab tr.bad td:last-child { color: var(--bad); font-weight: 800; }
+circle.t-konflikt23-sg.plus { fill: var(--ok-bg); stroke: var(--ok); stroke-dasharray: none; }
+circle.t-konflikt23-sg.minus { fill: var(--bad-bg); stroke: var(--bad); stroke-dasharray: none; }

@@ -53,5 +53,6 @@
 
 @media (max-width: 44rem) {
   .t-pip24-board { grid-template-columns: minmax(0, 1fr); }
+  .t-pip24-ans { order: -1; }
   .t-pip24-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

@@ -12,8 +12,8 @@
 }
 .t-mariaskiste22-sym { width: 24px; height: 24px; fill: #111; display: block; }
 .t-mariaskiste22-big { padding: 6px 12px; gap: 5px; border-radius: 8px; }
-.t-mariaskiste22-big .t-mariaskiste22-wheel { width: 48px; height: 56px; }
-.t-mariaskiste22-big .t-mariaskiste22-sym { width: 34px; height: 34px; }
+.t-mariaskiste22-big .t-mariaskiste22-wheel { width: 42px; height: 50px; }
+.t-mariaskiste22-big .t-mariaskiste22-sym { width: 30px; height: 30px; }
 
 .t-mariaskiste22-clues { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
 .t-mariaskiste22-clue {
@@ -68,6 +68,7 @@
   .t-mariaskiste22-wheel { width: 28px; height: 34px; }
   .t-mariaskiste22-sym { width: 20px; height: 20px; }
   .t-mariaskiste22-ct { font-size: 0.88rem; }
-  .t-mariaskiste22-big .t-mariaskiste22-wheel { width: 38px; height: 46px; }
-  .t-mariaskiste22-big .t-mariaskiste22-sym { width: 28px; height: 28px; }
+  .t-mariaskiste22-big { padding: 5px 8px; gap: 4px; }
+  .t-mariaskiste22-big .t-mariaskiste22-wheel { width: 36px; height: 44px; }
+  .t-mariaskiste22-big .t-mariaskiste22-sym { width: 26px; height: 26px; }
 }

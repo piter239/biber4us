@@ -1,0 +1,48 @@
+/* Stile für matrosenketten22 (Präfix t-matrosenketten22-). Perlen behalten ihre Farben in Hell und Dunkel. */
+.t-matrosenketten22-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: start; }
+.t-matrosenketten22-board > section { min-width: 0; }
+.t-matrosenketten22-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+
+.t-matrosenketten22-chain { display: block; width: 100%; height: auto; overflow: visible; }
+.t-matrosenketten22-cord { stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; }
+.t-matrosenketten22-blue { fill: #25b5ec; stroke: #0b6f9c; stroke-width: 1.4; }
+.t-matrosenketten22-shine { fill: #ffffff; opacity: 0.65; }
+.t-matrosenketten22-wave { fill: #fff3ef; stroke: #b98a86; stroke-width: 1.4; }
+.t-matrosenketten22-wl { fill: none; stroke: #d6322f; stroke-width: 1.7; stroke-linecap: round; }
+.t-matrosenketten22-ring { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-dasharray: 4 3; }
+
+.t-matrosenketten22-opts { display: grid; gap: 0.7rem; }
+.t-matrosenketten22-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 0.5rem; align-items: center; text-align: left;
+  padding: 0.55rem 0.8rem; background: var(--surface); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600; min-width: 0;
+}
+.t-matrosenketten22-opt:hover { border-color: var(--accent); }
+.t-matrosenketten22-opt[aria-disabled="true"] { cursor: default; }
+.t-matrosenketten22-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-matrosenketten22-opt.selected, .t-matrosenketten22-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.t-matrosenketten22-opt.right, .t-matrosenketten22-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-matrosenketten22-opt.wrong, .t-matrosenketten22-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-matrosenketten22-key { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+.t-matrosenketten22-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-matrosenketten22-opt.wrong .t-matrosenketten22-mark { background: var(--bad); }
+
+.t-matrosenketten22-shop { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.8rem 0.9rem 1rem; display: grid; gap: 0.6rem; }
+.t-matrosenketten22-shop h3 { margin-bottom: 0; }
+.t-matrosenketten22-wbchain { background: var(--surface); border-radius: 10px; padding: 0.5rem 0.6rem; min-height: 4.2rem; }
+.t-matrosenketten22-msg { font-size: 0.95rem; color: var(--ink); min-height: 2.9em; }
+.t-matrosenketten22-acts { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-matrosenketten22-act {
+  appearance: none; min-height: 2.75rem; padding: 0.4rem 0.9rem; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--accent); text-align: left;
+}
+.t-matrosenketten22-act:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-matrosenketten22-act:disabled { opacity: 0.4; cursor: not-allowed; border-color: var(--line); }
+.t-matrosenketten22-small { min-height: 2.4rem; padding-block: 0.3rem; }
+
+@media (max-width: 44rem) {
+  .t-matrosenketten22-board { grid-template-columns: minmax(0, 1fr); }
+}

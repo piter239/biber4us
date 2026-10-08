@@ -5,9 +5,9 @@
 .t-zerobots23-svg:focus-visible { border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 35%, transparent); }
 .t-zerobots23-svg.ok { border-color: var(--ok); }
 .t-zerobots23-svg.bad { border-color: var(--bad); }
-.t-zerobots23-cell { fill: var(--slot); stroke: var(--slot-line); stroke-width: 1.5; cursor: pointer; }
-.t-zerobots23-cell.base { fill: var(--surface2); stroke: var(--muted); }
-.t-zerobots23-cell.nb:hover { fill: color-mix(in srgb, var(--accent) 25%, var(--slot)); }
+.t-zerobots23-cell { fill: var(--surface2); stroke: var(--muted); stroke-opacity: 0.55; stroke-width: 1.5; cursor: pointer; }
+.t-zerobots23-cell.base { fill: color-mix(in srgb, var(--muted) 35%, var(--surface2)); }
+.t-zerobots23-cell.nb:hover { fill: color-mix(in srgb, var(--accent) 25%, var(--surface2)); }
 .t-zerobots23-trail { fill: none; stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .t-zerobots23-startdot { fill: var(--ink); opacity: 0.5; pointer-events: none; }
 .t-zerobots23-tower path { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }

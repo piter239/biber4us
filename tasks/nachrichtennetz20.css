@@ -1,0 +1,21 @@
+/* Stile für nachrichtennetz20 (Präfix t-nachrichtennetz20-) */
+.t-nachrichtennetz20-board { display: grid; gap: 0.7rem; max-width: 40rem; margin: 0 auto; min-width: 0; }
+.t-nachrichtennetz20-netbox { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem; }
+.t-nachrichtennetz20-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.t-nachrichtennetz20-edge { stroke: var(--muted); stroke-width: 7; stroke-linecap: round; opacity: 0.7; }
+.t-nachrichtennetz20-edge.used { stroke: var(--accent); stroke-width: 12; opacity: 1; }
+.t-nachrichtennetz20-node { cursor: pointer; outline: none; }
+.t-nachrichtennetz20-node[aria-disabled="true"] { cursor: default; }
+.t-nachrichtennetz20-disc { fill: var(--nc, var(--surface)); stroke: var(--ink); stroke-width: 5; transition: fill 0.2s; }
+.t-nachrichtennetz20-node:hover .t-nachrichtennetz20-disc { stroke: var(--accent); stroke-width: 8; }
+.t-nachrichtennetz20-node.sel .t-nachrichtennetz20-disc { stroke: var(--accent); stroke-width: 10; }
+.t-nachrichtennetz20-node.right .t-nachrichtennetz20-disc { stroke: var(--ok); }
+.t-nachrichtennetz20-node.wrong .t-nachrichtennetz20-disc { stroke: var(--bad); }
+.t-nachrichtennetz20-node:focus-visible .t-nachrichtennetz20-disc { stroke: var(--focus); stroke-width: 10; stroke-dasharray: 14 8; }
+.t-nachrichtennetz20-let { fill: var(--ink); font: 700 44px var(--font-display); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.t-nachrichtennetz20-node.got .t-nachrichtennetz20-let { fill: #14222a; }
+.t-nachrichtennetz20-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; margin: 0; font-size: 0.85rem; color: var(--muted); }
+.t-nachrichtennetz20-legend i { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 50%; border: 2px solid var(--ink); margin-right: 0.3rem; vertical-align: -0.1rem; }
+.t-nachrichtennetz20-status { margin: 0; min-height: 3em; font-size: 0.97rem; }
+.t-nachrichtennetz20-ctl { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-nachrichtennetz20-btn { min-height: 2.6rem; }

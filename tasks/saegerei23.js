@@ -51,7 +51,7 @@
           '<text class="' + P + 'gaplbl" x="' + cx + '" y="68" text-anchor="middle">' + s.len + ' m</text>';
       } else {
         var cls = s.t === 'f' ? 'fix' : 'new';
-        out += '<g class="' + P + 'wood ' + P + cls + '"><rect x="' + (x + 1) + '" y="19" width="' + (w - 2) + '" height="36" rx="8"/>' +
+        out += '<g class="' + P + 'wood ' + P + cls + (w < 30 ? ' ' + P + 'sm' : '') + '"><rect x="' + (x + 1) + '" y="19" width="' + (w - 2) + '" height="36" rx="8"/>' +
           (w > 30 ? '<ellipse class="' + P + 'ring" cx="' + (x + 11) + '" cy="37" rx="5" ry="12"/>' : '') +
           '<text x="' + (w > 30 ? cx + 5 : cx) + '" y="42" text-anchor="middle">' + s.len + ' m</text></g>';
       }

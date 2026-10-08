@@ -148,7 +148,7 @@
     evaluate: function () { return { correct: chosen === RIGHT, answer: chosen }; },
     setAnswer: function (ans) {
       chosen = typeof ans === 'number' ? ans : null;
-      mode = chosen === RIGHT ? 'solution' : 'check';
+      mode = 'check';
       render();
     },
     lock: function (on) {

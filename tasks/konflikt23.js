@@ -64,14 +64,21 @@
   })();
 
   function smallFigure() {
-    return '<svg class="t-konflikt23-mini" viewBox="0 0 200 110" role="img" aria-label="Erste Maschine: Einheit A sendet über ein positives Kabel (+) an Z, Einheit B über ein negatives Kabel (−) an Z.">' +
-      '<defs><marker id="t-konflikt23-arr0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="t-konflikt23-ah" d="M1 1L9 5L1 9Z"/></marker></defs>' +
-            '<line class="t-konflikt23-line" x1="44" y1="30" x2="146" y2="62" marker-end="url(#t-konflikt23-arr0)"/>' +
-      '<line class="t-konflikt23-line" x1="44" y1="82" x2="146" y2="52" marker-end="url(#t-konflikt23-arr0)"/>' +
-      '<circle class="t-konflikt23-unit" cx="24" cy="26" r="20"/><circle class="t-konflikt23-unit" cx="24" cy="86" r="20"/><circle class="t-konflikt23-unit" cx="164" cy="56" r="20"/>' +
-      '<text class="t-konflikt23-ut" x="24" y="32" text-anchor="middle">A</text><text class="t-konflikt23-ut" x="24" y="92" text-anchor="middle">B</text><text class="t-konflikt23-ut" x="164" y="62" text-anchor="middle">Z</text>' +
-      '<circle class="t-konflikt23-sg" cx="94" cy="47" r="10"/><circle class="t-konflikt23-sg" cx="94" cy="68" r="10"/>' +
-      '<text class="t-konflikt23-st plus" x="94" y="53" text-anchor="middle">+</text><text class="t-konflikt23-st minus" x="94" y="74" text-anchor="middle">−</text></svg>';
+    var P = { A: [26, 26], B: [26, 90], Z: [172, 58] }, r = 20;
+    function edge(f, t) {
+      var dx = P[t][0] - P[f][0], dy = P[t][1] - P[f][1], d = Math.sqrt(dx * dx + dy * dy);
+      return [P[f][0] + dx / d * r, P[f][1] + dy / d * r, P[t][0] - dx / d * (r + 3), P[t][1] - dy / d * (r + 3), (P[f][0] + P[t][0]) / 2, (P[f][1] + P[t][1]) / 2];
+    }
+    var ea = edge('A', 'Z'), eb = edge('B', 'Z');
+    function line(e) { return '<line class="t-konflikt23-line act" x1="' + e[0].toFixed(1) + '" y1="' + e[1].toFixed(1) + '" x2="' + e[2].toFixed(1) + '" y2="' + e[3].toFixed(1) + '" marker-end="url(#t-konflikt23-arr0)"/>'; }
+    function unit(k) { return '<circle class="t-konflikt23-unit" cx="' + P[k][0] + '" cy="' + P[k][1] + '" r="' + r + '"/><text class="t-konflikt23-ut" x="' + P[k][0] + '" y="' + (P[k][1] + 7) + '" text-anchor="middle">' + k + '</text>'; }
+    function sign(e, plus) {
+      return '<circle class="t-konflikt23-sg ' + (plus ? 'plus' : 'minus') + '" cx="' + e[4].toFixed(1) + '" cy="' + e[5].toFixed(1) + '" r="11"/>' +
+        '<text class="t-konflikt23-st ' + (plus ? 'plus' : 'minus') + '" x="' + e[4].toFixed(1) + '" y="' + (e[5] + 7).toFixed(1) + '" text-anchor="middle">' + (plus ? '+' : '−') + '</text>';
+    }
+    return '<svg class="t-konflikt23-mini" viewBox="0 0 200 116" role="img" aria-label="Erste Maschine: Einheit A sendet über ein positives Kabel (+) an Z, Einheit B über ein negatives Kabel (−) an Z.">' +
+      '<defs><marker id="t-konflikt23-arr0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="t-konflikt23-ah" d="M1 1L9 5L1 9Z"/></marker></defs>' +
+      line(ea) + line(eb) + unit('A') + unit('B') + unit('Z') + sign(ea, true) + sign(eb, false) + '</svg>';
   }
 
   var el, api, locked, cfg, inp, mode, svg, statusEl;
