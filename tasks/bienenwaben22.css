@@ -1,0 +1,56 @@
+/* Aufgabe Bienenwaben (2022) */
+.t-bienenwaben22-root {
+  --bw-wax: #ffb800; --bw-cell: #fff1b0; --bw-edge: #f59a00; --bw-body: #8f5a2c; --bw-yel: #ffcd2e; --bw-wing: #a5e8e0; --bw-dark: #fdb95a;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.6rem; min-width: 0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .t-bienenwaben22-root { --bw-cell: #5a4a14; --bw-wax: #c98e00; --bw-edge: #e0a21a; --bw-dark: #d98a1c; }
+}
+:root[data-theme="dark"] .t-bienenwaben22-root { --bw-cell: #5a4a14; --bw-wax: #c98e00; --bw-edge: #e0a21a; --bw-dark: #d98a1c; }
+.t-bienenwaben22-board { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; justify-items: center; min-width: 0; }
+.t-bienenwaben22-comb-svg { display: block; width: min(100%, 15rem); height: auto; overflow: visible; touch-action: manipulation; }
+.t-bienenwaben22-comb { cursor: pointer; outline: none; }
+.t-bienenwaben22-cell { fill: var(--bw-cell); stroke: var(--bw-edge); stroke-width: 4; stroke-linejoin: round; paint-order: stroke; }
+.t-bienenwaben22-comb:hover .t-bienenwaben22-cell { fill: color-mix(in srgb, var(--accent) 22%, var(--bw-cell)); }
+.t-bienenwaben22-comb.over .t-bienenwaben22-cell { fill: color-mix(in srgb, var(--accent) 35%, var(--bw-cell)); stroke: var(--accent); }
+.t-bienenwaben22-comb:focus-visible .t-bienenwaben22-cell { stroke: var(--focus); stroke-width: 6; }
+.t-bienenwaben22-comb.right .t-bienenwaben22-cell { stroke: var(--ok); stroke-width: 5; }
+.t-bienenwaben22-comb.wrong .t-bienenwaben22-cell { stroke: var(--bad); stroke-width: 5; }
+.t-bienenwaben22-mark.ok { fill: var(--ok); }
+.t-bienenwaben22-mark.bad { fill: var(--bad); }
+.t-bienenwaben22-marktxt { fill: #fff; font: 800 11px var(--font-body); pointer-events: none; }
+.t-bienenwaben22-inbee { cursor: grab; touch-action: none; }
+.t-bienenwaben22-tray { display: grid; grid-template-columns: repeat(auto-fill, minmax(4.3rem, 1fr)); gap: 0.7rem 0.4rem; width: 100%; max-width: 38rem; padding: 0.5rem; border-radius: 10px; background: var(--surface2); }
+.t-bienenwaben22-tray.canreturn { outline: 3px dashed var(--accent); outline-offset: -3px; }
+.t-bienenwaben22-slot { display: grid; justify-items: center; gap: 0.3rem; min-width: 0; }
+.t-bienenwaben22-tb, .t-bienenwaben22-gone {
+  position: relative; appearance: none; width: 100%; max-width: 4.6rem; aspect-ratio: 1.1547 / 1; padding: 0; border: 0; color: var(--ink);
+  background: var(--bw-edge); clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  display: grid; place-items: center;
+}
+.t-bienenwaben22-tb::before, .t-bienenwaben22-gone::before {
+  content: ''; position: absolute; inset: 3px; background: var(--bw-cell); clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+}
+.t-bienenwaben22-tb { cursor: grab; touch-action: none; }
+.t-bienenwaben22-tb:disabled { cursor: default; }
+.t-bienenwaben22-tb.selected { background: var(--accent); }
+.t-bienenwaben22-tb:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; clip-path: none; }
+.t-bienenwaben22-tb svg { position: relative; width: 78%; height: auto; aspect-ratio: 1; pointer-events: none; }
+.t-bienenwaben22-no { position: absolute; left: 22%; top: 8%; font: 800 0.72rem var(--font-body); color: var(--muted); z-index: 1; }
+.t-bienenwaben22-gone { opacity: 0.45; background: var(--slot-line); }
+.t-bienenwaben22-gone::before { background: var(--slot); }
+.t-bienenwaben22-gone span { position: relative; font: 800 1rem var(--font-body); }
+.t-bienenwaben22-bee { display: block; }
+.t-bienenwaben22-body { fill: var(--bw-body); }
+.t-bienenwaben22-yel { fill: var(--bw-yel); }
+.t-bienenwaben22-wing { fill: var(--bw-wing); stroke: rgb(0 0 0 / 0.15); stroke-width: 0.8; }
+.t-bienenwaben22-thorax { fill: #c9853c; }
+.t-bienenwaben22-head { fill: var(--bw-body); }
+.t-bienenwaben22-ant, .t-bienenwaben22-leg { fill: none; stroke: #2b1a0c; stroke-width: 2.4; stroke-linecap: round; }
+.t-bienenwaben22-leg { stroke: var(--bw-body); stroke-width: 3; }
+.t-bienenwaben22-hint { display: block; width: 100%; max-width: 4.2rem; height: auto; }
+.t-bienenwaben22-hx.light { fill: var(--bw-cell); stroke: var(--bw-edge); stroke-width: 1.2; }
+.t-bienenwaben22-hx.dark { fill: var(--bw-dark); stroke: var(--bw-edge); stroke-width: 1.2; }
+.t-bienenwaben22-status { margin: 0; min-height: 1.2em; color: var(--muted); font-size: 0.95rem; }
+.t-bienenwaben22-ghost { --bw-body: #8f5a2c; --bw-yel: #ffcd2e; --bw-wing: #a5e8e0; position: fixed; z-index: 1000; width: 4rem; height: 4rem; margin: -2rem 0 0 -2rem; pointer-events: none; filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.35)); }
+.t-bienenwaben22-ghost svg { width: 100%; height: 100%; }

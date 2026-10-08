@@ -1,0 +1,35 @@
+/* Stile für linksrechts20 (Präfix t-linksrechts20-). Chips behalten ihre Farben in Hell und Dunkel. */
+.t-linksrechts20-board { display: grid; gap: 0.6rem; }
+.t-linksrechts20-box-wrap { min-width: 0; max-width: 100%; }
+.t-linksrechts20-svghost { background: color-mix(in srgb, var(--c6) 16%, var(--surface)); border: 1px solid var(--line); border-radius: 14px; padding: 0.5rem; }
+.t-linksrechts20-tree { display: block; width: 100%; height: auto; overflow: visible; }
+.t-linksrechts20-tree.t-linksrechts20-o-h { max-width: 24rem; margin-inline: auto; }
+
+.t-linksrechts20-edge { fill: none; stroke: var(--muted); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; opacity: 0.75; }
+.t-linksrechts20-edge.t-linksrechts20-on { stroke: var(--accent); opacity: 1; }
+.t-linksrechts20-edge.t-linksrechts20-sol { stroke: var(--ok); }
+
+.t-linksrechts20-depot { cursor: pointer; outline: none; }
+.t-linksrechts20-depot[aria-disabled="true"] { cursor: default; }
+.t-linksrechts20-box { fill: var(--paper); stroke: var(--slot-line); stroke-width: 3; }
+.t-linksrechts20-depot:not([aria-disabled="true"]):hover .t-linksrechts20-box { stroke: var(--accent); }
+.t-linksrechts20-depot.selected .t-linksrechts20-box { stroke: var(--accent); stroke-width: 6; fill: color-mix(in srgb, var(--accent) 16%, var(--paper)); }
+.t-linksrechts20-depot.t-linksrechts20-right .t-linksrechts20-box { stroke: var(--ok); }
+.t-linksrechts20-depot.t-linksrechts20-wrong .t-linksrechts20-box { stroke: var(--bad); }
+.t-linksrechts20-depot:focus-visible .t-linksrechts20-box { stroke: var(--focus); stroke-width: 6; stroke-dasharray: 10 6; }
+.t-linksrechts20-chip { stroke: #222; stroke-opacity: 0.7; stroke-width: 1.5; }
+.t-linksrechts20-shine { fill: none; stroke: #fff; stroke-opacity: 0.55; stroke-width: 2; stroke-linecap: round; }
+.t-linksrechts20-mark circle { fill: var(--ok); }
+.t-linksrechts20-mark.t-linksrechts20-m-bad circle { fill: var(--bad); }
+.t-linksrechts20-mark text { fill: #fff; font-weight: 800; font-size: 17px; }
+
+.t-linksrechts20-node circle { fill: var(--surface); stroke-width: 5; }
+.t-linksrechts20-node.t-linksrechts20-alice circle { stroke: var(--c1); }
+.t-linksrechts20-node.t-linksrechts20-bob circle { stroke: var(--c4); }
+.t-linksrechts20-node text { fill: var(--ink); font-family: var(--font-display); font-weight: 800; font-size: 19px; }
+.t-linksrechts20-pawn path, .t-linksrechts20-pawn circle { fill: var(--c4); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.t-linksrechts20-pawn .t-linksrechts20-pawn-sh { fill: rgb(0 0 0 / 0.25); stroke: none; }
+
+.t-linksrechts20-legend { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.t-linksrechts20-lg { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--surface); border: 3px solid var(--c1); color: var(--ink); font-weight: 800; font-size: 0.8rem; vertical-align: middle; margin-right: 0.15rem; }
+.t-linksrechts20-lg.t-linksrechts20-bob { border-color: var(--c4); }

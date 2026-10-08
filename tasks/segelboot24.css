@@ -1,0 +1,18 @@
+/* Aufgabe Segelboot (Biber 2024) */
+.t-segelboot24-board { max-width: 30rem; margin: 0 auto; }
+.t-segelboot24-svg { display: block; width: 100%; height: auto; overflow: visible; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.t-segelboot24-edge { stroke: var(--ink); stroke-width: 3.2; stroke-linecap: round; }
+.t-segelboot24-way { stroke: var(--accent); stroke-width: 7; stroke-linecap: round; opacity: 0.55; }
+.t-segelboot24-arrow { fill: var(--accent); stroke: var(--surface); stroke-width: 1; }
+.t-segelboot24-node { cursor: pointer; outline: none; }
+.t-segelboot24-hit { fill: transparent; }
+.t-segelboot24-dot { fill: var(--c2); stroke: var(--ink); stroke-width: 2; transition: fill 0.1s; }
+.t-segelboot24-node:hover .t-segelboot24-dot { stroke-width: 3.5; }
+.t-segelboot24-node:focus-visible .t-segelboot24-hit { stroke: var(--focus); stroke-width: 3; }
+.t-segelboot24-node.on .t-segelboot24-dot { fill: var(--accent); stroke-width: 3; }
+.t-segelboot24-node.right .t-segelboot24-dot { fill: var(--ok); stroke: var(--ok); stroke-width: 3; }
+.t-segelboot24-node.wrong .t-segelboot24-dot { fill: var(--bad); stroke: var(--bad); stroke-width: 3; }
+.t-segelboot24-node.missed .t-segelboot24-dot { fill: var(--surface); stroke: var(--ok); stroke-width: 3.5; stroke-dasharray: 4 3; }
+.t-segelboot24-tick { fill: var(--surface); font: 800 15px var(--font-body); pointer-events: none; }
+.t-segelboot24-node.on .t-segelboot24-tick { fill: var(--accent-ink); }
+.t-segelboot24-node[aria-disabled="true"] { cursor: default; }

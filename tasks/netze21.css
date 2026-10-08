@@ -1,0 +1,33 @@
+/* Stile für netze21 (Präfix t-netze21-) */
+.t-netze21-board { display: grid; gap: 1.4rem; }
+.t-netze21-board section { min-width: 0; }
+.t-netze21-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-netze21-top { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem 1.6rem; align-items: start; }
+.t-netze21-top > section { min-width: 0; }
+.t-netze21-pic { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); background: var(--paper); }
+.t-netze21-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; }
+.t-netze21-opt {
+  appearance: none; position: relative; display: grid; justify-items: center; gap: 0.3rem; padding: 0.4rem 0.4rem 0.6rem; min-width: 0;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit;
+}
+.t-netze21-key { font-weight: 800; font-size: 1.05rem; }
+.t-netze21-opt:hover { border-color: var(--accent); }
+.t-netze21-opt[aria-disabled="true"] { cursor: default; }
+.t-netze21-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-netze21-opt.selected, .t-netze21-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-netze21-opt.right, .t-netze21-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-netze21-opt.wrong, .t-netze21-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-netze21-mark { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok); }
+.t-netze21-opt.wrong .t-netze21-mark { background: var(--bad); }
+.t-netze21-matrix { display: block; width: 100%; max-width: 11rem; height: auto; pointer-events: none; }
+.t-netze21-cells { fill: var(--surface); }
+.t-netze21-grid { stroke: var(--muted); stroke-width: 1.2; }
+.t-netze21-head { fill: var(--surface); stroke: var(--ink); stroke-width: 1.2; }
+.t-netze21-headtxt { fill: var(--ink); font: 700 12px var(--font-body); }
+.t-netze21-x { stroke: var(--ok); stroke-width: 3; stroke-linecap: round; fill: none; }
+.t-netze21-sol { max-width: 12rem; margin: 0.4rem 0 0.6rem; }
+.t-netze21-why { margin: 0.4rem 0 0.8rem; padding-left: 1.2rem; display: grid; gap: 0.3rem; }
+@media (max-width: 40rem) {
+  .t-netze21-top { grid-template-columns: minmax(0, 1fr); }
+  .t-netze21-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

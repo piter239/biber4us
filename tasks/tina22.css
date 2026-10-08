@@ -1,0 +1,60 @@
+/* Aufgabe Roboter Tina (2022) */
+.t-tina22-root {
+  --tn-grass: #98cd7e; --tn-road: #7b7b7b; --tn-tuft: #4f8a3a; --tn-crown: #1d8a3b; --tn-trunk: #8a5a2c; --tn-roof: #e32b2b; --tn-wall: #ffffff; --tn-dot: #0b1a6b;
+  display: grid; grid-template-columns: minmax(0, 26rem) minmax(0, 1fr); gap: 1.2rem 1.6rem; align-items: start; min-width: 0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .t-tina22-root { --tn-grass: #3f6e3a; --tn-road: #8a9498; --tn-tuft: #7fb36c; --tn-crown: #3fb25d; --tn-trunk: #b98351; --tn-roof: #ef5a52; --tn-wall: #e9edee; --tn-dot: #1f3bb3; }
+}
+:root[data-theme="dark"] .t-tina22-root { --tn-grass: #3f6e3a; --tn-road: #8a9498; --tn-tuft: #7fb36c; --tn-crown: #3fb25d; --tn-trunk: #b98351; --tn-roof: #ef5a52; --tn-wall: #e9edee; --tn-dot: #1f3bb3; }
+.t-tina22-map, .t-tina22-tab { min-width: 0; display: grid; gap: 0.7rem; }
+.t-tina22-svg { display: block; width: 100%; height: auto; border-radius: 4px; touch-action: manipulation; }
+.t-tina22-bg.G { fill: var(--tn-grass); }
+.t-tina22-bg.R { fill: var(--tn-road); }
+.t-tina22-bg.T, .t-tina22-bg.H { fill: var(--tn-grass); }
+.t-tina22-tuft { fill: none; stroke: var(--tn-tuft); stroke-width: 1.4; stroke-linecap: round; }
+.t-tina22-trunk { fill: var(--tn-trunk); }
+.t-tina22-crown { fill: var(--tn-crown); }
+.t-tina22-wall { fill: var(--tn-wall); stroke: #333; stroke-width: 1.4; }
+.t-tina22-roof { fill: var(--tn-roof); stroke: #333; stroke-width: 1.4; stroke-linejoin: round; }
+.t-tina22-frame { fill: none; stroke: rgb(0 0 0 / 0.35); stroke-width: 1.5; pointer-events: none; }
+.t-tina22-start { fill: #111; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; pointer-events: none; }
+.t-tina22-path { fill: none; stroke: var(--c2); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; pointer-events: none; }
+.t-tina22-step { fill: var(--surface); stroke: var(--c2); stroke-width: 2; pointer-events: none; }
+.t-tina22-steptxt { fill: var(--ink); font: 800 11px var(--font-body); pointer-events: none; }
+.t-tina22-dot { cursor: pointer; outline: none; }
+.t-tina22-dot circle { fill: var(--tn-dot); stroke: #fff; stroke-width: 2; }
+.t-tina22-dot text { fill: #fff; font: 800 17px var(--font-body); pointer-events: none; }
+.t-tina22-dot:hover circle { stroke: var(--accent); }
+.t-tina22-dot.picked circle { stroke: var(--accent); stroke-width: 5; }
+.t-tina22-dot:focus-visible circle { stroke: var(--focus); stroke-width: 5; }
+.t-tina22-dot.right circle { stroke: var(--ok); stroke-width: 5; }
+.t-tina22-dot.wrong circle { stroke: var(--bad); stroke-width: 5; }
+.t-tina22-ans { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.t-tina22-ans > span { font-weight: 700; }
+.t-tina22-choice { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.t-tina22-pick {
+  appearance: none; width: 2.6rem; height: 2.6rem; border-radius: 10px; border: 2px solid var(--line); background: var(--surface); color: var(--ink);
+  font: 800 1.1rem var(--font-body); cursor: pointer; touch-action: manipulation;
+}
+.t-tina22-pick:hover:not(:disabled) { border-color: var(--accent); }
+.t-tina22-pick.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, var(--surface)); }
+.t-tina22-pick.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-tina22-pick.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-tina22-pick:disabled { cursor: default; }
+.t-tina22-pick:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-tina22-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.9rem; color: var(--muted); }
+.t-tina22-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.t-tina22-legend .t-tina22-ico { width: 1.5rem; height: 1.5rem; }
+.t-tina22-ico { display: block; width: 100%; height: auto; border-radius: 3px; }
+.t-tina22-table { width: 100%; max-width: 20rem; border-collapse: collapse; table-layout: fixed; background: var(--surface); }
+.t-tina22-table caption { text-align: left; font: 700 0.8rem var(--font-body); letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding-bottom: 0.4rem; }
+.t-tina22-table th, .t-tina22-table td { border: 1px solid var(--line); padding: 0.2rem; text-align: center; font-size: 0.85rem; }
+.t-tina22-table th { background: var(--surface2); }
+.t-tina22-table th.t-tina22-no { width: 2.2rem; color: var(--muted); }
+.t-tina22-table td .t-tina22-ico { width: 2.1rem; margin: 0 auto; }
+.t-tina22-status { margin: 0; }
+@media (max-width: 40rem) {
+  .t-tina22-root { grid-template-columns: minmax(0, 1fr); }
+  .t-tina22-table td .t-tina22-ico { width: 1.9rem; }
+}

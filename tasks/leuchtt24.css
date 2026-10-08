@@ -1,0 +1,33 @@
+/* Aufgabe Leuchttürme (Biber 2024): die Karte liegt auf hellem Papier und behält ihre Farben */
+.t-leuchtt24-line { line-height: 2.4; }
+.t-leuchtt24-ico { height: 2.1rem; width: auto; vertical-align: middle; margin: 0 0.15rem; background: var(--paper); border-radius: 6px; padding: 0.15rem 0.3rem; box-shadow: 0 1px 2px rgb(0 0 0 / 0.25); }
+.t-leuchtt24-board { display: grid; gap: 0.9rem; max-width: 36rem; margin: 0 auto; }
+.t-leuchtt24-legend { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+.t-leuchtt24-leg { display: grid; justify-items: center; align-content: start; gap: 0.35rem; text-align: center; font-size: 0.85rem; line-height: 1.25; background: var(--surface2); border-radius: 10px; padding: 0.5rem 0.35rem; min-width: 0; }
+.t-leuchtt24-leg .t-leuchtt24-ico { height: 3.6rem; margin: 0; }
+.t-leuchtt24-leg small { display: block; color: var(--muted); font-size: 0.8rem; }
+.t-leuchtt24-stage { position: relative; width: 100%; aspect-ratio: 1000 / 940; user-select: none; }
+.t-leuchtt24-map { display: block; width: 100%; height: 100%; -webkit-user-drag: none; }
+.t-leuchtt24-boat {
+  appearance: none; position: absolute; width: 11%; min-width: 38px; aspect-ratio: 1; transform: translate(-50%, -50%);
+  padding: 0; margin: 0; background: transparent; border: 0; border-radius: 50%; cursor: pointer; touch-action: manipulation;
+}
+.t-leuchtt24-ring { position: absolute; inset: 4%; border-radius: 50%; border: 3px solid transparent; transition: background 0.12s; }
+.t-leuchtt24-boat:hover:not(:disabled) .t-leuchtt24-ring { background: rgb(255 255 255 / 0.55); border-color: #0b2a6f; border-style: dashed; }
+.t-leuchtt24-boat:focus-visible { outline: 3px solid #0b2a6f; outline-offset: 1px; }
+.t-leuchtt24-boat.selected .t-leuchtt24-ring { border: 4px solid #0b2a6f; background: rgb(255 255 255 / 0.65); box-shadow: 0 0 0 3px rgb(255 255 255 / 0.9); }
+.t-leuchtt24-boat.right .t-leuchtt24-ring { border-color: #1b7a49; }
+.t-leuchtt24-boat.wrong .t-leuchtt24-ring { border-color: #b3261e; }
+.t-leuchtt24-boat:disabled { cursor: default; }
+.t-leuchtt24-badge {
+  position: absolute; top: -4px; right: -4px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  font: 800 0.9rem/1 var(--font-body); color: #fff; background: #1b7a49;
+}
+.t-leuchtt24-boat.wrong .t-leuchtt24-badge { background: #b3261e; }
+@media (max-width: 26rem) {
+  .t-leuchtt24-leg { font-size: 0.78rem; }
+  .t-leuchtt24-leg .t-leuchtt24-ico { height: 3rem; }
+}
+.t-leuchtt24-boat.selected:hover:not(:disabled) .t-leuchtt24-ring { border-style: solid; border-color: #0b2a6f; background: rgb(255 255 255 / 0.65); }
+.t-leuchtt24-boat.selected.right:hover .t-leuchtt24-ring { border-color: #1b7a49; }
+.t-leuchtt24-boat.selected.wrong:hover .t-leuchtt24-ring { border-color: #b3261e; }

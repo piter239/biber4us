@@ -1,0 +1,59 @@
+/* Stile für schildkroeten21 (Präfix t-schildkroeten21-). */
+.t-schildkroeten21-board { display: grid; gap: 1.2rem; }
+.t-schildkroeten21-gardens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.2rem; }
+.t-schildkroeten21-card {
+  min-width: 0; display: grid; gap: 0.45rem; align-content: start; padding: 0.6rem 0.7rem 0.7rem;
+  background: var(--surface2); border: 3px solid var(--line); border-radius: 12px;
+}
+.t-schildkroeten21-card.selected { border-color: var(--accent); }
+.t-schildkroeten21-card.right { border-color: var(--ok); }
+.t-schildkroeten21-card.wrong { border-color: var(--bad); }
+.t-schildkroeten21-card h3, .t-schildkroeten21-answer h3 { font-family: var(--font-display); font-size: 1rem; margin: 0; }
+.t-schildkroeten21-answer h3 { font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+.t-schildkroeten21-area { border-radius: 8px; }
+.t-schildkroeten21-area:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-schildkroeten21-grid { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 2px; background: var(--line); border: 2px solid var(--line); border-radius: 6px; }
+.t-schildkroeten21-stone {
+  aspect-ratio: 1; min-width: 0;
+  background:
+    radial-gradient(ellipse at 30% 30%, color-mix(in srgb, var(--surface) 25%, transparent) 0 22%, transparent 24%),
+    color-mix(in srgb, var(--muted) 45%, var(--surface2));
+}
+.t-schildkroeten21-grass {
+  appearance: none; position: relative; aspect-ratio: 1; min-width: 0; padding: 0; margin: 0; border: 0; border-radius: 0; cursor: pointer; touch-action: manipulation;
+  display: grid; place-items: center; font: inherit; color: #15303a;
+  background: color-mix(in srgb, var(--c6) 45%, #eaf7b0);
+}
+.t-schildkroeten21-grass:hover:not(:disabled) { background: color-mix(in srgb, var(--c6) 60%, #eaf7b0); }
+.t-schildkroeten21-grass.visited { background: color-mix(in srgb, var(--c6) 78%, #eaf7b0); }
+.t-schildkroeten21-grass.dark { background: color-mix(in srgb, var(--c6) 85%, #101a10); }
+.t-schildkroeten21-grass.light { background: color-mix(in srgb, var(--c6) 25%, #f4fbd0); }
+.t-schildkroeten21-grass:disabled { cursor: default; }
+.t-schildkroeten21-grass:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
+.t-schildkroeten21-num { font-weight: 700; font-size: clamp(0.65rem, 2.6vw, 0.95rem); line-height: 1; }
+.t-schildkroeten21-tw { display: block; width: 88%; height: 88%; }
+.t-schildkroeten21-turtle { display: block; width: 100%; height: 100%; }
+.t-schildkroeten21-status { margin: 0; min-height: 3.6em; font-size: 0.95rem; }
+.t-schildkroeten21-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-schildkroeten21-btn { min-height: 2.5rem; padding-block: 0.3rem; }
+.t-schildkroeten21-opts { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.t-schildkroeten21-opt {
+  appearance: none; position: relative; min-width: 4.2rem; min-height: 3rem; padding: 0.4rem 1rem; font: inherit; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation;
+}
+.t-schildkroeten21-opt:hover { border-color: var(--accent); }
+.t-schildkroeten21-opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-schildkroeten21-opt[aria-disabled="true"] { cursor: default; }
+.t-schildkroeten21-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-schildkroeten21-opt.selected, .t-schildkroeten21-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-schildkroeten21-opt.right, .t-schildkroeten21-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-schildkroeten21-opt.wrong, .t-schildkroeten21-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-schildkroeten21-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-schildkroeten21-opt.wrong .t-schildkroeten21-mark { background: var(--bad); }
+@media (max-width: 40rem) {
+  .t-schildkroeten21-gardens { grid-template-columns: minmax(0, 1fr); }
+  .t-schildkroeten21-status { min-height: 0; }
+}

@@ -1,0 +1,34 @@
+/* Stile für nachbarn22 (Präfix t-nachbarn22-). Die Karte behält ihre Farben; Rahmen und Marken nutzen Tokens. */
+.t-nachbarn22-board { display: grid; gap: 0.6rem; }
+.t-nachbarn22-map { position: relative; width: 100%; max-width: 44rem; margin-inline: auto; border-radius: 14px; background: color-mix(in srgb, var(--paper) 90%, var(--c3)); border: 1px solid var(--line); padding: 0; }
+.t-nachbarn22-map img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.t-nachbarn22-static { margin: 0.8rem 0; max-width: 34rem; margin-inline: 0; }
+.t-nachbarn22-badge {
+  position: absolute; width: 1.45rem; height: 1.45rem; border-radius: 50%; display: grid; place-items: center; pointer-events: none;
+  background: #fff; color: #15303a; border: 2px solid #15303a; font: 700 0.85rem/1 var(--font-body); transform: translate(-50%, -50%);
+}
+.t-nachbarn22-node {
+  appearance: none; position: absolute; width: max(44px, 8%); aspect-ratio: 1; transform: translate(-50%, -50%); padding: 0; border-radius: 50%;
+  background: transparent; border: 3px solid transparent; cursor: pointer; touch-action: manipulation;
+}
+.t-nachbarn22-node:hover { border-color: color-mix(in srgb, var(--accent) 60%, transparent); background: color-mix(in srgb, var(--accent) 15%, transparent); }
+.t-nachbarn22-node[aria-disabled="true"] { cursor: default; }
+.t-nachbarn22-node.selected, .t-nachbarn22-node.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, transparent); box-shadow: 0 0 0 2px var(--surface); }
+.t-nachbarn22-node.right, .t-nachbarn22-node.right:hover { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 25%, transparent); }
+.t-nachbarn22-node.wrong, .t-nachbarn22-node.wrong:hover { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 25%, transparent); }
+.t-nachbarn22-who {
+  position: absolute; left: 50%; top: 100%; transform: translate(-50%, 0.05rem); white-space: nowrap; pointer-events: none;
+  padding: 0 0.45rem; border-radius: 999px; font: 700 0.85rem/1.4 var(--font-body); background: var(--ink); color: var(--surface);
+}
+.t-nachbarn22-node .t-nachbarn22-who:empty { display: none; }
+.t-nachbarn22-ring { position: absolute; width: 8%; min-width: 44px; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%); border: 4px solid var(--accent); pointer-events: none; }
+.t-nachbarn22-ring.t-nachbarn22-ok { border-color: var(--ok); }
+.t-nachbarn22-ring.t-nachbarn22-nina { border-color: var(--c5); }
+.t-nachbarn22-ring.t-nachbarn22-nb { border-color: var(--c2); }
+.t-nachbarn22-static .t-nachbarn22-ring { width: 7.5%; min-width: 0; border-width: 3px; }
+.t-nachbarn22-static .t-nachbarn22-who { position: absolute; transform: translate(-50%, 0); font-size: 0.8rem; }
+@media (max-width: 34rem) {
+  .t-nachbarn22-static .t-nachbarn22-who { font-size: 0.62rem; padding: 0 0.3rem; }
+  .t-nachbarn22-static .t-nachbarn22-badge { width: 1.15rem; height: 1.15rem; font-size: 0.7rem; border-width: 1.5px; }
+}
+.t-nachbarn22-note { margin: 0; text-align: center; color: var(--muted); font-size: 0.95rem; min-height: 1.5em; }

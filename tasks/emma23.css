@@ -1,0 +1,44 @@
+/* Aufgabe Emma erledigt (emma23) */
+.t-emma23-box { display: grid; gap: 0.7rem; min-width: 0; max-width: 46rem; margin: 0 auto; }
+.t-emma23-todos { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.t-emma23-todo { padding: 0.25rem 0.7rem; border-radius: 999px; background: var(--surface2); border: 2px solid var(--line); font-size: 0.92rem; }
+.t-emma23-todo.ok { border-color: var(--ok); background: var(--ok-bg); }
+.t-emma23-map { border-radius: 12px; border: 2px solid var(--line); background: var(--surface); padding: 0.25rem; min-width: 0; }
+.t-emma23-svg { display: block; width: 100%; height: auto; user-select: none; -webkit-user-select: none; }
+.t-emma23-edge { stroke: var(--muted); stroke-width: 11; stroke-linecap: round; }
+.t-emma23-hl { stroke: var(--accent); stroke-opacity: 0.4; stroke-width: 40; stroke-linecap: round; }
+.t-emma23-arrow { fill: var(--accent); stroke: var(--surface); stroke-width: 5; stroke-linejoin: round; }
+.t-emma23-chip rect { fill: var(--surface); stroke: var(--line); stroke-width: 4; }
+.t-emma23-chip text { fill: var(--ink); font: 700 62px var(--font-body); }
+.t-emma23-chip.used rect { fill: var(--surface2); stroke: var(--accent); }
+.t-emma23-node { cursor: default; outline: none; }
+.t-emma23-node .t-emma23-disc { fill: var(--paper); stroke: var(--line); stroke-width: 6; }
+.t-emma23-node .t-emma23-ring { fill: none; stroke: var(--c2); stroke-width: 15; }
+.t-emma23-node .t-emma23-focus { fill: none; stroke: none; }
+.t-emma23-node:focus-visible .t-emma23-focus { stroke: var(--focus); stroke-width: 9; }
+.t-emma23-node.can { cursor: pointer; }
+.t-emma23-node.can .t-emma23-disc { stroke: var(--accent); stroke-width: 12; stroke-dasharray: 26 16; }
+.t-emma23-node.can:hover .t-emma23-disc { fill: color-mix(in srgb, var(--accent) 22%, var(--paper)); }
+.t-emma23-node.cur .t-emma23-disc { stroke: var(--accent); stroke-width: 16; fill: color-mix(in srgb, var(--accent) 22%, var(--paper)); }
+.t-emma23-node image { pointer-events: none; }
+.t-emma23-tick circle { fill: var(--ok); stroke: var(--surface); stroke-width: 6; }
+.t-emma23-tick path { fill: none; stroke: #fff; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+.t-emma23-you rect { fill: var(--accent); }
+.t-emma23-you text { fill: var(--accent-ink); font: 800 52px var(--font-body); }
+.t-emma23-info { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; }
+.t-emma23-time { font-size: 1.05rem; padding: 0.3rem 0.8rem; border-radius: 10px; background: var(--surface2); border: 2px solid var(--line); }
+.t-emma23-time b { font-size: 1.3rem; }
+.t-emma23-time.ok { border-color: var(--ok); background: var(--ok-bg); }
+.t-emma23-time.bad { border-color: var(--bad); background: var(--bad-bg); }
+.t-emma23-undo { appearance: none; border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 10px; padding: 0.45rem 0.9rem; font: inherit; font-weight: 600; cursor: pointer; touch-action: manipulation; }
+.t-emma23-undo:hover:not(:disabled) { border-color: var(--accent); }
+.t-emma23-undo:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-emma23-undo:disabled { opacity: 0.45; cursor: default; }
+.t-emma23-res { margin: 0; font-weight: 700; }
+.t-emma23-res.ok { color: var(--ok); }
+.t-emma23-res.bad { color: var(--bad); }
+.t-emma23-route { display: grid; gap: 0.25rem; min-width: 0; }
+.t-emma23-cap { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.t-emma23-seq { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.35rem; }
+.t-emma23-mini { height: 2.4rem; width: auto; max-width: 3.4rem; object-fit: contain; background: var(--paper); border-radius: 8px; padding: 0.15rem; }
+.t-emma23-step { font-size: 0.85rem; font-weight: 700; color: var(--muted); white-space: nowrap; }

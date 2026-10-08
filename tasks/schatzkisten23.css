@@ -1,0 +1,29 @@
+/* Aufgabe Schatzkisten (schatzkisten23) */
+.t-schatzkisten23-box { display: grid; gap: 1rem; min-width: 0; }
+.t-schatzkisten23-island { position: relative; width: 100%; max-width: 30rem; margin: 0 auto; border-radius: 12px; background: var(--paper); border: 2px solid var(--line); padding: 0.4rem; box-sizing: border-box; }
+.t-schatzkisten23-island > img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.t-schatzkisten23-chest {
+  appearance: none; position: absolute; width: 3.1rem; height: 3.1rem; margin: -1.55rem 0 0 -1.55rem; padding: 0; border: 0; background: none; border-radius: 50%;
+  cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.t-schatzkisten23-ring { position: absolute; inset: 0; border-radius: 50%; border: 3px dashed #2b2b2b; background: rgb(255 255 255 / 0.25); transition: background 0.15s, border-color 0.15s; }
+.t-schatzkisten23-chest:hover:not(:disabled) .t-schatzkisten23-ring { background: rgb(255 255 255 / 0.55); border-color: var(--accent); }
+.t-schatzkisten23-chest:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.t-schatzkisten23-chest.sel .t-schatzkisten23-ring { border-style: solid; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 25%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-schatzkisten23-chest.right .t-schatzkisten23-ring { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 25%, transparent); box-shadow: none; }
+.t-schatzkisten23-chest.wrong .t-schatzkisten23-ring { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 25%, transparent); box-shadow: none; }
+.t-schatzkisten23-chest:disabled { cursor: default; }
+.t-schatzkisten23-tick { position: absolute; top: -0.5rem; right: -0.5rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; display: none; place-items: center; color: #fff; font: 800 0.9rem/1 var(--font-body); }
+.t-schatzkisten23-chest.right .t-schatzkisten23-tick { display: grid; background: var(--ok); }
+.t-schatzkisten23-chest.right .t-schatzkisten23-tick::before { content: '✓'; }
+.t-schatzkisten23-chest.wrong .t-schatzkisten23-tick { display: grid; background: var(--bad); }
+.t-schatzkisten23-chest.wrong .t-schatzkisten23-tick::before { content: '✗'; }
+.t-schatzkisten23-photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+.t-schatzkisten23-photo { margin: 0; display: grid; gap: 0.4rem; align-content: start; min-width: 0; }
+.t-schatzkisten23-photo img { display: block; width: 100%; height: auto; border-radius: 6px; border: 2px solid var(--line); background: var(--paper); box-sizing: border-box; }
+.t-schatzkisten23-photo figcaption { font-size: 0.95rem; line-height: 1.3; }
+.t-schatzkisten23-pick { margin: 0; text-align: center; color: var(--muted); min-height: 1.5em; }
+@media (max-width: 40rem) {
+  .t-schatzkisten23-photos { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
+  .t-schatzkisten23-photo { grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); gap: 0.75rem; align-items: center; }
+}

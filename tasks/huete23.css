@@ -1,0 +1,35 @@
+/* Aufgabe Neue Hüte (huete23) */
+.t-huete23-box { display: grid; gap: 0.4rem; max-width: 40rem; margin: 0 auto; min-width: 0; }
+.t-huete23-stage {
+  position: relative; width: 100%; aspect-ratio: 1.5; border-radius: 10px; background: var(--surface2); border: 2px solid var(--line); overflow: hidden;
+  touch-action: pan-y;
+}
+.t-huete23-grid {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(to top, transparent 0, transparent calc(8% - 2px), color-mix(in srgb, var(--muted) 55%, transparent) calc(8% - 2px), color-mix(in srgb, var(--muted) 55%, transparent) 8%);
+  background-position: 0 -0.5%;
+}
+.t-huete23-row { position: absolute; left: 2%; right: 2%; top: 3%; bottom: 0.6%; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+.t-huete23-slot { height: 100%; min-width: 0; display: flex; align-items: flex-end; justify-content: center; border-radius: 8px; position: relative; }
+.t-huete23-slot.over { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.t-huete23-beaver {
+  appearance: none; padding: 0; margin: 0; border: 3px solid transparent; border-radius: 12px; background: none; cursor: grab; max-width: 98%;
+  touch-action: pan-y; position: relative; box-sizing: border-box; -webkit-tap-highlight-color: transparent;
+}
+.t-huete23-beaver img { display: block; height: 100%; width: 100%; object-fit: contain; object-position: bottom; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-huete23-beaver:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.t-huete23-beaver:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-huete23-beaver.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-huete23-beaver.drag { cursor: grabbing; z-index: 5; opacity: 0.9; transition: none; touch-action: none; filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.35)); }
+.t-huete23-beaver:disabled { cursor: default; opacity: 1; }
+.t-huete23-beaver.right { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 14%, transparent); }
+.t-huete23-beaver.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 14%, transparent); }
+.t-huete23-axis { display: flex; justify-content: space-between; gap: 0.5rem; color: var(--muted); font-size: 0.9rem; font-weight: 600; padding: 0 0.25rem; }
+.t-huete23-strip { display: flex; align-items: flex-end; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin: 0.5rem 0; }
+.t-huete23-strip img { max-width: 18%; object-fit: contain; object-position: bottom; }
+.t-huete23-beaver.right::after, .t-huete23-beaver.wrong::after {
+  position: absolute; top: -12px; right: -8px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  font: 800 0.9rem/1 var(--font-body); color: #fff;
+}
+.t-huete23-beaver.right::after { content: '✓'; background: var(--ok); }
+.t-huete23-beaver.wrong::after { content: '✗'; background: var(--bad); }

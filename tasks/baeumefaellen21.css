@@ -1,0 +1,29 @@
+/* Stile für baeumefaellen21 (Präfix t-baeumefaellen21-) */
+.t-baeumefaellen21-board { display: grid; gap: 0.8rem; }
+.t-baeumefaellen21-fig { position: relative; width: 100%; max-width: 60rem; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); line-height: 0; }
+.t-baeumefaellen21-fig img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.t-baeumefaellen21-tree {
+  appearance: none; position: absolute; padding: 0; margin: 0; background: transparent; border: 3px solid transparent; border-radius: 12px; cursor: pointer;
+  touch-action: manipulation; color: inherit; font: inherit; box-sizing: border-box; min-width: 28px;
+}
+.t-baeumefaellen21-tree:hover { border-color: color-mix(in srgb, #ffd400 70%, transparent); background: rgb(255 255 255 / 0.15); }
+.t-baeumefaellen21-tree.on { border-color: #ffd400; background: rgb(255 212 0 / 0.22); box-shadow: 0 0 0 2px rgb(0 0 0 / 0.55); }
+.t-baeumefaellen21-tree[aria-disabled="true"] { cursor: default; }
+.t-baeumefaellen21-tree.right { border-color: var(--ok); background: rgb(255 255 255 / 0.2); box-shadow: 0 0 0 2px #fff, inset 0 0 0 2px #fff; }
+.t-baeumefaellen21-tree.wrong { border-color: var(--bad); background: rgb(255 255 255 / 0.2); box-shadow: 0 0 0 2px #fff, inset 0 0 0 2px #fff; }
+.t-baeumefaellen21-tree.missed { border: 3px dashed var(--ok); background: rgb(255 255 255 / 0.2); box-shadow: 0 0 0 2px #fff, inset 0 0 0 2px #fff; }
+.t-baeumefaellen21-num {
+  position: absolute; left: 50%; bottom: 2px; transform: translateX(-50%); min-width: 20px; height: 20px; padding: 0 4px; border-radius: 10px;
+  background: rgb(0 0 0 / 0.6); color: #fff; font: 700 12px/20px var(--font-body); text-align: center; pointer-events: none;
+}
+.t-baeumefaellen21-mark {
+  position: absolute; top: -2px; right: -2px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  font: 800 14px/1 var(--font-body); color: #fff; background: var(--ok); pointer-events: none;
+}
+.t-baeumefaellen21-tree.wrong .t-baeumefaellen21-mark { background: var(--bad); }
+.t-baeumefaellen21-tree.missed .t-baeumefaellen21-mark { background: var(--bad); }
+.t-baeumefaellen21-hl { position: absolute; border: 3px solid #ffd400; border-radius: 12px; background: rgb(255 212 0 / 0.18); box-sizing: border-box; box-shadow: 0 0 0 2px rgb(0 0 0 / 0.5); }
+.t-baeumefaellen21-status { color: var(--muted); text-align: center; margin: 0; }
+@media (max-width: 30rem) {
+  .t-baeumefaellen21-num { font-size: 10px; min-width: 16px; height: 16px; line-height: 16px; }
+}

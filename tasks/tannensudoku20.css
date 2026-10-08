@@ -1,0 +1,58 @@
+/* Stile für tannensudoku20 (Präfix t-tannensudoku20-). Boden, Tannen und Schilder behalten ihre Farben in Hell und Dunkel. */
+.t-tannensudoku20-board { display: grid; gap: 1.1rem; }
+.t-tannensudoku20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-tannensudoku20-play { display: flex; flex-wrap: wrap; gap: 1.2rem 2rem; align-items: flex-start; }
+.t-tannensudoku20-fieldbox { min-width: 0; }
+.t-tannensudoku20-poolbox { min-width: 0; }
+
+.t-tannensudoku20-field {
+  --cell: clamp(3.6rem, 19vw, 5.4rem);
+  display: grid; grid-template-columns: 2.6rem repeat(3, var(--cell)) 2.6rem; grid-template-rows: 2.6rem repeat(3, var(--cell)) 2.6rem;
+  justify-content: center; align-items: center; justify-items: center;
+  padding: 0.3rem; border-radius: 22px; background: #d4bd5f; border: 1px solid var(--line); width: fit-content; max-width: 100%;
+}
+.t-tannensudoku20-cell {
+  appearance: none; box-sizing: border-box; width: 100%; height: 100%; margin: 0; padding: 2px; font: inherit;
+  background: #a45a2b; border: 1px solid #c98a52; border-radius: 0; cursor: pointer; touch-action: manipulation;
+  display: grid; place-items: end center;
+}
+.t-tannensudoku20-cell[aria-disabled="true"] { cursor: default; }
+.t-tannensudoku20-cell:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; z-index: 2; position: relative; }
+.t-tannensudoku20-cell.over { background: #bc7140; box-shadow: inset 0 0 0 3px var(--accent); }
+.t-tannensudoku20-cell.dragging { opacity: 0.45; }
+.t-tannensudoku20-cell.t-tannensudoku20-dup { box-shadow: inset 0 0 0 3px #ff5a4d; }
+.t-tannensudoku20-tree { display: block; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+
+.t-tannensudoku20-sign {
+  display: grid; place-items: center; width: 2.3rem; height: 2.3rem; border-radius: 7px; box-sizing: border-box;
+  background: #7a4a22; border: 2px solid #3f2410; color: #ffd75e; font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; line-height: 1;
+}
+.t-tannensudoku20-sign.t-tannensudoku20-ok { box-shadow: 0 0 0 3px var(--ok); }
+.t-tannensudoku20-sign.t-tannensudoku20-bad { box-shadow: 0 0 0 3px var(--bad); }
+
+.t-tannensudoku20-pool { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 0.6rem; background: #d4bd5f; border: 1px solid var(--line); border-radius: 16px; }
+.t-tannensudoku20-pal {
+  appearance: none; position: relative; width: 4.1rem; padding: 0.25rem 0.2rem 0.1rem; font: inherit; color: #3f2410; font-weight: 700;
+  background: rgb(255 255 255 / 0.35); border: 3px solid transparent; border-radius: 12px; cursor: grab; touch-action: manipulation;
+  display: grid; justify-items: center; gap: 0.1rem;
+}
+.t-tannensudoku20-pal .t-tannensudoku20-tree { height: 4rem; width: 3.2rem; }
+.t-tannensudoku20-pal.selected { border-color: var(--accent); background: rgb(255 255 255 / 0.7); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-tannensudoku20-pal:disabled { cursor: default; opacity: 0.45; }
+.t-tannensudoku20-pal.dragging { opacity: 0.45; }
+.t-tannensudoku20-rest { font-size: 0.95rem; }
+
+.t-tannensudoku20-example { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem 0.8rem; }
+.t-tannensudoku20-exrow { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+.t-tannensudoku20-exfield { display: grid; grid-template-columns: repeat(3, 3.6rem); background: #d4bd5f; padding: 0.35rem; border-radius: 14px; }
+.t-tannensudoku20-excell { background: #a45a2b; border: 1px solid #c98a52; height: 4.4rem; padding: 2px; display: grid; place-items: end center; }
+.t-tannensudoku20-excell .t-tannensudoku20-tree { height: 100%; width: 100%; }
+.t-tannensudoku20-excap { margin: 0.5rem 0 0; text-align: center; color: var(--muted); font-size: 0.92rem; }
+
+.t-tannensudoku20-count { margin: 0.5rem 0 0; font-weight: 600; font-size: 0.95rem; }
+.t-tannensudoku20-note { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.95rem; min-height: 1.4em; max-width: 24rem; }
+@media (max-width: 26rem) {
+  .t-tannensudoku20-field { grid-template-columns: 2.1rem repeat(3, var(--cell)) 2.1rem; grid-template-rows: 2.1rem repeat(3, var(--cell)) 2.1rem; }
+  .t-tannensudoku20-sign { width: 1.9rem; height: 1.9rem; font-size: 1.05rem; }
+  .t-tannensudoku20-exfield { grid-template-columns: repeat(3, 3rem); }
+}

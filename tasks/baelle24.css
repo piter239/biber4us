@@ -1,0 +1,36 @@
+/* Stile für baelle24 (Präfix t-baelle24-). Bälle behalten ihre Farben (blau/rot) in Hell und Dunkel. */
+.t-baelle24-ball {
+  display: inline-block; width: 2.1rem; height: 2.1rem; border-radius: 50%; vertical-align: middle;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 0 0 2px color-mix(in srgb, var(--ink) 30%, transparent);
+}
+.t-baelle24-b { background: radial-gradient(circle at 33% 30%, #6f80ff 0%, #1e2bd0 35%, #0b1070 100%); }
+.t-baelle24-r { background: radial-gradient(circle at 33% 30%, #ff9a8c 0%, #e0261b 38%, #8a0b05 100%); }
+.t-baelle24-ex { display: flex; gap: 0.3rem; margin: 0.4rem 0; }
+.t-baelle24-ex .t-baelle24-ball { margin: 0 0.1rem; }
+
+.t-baelle24-board { display: grid; gap: 0.45rem; max-width: 34rem; }
+.t-baelle24-rowlabel { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-top: 0.5rem; }
+.t-baelle24-rowlabel:first-child { margin-top: 0; }
+.t-baelle24-row { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0.3rem; }
+.t-baelle24-num {
+  min-width: 0; text-align: center; padding: 0.35rem 0; border-radius: 8px; background: var(--surface2); border: 2px solid var(--line);
+  font: 700 1.25rem/1.2 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; color: var(--ink);
+}
+.t-baelle24-dnum { background: var(--surface); color: var(--muted); }
+.t-baelle24-dnum.right { border-color: var(--ok); background: var(--ok-bg); color: var(--ink); }
+.t-baelle24-dnum.wrong { border-color: var(--bad); background: var(--bad-bg); color: var(--ink); }
+.t-baelle24-slot {
+  appearance: none; min-width: 0; padding: 0.2rem 0; display: grid; place-items: center; aspect-ratio: 1 / 1.05;
+  border-radius: 10px; border: 3px dashed var(--slot-line); background: var(--slot); color: var(--muted); cursor: pointer; touch-action: manipulation;
+}
+.t-baelle24-slot.t-baelle24-has { border-style: solid; background: var(--surface); border-color: var(--line); }
+.t-baelle24-slot:hover:not(:disabled) { border-color: var(--accent); }
+.t-baelle24-slot:disabled { cursor: default; opacity: 1; }
+.t-baelle24-slot.right { border-color: var(--ok); }
+.t-baelle24-slot.wrong { border-color: var(--bad); }
+.t-baelle24-slot .t-baelle24-ball { width: min(2.1rem, 80%); height: auto; aspect-ratio: 1; }
+.t-baelle24-empty { font: 700 1.1rem var(--font-display); }
+@media (max-width: 26rem) {
+  .t-baelle24-row { gap: 0.2rem; }
+  .t-baelle24-num { font-size: 1.05rem; }
+}

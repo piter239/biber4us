@@ -1,0 +1,35 @@
+/* Stile für neueshaus20 (Präfix t-neueshaus20-) */
+.t-neueshaus20-board { display: grid; gap: 0.7rem; max-width: 44rem; }
+.t-neueshaus20-maphost { min-width: 0; }
+.t-neueshaus20-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.t-neueshaus20-map { fill: color-mix(in srgb, var(--c2) 9%, var(--surface)); stroke: var(--muted); stroke-width: 2; }
+.t-neueshaus20-house { cursor: pointer; outline: none; }
+.t-neueshaus20-house[aria-disabled="true"] { cursor: default; }
+.t-neueshaus20-hit { fill: transparent; }
+.t-neueshaus20-body { stroke: var(--ink); stroke-width: 2; }
+.t-neueshaus20-blue .t-neueshaus20-body, .t-neueshaus20-blue-i { fill: var(--c4); }
+.t-neueshaus20-red .t-neueshaus20-body, .t-neueshaus20-red-i { fill: var(--c1); }
+.t-neueshaus20-door { fill: var(--surface); stroke: none; }
+.t-neueshaus20-newbody { fill: var(--surface); stroke: var(--ok); stroke-width: 4; stroke-linejoin: round; }
+.t-neueshaus20-house:focus-visible .t-neueshaus20-body { stroke: var(--focus); stroke-width: 5; }
+.t-neueshaus20-house:not([aria-disabled="true"]):hover .t-neueshaus20-body { stroke-width: 4; }
+.t-neueshaus20-badge circle { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+.t-neueshaus20-badge text { fill: var(--ink); font-family: var(--font-display); font-weight: 800; font-size: 16px; }
+.t-neueshaus20-legend { margin: 0; display: flex; flex-wrap: wrap; gap: 0.2rem 0.4rem; align-items: center; color: var(--muted); font-size: 0.95rem; }
+.t-neueshaus20-lg { width: 1.6rem; height: 1.5rem; }
+.t-neueshaus20-lg .t-neueshaus20-body { stroke: var(--ink); stroke-width: 3; }
+
+.t-neueshaus20-answer { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.t-neueshaus20-klabel { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
+.t-neueshaus20-k {
+  width: 5rem; min-height: 2.75rem; font: inherit; font-size: 1.2rem; font-weight: 700; text-align: center; box-sizing: border-box;
+  background: var(--surface); color: var(--ink); border: 3px solid var(--line); border-radius: 10px; padding: 0.2rem 0.4rem;
+}
+.t-neueshaus20-k:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; border-color: var(--accent); }
+.t-neueshaus20-k:disabled { opacity: 0.75; }
+.t-neueshaus20-step {
+  appearance: none; width: 2.75rem; height: 2.75rem; font: inherit; font-size: 1.5rem; font-weight: 700; line-height: 1; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 50%;
+}
+.t-neueshaus20-step:hover { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-neueshaus20-note { margin: 0; color: var(--muted); font-size: 0.95rem; min-height: 1.4em; }

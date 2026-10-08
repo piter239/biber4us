@@ -1,0 +1,52 @@
+/* Stile für koko21 (Präfix t-koko21-) */
+.t-koko21-board { display: grid; gap: 1rem; justify-items: center; }
+.t-koko21-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 2rem; margin: 0; }
+.t-koko21-legend figure { margin: 0; display: grid; justify-items: center; gap: 0.35rem; }
+.t-koko21-legend figcaption { color: var(--muted); font-size: 0.85rem; text-align: center; max-width: 11rem; }
+.t-koko21-ex { display: grid; grid-template-columns: repeat(5, 1.9rem); grid-auto-rows: 1.9rem; border: 1px solid var(--line); background: var(--surface); }
+.t-koko21-exc { position: relative; border: 1px solid var(--line); box-sizing: border-box; display: grid; place-items: center; }
+.t-koko21-exc.t-koko21-in { background: color-mix(in srgb, var(--c6) 45%, var(--surface)); }
+.t-koko21-extree { position: absolute; inset: 1px; width: calc(100% - 2px); height: calc(100% - 2px); }
+.t-koko21-tout .t-koko21-crown { fill: var(--muted); }
+.t-koko21-tin .t-koko21-crown { fill: var(--c6); }
+.t-koko21-monkey { position: absolute; left: -2px; bottom: -3px; width: 70%; height: 70%; }
+.t-koko21-mfur { fill: #a8693a; stroke: #4a2c14; stroke-width: 1.2; }
+.t-koko21-mface { fill: #f0c9a0; stroke: #4a2c14; stroke-width: 0.8; }
+.t-koko21-meye { fill: #222; }
+.t-koko21-mmouth { stroke: #4a2c14; stroke-width: 1.2; stroke-linecap: round; }
+
+.t-koko21-gridwrap { width: 100%; max-width: 33rem; }
+.t-koko21-grid { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); background: var(--surface); }
+.t-koko21-cell { position: relative; aspect-ratio: 1; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); box-sizing: border-box; min-width: 0; }
+.t-koko21-cell.range { background: color-mix(in srgb, var(--c6) 38%, var(--surface)); }
+.t-koko21-tree {
+  appearance: none; position: absolute; inset: 0; padding: 0; margin: 0; background: transparent; border: 2px solid transparent; border-radius: 6px;
+  cursor: pointer; touch-action: manipulation; box-sizing: border-box;
+}
+.t-koko21-treesvg { display: block; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.t-koko21-crown { fill: var(--c6); stroke: var(--ink); stroke-width: 1; stroke-linejoin: round; }
+.t-koko21-trunk { fill: color-mix(in srgb, var(--c2) 35%, var(--ink)); }
+.t-koko21-twig { stroke: color-mix(in srgb, var(--c2) 35%, var(--ink)); stroke-width: 1.6; stroke-linecap: round; }
+.t-koko21-tree.near .t-koko21-crown { stroke-width: 2.4; }
+.t-koko21-tree.on .t-koko21-crown { fill: var(--c4); }
+.t-koko21-tree.on { border-color: var(--c4); background: color-mix(in srgb, var(--c4) 22%, transparent); }
+.t-koko21-tree[aria-disabled="true"] { cursor: default; }
+.t-koko21-tree.right { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 20%, transparent); }
+.t-koko21-tree.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 20%, transparent); }
+.t-koko21-tree.missed { border: 2px dashed var(--ok); }
+.t-koko21-tree:focus-visible { outline: 3px solid var(--focus); outline-offset: 0; z-index: 2; }
+.t-koko21-mark {
+  position: absolute; top: -7px; right: -7px; width: 16px; height: 16px; border-radius: 50%; display: grid; place-items: center;
+  font: 800 11px/1 var(--font-body); color: #fff; background: var(--ok); pointer-events: none; z-index: 3;
+}
+.t-koko21-tree.wrong .t-koko21-mark, .t-koko21-tree.missed .t-koko21-mark { background: var(--bad); }
+.t-koko21-status { color: var(--muted); text-align: center; margin: 0; }
+.t-koko21-sol { max-width: 24rem; margin: 0.5rem 0; }
+.t-koko21-cmap { display: block; width: 100%; height: auto; border-radius: 6px; }
+.t-koko21-cmapbg { fill: var(--surface); }
+.t-koko21-cmapgrid { stroke: var(--line); stroke-width: 1; }
+@media (max-width: 30rem) {
+  .t-koko21-legend { flex-wrap: nowrap; gap: 0.6rem; }
+  .t-koko21-ex { grid-template-columns: repeat(5, 1.45rem); grid-auto-rows: 1.45rem; }
+  .t-koko21-legend figcaption { font-size: 0.78rem; max-width: 8rem; }
+}

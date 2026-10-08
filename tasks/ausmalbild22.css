@@ -1,0 +1,40 @@
+/* Stile für ausmalbild22 (Präfix t-ausmalbild22-). Muster und Umrisse nur über Farb-Tokens, damit sie in Hell und Dunkel passen. */
+.t-ausmalbild22-board { display: grid; gap: 0.9rem; justify-items: center; }
+.t-ausmalbild22-fig {
+  width: 100%; max-width: 36rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.5rem 0.6rem;
+}
+.t-ausmalbild22-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.t-ausmalbild22-lines { fill: var(--ink); pointer-events: none; }
+.t-ausmalbild22-reg { cursor: pointer; stroke: none; stroke-linejoin: round; outline: none; }
+.t-ausmalbild22-reg:hover { opacity: 0.8; }
+.t-ausmalbild22-reg:focus-visible { stroke: var(--focus); stroke-width: 5; }
+.t-ausmalbild22-reg.bad { stroke: var(--bad); stroke-width: 5; }
+.t-ausmalbild22-reg.locked { cursor: default; }
+.t-ausmalbild22-reg.locked:hover { opacity: 1; }
+
+.t-ausmalbild22-g0 { fill: var(--c6); }
+.t-ausmalbild22-g0t { fill: color-mix(in srgb, var(--c6) 55%, var(--ink)); }
+.t-ausmalbild22-b0 { fill: var(--c4); }
+.t-ausmalbild22-b0w { fill: none; stroke: color-mix(in srgb, var(--c4) 45%, var(--ink)); stroke-width: 0.9; stroke-linecap: round; }
+.t-ausmalbild22-y0 { fill: color-mix(in srgb, var(--c2) 55%, var(--surface)); }
+.t-ausmalbild22-y0d { fill: color-mix(in srgb, var(--c2) 70%, var(--ink)); }
+
+.t-ausmalbild22-palette { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+.t-ausmalbild22-pal {
+  appearance: none; display: grid; justify-items: center; gap: 0.1rem; min-width: 4.4rem; padding: 0.35rem 0.6rem 0.3rem;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation;
+  font: inherit; font-weight: 600; font-size: 0.9rem;
+}
+.t-ausmalbild22-pal:hover:not(:disabled) { border-color: var(--accent); }
+.t-ausmalbild22-pal.selected { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-ausmalbild22-pal:disabled { cursor: default; opacity: 0.7; }
+.t-ausmalbild22-sw { width: 2.4rem; height: 2.4rem; display: block; }
+.t-ausmalbild22-swc { stroke: var(--ink); stroke-width: 2; }
+.t-ausmalbild22-er { stroke: var(--bad); stroke-width: 3; stroke-linecap: round; }
+.t-ausmalbild22-status { margin: 0; font-size: 0.95rem; color: var(--muted); }
+
+.t-ausmalbild22-sols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; margin: 0.8rem 0; max-width: 34rem; }
+.t-ausmalbild22-thumb { display: block; width: 100%; height: auto; background: var(--surface2); border: 1px solid var(--line); border-radius: 8px; padding: 3px; }
+@media (max-width: 30rem) {
+  .t-ausmalbild22-sols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

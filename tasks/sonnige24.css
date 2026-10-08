@@ -1,0 +1,49 @@
+/* Stile für sonnige24 (Präfix t-sonnige24-) */
+.t-sonnige24-board { display: grid; gap: 1rem; }
+.t-sonnige24-scenebox { justify-self: center; width: min(100%, 16rem); }
+.t-sonnige24-scene { display: block; width: 100%; height: auto; overflow: visible; }
+.t-sonnige24-sun circle { fill: #ffbe1a; }
+.t-sonnige24-sun path { stroke: #ffbe1a; stroke-width: 3; stroke-linecap: round; fill: none; }
+.t-sonnige24-pole { stroke: var(--muted); stroke-width: 3; fill: none; stroke-linecap: round; }
+.t-sonnige24-sh1 { fill: #ff7a1a; }
+.t-sonnige24-sh2 { fill: #c8281e; }
+.t-sonnige24-b { fill: #8a5a38; stroke: #5a3a22; stroke-width: 2; }
+.t-sonnige24-water { fill: #8fd3e8; stroke: #5db4cf; stroke-width: 2; opacity: 0.95; }
+
+.t-sonnige24-sentence {
+  margin: 0; padding: 0.8rem 0.9rem; background: var(--surface); border: 3px solid var(--line); border-radius: 12px;
+  font-size: 1.1rem; line-height: 2.4; font-weight: 600;
+}
+.t-sonnige24-slot {
+  appearance: none; display: inline-block; max-width: 100%; vertical-align: middle; line-height: 1.35; text-align: left;
+  min-width: 4.2rem; padding: 0.2rem 0.6rem; border-radius: 8px; border: 2px dashed var(--slot-line); background: var(--slot);
+  color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+}
+.t-sonnige24-slot.filled { border-style: solid; }
+.t-sonnige24-slot:disabled { cursor: default; opacity: 1; color: var(--ink); }
+.t-sonnige24-slot.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-sonnige24-slot.wrong { border-color: var(--bad); background: var(--bad-bg); }
+
+.t-sonnige24-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 1rem 1.5rem; align-items: start; }
+.t-sonnige24-cols > section { min-width: 0; }
+.t-sonnige24-cols h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-sonnige24-chips { display: grid; gap: 0.6rem; }
+.t-sonnige24-chip {
+  appearance: none; position: relative; text-align: left; padding: 0.6rem 0.8rem; border-radius: 10px;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); font: inherit; font-weight: 600; cursor: pointer; touch-action: manipulation;
+}
+.t-sonnige24-chip:hover { border-color: var(--accent); }
+.t-sonnige24-chip[aria-disabled="true"] { cursor: default; }
+.t-sonnige24-chip[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-sonnige24-chip.selected, .t-sonnige24-chip.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-sonnige24-chip.right, .t-sonnige24-chip.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-sonnige24-chip.wrong, .t-sonnige24-chip.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-sonnige24-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-sonnige24-chip.wrong .t-sonnige24-mark { background: var(--bad); }
+@media (max-width: 40rem) {
+  .t-sonnige24-cols { grid-template-columns: minmax(0, 1fr); }
+  .t-sonnige24-sentence { line-height: 2.3; }
+}

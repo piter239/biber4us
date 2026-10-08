@@ -1,0 +1,50 @@
+/* Stile für teddybaer20 (Präfix t-teddybaer20-). Kartenbilder liegen auf cremefarbenem Grund (--paper), damit sie in Hell und Dunkel lesbar sind. */
+.t-teddybaer20-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: start; }
+.t-teddybaer20-board > section { min-width: 0; }
+.t-teddybaer20-board > section:first-child { grid-row: span 2; }
+.t-teddybaer20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+
+.t-teddybaer20-mapbox { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem; }
+.t-teddybaer20-map { display: block; width: 100%; height: auto; }
+.t-teddybaer20-marks { position: absolute; inset: 0.4rem; }
+.t-teddybaer20-house {
+  appearance: none; position: absolute; width: 2.75rem; height: 2.75rem; margin: -1.375rem 0 0 -1.375rem; border-radius: 50%; padding: 0;
+  background: transparent; border: 3px dashed transparent; color: #fff; font: 800 1.05rem var(--font-display); cursor: pointer; touch-action: manipulation;
+  display: grid; place-items: center;
+}
+.t-teddybaer20-house:not(:disabled):hover { border-color: var(--accent); }
+.t-teddybaer20-house:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-teddybaer20-house.t-teddybaer20-on { background: color-mix(in srgb, var(--accent) 88%, #000); border: 3px solid #fff; box-shadow: 0 0 0 2px var(--accent); }
+.t-teddybaer20-house:disabled { cursor: default; }
+.t-teddybaer20-note { margin: 0.5rem 0 0; font-size: 0.95rem; color: var(--muted); min-height: 2.9em; }
+
+.t-teddybaer20-mem { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+.t-teddybaer20-memcard { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem; display: grid; place-items: center; aspect-ratio: 1 / 1; }
+.t-teddybaer20-bear { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+
+.t-teddybaer20-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+.t-teddybaer20-opt {
+  appearance: none; position: relative; display: grid; grid-template-rows: auto 1fr; justify-items: center; gap: 0.2rem; aspect-ratio: 1.15 / 1;
+  padding: 0.5rem 0.6rem 0.6rem; background: var(--paper); color: #15303a; border: 3px solid var(--line); border-radius: 12px; cursor: pointer; font: inherit; touch-action: manipulation;
+}
+.t-teddybaer20-opt .t-teddybaer20-bear { max-height: 6.5rem; min-height: 0; }
+.t-teddybaer20-opt:hover { border-color: var(--accent); }
+.t-teddybaer20-opt[aria-disabled="true"] { cursor: default; }
+.t-teddybaer20-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-teddybaer20-opt.selected, .t-teddybaer20-opt.selected:hover { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-teddybaer20-opt.right, .t-teddybaer20-opt.right:hover { border-color: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 35%, transparent); }
+.t-teddybaer20-opt.wrong, .t-teddybaer20-opt.wrong:hover { border-color: var(--bad); box-shadow: 0 0 0 3px color-mix(in srgb, var(--bad) 35%, transparent); }
+.t-teddybaer20-key { justify-self: start; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-teddybaer20-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-teddybaer20-opt.wrong .t-teddybaer20-mark { background: var(--bad); }
+
+.t-teddybaer20-sol { margin: 0.8rem 0; padding: 0.4rem; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; max-width: 30rem; }
+.t-teddybaer20-sol img { display: block; width: 100%; height: auto; }
+
+@media (max-width: 44rem) {
+  .t-teddybaer20-board { grid-template-columns: minmax(0, 1fr); }
+  .t-teddybaer20-board > section:first-child { grid-row: auto; }
+}

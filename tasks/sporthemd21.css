@@ -1,0 +1,40 @@
+/* Stile für sporthemd21 (Präfix t-sporthemd21-). Hemd-Bilder liegen auf hellem Papier-Grund (Hell und Dunkel). */
+.t-sporthemd21-board { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 1.2rem 1.6rem; align-items: start; }
+.t-sporthemd21-board section { min-width: 0; }
+.t-sporthemd21-fig { margin: 0; background: var(--paper); border-radius: 10px; padding: 0.6rem; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); text-align: center; }
+.t-sporthemd21-fig img { display: block; width: 100%; height: auto; }
+.t-sporthemd21-fig figcaption { color: #4a4a4a; font-size: 0.8rem; margin-top: 0.2rem; }
+.t-sporthemd21-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; }
+.t-sporthemd21-opt {
+  appearance: none; position: relative; display: grid; grid-template-rows: auto 1fr; justify-items: center; gap: 0.3rem; padding: 0.5rem 0.4rem 0.6rem; min-width: 0;
+  background: var(--paper); color: #15303a; border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 700;
+  transition: opacity 0.15s;
+}
+.t-sporthemd21-opt:hover { border-color: var(--accent); }
+.t-sporthemd21-opt:focus-visible, .t-sporthemd21-chip:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-sporthemd21-opt[aria-disabled="true"] { cursor: default; }
+.t-sporthemd21-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-sporthemd21-opt.selected, .t-sporthemd21-opt.selected:hover { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-sporthemd21-opt.right, .t-sporthemd21-opt.right:hover { border-color: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 30%, transparent); }
+.t-sporthemd21-opt.wrong, .t-sporthemd21-opt.wrong:hover { border-color: var(--bad); box-shadow: 0 0 0 3px color-mix(in srgb, var(--bad) 30%, transparent); }
+.t-sporthemd21-opt.t-sporthemd21-dim { opacity: 0.3; }
+.t-sporthemd21-key { font-family: var(--font-display); font-size: 1.15rem; }
+.t-sporthemd21-opt img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-sporthemd21-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-sporthemd21-opt.wrong .t-sporthemd21-mark { background: var(--bad); }
+.t-sporthemd21-filter { margin-top: 1rem; display: grid; gap: 0.5rem; }
+.t-sporthemd21-flabel { color: var(--muted); font-size: 0.95rem; }
+.t-sporthemd21-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-sporthemd21-chip {
+  appearance: none; min-height: 2.5rem; padding: 0.3rem 0.9rem; font: inherit; font-weight: 600; font-size: 0.95rem; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 999px;
+}
+.t-sporthemd21-chip.on { background: var(--accent); color: var(--accent-ink); }
+@media (max-width: 40rem) {
+  .t-sporthemd21-board { grid-template-columns: minmax(0, 1fr); }
+  .t-sporthemd21-fig { max-width: 11rem; }
+  .t-sporthemd21-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+}

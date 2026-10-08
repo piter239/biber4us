@@ -219,6 +219,48 @@
     '.bk-st.bk-locked{border-color:var(--line,#c9d6db);background:transparent}',
     '.bk-st.bk-locked svg{filter:grayscale(1) brightness(.5);opacity:.4}',
     '.bk-st-open .bk-mouthopen{opacity:1;transform:scaleY(1.2)}',
+    '.bk-album.bk-wide{width:min(900px,100%)}',
+    '.bk-st:not(.bk-locked){cursor:pointer}',
+    '.bk-st:not(.bk-locked):hover{border-color:var(--accent,#0a86a6)}',
+    '.bk-st:focus-visible{outline:3px solid var(--focus,#0a86a6);outline-offset:2px}',
+    '.bk-st.bk-pop svg{animation:bk-stpop .95s cubic-bezier(.3,1.6,.5,1) 1}',
+    '@keyframes bk-stpop{0%{transform:scale(1) rotate(0)}18%{transform:scale(1.28) rotate(-9deg)}38%{transform:scale(1.2) rotate(8deg)}58%{transform:scale(1.22) rotate(-5deg)}80%{transform:scale(1.06) rotate(2deg)}100%{transform:scale(1) rotate(0)}}',
+    '.bk-st .bk-spark{position:absolute;pointer-events:none;width:16px;height:16px;color:#f2c230;animation:bk-stspark .9s ease-out 1 forwards}',
+    '@keyframes bk-stspark{0%{opacity:0;transform:translate(0,0) scale(.3)}25%{opacity:1}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(1.2) rotate(120deg)}}',
+    '.bk-st{position:relative}',
+    '.bk-say{margin:.2rem 0 .7rem;padding:.55rem .8rem;border-radius:12px;background:color-mix(in srgb,var(--accent,#0a86a6) 12%,var(--surface,#fff));border:2px solid var(--accent,#0a86a6);font-weight:700;display:none}',
+    '.bk-say.bk-on{display:block;animation:bk-saypop .35s ease-out 1}',
+    '@keyframes bk-saypop{0%{opacity:0;transform:translateY(-6px)}100%{opacity:1;transform:none}}',
+    '@media (prefers-reduced-motion:reduce){.bk-st.bk-pop svg,.bk-st .bk-spark,.bk-say.bk-on{animation:none}}',
+    '.bk-tabs{display:flex;gap:.4rem;margin:0 0 .9rem;flex-wrap:wrap}',
+    '.bk-tab{appearance:none;border:2px solid var(--accent,#0a86a6);background:transparent;color:var(--accent,#0a86a6);border-radius:999px;font:700 .95rem var(--font-body,system-ui,sans-serif);padding:.35rem 1rem;cursor:pointer}',
+    '.bk-tab[aria-selected="true"]{background:var(--accent,#0a86a6);color:#fff}',
+    '.bk-tab:focus-visible,.bk-gcard:focus-visible,.bk-album-close:focus-visible{outline:3px solid var(--focus,#0a86a6);outline-offset:2px}',
+    '.bk-scene{margin:0 0 1rem;border-radius:16px;overflow:hidden;background:linear-gradient(#fdf3da,#f6e3b8);border:2px solid var(--line,#c9d6db)}',
+    '.bk-scene>svg{display:block;width:100%;height:auto}',
+    '.bk-scenecap{margin:.4rem 0 0;font-size:.9rem;color:var(--muted,#5a6b72)}',
+    '.bk-ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:.9rem;list-style:none;margin:0;padding:0}',
+    '.bk-gcard{display:grid;gap:.5rem;padding:.7rem;border-radius:16px;background:var(--surface2,#e8f0f2);border:2px solid transparent;cursor:pointer;text-align:left;font:inherit;color:inherit;appearance:none;width:100%}',
+    '.bk-gcard:hover{border-color:var(--accent,#0a86a6)}',
+    '.bk-gpair{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}',
+    '.bk-gpic{margin:0;display:grid;gap:.2rem;justify-items:center}',
+    '.bk-gpic svg{display:block;width:100%;height:auto;border-radius:12px}',
+    '.bk-gpic .bk-gwith{background:var(--paper,#fdf9f1)}',
+    '.bk-gpic figcaption{font-size:.74rem;color:var(--muted,#5a6b72)}',
+    '.bk-galone-bg{background:radial-gradient(circle at 50% 42%,#fffbe6 0%,#ffe9b0 55%,#f7cf86 100%);border-radius:12px;aspect-ratio:190/168;display:grid;place-items:center;width:100%}',
+    '.bk-galone-bg svg{width:78%;height:auto;filter:drop-shadow(0 3px 3px rgba(80,50,10,.28))}',
+    '.bk-gcard b{font:700 1.15rem/1.2 var(--font-display,system-ui,sans-serif)}',
+    '.bk-gcard span{font-size:.9rem;color:var(--muted,#5a6b72)}',
+    '.bk-gcard.bk-locked{background:transparent;border:2px dashed var(--line,#c9d6db);cursor:default}',
+    '.bk-gcard.bk-locked svg{filter:grayscale(1) brightness(.5);opacity:.4}',
+    '.bk-gcard.bk-locked .bk-galone-bg{background:var(--surface2,#e8f0f2)}',
+    '.bk-gcard.bk-locked .bk-galone-bg svg{filter:grayscale(1) brightness(.4);opacity:.35}',
+    '.bk-lbox{position:fixed;inset:0;z-index:2147483200;background:rgba(10,20,25,.8);display:grid;place-items:center;padding:12px;overflow:auto}',
+    '.bk-lbox-in{width:min(760px,100%);background:var(--surface,#fff);color:var(--ink,#1b2b31);border:2px solid var(--accent,#0a86a6);border-radius:18px;padding:1rem 1.1rem;display:grid;gap:.7rem;font:400 16px/1.4 var(--font-body,system-ui,sans-serif)}',
+    '.bk-lbox-in h3{margin:0;font:700 1.5rem/1.2 var(--font-display,system-ui,sans-serif)}',
+    '.bk-lbox-in p{margin:0;color:var(--muted,#5a6b72)}',
+    '.bk-lbox .bk-gpair{gap:.8rem}',
+    '.bk-lbox .bk-gpic figcaption{font-size:.9rem}',
     /* Versteckte Katze */
     '.bk-hid{position:absolute;z-index:4;width:30px;height:17px;overflow:hidden;cursor:pointer;padding:0;border:0;background:none;-webkit-tap-highlight-color:transparent}',
     '.bk-hid::before{content:"";position:absolute;inset:-10px -8px -6px}',
@@ -870,7 +912,7 @@
     if (!toast) {
       toast = document.createElement('button'); toast.type = 'button'; toast.className = 'bk-toast';
       toast.setAttribute('aria-live', 'polite');
-      toast.addEventListener('click', function () { openAlbum(); });
+      toast.addEventListener('click', function () { openAlbum(lastKind); });
       document.body.appendChild(toast);
     }
     toast.innerHTML = SPARK + '<span></span>';
@@ -882,42 +924,170 @@
     if (!mem.stickers) mem.stickers = {};
     if (mem.stickers[id]) return false;
     mem.stickers[id] = true; persist();
+    lastKind = id.slice(0, 2) === 'g:' ? 'gifts' : 'sticker';
     var first = Object.keys(mem.stickers).length === 1;
     setTimeout(function () { showToast('Neuer Sticker: ' + stickerName(id) + (first ? ' (Dein Sammelalbum ist im Seitenfuß)' : '')); }, 900);
     announce();
     return true;
   }
 
-  var albumEl = null, albumFrom = null;
-  function openAlbum() {
+  var albumEl = null, albumFrom = null, albumTab = 'sticker', lastKind = 'sticker';
+
+  /* Ein Geschenk groß, Größe in der Szene über x/y/width (die viewBox des Geschenks bleibt erhalten) */
+  function giftAt(g, x, y, w, locked) {
+    var svg = g.svg.replace('<svg ', '<svg x="' + x + '" y="' + y + '" width="' + w + '" height="' + Math.round(w * 0.75) + '" ');
+    return locked ? svg.replace('<svg ', '<svg style="filter:grayscale(1) brightness(.4);opacity:.3" ') : svg;
+  }
+  /* Szene: das Kätzchen sitzt auf seinem Teppich, die erhaltenen Geschenke liegen um es herum */
+  function sceneSvg(have) {
+    var slots = [[18, 14], [76, 14], [18, 70], [76, 70], [18, 126], [76, 126], [276, 14], [334, 14], [276, 70], [334, 70], [276, 126], [334, 126], [132, 170], [214, 170]];
+    var cat = kittenSvg().replace(/^<svg[^>]*>/, '<g transform="translate(138 10) scale(.62)">').replace(/<\/svg>$/, '</g>');
+    var items = GIFTS.map(function (g, i) {
+      var p = slots[i % slots.length];
+      var got = !!have['g:' + g.id];
+      return giftAt(g, p[0], p[1], 50, !got);
+    }).join('');
+    return '<svg viewBox="0 0 400 240" role="img" aria-label="Das Kätzchen mit seinen Geschenken">' +
+      '<ellipse cx="200" cy="205" rx="190" ry="30" fill="#e8b4a0" stroke="#b9786a" stroke-width="3"/>' +
+      '<ellipse cx="200" cy="205" rx="160" ry="21" fill="none" stroke="#fbe5d9" stroke-width="3" stroke-dasharray="10 8"/>' +
+      cat + items + '</svg>';
+  }
+  function pairHtml(g, got) {
+    var withCat = got ? stickerSvg('g:' + g.id) : stickerSvg('a:wave');
+    return '<div class="bk-gpair"><figure class="bk-gpic"><div class="bk-galone-bg" style="background:var(--paper,#fdf9f1)">' + withCat.replace('<svg ', '<svg style="width:100%" ') + '</div><figcaption>mit dem Kätzchen</figcaption></figure>' +
+      '<figure class="bk-gpic"><div class="bk-galone-bg">' + g.svg + '</div><figcaption>einzeln</figcaption></figure></div>';
+  }
+  function giftsHtml(have) {
+    var n = GIFTS.filter(function (g) { return have['g:' + g.id]; }).length;
+    var cards = GIFTS.map(function (g, i) {
+      var got = !!have['g:' + g.id];
+      return '<li><button type="button" class="bk-gcard' + (got ? '' : ' bk-locked') + '" data-gift="' + g.id + '"' + (got ? '' : ' disabled') + ' aria-label="' + (got ? g.name + ', groß ansehen' : 'Noch nicht bekommen') + '">' +
+        pairHtml(g, got) + '<b>' + (got ? g.name : '???') + '</b><span>' + (got ? g.line : 'Noch nicht bekommen. Das Kätzchen schenkt Dir etwas für richtige Antworten im ersten Versuch.') + '</span></button></li>';
+    }).join('');
+    return '<div class="bk-scene">' + sceneSvg(have) + '</div>' +
+      '<p class="bk-scenecap">' + n + ' von ' + GIFTS.length + ' Geschenken. Tippe ein Geschenk an, dann siehst Du es ganz groß.</p>' +
+      '<ul class="bk-ggrid">' + cards + '</ul>';
+  }
+  function stickersHtml(have) {
+    return '<div class="bk-say" role="status" aria-live="polite"></div><ul class="bk-grid">' + STICKERS.filter(function (s) { return s[0].slice(0, 2) !== 'g:'; }).map(function (s) {
+      var got = !!have[s[0]];
+      return '<li class="bk-st' + (got ? '' : ' bk-locked') + '"' + (got ? ' tabindex="0" role="button" aria-label="' + s[1] + ' (antippen zum Ansehen)"' : '') + '>' + (got ? stickerSvg(s[0]) : stickerSvg(s[0] === 's:hidden' ? 'a:wave' : s[0])) +
+        '<b>' + (got ? s[1] : '???') + '</b><small>' + (got ? s[2] : 'Noch nicht entdeckt') + '</small></li>';
+    }).join('') + '</ul>';
+  }
+  function openAlbum(tab) {
     if (albumEl) return;
     albumFrom = document.activeElement;
+    if (tab === 'sticker' || tab === 'gifts') albumTab = tab;
     var have = mem.stickers || {};
-    var n = Object.keys(have).length;
+    var nGift = GIFTS.filter(function (g) { return have['g:' + g.id]; }).length;
+    var nSt = Object.keys(have).filter(function (k) { return k.slice(0, 2) !== 'g:'; }).length;
+    var totSt = STICKERS.length - GIFTS.length;
     albumEl = document.createElement('div'); albumEl.className = 'bk-album-back';
-    var items = STICKERS.map(function (s) {
-      var got = !!have[s[0]];
-      return '<li class="bk-st' + (got ? '' : ' bk-locked') + '">' + (got ? stickerSvg(s[0]) : stickerSvg(s[0] === 's:hidden' ? 'a:wave' : s[0])) +
-        '<b>' + (got ? s[1] : '???') + '</b><small>' + (got ? s[2] : 'Noch nicht entdeckt') + '</small></li>';
-    }).join('');
-    albumEl.innerHTML = '<div class="bk-album" role="dialog" aria-modal="true" aria-label="Kätzchen-Sammelalbum">' +
-      '<div class="bk-album-head"><div><h2>Sammelalbum</h2><p>' + n + ' von ' + STICKERS.length + ' Stickern gesammelt. Geschenke gibt es für richtige Antworten im ersten Versuch (bisher ' + (mem.correct || 0) + ').</p></div>' +
-      '<button type="button" class="bk-album-close">Schließen</button></div><ul class="bk-grid">' + items + '</ul></div>';
+    albumEl.innerHTML = '<div class="bk-album bk-wide" role="dialog" aria-modal="true" aria-label="Kätzchen-Sammelalbum">' +
+      '<div class="bk-album-head"><div><h2>Sammelalbum</h2><p class="bk-albumsub"></p></div>' +
+      '<button type="button" class="bk-album-close">Schließen</button></div>' +
+      '<div class="bk-tabs" role="tablist" aria-label="Album">' +
+      '<button type="button" class="bk-tab" role="tab" data-tab="sticker">Sticker (' + nSt + '/' + totSt + ')</button>' +
+      '<button type="button" class="bk-tab" role="tab" data-tab="gifts">Geschenke (' + nGift + '/' + GIFTS.length + ')</button></div>' +
+      '<div class="bk-albumbody" role="tabpanel"></div></div>';
     document.body.appendChild(albumEl);
+    var body = albumEl.querySelector('.bk-albumbody'), sub = albumEl.querySelector('.bk-albumsub');
     var close = albumEl.querySelector('.bk-album-close');
-    close.focus();
+    var lbox = null;
+    var pops = [], sayT = 0, lastSay = -1;
+    var SAYINGS = [
+      'Aufgaben lösen sich nicht selbst!',
+      'Aufgaben lösen sich nicht selbst, aber zusammen schaffen wir das!',
+      'So, genug gespielt: Die Aufgaben lösen sich nicht selbst!',
+      'Hihi, das kitzelt! Aber Aufgaben lösen sich nicht selbst.',
+      'Ich freue mich über Besuch, aber die nächste Aufgabe wartet schon!'
+    ];
+    function sayNow() {
+      var box = body.querySelector('.bk-say'); if (!box) return;
+      var i; do { i = Math.floor(Math.random() * SAYINGS.length); } while (i === lastSay && SAYINGS.length > 1);
+      lastSay = i;
+      box.classList.remove('bk-on'); void box.offsetWidth;
+      box.textContent = SAYINGS[i]; box.classList.add('bk-on');
+      clearTimeout(sayT); sayT = setTimeout(function () { box.classList.remove('bk-on'); }, 5200);
+    }
+    /* Höchstens 5 Animationen innerhalb von 12 Sekunden, danach ein netter Spruch statt weiterer Animation */
+    function popSticker(li) {
+      var now = Date.now();
+      pops = pops.filter(function (t) { return now - t < 12000; });
+      if (pops.length >= 5) { sayNow(); return; }
+      pops.push(now);
+      li.classList.remove('bk-pop'); void li.offsetWidth; li.classList.add('bk-pop');
+      for (var k = 0; k < 4; k++) {
+        var sp = document.createElement('span'); sp.className = 'bk-spark';
+        sp.innerHTML = SPARK;
+        sp.style.left = (30 + Math.random() * 40) + '%'; sp.style.top = (14 + Math.random() * 30) + '%';
+        sp.style.setProperty('--sx', Math.round(Math.random() * 90 - 45) + 'px'); sp.style.setProperty('--sy', Math.round(-20 - Math.random() * 40) + 'px');
+        li.appendChild(sp);
+        (function (el) { setTimeout(function () { el.remove(); }, 1000); })(sp);
+      }
+      setTimeout(function () { li.classList.remove('bk-pop'); }, 1000);
+      if (!mem.mute) { try { meow(); } catch (e) { /* ohne Ton */ } }
+    }
+    function show(t) {
+      albumTab = t;
+      albumEl.querySelectorAll('.bk-tab').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.tab === t ? 'true' : 'false'); });
+      if (t === 'gifts') {
+        sub.textContent = 'Geschenke vom Kätzchen für richtige Antworten im ersten Versuch (bisher ' + (mem.correct || 0) + ').';
+        body.innerHTML = giftsHtml(have);
+      } else {
+        sub.textContent = nSt + ' von ' + totSt + ' Stickern gesammelt. Sticker findest Du, wenn Du das Kätzchen besuchst, streichelst oder Überraschungen erlebst.';
+        body.innerHTML = stickersHtml(have);
+      }
+    }
+    function openBig(id) {
+      var g = GIFTS.filter(function (x) { return x.id === id; })[0];
+      if (!g || lbox) return;
+      lbox = document.createElement('div'); lbox.className = 'bk-lbox';
+      lbox.innerHTML = '<div class="bk-lbox-in" role="dialog" aria-modal="true" aria-label="' + g.name + '"><h3>' + g.name + '</h3><p>' + g.line + '</p>' + pairHtml(g, true) +
+        '<div><button type="button" class="bk-album-close bk-lbox-close">Zurück</button></div></div>';
+      albumEl.appendChild(lbox);
+      lbox.querySelector('.bk-lbox-close').focus();
+      lbox.addEventListener('click', function (e) { if (e.target === lbox || e.target.closest('.bk-lbox-close')) closeBig(); });
+    }
+    function closeBig() {
+      if (!lbox) return;
+      lbox.remove(); lbox = null;
+      var c = body.querySelector('.bk-gcard:not(.bk-locked)'); if (c) c.focus();
+    }
     function closeAlbum() {
       if (!albumEl) return;
-      albumEl.remove(); albumEl = null; document.removeEventListener('keydown', onKey, true);
+      albumEl.remove(); albumEl = null; lbox = null; document.removeEventListener('keydown', onKey, true);
       if (albumFrom && albumFrom.focus) try { albumFrom.focus(); } catch (e) { /* ignorieren */ }
     }
     function onKey(e) {
-      if (e.key === 'Escape') { e.preventDefault(); closeAlbum(); }
-      else if (e.key === 'Tab') { e.preventDefault(); close.focus(); }
+      if (e.key === 'Escape') { e.preventDefault(); if (lbox) closeBig(); else closeAlbum(); }
+      else if (e.key === 'Tab') {
+        var root = lbox || albumEl;
+        var f = [].slice.call(root.querySelectorAll('button')).filter(function (b) { return !b.disabled; });
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        else if (!root.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+      }
     }
     document.addEventListener('keydown', onKey, true);
     close.addEventListener('click', closeAlbum);
-    albumEl.addEventListener('click', function (e) { if (e.target === albumEl) closeAlbum(); });
+    albumEl.addEventListener('click', function (e) {
+      if (e.target === albumEl) { closeAlbum(); return; }
+      var t = e.target.closest('.bk-tab');
+      if (t) { show(t.dataset.tab); return; }
+      var gc = e.target.closest('.bk-gcard');
+      if (gc && !gc.disabled) { openBig(gc.dataset.gift); return; }
+      var st = e.target.closest('.bk-st');
+      if (st && !st.classList.contains('bk-locked')) popSticker(st);
+    });
+    albumEl.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('bk-st') && !e.target.classList.contains('bk-locked')) { e.preventDefault(); popSticker(e.target); }
+    });
+    show(albumTab);
+    close.focus();
   }
 
   /* ---------- Konfetti ---------- */
@@ -1052,7 +1222,7 @@
       announce();
     },
     setMuted: function (m) { mem.mute = !!m; persist(); announce(); },
-    album: openAlbum,
+    album: function () { openAlbum(); },
     reload: function () { mem = loadMem(); announce(); },
     setProfile: function (key, name) {
       if (key === KEY) { who = name || ''; return; }

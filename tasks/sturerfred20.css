@@ -1,0 +1,68 @@
+/* Stile für sturerfred20 (Präfix t-sturerfred20-). Die Szene liegt auf cremefarbenem Grund (--paper), damit die Tierbilder in Hell und Dunkel gut aussehen. */
+.t-sturerfred20-board { display: grid; gap: 1.25rem; }
+.t-sturerfred20-board > section { min-width: 0; }
+.t-sturerfred20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-sturerfred20-game { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.8rem 0.9rem 1rem; display: grid; gap: 0.6rem; }
+
+.t-sturerfred20-stage { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem 0.5rem 0.2rem; overflow: hidden; }
+.t-sturerfred20-scene { position: relative; }
+.t-sturerfred20-skyrow { position: relative; height: 3.6rem; }
+.t-sturerfred20-stone {
+  appearance: none; position: absolute; bottom: 0; transform: translateX(-50%); width: 24%; min-width: 3.4rem; aspect-ratio: 300 / 146;
+  padding: 0; border: 0; background: transparent; cursor: pointer; touch-action: manipulation;
+}
+.t-sturerfred20-stoneimg { display: block; width: 100%; height: auto; }
+.t-sturerfred20-onstone { position: absolute; left: 50%; bottom: 38%; width: 30%; height: auto; transform: translateX(-50%); }
+.t-sturerfred20-stone:not(:disabled):hover .t-sturerfred20-stoneimg { filter: brightness(1.08); }
+.t-sturerfred20-stone:focus-visible, .t-sturerfred20-kang:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.t-sturerfred20-stone:disabled, .t-sturerfred20-kang:disabled { cursor: default; }
+.t-sturerfred20-reserve { position: absolute; right: 0; bottom: 0; display: flex; align-items: flex-end; gap: 0.25rem; color: #15303a; font-weight: 700; font-size: 0.95rem; }
+.t-sturerfred20-rimg { height: 2.8rem; width: auto; display: block; }
+
+.t-sturerfred20-row { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); align-items: end; }
+.t-sturerfred20-col { display: grid; justify-items: center; align-items: end; min-width: 0; }
+.t-sturerfred20-occ { display: grid; justify-items: center; align-items: end; height: 4.4rem; width: 100%; margin-bottom: -0.55rem; position: relative; z-index: 1; }
+.t-sturerfred20-img { display: block; height: 100%; width: auto; max-width: 100%; object-fit: contain; }
+.t-sturerfred20-fred { height: 3.7rem; display: grid; align-items: end; }
+.t-sturerfred20-kang { appearance: none; padding: 0; border: 0; background: transparent; height: 4.4rem; max-width: 100%; cursor: pointer; touch-action: manipulation; }
+.t-sturerfred20-kang:not(:disabled):hover .t-sturerfred20-img { filter: brightness(1.1); }
+.t-sturerfred20-stump { display: block; width: 94%; height: auto; }
+
+.t-sturerfred20-stats { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; font-size: 0.98rem; }
+.t-sturerfred20-msg { margin: 0; min-height: 2.9em; font-size: 0.98rem; color: var(--ink); }
+.t-sturerfred20-ctrl { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-sturerfred20-go {
+  appearance: none; min-height: 2.75rem; padding: 0.4rem 0.9rem; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--accent);
+}
+.t-sturerfred20-go:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-sturerfred20-go:disabled { opacity: 0.4; cursor: not-allowed; border-color: var(--line); }
+.t-sturerfred20-go:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-sturerfred20-again { min-height: 2.75rem; padding-block: 0.3rem; }
+
+.t-sturerfred20-opts { display: grid; gap: 0.6rem; }
+.t-sturerfred20-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.5rem; align-items: start; text-align: left;
+  padding: 0.65rem 0.8rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600;
+}
+.t-sturerfred20-opt:hover { border-color: var(--accent); }
+.t-sturerfred20-opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-sturerfred20-opt[aria-disabled="true"] { cursor: default; }
+.t-sturerfred20-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-sturerfred20-opt.selected, .t-sturerfred20-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-sturerfred20-opt.right, .t-sturerfred20-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-sturerfred20-opt.wrong, .t-sturerfred20-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-sturerfred20-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-sturerfred20-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-sturerfred20-opt.wrong .t-sturerfred20-mark { background: var(--bad); }
+
+@media (max-width: 30rem) {
+  .t-sturerfred20-occ, .t-sturerfred20-kang { height: 3.6rem; }
+  .t-sturerfred20-fred { height: 3rem; }
+  .t-sturerfred20-skyrow { height: 3.2rem; }
+  .t-sturerfred20-rimg { height: 2.3rem; }
+}

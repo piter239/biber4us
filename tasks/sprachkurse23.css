@@ -1,0 +1,20 @@
+/* Aufgabe Sprachkurse (Heft 2023): Graph auf hellem Papier, Linien in festen Zeichenfarben */
+.t-sprachkurse23-board { display: grid; gap: 0.6rem; }
+.t-sprachkurse23-stage { background: var(--paper); border-radius: 12px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); padding: 0.4rem; max-width: 620px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+.t-sprachkurse23-svg { display: block; width: 100%; height: auto; touch-action: manipulation; user-select: none; -webkit-user-select: none; cursor: pointer; }
+.t-sprachkurse23-svg.locked { cursor: default; }
+.t-sprachkurse23-cname { font: 700 15px var(--font-body); fill: #15303a; }
+.t-sprachkurse23-word { font: 700 15px var(--font-display); }
+.t-sprachkurse23-pname { font: 700 20px var(--font-display); fill: #15303a; }
+.t-sprachkurse23-edge { outline: none; }
+.t-sprachkurse23-halo { stroke: transparent; stroke-width: 0; stroke-linecap: round; }
+.t-sprachkurse23-line { stroke: #4a5558; stroke-width: 2; stroke-linecap: round; fill: none; }
+.t-sprachkurse23-edge.hover .t-sprachkurse23-line { stroke: #0a86a6; stroke-width: 3.5; }
+.t-sprachkurse23-edge.on .t-sprachkurse23-halo { stroke: #ffe14d; stroke-width: 13; }
+.t-sprachkurse23-edge.on .t-sprachkurse23-line { stroke: #0b6e86; stroke-width: 4.5; }
+.t-sprachkurse23-edge.right .t-sprachkurse23-halo { stroke: #8fe3b0; }
+.t-sprachkurse23-edge.right .t-sprachkurse23-line { stroke: #1b7a49; }
+.t-sprachkurse23-edge.wrong .t-sprachkurse23-halo { stroke: #ffb3ad; }
+.t-sprachkurse23-edge.wrong .t-sprachkurse23-line { stroke: #b3261e; }
+.t-sprachkurse23-edge:focus-visible .t-sprachkurse23-halo { stroke: #0a86a6; stroke-width: 11; stroke-opacity: 0.45; }
+.t-sprachkurse23-sum { margin: 0; color: var(--muted); font-size: 0.95rem; text-align: center; }

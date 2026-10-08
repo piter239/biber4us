@@ -1,0 +1,53 @@
+/* Aufgabe Ballon-Maschine 2 (Biber 2024) */
+.t-ballon224-ex { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.1rem; margin: 0.5rem 0; }
+.t-ballon224-exfig { display: block; width: 5.2rem; flex: 0 0 auto; }
+.t-ballon224-exfig .t-ballon224-frame { background: var(--surface2); border-radius: 8px; }
+.t-ballon224-exarrow { font-size: 0.95rem; color: var(--muted); display: inline-flex; flex-direction: column; align-items: center; line-height: 1.1; padding: 0 0.1rem; }
+.t-ballon224-exarrow b { color: var(--ink); }
+.t-ballon224-board { display: grid; gap: 1rem; max-width: 34rem; margin: 0 auto; }
+.t-ballon224-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.5rem; }
+.t-ballon224-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.t-ballon224-figure { margin: 0; text-align: center; min-width: 0; }
+.t-ballon224-figure figcaption { font-weight: 700; font-size: 0.9rem; color: var(--muted); margin-top: 0.2rem; }
+.t-ballon224-fig { background: var(--surface2); border-radius: 12px; padding: 0.25rem; }
+.t-ballon224-frame { display: block; width: 100%; height: auto; }
+.t-ballon224-rim { fill: #b98a52; }
+.t-ballon224-floor { fill: #f3dcba; }
+.t-ballon224-bal { fill: none; stroke: #8a170c; stroke-width: 5; stroke-linecap: round; }
+.t-ballon224-nozzle { fill: none; stroke: #8a170c; stroke-width: 2.4; stroke-linecap: round; }
+.t-ballon224-badge { fill: #b3261e; stroke: #fff; stroke-width: 1; }
+.t-ballon224-bt { fill: #fff; font: 700 8.5px var(--font-body); }
+.t-ballon224-stepper { display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+.t-ballon224-stepper .t-ballon224-nav { min-width: 2.6rem; padding-left: 0.6rem; padding-right: 0.6rem; }
+.t-ballon224-stepcap { font-size: 0.9rem; color: var(--muted); min-width: 11rem; text-align: center; }
+.t-ballon224-slots { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 0.35rem; }
+.t-ballon224-step { display: grid; justify-items: center; gap: 0.2rem; min-width: 0; }
+.t-ballon224-no { font-size: 0.72rem; font-weight: 700; color: var(--muted); }
+.t-ballon224-slot {
+  appearance: none; width: 100%; max-width: 3.2rem; aspect-ratio: 0.85; padding: 0; border: 3px dashed var(--slot-line); background: var(--slot);
+  border-radius: 10px; font: 800 1.2rem/1 var(--font-display); color: var(--ink); cursor: pointer; position: relative; touch-action: manipulation;
+}
+.t-ballon224-slot.filled { border-style: solid; background: var(--surface); border-color: var(--ink); }
+.t-ballon224-slot.now { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-ballon224-slot:disabled { cursor: default; opacity: 1; }
+.t-ballon224-slot.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-ballon224-slot.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-ballon224-slot:focus-visible, .t-ballon224-letter:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-ballon224-mark { position: absolute; top: -9px; right: -7px; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 800 0.75rem/1 var(--font-body); color: #fff; background: var(--ok); }
+.t-ballon224-slot.wrong .t-ballon224-mark { background: var(--bad); }
+.t-ballon224-pool { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.t-ballon224-letter {
+  appearance: none; width: 3rem; height: 3rem; border-radius: 50%; border: 3px solid var(--surface); background: var(--c1); color: #fff;
+  font: 800 1.3rem/1 var(--font-display); cursor: pointer; touch-action: manipulation; box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+}
+.t-ballon224-letter:hover:not(:disabled) { filter: brightness(1.1); }
+.t-ballon224-letter:disabled { cursor: default; opacity: 0.45; box-shadow: none; }
+.t-ballon224-undo { margin-left: auto; }
+.t-ballon224-status { margin: 0; font-weight: 600; min-height: 1.5em; }
+@media (max-width: 30rem) {
+  .t-ballon224-slots { grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: 0.6rem; }
+  .t-ballon224-slot { aspect-ratio: 1; }
+  .t-ballon224-letter { width: 2.7rem; height: 2.7rem; font-size: 1.15rem; }
+  .t-ballon224-undo { margin-left: 0; }
+  .t-ballon224-stepcap { min-width: 0; flex: 1; }
+}

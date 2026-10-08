@@ -1,0 +1,54 @@
+/* Stile für blumenkasten20 (Präfix t-blumenkasten20-). Blumen und Erde behalten ihre Farben in Hell und Dunkel. */
+.t-blumenkasten20-board { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: start; }
+.t-blumenkasten20-board > section { min-width: 0; }
+.t-blumenkasten20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-blumenkasten20-note { grid-column: 1 / -1; margin: 0; min-height: 2.9em; font-size: 0.98rem; color: var(--ink); }
+
+.t-blumenkasten20-inl { display: inline-block; width: 1.5em; height: 1.5em; vertical-align: -0.4em; }
+.t-blumenkasten20-inlsvg { display: block; width: 100%; height: 100%; }
+
+.t-blumenkasten20-box { border-radius: 12px; overflow: hidden; border: 3px solid var(--line); background: #a27d34; }
+.t-blumenkasten20-box.t-blumenkasten20-right { border-color: var(--ok); }
+.t-blumenkasten20-box.t-blumenkasten20-wrong { border-color: var(--bad); }
+.t-blumenkasten20-soil { position: relative; aspect-ratio: 1 / 1; background: #a27d34; }
+.t-blumenkasten20-linebox { position: absolute; inset: 0; pointer-events: none; }
+.t-blumenkasten20-lines { display: block; width: 100%; height: 100%; }
+.t-blumenkasten20-ln { stroke: #6b4a25; stroke-width: 4; stroke-linecap: round; }
+.t-blumenkasten20-ln.t-blumenkasten20-on { stroke: #4a3216; stroke-width: 5; }
+.t-blumenkasten20-pt circle { stroke: #fff; stroke-width: 1.5; }
+.t-blumenkasten20-pt text { font-family: var(--font-display); font-weight: 800; font-size: 15px; fill: #fff; }
+.t-blumenkasten20-p3 circle { fill: #2f7d4a; }
+.t-blumenkasten20-p1 circle { fill: #8a5a12; }
+
+.t-blumenkasten20-cells { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); }
+.t-blumenkasten20-cell {
+  appearance: none; border: 0; margin: auto; padding: 0; width: 76%; aspect-ratio: 1 / 1; border-radius: 50%;
+  background: #c9a872; cursor: pointer; touch-action: manipulation; display: grid; place-items: center;
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+.t-blumenkasten20-cell:not(:disabled):hover { background: #d8bb86; }
+.t-blumenkasten20-cell:focus-visible, .t-blumenkasten20-pal:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-blumenkasten20-cell:disabled { cursor: default; }
+.t-blumenkasten20-cell .t-blumenkasten20-fl { width: 118%; height: 118%; display: block; pointer-events: none; }
+.t-blumenkasten20-cell.t-blumenkasten20-filled { background: transparent; box-shadow: none; }
+
+.t-blumenkasten20-bar { display: flex; align-items: center; justify-content: space-between; background: #6b4a25; color: #fff; padding: 0.35rem 0.9rem; }
+.t-blumenkasten20-barlbl { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; opacity: 0.85; }
+.t-blumenkasten20-num { font-family: var(--font-display); font-weight: 800; font-size: 1.7rem; line-height: 1.2; }
+
+.t-blumenkasten20-pool { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.t-blumenkasten20-pal {
+  appearance: none; display: grid; justify-items: center; gap: 0.15rem; min-width: 5.2rem; padding: 0.5rem 0.7rem 0.4rem;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; font: inherit; touch-action: manipulation;
+}
+.t-blumenkasten20-pal:not(:disabled):hover { border-color: var(--accent); }
+.t-blumenkasten20-pal.t-blumenkasten20-sel, .t-blumenkasten20-pal.t-blumenkasten20-sel:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface2)); }
+.t-blumenkasten20-pal.t-blumenkasten20-empty { opacity: 0.5; }
+.t-blumenkasten20-pal:disabled { cursor: default; }
+.t-blumenkasten20-pal .t-blumenkasten20-fl { width: 3.6rem; height: 3.6rem; display: block; pointer-events: none; }
+.t-blumenkasten20-cnt { font-weight: 700; font-size: 1rem; }
+
+@media (max-width: 44rem) {
+  .t-blumenkasten20-board { grid-template-columns: minmax(0, 1fr); }
+  .t-blumenkasten20-box { max-width: 22rem; }
+}

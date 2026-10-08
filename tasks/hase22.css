@@ -1,0 +1,60 @@
+/* Aufgabe Schildkröte und Hase (2022) */
+.t-hase22-root {
+  --hs-disc: #f0e0bd; --hs-edge: #6b3f1c; --hs-arrow: #b0661b;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.7rem; min-width: 0; max-width: 46rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .t-hase22-root { --hs-disc: #4a4030; --hs-edge: #c9a06b; --hs-arrow: #e0a35c; }
+}
+:root[data-theme="dark"] .t-hase22-root { --hs-disc: #4a4030; --hs-edge: #c9a06b; --hs-arrow: #e0a35c; }
+.t-hase22-svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.t-hase22-disc { fill: var(--hs-disc); stroke: var(--hs-edge); stroke-width: 4; }
+.t-hase22-node { cursor: pointer; outline: none; }
+.t-hase22-node:hover .t-hase22-disc { stroke: var(--accent); }
+.t-hase22-node.picked .t-hase22-disc { stroke: var(--accent); stroke-width: 7; }
+.t-hase22-node:focus-visible .t-hase22-disc { stroke: var(--focus); stroke-width: 7; }
+.t-hase22-node.right .t-hase22-disc { stroke: var(--ok); stroke-width: 7; }
+.t-hase22-node.wrong .t-hase22-disc { stroke: var(--bad); stroke-width: 7; }
+.t-hase22-arrow { fill: none; stroke: var(--hs-arrow); stroke-width: 4; stroke-linecap: round; }
+.t-hase22-mk { fill: var(--hs-arrow); }
+.t-hase22-ic { pointer-events: none; }
+.t-hase22-s { fill: #1b7a3e; font: 800 40px var(--font-body); }
+.t-hase22-svg .f-red { fill: #e03a3a; } .t-hase22-svg .f-green { fill: #2f9a45; } .t-hase22-svg .f-seed { stroke: #ffe58a; stroke-width: 2; stroke-linecap: round; fill: none; }
+.t-hase22-svg .f-drop { fill: #4b2a9a; } .t-hase22-svg .f-hl { fill: none; stroke: #a995e8; stroke-width: 2; stroke-linecap: round; }
+.t-hase22-svg .f-cap { fill: #d99a1e; } .t-hase22-svg .f-stem { fill: #8a5a2a; }
+.t-hase22-svg .f-stone { fill: #8e8e8e; stroke: #5d5d5d; stroke-width: 1.5; } .t-hase22-svg .f-line { fill: none; stroke: rgb(0 0 0 / 0.45); stroke-width: 1.6; stroke-linecap: round; }
+.t-hase22-svg .f-grape { fill: #6a2b7c; stroke: #3d1749; stroke-width: 1; } .t-hase22-svg .f-twig { stroke: #3b7a2a; stroke-width: 3; stroke-linecap: round; }
+.t-hase22-svg .f-petal { fill: #c2307a; } .t-hase22-svg .f-core { fill: #ffc21a; }
+.t-hase22-svg .f-leaf { fill: #2f9a45; stroke: #1c6a2e; stroke-width: 1.5; }
+.t-hase22-svg .f-cone { fill: #8a5a2a; stroke: #4d2f12; stroke-width: 1.5; }
+.t-hase22-svg .f-bell { fill: #b794e6; stroke: #7b52b8; stroke-width: 1.5; } .t-hase22-svg .f-stemg { stroke: #3b7a2a; stroke-width: 3; fill: none; stroke-linecap: round; }
+.t-hase22-svg .a-shell { fill: #35a342; stroke: #1c6a2e; stroke-width: 1.5; } .t-hase22-svg .a-skin { fill: #6cc06f; stroke: #1c6a2e; stroke-width: 1; }
+.t-hase22-svg .a-line { fill: none; stroke: #1c6a2e; stroke-width: 1.3; stroke-linecap: round; }
+.t-hase22-svg .a-fur { fill: #a8683a; stroke: #6b3f1c; stroke-width: 1.2; } .t-hase22-svg .a-ear { fill: #c68b5a; stroke: #6b3f1c; stroke-width: 1; }
+.t-hase22-svg .a-tail { fill: #fff; stroke: #aaa; stroke-width: 1; } .t-hase22-svg .a-eye { fill: #111; }
+.t-hase22-animal { pointer-events: none; }
+.t-hase22-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; }
+.t-hase22-clock { font-size: 1.05rem; }
+.t-hase22-min { font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+.t-hase22-btn { appearance: none; border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 10px; padding: 0.5rem 0.9rem; font: 700 0.95rem var(--font-body); cursor: pointer; touch-action: manipulation; min-height: 2.6rem; }
+.t-hase22-btn.primary { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-hase22-btn:hover:not(:disabled) { border-color: var(--accent); }
+.t-hase22-btn:disabled { opacity: 0.45; cursor: default; }
+.t-hase22-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-hase22-line, .t-hase22-choice { margin: 0; }
+.t-hase22-choice { font-weight: 700; }
+.t-hase22-tw { overflow-x: auto; margin: 0.5rem 0; max-width: 100%; }
+.t-hase22-table { border-collapse: collapse; font-size: 0.8rem; }
+.t-hase22-table th, .t-hase22-table td { border: 1px solid var(--line); padding: 0.15rem 0.3rem; text-align: center; background: var(--surface); }
+.t-hase22-table th { background: var(--surface2); white-space: nowrap; }
+.t-hase22-table .meet { background: color-mix(in srgb, var(--ok) 22%, var(--surface)); }
+.t-hase22-ti { display: block; margin: 0 auto; }
+.t-hase22-table .t-hase22-s { font-size: 36px; }
+.t-hase22-table .f-red { fill: #e03a3a; } .t-hase22-table .f-green { fill: #2f9a45; } .t-hase22-table .f-seed { stroke: #ffe58a; stroke-width: 2; fill: none; }
+.t-hase22-table .f-drop { fill: #4b2a9a; } .t-hase22-table .f-hl { fill: none; stroke: #a995e8; stroke-width: 2; }
+.t-hase22-table .f-cap { fill: #d99a1e; } .t-hase22-table .f-stem { fill: #8a5a2a; }
+.t-hase22-table .f-stone { fill: #8e8e8e; stroke: #5d5d5d; stroke-width: 1.5; } .t-hase22-table .f-line { fill: none; stroke: rgb(0 0 0 / 0.45); stroke-width: 1.6; }
+.t-hase22-table .f-grape { fill: #6a2b7c; } .t-hase22-table .f-twig { stroke: #3b7a2a; stroke-width: 3; }
+.t-hase22-table .f-petal { fill: #c2307a; } .t-hase22-table .f-core { fill: #ffc21a; }
+.t-hase22-table .f-leaf { fill: #2f9a45; } .t-hase22-table .f-cone { fill: #8a5a2a; }
+.t-hase22-table .f-bell { fill: #b794e6; stroke: #7b52b8; stroke-width: 1.5; } .t-hase22-table .f-stemg { stroke: #3b7a2a; stroke-width: 3; fill: none; }
