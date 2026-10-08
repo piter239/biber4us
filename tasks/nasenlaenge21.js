@@ -41,6 +41,8 @@
       '<path d="M82 ' + top.toFixed(1) + ' L102 ' + top.toFixed(1) + ' M82 ' + bot.toFixed(1) + ' L102 ' + bot.toFixed(1) + '" fill="none"/></g></svg>';
   }
 
+  function faceEl(value) { var d = h('span', { class: P + 'facebox' }); d.innerHTML = faceSvg(value); return d; }
+
   var el, api, slots, selected, dragging, locked, mark;
   var simEl, sim;
 
@@ -85,7 +87,7 @@
       return h('button', {
         type: 'button', class: P + 'pose' + (ready && sim.value === p.value ? ' now' : ''), disabled: !ready || sim.done,
         'aria-label': p.label + ' (Nasenlänge ' + fmt(p.value) + ')', onclick: function () { simPose(p); }
-      }, h('span', { class: P + 'poseface' }, faceSvg(p.value)), h('span', { class: P + 'poselbl' }, p.label), h('span', { class: P + 'poseval' }, fmt(p.value)));
+      }, h('span', { class: P + 'poseface' }, faceEl(p.value)), h('span', { class: P + 'poselbl' }, p.label), h('span', { class: P + 'poseval' }, fmt(p.value)));
     });
     simEl.replaceChildren(
       h('div', { class: P + 'simgrid' },
@@ -137,7 +139,7 @@
           h('div', { class: P + 'line ' + P + 'b-var' }, h('span', { class: P + 'kw' }, 'erhöhe '), h('code', null, 'Zähler'), h('span', { class: P + 'kw' }, ' um '), h('code', null, '1')))),
       h('div', { class: P + 'line ' + P + 'b-var' }, h('span', { class: P + 'kw' }, 'gib '), h('code', null, 'Zähler'), h('span', { class: P + 'kw' }, ' Karten aus')));
     var poseRows = POSES.map(function (p) {
-      return h('tr', null, h('td', null, faceSvg(p.value)), h('td', { class: P + 'val' }, fmt(p.value)), h('td', null, p.name));
+      return h('tr', null, h('td', null, faceEl(p.value)), h('td', { class: P + 'val' }, fmt(p.value)), h('td', null, p.name));
     });
     var table = h('table', { class: P + 'table' },
       h('thead', null, h('tr', null, h('th', { scope: 'col' }, 'Kamera-Messung'), h('th', { scope: 'col' }, 'Wert Nasenlänge'), h('th', { scope: 'col' }, 'Kopfhaltung'))),
@@ -211,7 +213,7 @@
     explanation: function () {
       return '<p>Das Programm hat eine zentrale Wiederholung („Schleife“). Ihre letzte Anweisung erhöht den Zähler der Karten. Die zwei „warte bis“-Anweisungen müssen also ein <strong>Nicken</strong> erkennen: Der Kunde senkt zuerst den Kopf (Nasenlänge etwa 1,3) und schaut dann wieder geradeaus (etwa 1). Das sind die Bedingungen <code>Nasenlänge &gt; 1,2</code> und danach <code>Nasenlänge &lt; 1,1</code>.</p>' +
         '<p>Die Schleife soll enden, wenn der Kunde den Kopf hebt, die Nasenlänge also deutlich unter 1 liegt. Dazu passt nur <code>Nasenlänge &lt; 0,8</code>.</p>' +
-        '<p>Die Werte im Programm sind absichtlich nicht genau die aus der Tabelle: Die Kamera misst nur in kleinen Abständen (zum Beispiel 25-mal pro Sekunde). Dabei kann der Wert 1,0 ausgelassen werden, weil erst 0,95 und dann 1,03 gemessen wird. Mit Schwellenwerten wie „kleiner als 1,1“ ist das Programm robust. Eine Schleife, die so lange wiederholt, bis eine Bedingung gilt, und eine Variable, die mitzählt, sind zwei Grundbausteine des Programmierens.</p>';
+        '<p>Die Werte im Programm sind absichtlich nicht genau die aus der Tabelle: Die Kamera misst nur in kleinen Abständen (zum Beispiel 25-mal pro Sekunde). Dabei kann der Wert 1,0 ausgelassen werden, weil erst 0,95 und dann 1,03 gemessen wird. Mit Schwellenwerten wie „kleiner als 1,1“ ist das Programm robust. Vertauscht man die beiden „warte bis“, zählt der Automat schon das Senken des Kopfes und nicht erst das fertige Nicken. Eine Schleife, die so lange wiederholt, bis eine Bedingung gilt, und eine Variable, die mitzählt, sind zwei Grundbausteine des Programmierens.</p>';
     },
     mount: function (root, a) {
       el = root; api = a; locked = false; reset();

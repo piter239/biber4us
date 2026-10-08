@@ -43,7 +43,7 @@
     var x = 30, out = '', i;
     for (i = 0; i < beads.length; i++) { out += beadSvg(beads[i], x); x += BW[beads[i]]; }
     var end = x + 12;
-    var W = MAXW;
+    var W = chainWidth(beads);
     var tassel = '<path class="' + P + 'tas" d="M30 20 L6 12 M30 20 L3 18 M30 20 L5 25 M30 20 L10 31 M30 20 L8 6"/>';
     var key = '<path class="' + P + 'cord" d="M' + (x - 1) + ' 20 L' + (end + 6) + ' 20"/>' +
       '<circle class="' + P + 'ring" cx="' + (end + 8) + '" cy="20" r="9"/>' +

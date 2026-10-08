@@ -131,7 +131,7 @@
     if (opened.indexOf(d.id) >= 0) { render.note = 'Tür ' + d.id + ' ist schon offen.'; shakeId = null; render(); return; }
     if (d.l !== stone) {
       shakeId = d.id;
-      render.note = 'Dein Baustein (' + SHAPES[stone].name + ') passt nicht in Tür ' + d.id + ': Dort braucht man ein ' + SHAPES[d.l].name + '.';
+      render.note = 'Dein Baustein „' + SHAPES[stone].name + '“ passt nicht in Tür ' + d.id + ': Dort braucht man den Baustein „' + SHAPES[d.l].name + '“.';
       render();
       return;
     }

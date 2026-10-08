@@ -33,7 +33,7 @@
 .t-geburtstag21-arrow { color: var(--muted); }
 .t-geburtstag21-tid { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--surface2); border: 1px solid var(--line); font-weight: 700; font-size: 0.9rem; }
 .t-geburtstag21-msg { margin: 0; min-height: 2.9em; color: var(--ink); }
-.t-geburtstag21-inline { display: inline-block; width: 1.1em; height: 1.1em; border-radius: 50%; background: #000080; vertical-align: -0.15em; }
+.t-geburtstag21-inline { display: inline-block; width: 1.1em; height: 1.1em; border-radius: 50%; background: #000080; border: 2px solid #fff; box-sizing: border-box; vertical-align: -0.15em; }
 .t-geburtstag21-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.35rem; }
 @media (max-width: 40rem) {
   .t-geburtstag21-box { grid-template-columns: repeat(3, minmax(0, 1fr)); }
