@@ -10,6 +10,7 @@
 .t-seerosen21-axis { font: 800 17px var(--font-body); fill: var(--muted); }
 .t-seerosen21-leaf { cursor: pointer; outline: none; }
 .t-seerosen21-leaf .shape { fill: var(--sr-leaf); stroke: var(--ink); stroke-width: 2.2; stroke-linejoin: round; }
+.t-seerosen21-leaf .hit { fill: transparent; }
 .t-seerosen21-leaf .shine { fill: none; stroke: #fff; stroke-opacity: 0.45; stroke-width: 3; stroke-linecap: round; }
 .t-seerosen21-leaf.start .shape { fill: color-mix(in srgb, var(--c2) 70%, var(--surface)); }
 .t-seerosen21-leaf:hover .shape { fill: color-mix(in srgb, var(--accent) 22%, var(--sr-leaf)); }
@@ -40,7 +41,7 @@
 .t-seerosen21-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; }
 .t-seerosen21-modes { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .t-seerosen21-mode, .t-seerosen21-clear {
-  appearance: none; font: inherit; font-weight: 700; font-size: 0.92rem; padding: 0.4rem 0.8rem; min-height: 40px;
+  appearance: none; font: inherit; font-weight: 700; font-size: 0.88rem; padding: 0.35rem 0.65rem; min-height: 40px;
   border: 2px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); cursor: pointer; touch-action: manipulation;
 }
 .t-seerosen21-mode.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }

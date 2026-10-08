@@ -60,13 +60,13 @@
   }
   /* Band mit n Feldern: beaver = Feld des Bibers (oder 'ende'), carrying = trägt er eine Murmel */
   function bandSVG(o) {
-    var n = o.n || N, w = n * FW + 8 + 44, s = '';
+    var n = o.n || N, w = n * FW + 8 + (o.nobeaver ? 0 : 44), s = '';
     s += '<rect x="0" y="52" width="' + (n * FW + 8) + '" height="26" class="t-murmelband21-track"/>';
     for (var i = 1; i <= n; i++) {
       var x0 = 4 + (i - 1) * FW;
       s += '<path d="M' + (x0 + 10) + ' 57 L' + (x0 + FW - 2) + ' 57 L' + (x0 + FW - 10) + ' 75 L' + (x0 + 2) + ' 75 Z" class="t-murmelband21-field"/>';
     }
-    o.marbles.forEach(function (m) { s += marble(cx(m) + 3, 52, 11); });
+    o.marbles.forEach(function (m) { s += marble(cx(m) + 3, 50, o.big ? 15 : 12); });
     if (o.beaver != null) {
       var bx = o.beaver === 'ende' ? n * FW + 32 : cx(o.beaver) - 6;
       s += beaver(bx, 77, !!o.carrying);
@@ -86,8 +86,8 @@
       rows.map(function (r) { var d = h('div', { class: 't-murmelband21-row' }); d.innerHTML = band(r); return d; }));
   }
   function rules() {
-    return h('div', { class: 't-murmelband21-rules' },
-      ruleCard('Er trägt noch nichts', '… hebt er die Murmel auf und legt sie auf dem nächsten freien Feld ab.', [
+    return h('details', { class: 't-murmelband21-rules', open: true }, h('summary', null, 'So trägt der Biber (Beispiele)'),
+      h('div', { class: 't-murmelband21-rulegrid' }, ruleCard('Er trägt noch nichts', '… hebt er die Murmel auf und legt sie auf dem nächsten freien Feld ab.', [
         { n: 4, marbles: [2], beaver: 1 },
         { n: 4, marbles: [], beaver: 2, carrying: true },
         { n: 4, marbles: [3], beaver: 3 }
@@ -96,11 +96,11 @@
         { n: 4, marbles: [2, 3], beaver: 1 },
         { n: 4, marbles: [3], beaver: 2, carrying: true },
         { n: 4, marbles: [3, 4], beaver: 4 }
-      ]));
+      ])));
   }
 
   /* ---------- Zustand ---------- */
-  var el, api, choice, locked, mode;   /* mode: null | 'check' | 'solution' */
+  var el, api, choice, locked, mode, rulesEl;   /* mode: null | 'check' | 'solution' */
 
   function render() {
     var start = h('div', { class: 't-murmelband21-start' }, h('h3', null, 'Heute liegen drei Murmeln so auf dem Band'));
@@ -117,14 +117,14 @@
       }
       if (mode === 'solution' && o.k === RIGHT) { cls += ' right'; mark = h('span', { class: 't-murmelband21-mark', 'aria-hidden': 'true' }, '✓'); }
       var pic = h('span', { class: 't-murmelband21-pic' });
-      pic.innerHTML = bandSVG({ marbles: o.m, beaver: 'ende', label: 'Antwort ' + o.k + ': ' + listText(o.m) });
+      pic.innerHTML = bandSVG({ marbles: o.m, nobeaver: true, big: true, label: 'Antwort ' + o.k + ': ' + listText(o.m) });
       var input = h('input', { type: 'radio', name: 't-murmelband21-ans', value: o.k, class: 't-murmelband21-radio', disabled: locked, 'aria-label': 'Antwort ' + o.k + ': ' + listText(o.m) });
       if (choice === o.k) input.checked = true;
       input.addEventListener('change', function () { if (locked) return; choice = o.k; render(); api.changed(); focusChoice(); });
       return h('label', { class: cls }, input, h('span', { class: 't-murmelband21-letter', 'aria-hidden': 'true' }, o.k + ')'), pic, mark);
     });
     el.replaceChildren(h('div', { class: 't-murmelband21-board' },
-      rules(), start,
+      rulesEl || (rulesEl = rules()), start,
       h('fieldset', { class: 't-murmelband21-opts' }, h('legend', null, 'Wie liegen die Murmeln, nachdem der Biber das Band überquert hat?'), opts)));
   }
   function focusChoice() {
@@ -158,7 +158,7 @@
         'und ändert je nach Zustand und Feldinhalt das Band.</p>';
     },
     mount: function (root, a) {
-      el = root; api = a; locked = false; choice = null; mode = null;
+      el = root; api = a; locked = false; choice = null; mode = null; rulesEl = null;
       render();
     },
     isComplete: function () { return choice != null; },

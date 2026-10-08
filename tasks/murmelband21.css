@@ -1,12 +1,13 @@
 /* Aufgabe Murmelband (Präfix t-murmelband21-) */
 .t-murmelband21 {
   --mb-brown: color-mix(in srgb, var(--c1) 35%, var(--c2) 65%);
-  --mb-body: color-mix(in srgb, var(--mb-brown) 55%, var(--ink) 45%);
+  --mb-body: color-mix(in srgb, var(--mb-brown) 62%, black);
   --mb-belly: color-mix(in srgb, var(--mb-brown) 75%, var(--surface) 25%);
 }
 .t-murmelband21-board { display: grid; gap: 1.1rem; min-width: 0; }
 .t-murmelband21-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.4rem; }
-.t-murmelband21-rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.t-murmelband21-rules > summary { cursor: pointer; font-weight: 700; padding: 0.3rem 0; }
+.t-murmelband21-rulegrid { margin-top: 0.4rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
 .t-murmelband21-rule { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.7rem 0.7rem; min-width: 0; }
 .t-murmelband21-rule p { margin: 0 0 0.4rem; font-size: 0.92rem; color: var(--muted); }
 .t-murmelband21-rule .t-murmelband21-row { margin-top: 0.1rem; }
@@ -52,6 +53,6 @@
 .t-murmelband21-walk .t-murmelband21-band { max-width: 380px; }
 
 @media (max-width: 40rem) {
-  .t-murmelband21-rules { grid-template-columns: minmax(0, 1fr); }
+  .t-murmelband21-rulegrid { grid-template-columns: minmax(0, 1fr); }
   .t-murmelband21-walk li { grid-template-columns: minmax(0, 1fr); gap: 0; }
 }

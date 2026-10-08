@@ -92,6 +92,7 @@
     IDS.forEach(function (id) {
       var p = pos(id);
       var g = s('g', { class: 't-seerosen21-leaf', role: 'button', 'data-id': id, tabindex: '-1', 'aria-pressed': 'false' }, [
+        s('circle', { cx: p.x, cy: p.y, r: P / 2, class: 'hit' }),
         s('path', { d: leafPath(p), class: 'shape' }),
         s('path', { d: 'M' + (p.x - 17) + ' ' + (p.y - 15) + ' Q' + (p.x - 8) + ' ' + (p.y - 24) + ' ' + (p.x + 8) + ' ' + (p.y - 24), class: 'shine' }),
         s('circle', { cx: p.x - 17, cy: p.y - 20, r: 6, class: 'mk mk-r' }),
