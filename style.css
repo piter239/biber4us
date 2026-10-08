@@ -141,6 +141,7 @@ img { max-width: 100%; }
 }
 .nav a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
 .nav a:not([aria-current="page"]):hover { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.seg[hidden] { display: none; }
 .seg { display: inline-flex; border: 2px solid var(--accent); border-radius: 999px; overflow: hidden; }
 .seg button {
   appearance: none; border: 0; background: transparent; cursor: pointer;
@@ -197,6 +198,7 @@ main { max-width: 62rem; margin-inline: auto; padding: 1.5rem 1rem 3rem; }
 .task-row .t-topic { grid-column: 2; color: var(--muted); font-size: 0.92rem; }
 .task-row .t-state { grid-column: 3; grid-row: 1 / span 2; display: grid; gap: 0.15rem; justify-items: end; font-size: 0.85rem; color: var(--muted); }
 a.task-row:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.t-state .small { font-size: 0.78rem; }
 .task-row.soon .t-title { color: var(--muted); font-weight: 600; }
 details.later { margin-top: 2rem; }
 details.later summary { cursor: pointer; font-weight: 700; color: var(--muted); }

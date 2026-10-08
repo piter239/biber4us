@@ -29,9 +29,13 @@
   <div class="site-head-in">
     <a class="brand" href="#">Biber <span>2025</span> interaktiv</a>
     <div class="head-tools">
-      <div class="seg" role="group" aria-label="Klassenstufe">
-        <button type="button" data-group="3-4">Klasse 3–4</button>
-        <button type="button" data-group="5-6">Klasse 5–6</button>
+      <div class="seg" id="modeSeg" role="group" aria-label="Ansicht">
+        <button type="button" data-mode="alle">Alle Aufgaben</button>
+        <button type="button" data-mode="stufe">Nach Klasse</button>
+      </div>
+      <div class="seg" id="groupSeg" role="group" aria-label="Klassenstufe" hidden>
+        <button type="button" data-group="3-4">3–4</button>
+        <button type="button" data-group="5-6">5–6</button>
       </div>
       <nav class="nav" aria-label="Hauptnavigation">
         <a href="#" data-nav="aufgaben">Aufgaben</a>
