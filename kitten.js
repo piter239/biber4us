@@ -1053,6 +1053,7 @@
     },
     setMuted: function (m) { mem.mute = !!m; persist(); announce(); },
     album: openAlbum,
+    reload: function () { mem = loadMem(); announce(); },
     setProfile: function (key, name) {
       if (key === KEY) { who = name || ''; return; }
       persist();

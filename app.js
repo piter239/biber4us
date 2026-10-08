@@ -50,6 +50,7 @@
   if (GROUPS.indexOf(store.group) < 0) store.group = '5-6';
   function save() {
     try { window.localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) { /* ignorieren */ }
+    if (window.BiberSync) window.BiberSync.schedule();
   }
   /* Das Kätzchen (kitten.js) merkt sich Sticker und Geschenke pro Profil. */
   function syncKitten() {
@@ -58,6 +59,104 @@
     if (window.BiberKitten && window.BiberKitten.setProfile) window.BiberKitten.setProfile(window.BIBER_PROFILE.key, p.name);
   }
   syncKitten();
+
+  /* ---------- Abgleich mit dem Server (sync.js) ----------
+     Pro Konto ein Dokument mit allen Profilen. Zusammenführen: Profile vereinigen; je Aufgabe zählt das früheste Ergebnis
+     (erster Versuch); Name und Niveau-Anpassung der Profile nach Änderungszeit; Löschungen als Merker (gone / cleared);
+     Kätzchen-Stand: der größere gewinnt. */
+  function kittenKey(p) { return p.legacy ? 'bk.v1' : 'bk.v1.' + p.id; }
+  function readKitten(p) {
+    try { var r = window.localStorage.getItem(kittenKey(p)); return r ? JSON.parse(r) : null; } catch (e) { return null; }
+  }
+  function kittenScore(k) { return k ? Object.keys(k.stickers || {}).length * 1000 + (k.giftN || 0) * 10 + (k.pets || 0) : -1; }
+  function isPristine(p) { return p.setup && !Object.keys(p.results).length; }
+  function snapshot(light) {
+    var out = store.profiles.filter(function (p) { return !isPristine(p); }).map(function (p) {
+      var res = {};
+      Object.keys(p.results).forEach(function (id) {
+        var r = p.results[id];
+        res[id] = light ? { correct: r.correct, at: r.at } : r;
+      });
+      return { id: p.id, name: p.name, legacy: !!p.legacy, created: p.created, upd: p.upd || '', adj: p.adj || 0, cleared: p.cleared || {}, results: res, kitten: readKitten(p) };
+    });
+    if (!out.length && !Object.keys(store.gone || {}).length) return null;
+    return { v: 1, at: new Date().toISOString(), gone: store.gone || {}, profiles: out };
+  }
+  var mergeNeedsPick = false;
+  function mergeRemote(remote) {
+    if (!remote || !remote.profiles) return false;
+    var changed = false;
+    store.gone = store.gone || {};
+    Object.keys(remote.gone || {}).forEach(function (id) { if (!store.gone[id]) { store.gone[id] = remote.gone[id]; changed = true; } });
+    var n0 = store.profiles.length;
+    store.profiles = store.profiles.filter(function (p) { return !store.gone[p.id]; });
+    if (store.profiles.length !== n0) changed = true;
+    var remoteLive = remote.profiles.filter(function (rp) { return !store.gone[rp.id]; });
+    var oldCur = store.current;
+    if (remoteLive.length && store.profiles.every(isPristine)) { store.profiles = []; changed = true; }
+    var kittenTouched = false;
+    remoteLive.forEach(function (rp) {
+      var lp = store.profiles.filter(function (x) { return x.id === rp.id; })[0];
+      if (!lp) {
+        var hasLegacy = store.profiles.some(function (x) { return x.legacy; });
+        lp = { id: rp.id, name: rp.name || '', klasse: 6, results: {}, legacy: !!rp.legacy && !hasLegacy, created: rp.created || new Date().toISOString(), upd: rp.upd || '', adj: rp.adj || 0, cleared: {} };
+        store.profiles.push(lp);
+        changed = true;
+      } else if ((rp.upd || '') > (lp.upd || '')) {
+        if (lp.name !== rp.name || (lp.adj || 0) !== (rp.adj || 0)) changed = true;
+        lp.name = rp.name; lp.adj = rp.adj || 0; lp.upd = rp.upd;
+      }
+      lp.cleared = lp.cleared || {};
+      Object.keys(rp.cleared || {}).forEach(function (id) { if ((rp.cleared[id] || '') > (lp.cleared[id] || '')) { lp.cleared[id] = rp.cleared[id]; changed = true; } });
+      Object.keys(lp.results).forEach(function (id) {
+        if (lp.cleared[id] && (lp.results[id].at || '') <= lp.cleared[id]) { delete lp.results[id]; changed = true; }
+      });
+      Object.keys(rp.results || {}).forEach(function (id) {
+        var r = rp.results[id];
+        if (lp.cleared[id] && (r.at || '') <= lp.cleared[id]) return;
+        var l = lp.results[id];
+        if (!l || (r.at || '') < (l.at || '')) { lp.results[id] = r; changed = true; }
+      });
+      if (kittenScore(rp.kitten) > kittenScore(readKitten(lp))) {
+        try { window.localStorage.setItem(kittenKey(lp), JSON.stringify(rp.kitten)); } catch (e) { /* ignorieren */ }
+        kittenTouched = true; changed = true;
+      }
+    });
+    if (!store.profiles.length) { var np0 = newProfile('', 6, true); np0.setup = true; store.profiles.push(np0); }
+    if (!store.profiles.some(function (x) { return x.id === store.current; })) {
+      store.current = store.profiles[0].id;
+      if (store.profiles.length > 1) mergeNeedsPick = true;
+    }
+    if (changed) {
+      try { window.localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) { /* ignorieren */ }
+    }
+    if (kittenTouched && window.BiberKitten && window.BiberKitten.reload) window.BiberKitten.reload();
+    return changed || store.current !== oldCur;
+  }
+  function afterMerge() {
+    syncKitten(); updateProfileBtn();
+    if (dlg && dlg.dataset.forced && !profile().setup) closeDialog();
+    if (mergeNeedsPick) { mergeNeedsPick = false; openProfiles(false); }
+    if (!document.querySelector('.task')) route();
+    syncNav();
+  }
+  function syncNav() {
+    var fam = document.querySelector('[data-nav="familie"]');
+    if (fam) fam.hidden = !(window.BiberSync && window.BiberSync.canAdmin());
+  }
+  function storageNote() {
+    var st = window.BiberSync ? window.BiberSync.state() : 'local';
+    return st === 'server' ? 'Alles wird auf dem Server gespeichert und ist auf jedem Gerät mit deinem Konto da.' : 'Alles bleibt nur in diesem Browser.';
+  }
+  var syncStat = document.getElementById('syncStat');
+  if (window.BiberSync) {
+    window.BiberSync.onStatus(function (st) {
+      if (!syncStat) return;
+      syncStat.textContent = { server: 'Gespeichert auf dem Server', local: 'Nur auf diesem Gerät gespeichert', connecting: 'Verbinde mit dem Server …', readonly: 'Nur auf diesem Gerät gespeichert (kein Schreibrecht auf dem Server)' }[st] || '';
+      syncNav();
+    });
+    document.addEventListener('bk:update', function () { window.BiberSync.schedule(); });
+  }
 
   /* ---------- Aufgabenlisten ---------- */
   function byId(id) { return TASKS.filter(function (t) { return t.id === id; })[0]; }
@@ -502,7 +601,7 @@
       html = '<h2 id="dlgT">Willkommen! Wer trainiert hier?</h2>' +
         '<p class="note">Jedes Profil hat eigene Ergebnisse, ein eigenes Kätzchen-Album und ein eigenes Training. ' +
         (Object.keys(cur.results).length ? 'Deine bisherigen ' + Object.keys(cur.results).length + ' Ergebnisse bleiben erhalten. ' : '') +
-        'Alles bleibt nur in diesem Browser.</p>' +
+        storageNote() + '</p>' +
         '<form class="dlg-form" data-form="setup"><label>Name<input id="pfName" type="text" maxlength="24" autocomplete="off" value="' + esc(cur.name) + '" required></label>' +
         '<div class="actions"><button class="btn" type="submit">Los geht’s</button></div></form>';
     } else {
@@ -513,7 +612,7 @@
           '<button class="btn ghost" type="button" data-ed="' + p.id + '">Ändern</button>' +
           (store.profiles.length > 1 ? '<button class="btn ghost" type="button" data-del="' + p.id + '">Löschen</button>' : '') + '</div></li>';
       }).join('');
-      html = '<h2 id="dlgT">Profile</h2><p class="note">Jedes Profil hat eigene Ergebnisse, ein eigenes Kätzchen-Album und ein eigenes Training. Alles bleibt nur in diesem Browser.</p>' +
+      html = '<h2 id="dlgT">Profile</h2><p class="note">Jedes Profil hat eigene Ergebnisse, ein eigenes Kätzchen-Album und ein eigenes Training. ' + storageNote() + '</p>' +
         '<ul class="dlg-list">' + rows + '</ul>' +
         '<form class="dlg-form" data-form="new"><b>Neues Profil</b><label>Name<input id="pfName" type="text" maxlength="24" autocomplete="off" required></label>' +
         '<div class="actions"><button class="btn" type="submit">Anlegen</button><button class="btn ghost" type="button" data-close>Schließen</button></div></form>';
@@ -539,6 +638,8 @@
       } else if (t.dataset.del) {
         t.outerHTML = '<span class="note">Alle Ergebnisse dieses Profils löschen?</span> <button class="btn danger" type="button" data-delyes="' + t.dataset.del + '">Ja, löschen</button>';
       } else if (t.dataset.delyes) {
+        store.gone = store.gone || {};
+        store.gone[t.dataset.delyes] = new Date().toISOString();
         store.profiles = store.profiles.filter(function (x) { return x.id !== t.dataset.delyes; });
         if (store.current === t.dataset.delyes) store.current = store.profiles[0].id;
         save(); syncKitten(); updateProfileBtn(); closeDialog(); route();
@@ -569,6 +670,56 @@
     });
   }
 
+
+  /* ---------- Familie (nur Besitzer / Editoren) ---------- */
+  function lastActive(p) {
+    var m = '';
+    Object.keys(p.results || {}).forEach(function (id) { if ((p.results[id].at || '') > m) m = p.results[id].at; });
+    return m;
+  }
+  function fmtDate(iso) {
+    if (!iso) return '–';
+    var d = new Date(iso);
+    return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  }
+  function profileCard(p, owner) {
+    var done = TASKS.filter(function (t) { return t.id && p.results[t.id]; });
+    var right = done.filter(function (t) { return p.results[t.id].correct; });
+    var wrong = done.filter(function (t) { return !p.results[t.id].correct; });
+    var A = abilityOf(p), lv = levelLabel(A);
+    var areas = areaStats(p).filter(function (a) { return a.done; }).sort(function (x, y) { return (x.right / x.done) - (y.right / y.done) || y.done - x.done; });
+    var weak = areas.filter(function (a) { return a.right < a.done; }).slice(0, 3);
+    return '<article class="panel fam-card"><h2>' + esc(p.name || 'Profil') + (owner ? ' <span class="note">· Konto: ' + esc(owner) + '</span>' : '') + '</h2>' +
+      '<p><b>' + lv.text + '</b> · ' + done.length + ' von ' + N_TASKS + ' Aufgaben bearbeitet, ' + right.length + ' richtig' + (wrong.length ? ', ' + wrong.length + ' falsch' : '') + ' · zuletzt aktiv: ' + fmtDate(lastActive(p)) + '</p>' +
+      '<div class="lvl-bar" role="img" aria-label="Niveau"><i style="width:' + lv.pct + '%"></i></div>' +
+      (wrong.length ? '<p class="note">Falsch im ersten Versuch: ' + wrong.map(function (t) { return esc(t.title); }).join(', ') + '</p>' : '') +
+      (weak.length ? '<p class="note">Themen mit Fehlern: ' + weak.map(function (a) { return esc(a.area) + ' (' + a.right + '/' + a.done + ')'; }).join(', ') + '</p>' : '') +
+      '</article>';
+  }
+  function renderFamily() {
+    var B2 = window.BiberSync;
+    app.innerHTML = '<section class="hero"><p class="eyebrow">Eltern-Übersicht</p><h1>Familie</h1><p class="lead">Alle Profile, die auf dem Server gespeichert sind.</p></section><div id="famBody"><p class="note">Lade …</p></div>';
+    if (!B2 || !B2.canAdmin()) { document.getElementById('famBody').innerHTML = '<p class="note">Diese Seite ist nur für den Besitzer und Editoren sichtbar.</p>'; return; }
+    B2.listAll().then(function (docs) {
+      var ids = docs.map(function (d) { return d.uid; });
+      return B2.names(ids).then(function (nm) { return { docs: docs, nm: nm }; });
+    }).then(function (r) {
+      var body = document.getElementById('famBody');
+      if (!body || (location.hash || '') !== '#familie') return;
+      var cards = [];
+      r.docs.forEach(function (d) {
+        var who = (r.nm[d.uid] && r.nm[d.uid].name) || '';
+        (d.data.profiles || []).forEach(function (p) { cards.push(profileCard(p, who)); });
+      });
+      body.innerHTML = cards.length ? '<div class="fam-grid">' + cards.join('') + '</div>' +
+        '<p class="note">Die Ergebnisse stammen aus den Konten der Besucher, die die Seite mit Schreibrecht geöffnet haben.</p>'
+        : '<p class="note">Noch keine gespeicherten Profile.</p>';
+    }).catch(function () {
+      var body = document.getElementById('famBody');
+      if (body) body.innerHTML = '<p class="note">Die Übersicht konnte nicht geladen werden.</p>';
+    });
+  }
+
   /* ---------- Router und Umschalter ---------- */
   function syncControls() {
     document.querySelectorAll('[data-mode]').forEach(function (b) {
@@ -581,12 +732,13 @@
   }
   function route() {
     var h = (location.hash || '').replace(/^#/, '');
-    var page = h === 'bewertung' ? 'bewertung' : 'aufgaben';
+    var page = h === 'bewertung' ? 'bewertung' : h === 'familie' ? 'familie' : 'aufgaben';
     document.querySelectorAll('.nav a').forEach(function (a) {
       a.setAttribute('aria-current', a.dataset.nav === page ? 'page' : 'false');
     });
     syncControls();
     if (h === 'bewertung') { confirmReset = false; renderResults(); }
+    else if (h === 'familie') renderFamily();
     else if (h && byId(h)) renderTask(h);
     else renderOverview();
     window.scrollTo(0, 0);
@@ -630,7 +782,10 @@
     if (act.dataset.act === 'reset-ask') confirmReset = true;
     if (act.dataset.act === 'reset-no') confirmReset = false;
     if (act.dataset.act === 'reset-yes') {
-      listFor().forEach(function (t) { if (t.id) delete store.results[t.id]; });
+      var cp = profile(), nowIso = new Date().toISOString();
+      cp.cleared = cp.cleared || {};
+      listFor().forEach(function (t) { if (t.id && store.results[t.id]) { delete store.results[t.id]; cp.cleared[t.id] = nowIso; } });
+      cp.upd = nowIso;
       save();
       confirmReset = false;
     }
@@ -642,6 +797,9 @@
   updateProfileBtn();
   route();
   if (profile().setup) openProfiles(true);
+  if (window.BiberSync) {
+    window.BiberSync.start({ snapshot: snapshot, merge: mergeRemote, merged: afterMerge });
+  }
 
   /* Kätzchen-Schalter im Seitenfuß (kitten.js ist eigenständig und per defer geladen) */
   var bkToggle = document.getElementById('bkToggle'), bkMute = document.getElementById('bkMute'), bkStat = document.getElementById('bkStat');

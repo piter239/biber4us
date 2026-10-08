@@ -12,3 +12,10 @@ Dateien:  index.html, style.css, app.js (Geruest, Bewertung), tasks.js (Aufgaben
 Kaetzchen: kitten.js ist eigenstaendig und laesst sich in jede Seite einbinden:
           <script src="kitten.js" defer></script>
           Optionen und Schnittstelle: Kopfkommentar in kitten.js.
+
+
+Speicherung
+-----------
+sync.js gleicht Profile und Ergebnisse ueber die db-Funktion der Artifact-Umgebung mit dem Server ab
+(Dokument progress/<Konto-Id>; Regeln: progress lesen = admin, progress/{self} lesen/schreiben = interact).
+Ohne diese Umgebung bleibt alles im Browser (localStorage). Die Seite #familie zeigt Besitzern/Editoren alle Profile.
