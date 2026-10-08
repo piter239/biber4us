@@ -1,1 +1,68 @@
-/* Stile fuer .t-bauklotze1 */
+/* Aufgabe Bauklötze 1 */
+.t-bauklotze1 {
+  --bk-teal: color-mix(in srgb, var(--c3) 60%, var(--ink));
+  --bk-purple: var(--c5);
+  --bk-red: var(--c1);
+  --bk-yellow: color-mix(in srgb, var(--c2) 55%, var(--paper));
+  --bk-green: var(--c6);
+  --bk-cyan: var(--accent);
+  --bk-pink: color-mix(in srgb, var(--c1) 40%, var(--paper));
+  --bk-blue: color-mix(in srgb, var(--c4) 80%, var(--c5));
+  --bk-navy: color-mix(in srgb, var(--c4) 55%, var(--ink));
+  --bk-orange: color-mix(in srgb, var(--c2) 75%, var(--c1));
+  --bk-magenta: color-mix(in srgb, var(--c1) 55%, var(--c5));
+  --bk-bridge: color-mix(in srgb, var(--c6) 75%, var(--ink));
+}
+.bk-s { stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; }
+.bk-teal { fill: var(--bk-teal); }
+.bk-purple { fill: var(--bk-purple); }
+.bk-red { fill: var(--bk-red); }
+.bk-yellow { fill: var(--bk-yellow); }
+.bk-green { fill: var(--bk-green); }
+.bk-cyan { fill: var(--bk-cyan); }
+.bk-pink { fill: var(--bk-pink); }
+.bk-blue { fill: var(--bk-blue); }
+.bk-navy { fill: var(--bk-navy); }
+.bk-orange { fill: var(--bk-orange); }
+.bk-magenta { fill: var(--bk-magenta); }
+.bk-bridge { fill: var(--bk-bridge); }
+
+.bk-inv { list-style: none; margin: 0.3rem 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+.bk-inv li { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.bk-cap { display: block; text-align: center; font-weight: 700; font-size: 0.95rem; padding: 0.25rem 0.3rem; border-bottom: 1px solid var(--line); background: var(--surface2); }
+.bk-inv .bk-fig { width: 100%; height: 5.5rem; padding: 0.4rem; }
+.bk-final-wrap { display: flex; justify-content: center; padding: 0.5rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.bk-final { width: min(100%, 22rem); height: auto; }
+
+.bk-board { display: grid; gap: 0.5rem; max-width: 36rem; margin-inline: auto; }
+.bk-ends { color: var(--muted); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
+.bk-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.bk-item {
+  position: relative; display: grid; grid-template-columns: 1.7rem 1.4rem minmax(0, 1fr) auto; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 0.55rem; background: var(--slot); border: 3px solid var(--slot-line); border-radius: 10px;
+}
+.bk-num { font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; text-align: center; color: var(--ink); }
+.bk-grip { font-size: 1.5rem; line-height: 1; color: var(--muted); text-align: center; cursor: grab; touch-action: none; user-select: none; padding: 0.35rem 0; }
+.bk-text { font-weight: 600; overflow-wrap: anywhere; }
+.bk-btns { display: flex; gap: 0.3rem; }
+.bk-mv {
+  appearance: none; width: 2.75rem; height: 2.75rem; border: 2px solid var(--accent); background: var(--surface); color: var(--accent);
+  border-radius: 8px; font-size: 1.3rem; font-weight: 800; cursor: pointer; touch-action: manipulation; display: grid; place-items: center; padding: 0;
+}
+.bk-mv:not(:disabled):hover { background: var(--accent); color: var(--accent-ink); }
+.bk-mv:disabled { opacity: 0.35; cursor: default; }
+.bk-item.dragging { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.bk-item.dragging .bk-grip { cursor: grabbing; }
+.bk-item.right { border-color: var(--ok); }
+.bk-item.wrong { border-color: var(--bad); }
+.bk-mark { position: absolute; top: -11px; right: -9px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: var(--bg); }
+.bk-item.right .bk-mark { background: var(--ok); }
+.bk-item.wrong .bk-mark { background: var(--bad); }
+.bk-why { margin: 0; padding-left: 1.4rem; display: grid; gap: 0.5rem; }
+.bk-why strong { display: block; }
+.bk-why span { color: var(--muted); font-size: 0.95rem; }
+@media (max-width: 40rem) {
+  .bk-inv { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bk-item { grid-template-columns: 1.4rem 1.2rem minmax(0, 1fr); }
+  .bk-btns { grid-column: 3; justify-self: end; }
+}

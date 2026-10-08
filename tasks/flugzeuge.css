@@ -1,1 +1,61 @@
-/* Stile fuer .t-flugzeuge */
+/* Aufgabe Flugzeuge */
+.fl-map { margin: 0.4rem 0; padding: 0.5rem; background: var(--paper); border-radius: 12px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); max-width: 40rem; }
+.fl-map img { display: block; width: 100%; height: auto; }
+
+.fl-board { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: 1.25rem 2.5rem; align-items: start; }
+.fl-board > section { min-width: 0; }
+.fl-hangar h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.fl-table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; border: 2px solid var(--slot-line); border-radius: 10px; overflow: hidden; background: var(--paper); color: var(--ink); }
+.fl-cap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.fl-table th, .fl-table td { padding: 0.2rem 0.4rem; border-bottom: 2px solid var(--slot-line); vertical-align: middle; }
+.fl-table tr:last-child th, .fl-table tr:last-child td { border-bottom: 0; }
+.fl-table thead th { background: var(--slot); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; text-align: left; padding: 0.4rem 0.6rem; }
+.fl-table thead th:first-child { width: 5.2rem; }
+.fl-table tbody th { text-align: left; font-weight: 700; font-size: 1.15rem; padding-left: 0.7rem; border-right: 2px solid var(--slot-line); }
+.fl-slot { display: grid; place-items: center; width: 100%; height: 4.2rem; position: relative; }
+button.fl-slot {
+  appearance: none; border: 3px dashed var(--slot-line); background: var(--slot); border-radius: 9px; padding: 2px; cursor: pointer; touch-action: manipulation;
+}
+.fl-slot.fixed { padding: 2px; }
+.fl-slot img { max-height: 100%; width: auto; max-width: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.fl-ghost {
+  display: block; width: 70%; height: 80%;
+  background: var(--muted); opacity: 0.45;
+  -webkit-mask: url(../assets/flugzeuge/gruen.png) center / contain no-repeat;
+  mask: url(../assets/flugzeuge/gruen.png) center / contain no-repeat;
+}
+.fl-slot.filled { border-style: solid; background: var(--paper); }
+.fl-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.fl-slot.right { border-color: var(--ok); border-style: solid; }
+.fl-slot.wrong { border-color: var(--bad); border-style: solid; }
+.fl-mark { position: absolute; top: -9px; right: -9px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.9rem; color: #fff; }
+.fl-slot.right .fl-mark { background: var(--ok); }
+.fl-slot.wrong .fl-mark { background: var(--bad); }
+button.fl-slot:disabled { cursor: default; }
+
+.fl-pool { display: grid; grid-template-columns: repeat(2, minmax(0, 11rem)); gap: 0.75rem; }
+.fl-cell { height: 4.6rem; border-radius: 9px; background: var(--surface2); }
+.fl-chip {
+  appearance: none; height: 4.6rem; width: 100%; padding: 4px; border: 3px solid transparent; border-radius: 9px;
+  background: var(--paper); box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); cursor: grab; touch-action: manipulation; display: grid; place-items: center;
+}
+.fl-chip img { max-height: 100%; max-width: 100%; width: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.fl-chip.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.fl-chip.dragging { opacity: 0.4; }
+.fl-chip:disabled { cursor: default; }
+
+.fl-why { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+.fl-why li { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 0.8rem; align-items: center; }
+.fl-why img { width: 72px; height: auto; background: var(--paper); border-radius: 6px; padding: 3px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.25); }
+.fl-why strong { display: block; }
+.fl-why span { color: var(--muted); font-size: 0.95rem; }
+
+@media (max-width: 40rem) {
+  .fl-board { grid-template-columns: minmax(0, 1fr); }
+  .fl-hangar { order: -1; }
+  .fl-pool { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; }
+  .fl-cell, .fl-chip { height: 3.4rem; }
+  .fl-chip { padding: 2px; }
+  .fl-table thead th:first-child { width: 4.2rem; }
+  .fl-table tbody th { font-size: 1.05rem; padding-left: 0.5rem; }
+}

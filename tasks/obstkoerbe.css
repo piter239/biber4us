@@ -1,1 +1,38 @@
-/* Stile fuer .t-obstkoerbe */
+/* Aufgabe Obstkörbe */
+.ok-inline { height: 1.3em; width: auto; vertical-align: -0.3em; }
+.ok-board { display: grid; gap: 0.6rem; min-width: 0; }
+.ok-ruler { display: flex; justify-content: space-between; gap: 1rem; color: var(--muted); font-size: 0.85rem; font-weight: 600; }
+.ok-row { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.6rem; }
+.ok-slot {
+  position: relative; display: grid; gap: 0.3rem; align-content: start; min-width: 0;
+  padding: 1.35rem 0.3rem 0.4rem; border: 3px dashed var(--slot-line); background: var(--slot); border-radius: 10px;
+}
+.ok-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.ok-slot.right { border-color: var(--ok); border-style: solid; }
+.ok-slot.wrong { border-color: var(--bad); border-style: solid; }
+.ok-pos {
+  position: absolute; top: 0.25rem; left: 0.4rem; font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; color: var(--muted);
+}
+.ok-card {
+  appearance: none; display: block; width: 100%; padding: 0.3rem; border: 3px solid transparent; border-radius: 9px;
+  background: var(--paper); box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.ok-card img { display: block; width: 100%; height: auto; aspect-ratio: 420 / 290; object-fit: contain; object-position: center bottom; pointer-events: none; -webkit-user-drag: none; }
+.ok-card.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.ok-card.dragging { position: relative; z-index: 3; opacity: 0.85; cursor: grabbing; box-shadow: 0 6px 16px rgb(0 0 0 / 0.35); }
+.ok-card:disabled { cursor: default; }
+.ok-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.95rem; color: var(--accent-ink);
+}
+.ok-slot.right .ok-mark { background: var(--ok); }
+.ok-slot.wrong .ok-mark { background: var(--bad); }
+.ok-counts { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.1rem 0.5rem; font-weight: 700; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.ok-counts span { display: inline-flex; align-items: center; gap: 0.2rem; }
+.ok-ico { height: 1rem; width: auto; }
+.ok-narrow-note { display: none; color: var(--muted); font-size: 0.85rem; }
+@media (max-width: 40rem) {
+  .ok-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ok-ruler { display: none; }
+  .ok-narrow-note { display: block; }
+}

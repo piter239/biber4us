@@ -1,1 +1,57 @@
-/* Stile fuer .t-momos */
+/* Aufgabe Momos Spiel */
+.mo-wrap { display: grid; gap: 1.25rem; }
+.mo-boards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.mo-level { margin: 0; display: grid; gap: 0.3rem; min-width: 0; }
+.mo-level figcaption { font-weight: 700; font-size: 0.95rem; }
+.mo-state { font-weight: 600; color: var(--muted); }
+.mo-level.ok .mo-state { color: var(--ok); }
+.mo-svg { display: block; width: 100%; height: auto; }
+.mo-frame { fill: color-mix(in srgb, var(--c3) 55%, var(--surface)); stroke: color-mix(in srgb, var(--c3) 70%, var(--ink)); stroke-width: 1; }
+.mo-floor { fill: var(--surface2); }
+.mo-grid { stroke: var(--line); stroke-width: 1; }
+.mo-start { fill: var(--slot); }
+.mo-crate rect { fill: color-mix(in srgb, var(--c2) 60%, var(--c1)); stroke: color-mix(in srgb, var(--c2) 30%, var(--ink)); stroke-width: 2; }
+.mo-crate line { stroke: color-mix(in srgb, var(--c2) 30%, var(--ink)); stroke-width: 1.5; }
+.mo-goal circle { fill: var(--ok-bg); stroke: var(--ok); stroke-width: 2.5; }
+.mo-goal .in { fill: none; }
+.mo-goal .core { fill: var(--ok); stroke: none; }
+.mo-trail { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 8; opacity: 0.9; }
+.mo-robot circle { fill: var(--accent); stroke: var(--ink); stroke-width: 2; }
+.mo-robot .nose { fill: var(--ink); }
+.mo-robot .eye { fill: var(--accent-ink); stroke: none; }
+.mo-badge circle { stroke: none; }
+.mo-badge text { fill: var(--bg); font-weight: 800; font-size: 16px; font-family: var(--font-body); }
+.mo-badge.ok circle { fill: var(--ok); }
+.mo-badge.no circle { fill: var(--bad); }
+
+.mo-edit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem 1.5rem; align-items: start; }
+.mo-edit h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.5rem; }
+.mo-pal, .mo-pg { display: grid; gap: 0.5rem; min-width: 0; align-content: start; }
+.mo-cmd {
+  appearance: none; display: flex; align-items: center; gap: 0.6rem; text-align: left; width: 100%; min-height: 2.9rem;
+  padding: 0.4rem 0.7rem; border: 2px solid var(--c4); background: var(--c4); color: var(--bg); font-weight: 700;
+  border-radius: 9px; cursor: pointer; touch-action: manipulation;
+}
+.mo-cmd:not(:disabled):hover { filter: brightness(1.12); }
+.mo-cmd:disabled { opacity: 0.45; cursor: not-allowed; }
+.mo-ic { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; flex: none; border-radius: 6px; background: color-mix(in srgb, var(--bg) 25%, transparent); font-size: 1.15rem; font-weight: 800; line-height: 1; }
+.mo-prog { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; counter-reset: mo; }
+.mo-prog li { counter-increment: mo; display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0.4rem 0.25rem 0.5rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 8px; }
+.mo-prog li::before { content: counter(mo); font-family: var(--font-display); font-weight: 800; color: var(--muted); min-width: 1.2rem; text-align: right; }
+.mo-prog .mo-ic { background: color-mix(in srgb, var(--c4) 25%, transparent); color: var(--ink); }
+.mo-lab { flex: 1; min-width: 0; font-weight: 600; font-size: 0.95rem; }
+.mo-step.now { background: color-mix(in srgb, var(--accent) 22%, var(--surface2)); border-color: var(--accent); }
+.mo-del { appearance: none; width: 2.5rem; height: 2.5rem; border: 0; background: transparent; color: var(--bad); font-size: 1.5rem; font-weight: 800; cursor: pointer; border-radius: 8px; touch-action: manipulation; }
+.mo-del:not(:disabled):hover { background: var(--bad-bg); }
+.mo-del:disabled { opacity: 0.3; cursor: default; }
+.mo-empty { color: var(--muted); padding: 0.6rem; border: 2px dashed var(--line); border-radius: 8px; }
+.mo-info { font-weight: 700; font-size: 0.95rem; }
+.mo-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.mo-cmds { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; max-width: 34rem; }
+.mo-cmds li { display: flex; align-items: center; gap: 0.6rem; padding: 0.3rem 0.6rem; background: var(--c4); color: var(--bg); font-weight: 700; border-radius: 8px; }
+.mo-cmds .mo-ic { background: color-mix(in srgb, var(--bg) 25%, transparent); }
+.mo-sol { max-width: 34rem; }
+@media (max-width: 48rem) {
+  .mo-boards { grid-template-columns: minmax(0, 1fr); max-width: 24rem; }
+  .mo-edit { grid-template-columns: minmax(0, 1fr); }
+}

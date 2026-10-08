@@ -1,1 +1,54 @@
-/* Stile fuer .t-lampe */
+/* Stile fuer .t-lampe (Präfix lp-) */
+.lp-sw { display: block; width: 1.9rem; height: auto; overflow: visible; }
+.lp-pair { display: inline-flex; gap: 0.1rem; vertical-align: middle; margin-inline: 0.15rem; }
+.lp-inl .lp-sw { width: 1.2rem; }
+.lp-inl { display: inline-flex; vertical-align: middle; }
+
+.lp-pic { display: grid; place-items: center; aspect-ratio: 1; width: 100%; }
+.lp-pic img { width: 62%; height: auto; display: block; transform: rotate(var(--rot, 0deg)); box-shadow: 0 1px 3px rgb(0 0 0 / 0.25); user-select: none; -webkit-user-drag: none; }
+
+.lp-tab { border-collapse: collapse; width: 100%; max-width: 36rem; background: var(--surface); border: 1px solid var(--line); }
+.lp-tab th { background: var(--band); padding: 0.35rem 0.4rem; font-size: 0.9rem; border: 1px solid var(--line); text-align: center; }
+.lp-tab td { padding: 0.35rem 0.5rem; border: 1px solid var(--line); vertical-align: middle; }
+.lp-tab .lp-bild { width: 5.5rem; padding: 0.2rem; }
+.lp-tab .lp-res { width: 3.5rem; text-align: center; font-weight: 700; }
+.lp-tab .lp-sonst { text-align: right; }
+
+.lp-board { display: grid; gap: 1rem; justify-items: center; }
+.lp-scene-box { width: 100%; max-width: 22rem; }
+.lp-scene { display: block; width: 100%; height: auto; }
+.lp-opts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; width: 100%; max-width: 30rem; }
+.lp-opt {
+  appearance: none; position: relative; display: grid; gap: 0.1rem; justify-items: center; min-width: 0;
+  padding: 0.4rem 0.3rem 0.5rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font-weight: 700;
+}
+.lp-opt:hover { border-color: var(--accent); }
+.lp-opt[aria-disabled="true"] { cursor: default; }
+.lp-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.lp-opt .lp-pic { max-width: 6.5rem; }
+.lp-name { font-size: 0.85rem; line-height: 1.2; text-align: center; }
+.lp-opt.selected, .lp-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.lp-opt.right, .lp-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.lp-opt.wrong, .lp-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.lp-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.lp-opt.wrong .lp-mark { background: var(--bad); }
+
+.lp-why { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.lp-why li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0.8rem; align-items: center; }
+.lp-why strong { display: block; }
+.lp-why span { color: var(--muted); font-size: 0.95rem; }
+.lp-why span strong { display: inline; color: var(--ink); }
+.lp-small { max-width: 4.5rem; }
+
+@media (max-width: 40rem) {
+  .lp-tab .lp-bild { width: 4.5rem; }
+  .lp-tab th { font-size: 0.8rem; }
+  .lp-tab td { padding: 0.3rem 0.3rem; font-size: 0.95rem; }
+  .lp-tab .lp-res { width: 2.6rem; }
+  .lp-sw { width: 1.5rem; }
+  .lp-inl .lp-sw { width: 1.1rem; }
+}

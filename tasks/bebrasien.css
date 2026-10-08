@@ -1,1 +1,59 @@
-/* Stile fuer .t-bebrasien */
+/* Aufgabe Bebrasien */
+.bb-ico { display: inline-block; vertical-align: middle; margin: 0 0.15rem; }
+.bb-board { display: grid; gap: 0.9rem; min-width: 0; }
+.bb-mapwrap { background: var(--surface2); border-radius: 12px; padding: 0.4rem; min-width: 0; }
+.bb-map { display: block; width: 100%; height: auto; max-height: 28rem; }
+.bb-sea { fill: color-mix(in srgb, var(--accent) 38%, var(--surface2)); }
+.bb-edge { fill: none; stroke: var(--muted); stroke-width: 3.2; stroke-dasharray: 7 6; stroke-linecap: round; }
+.bb-edge.on { stroke: var(--accent); stroke-width: 4.5; stroke-dasharray: none; }
+.bb-head { fill: none; stroke: var(--muted); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.bb-head.on { stroke: var(--accent); stroke-width: 2.4; }
+.bb-isl { cursor: pointer; outline: none; }
+.bb-sand { fill: color-mix(in srgb, var(--c2) 38%, var(--surface)); stroke: transparent; stroke-width: 5; }
+.bb-grass { fill: color-mix(in srgb, var(--c6) 78%, var(--surface)); }
+.bb-trunk { fill: none; stroke: color-mix(in srgb, var(--c2) 45%, var(--ink)); stroke-width: 4; stroke-linecap: round; }
+.bb-leaf { fill: var(--c6); }
+.bb-tag { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.bb-tagt { fill: var(--ink); font: 700 13px var(--font-body); }
+.bb-isl:hover .bb-sand { stroke: color-mix(in srgb, var(--accent) 50%, transparent); }
+.bb-isl:focus-visible .bb-sand { stroke: var(--focus); }
+.bb-isl.visited .bb-sand { stroke: var(--accent); }
+.bb-isl.start .bb-sand { stroke: var(--ink); stroke-width: 6; }
+.bb-isl.grouped .bb-sand { stroke: var(--bb-g); stroke-width: 9; }
+.bb-isl.grouped .bb-tag { fill: var(--bb-g); stroke: var(--bb-g); }
+.bb-isl.grouped .bb-tagt { fill: var(--surface); }
+.bb-heli { transition: transform 0.35s ease; pointer-events: none; }
+.bb-heli .bb-rotor { stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; }
+.bb-heli .bb-body { fill: var(--c2); stroke: var(--ink); stroke-width: 0.8; }
+.bb-heli .bb-glass { fill: var(--surface); opacity: 0.85; }
+.bb-heli .bb-skid { stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; }
+.bb-try { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; justify-content: space-between; }
+.bb-trytext { flex: 1 1 14rem; min-width: 0; display: grid; gap: 0.1rem; font-size: 0.95rem; }
+.bb-status { color: var(--muted); min-height: 2.6em; }
+.bb-trybtns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.bb-btn {
+  appearance: none; border: 2px solid var(--accent); background: transparent; color: var(--accent);
+  font-weight: 700; font-size: 0.9rem; padding: 0.35rem 0.8rem; border-radius: 9px; cursor: pointer; min-height: 2.4rem;
+}
+.bb-btn:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.bb-h { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0.25rem 0 0; }
+.bb-opts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+.bb-opt {
+  display: flex; align-items: center; justify-content: center; gap: 0.45rem; position: relative;
+  min-height: 3rem; padding: 0.4rem 0.6rem; border: 2px solid var(--line); border-radius: 10px;
+  background: var(--surface); cursor: pointer; font-weight: 700; text-align: center;
+}
+.bb-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.bb-opt:hover { border-color: var(--accent); }
+.bb-opt:focus-within { outline: 3px solid var(--focus); outline-offset: 2px; }
+.bb-opt.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.bb-opt.right { border-color: var(--ok); background: var(--ok-bg); color: var(--ok); }
+.bb-opt.wrong { border-color: var(--bad); background: var(--bad-bg); color: var(--bad); }
+.bb-opt.right::after, .bb-opt.wrong::after { font-weight: 800; }
+.bb-opt.right::after { content: '\2713'; }
+.bb-opt.wrong::after { content: '\2717'; }
+.bb-opt:has(input:disabled) { cursor: default; }
+.bb-opt input:disabled { cursor: default; }
+@media (max-width: 30rem) {
+  .bb-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

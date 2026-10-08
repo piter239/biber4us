@@ -1,1 +1,54 @@
-/* Stile fuer .t-lefty1 */
+/* Aufgabe Lefty 1 */
+.lf1-sub { display: block; font-family: var(--font-body); font-weight: 400; font-size: 1.05rem; margin-top: 0.15rem; }
+.lf1-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.9rem 1.5rem; margin: 0.2rem 0 0.4rem; }
+.lf1-figure { margin: 0; display: grid; gap: 0.5rem; align-content: start; justify-items: center; text-align: center; min-width: 0; }
+.lf1-figure figcaption { max-width: 17rem; }
+.lf1-fig { max-width: 100%; height: auto; }
+.lf1-ic { display: inline-block; vertical-align: middle; margin: 0 0.1rem; }
+.lf1-g { fill: var(--surface2); stroke: var(--line); stroke-width: 1; }
+.lf1-y { fill: var(--slot); stroke: var(--slot-line); stroke-width: 1; }
+.lf1-b { fill: var(--accent); stroke: var(--line); stroke-width: 1; }
+svg .lf1-goal { fill: var(--c6); stroke: var(--line); stroke-width: 1; }
+.lf1-rb { fill: var(--surface); stroke: var(--c4); stroke-width: 3; }
+.lf1-ra { fill: var(--c5); fill-opacity: 0.55; stroke: var(--c5); stroke-width: 1.8; stroke-linejoin: round; }
+.lf1-ring { fill: none; stroke: var(--surface); stroke-width: 3; }
+.lf1-dash { fill: none; stroke: var(--c4); stroke-width: 3; stroke-dasharray: 5 4; }
+.lf1-ah { fill: var(--c4); }
+.lf1-ban circle { fill: none; stroke: var(--c1); stroke-width: 3.2; }
+.lf1-ban path { stroke: var(--c1); stroke-width: 3.2; fill: none; }
+.lf1-w { stroke: var(--c1); stroke-width: 5; stroke-linecap: square; fill: none; }
+.lf1-fw { stroke-width: 4; }
+.lf1-line { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+.lf1-route { fill: none; stroke: var(--c4); stroke-width: 3.5; stroke-dasharray: 6 5; stroke-linejoin: round; }
+
+/* Spielfeld */
+.lf1-board { position: relative; width: min(100%, 26rem); margin: 0 auto; aspect-ratio: 1; }
+.lf1-grid {
+  position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); grid-template-rows: repeat(5, minmax(0, 1fr));
+  gap: 1px; padding: 1px; background: var(--muted); border-radius: 4px;
+}
+.lf1-ov { position: absolute; inset: 0; pointer-events: none; }
+.lf1-ov svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.lf1-cell {
+  appearance: none; margin: 0; padding: 0; border: 0; border-radius: 0; min-width: 0; min-height: 0;
+  background: var(--surface2); position: relative; cursor: pointer; touch-action: manipulation; font: inherit; color: var(--ink);
+}
+.lf1-cell:hover:not(:disabled):not(.on) { background: color-mix(in srgb, var(--accent) 16%, var(--surface2)); }
+.lf1-cell:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; z-index: 2; }
+.lf1-cell.on { background: var(--slot); }
+.lf1-cell.on::before { content: ""; position: absolute; left: 50%; top: 50%; width: 22%; height: 22%; margin: -11% 0 0 -11%; border-radius: 50%; background: var(--slot-line); }
+.lf1-cell:disabled { cursor: default; }
+div.lf1-start { background: var(--accent); cursor: default; }
+div.lf1-goal { background: var(--c6); cursor: default; }
+.lf1-cell.right { box-shadow: inset 0 0 0 3px var(--ok); }
+.lf1-cell.wrong { box-shadow: inset 0 0 0 3px var(--bad); }
+.lf1-cell.missing { box-shadow: inset 0 0 0 3px var(--ok); background: color-mix(in srgb, var(--ok) 25%, var(--surface2)); }
+.lf1-cell.right::after, .lf1-cell.wrong::after, .lf1-cell.missing::after {
+  position: absolute; top: 3px; right: 3px; width: 1.15rem; height: 1.15rem; border-radius: 50%; display: grid; place-items: center;
+  font-size: 0.8rem; font-weight: 800; color: #fff; line-height: 1;
+}
+.lf1-cell.right::after { content: "✓"; background: var(--ok); }
+.lf1-cell.wrong::after { content: "✗"; background: var(--bad); }
+.lf1-cell.missing::after { content: "!"; background: var(--ok); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .lf1-cell.right::after, :root:not([data-theme="light"]) .lf1-cell.wrong::after, :root:not([data-theme="light"]) .lf1-cell.missing::after { color: var(--accent-ink); } }
+:root[data-theme="dark"] .lf1-cell.right::after, :root[data-theme="dark"] .lf1-cell.wrong::after, :root[data-theme="dark"] .lf1-cell.missing::after { color: var(--accent-ink); }

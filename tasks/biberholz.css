@@ -1,1 +1,41 @@
-/* Stile fuer .t-biberholz */
+/* Aufgabe Biberholz */
+.bh-ic { display: inline-block; vertical-align: middle; flex: none; }
+.bh-friends { display: grid; gap: 0.9rem; margin: 1rem 0; }
+.bh-friend { display: grid; grid-template-columns: minmax(0, 10.5rem) minmax(0, 1fr); gap: 0.6rem 1.4rem; align-items: center; padding: 0.8rem 0; border-top: 1px solid var(--line); }
+.bh-friend:last-child { border-bottom: 1px solid var(--line); }
+.bh-text { margin: 0; line-height: 1.8; }
+.bh-tblwrap { min-width: 0; }
+.bh-tbl { border-collapse: collapse; width: 100%; background: color-mix(in srgb, var(--c2) 16%, var(--surface)); border: 2px solid var(--ink); border-radius: 4px; table-layout: fixed; }
+.bh-tbl th, .bh-tbl td { text-align: center; padding: 0.25rem 0.1rem; vertical-align: middle; }
+.bh-tbl th { border-bottom: 2px solid var(--ink); }
+.bh-tbl th + th, .bh-tbl td + td { border-left: 2px solid var(--ink); }
+.bh-tbl td { height: 2rem; color: var(--muted); }
+.bh-tbl .bh-d { display: inline-flex; color: var(--muted); }
+.bh-dots { color: var(--muted); font-weight: 700; line-height: 1; }
+.bh-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+.bh-opt {
+  display: flex; align-items: center; gap: 0.7rem; position: relative; min-height: 3.5rem;
+  padding: 0.55rem 0.8rem; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); cursor: pointer;
+}
+.bh-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.bh-opt:hover { border-color: var(--accent); }
+.bh-opt:focus-within { outline: 3px solid var(--focus); outline-offset: 2px; }
+.bh-letter {
+  flex: none; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; background: var(--band); color: var(--ink);
+}
+.bh-otext { font-weight: 600; min-width: 0; }
+.bh-opt.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.bh-opt.sel .bh-letter { background: var(--accent); color: var(--accent-ink); }
+.bh-opt.right { border-color: var(--ok); background: var(--ok-bg); }
+.bh-opt.right .bh-letter { background: var(--ok); color: var(--surface); }
+.bh-opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.bh-opt.wrong .bh-letter { background: var(--bad); color: var(--surface); }
+.bh-opt:has(input:disabled), .bh-opt input:disabled { cursor: default; }
+.bh-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0 0 0.6rem; }
+.bh-chain span { color: var(--muted); font-weight: 700; }
+@media (max-width: 40rem) {
+  .bh-friend { grid-template-columns: minmax(0, 1fr); }
+  .bh-tblwrap { max-width: 13rem; }
+  .bh-opts { grid-template-columns: minmax(0, 1fr); }
+}

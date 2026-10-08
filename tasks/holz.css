@@ -1,1 +1,41 @@
-/* Stile fuer .t-holz */
+/* Aufgabe Holz für den Damm */
+.ho-field { position: relative; display: grid; grid-template-columns: minmax(2.5rem, 0.8fr) minmax(0, 6fr); align-items: end; gap: 0 0.3rem; padding-bottom: 14px; min-width: 0; }
+.ho-beaver { width: 100%; max-width: 110px; height: auto; align-self: end; margin-bottom: -4px; user-select: none; -webkit-user-drag: none; }
+.ho-trees { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.2rem; align-items: end; min-width: 0; }
+.ho-tree {
+  appearance: none; border: 3px solid transparent; background: none; border-radius: 12px; padding: 0.1rem 0.1rem 0.3rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 0.2rem; cursor: pointer;
+  touch-action: manipulation; min-width: 0; color: var(--ink);
+}
+.ho-tree:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.ho-tree:disabled { cursor: default; }
+.ho-lab { font-family: var(--font-display); font-weight: 700; font-size: clamp(0.85rem, 3.4vw, 1.35rem); white-space: nowrap; }
+.ho-pic { position: relative; display: flex; justify-content: center; width: 100%; }
+.ho-pic img { display: block; height: auto; user-select: none; -webkit-user-drag: none; }
+.ho-tree.on { background: color-mix(in srgb, var(--accent) 16%, transparent); border-color: var(--accent); }
+.ho-tree.on.bad { background: var(--bad-bg); border-color: var(--bad); }
+.ho-tree.on.good { background: var(--ok-bg); border-color: var(--ok); }
+.ho-badge {
+  position: absolute; top: 38%; left: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 0.1rem;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 0.05rem 0.4rem 0.05rem 0.3rem;
+  font-weight: 800; font-size: 0.95rem; line-height: 1.2; box-shadow: 0 1px 4px rgb(0 0 0 / 0.3);
+}
+.ho-tree.on.bad .ho-badge { border-color: var(--bad); color: var(--bad); }
+.ho-tree.on.good .ho-badge { border-color: var(--ok); color: var(--ok); }
+.ho-axe { display: inline-flex; }
+.ho-ground { position: absolute; left: 0; right: 0; bottom: 8px; height: 8px; border-radius: 999px; background: var(--c6); z-index: 0; }
+.ho-tree { position: relative; z-index: 1; margin-bottom: 4px; }
+.ho-sum { margin-top: 1rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.8rem; padding: 0.6rem 0.9rem; border-radius: var(--radius); background: var(--surface2); }
+.ho-sum-l { color: var(--muted); font-size: 0.9rem; font-weight: 600; }
+.ho-sum-v { font-family: var(--font-display); font-weight: 700; font-size: 1.7rem; }
+.ho-sum-e { color: var(--muted); font-size: 0.95rem; }
+.ho-sum.bad { background: var(--bad-bg); }
+.ho-sum.bad .ho-sum-v { color: var(--bad); }
+.ho-sum.good { background: var(--ok-bg); }
+.ho-sum.good .ho-sum-v { color: var(--ok); }
+@media (max-width: 40rem) {
+  .ho-field { grid-template-columns: minmax(0, 1fr); }
+  .ho-beaver { display: none; }
+  .ho-badge { font-size: 0.8rem; padding: 0.02rem 0.3rem 0.02rem 0.2rem; }
+  .ho-axe svg { width: 13px; height: 13px; }
+}
