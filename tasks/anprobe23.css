@@ -1,0 +1,59 @@
+/* Stile für anprobe23 (Präfix t-anprobe23-). Regal und Hosen behalten ihre Farben (Gelb/Creme/Blau) in Hell und Dunkel. */
+.t-anprobe23-board { display: grid; gap: 1.1rem; max-width: 36rem; margin: 0 auto; min-width: 0; }
+.t-anprobe23-board > section { min-width: 0; }
+.t-anprobe23-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.5rem; }
+
+.t-anprobe23-shelf { display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); grid-template-rows: 1.8rem auto; background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.t-anprobe23-axis-x, .t-anprobe23-axis-y { display: flex; align-items: center; gap: 0.4rem; background: #8fb0e3; color: #0d2447; font-size: 0.85rem; font-weight: 600; padding: 0 0.4rem; }
+.t-anprobe23-corner { background: #2a4b86; }
+.t-anprobe23-axis-y { flex-direction: column; background: #2a4b86; color: #fff; padding: 0.4rem 0; }
+.t-anprobe23-axis-y span { writing-mode: vertical-rl; transform: rotate(180deg); }
+.t-anprobe23-axis-x i, .t-anprobe23-axis-y i { flex: 1 1 auto; position: relative; background: currentColor; }
+.t-anprobe23-axis-x i { height: 2px; }
+.t-anprobe23-axis-x i::after { content: ''; position: absolute; right: -1px; top: -4px; border-left: 8px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+.t-anprobe23-axis-y i { width: 2px; }
+.t-anprobe23-axis-y i::after { content: ''; position: absolute; bottom: -1px; left: -4px; border-top: 8px solid currentColor; border-left: 5px solid transparent; border-right: 5px solid transparent; }
+
+.t-anprobe23-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.t-anprobe23-cell {
+  appearance: none; position: relative; display: block; aspect-ratio: 1; min-width: 0; padding: 0; margin: 0; border: 0; border-radius: 0;
+  cursor: pointer; touch-action: manipulation; font: inherit; color: #1b2a44;
+}
+.t-anprobe23-cell.a { background: #fdd32c; }
+.t-anprobe23-cell.b { background: #fff4d1; }
+.t-anprobe23-cell svg { display: block; width: 100%; height: 100%; pointer-events: none; }
+.t-anprobe23-pants { fill: #3b7bd6; stroke: #1f4a94; stroke-width: 1; stroke-linejoin: round; }
+.t-anprobe23-belt { fill: #1f4a94; }
+.t-anprobe23-cell:not(:disabled):hover { box-shadow: inset 0 0 0 3px var(--accent); }
+.t-anprobe23-cell:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; z-index: 1; }
+.t-anprobe23-cell:disabled { cursor: default; }
+.t-anprobe23-cell.out svg { opacity: 0.18; filter: grayscale(1); }
+.t-anprobe23-cell.out { cursor: pointer; }
+.t-anprobe23-cell.tried { box-shadow: inset 0 0 0 3px #0a86a6; }
+.t-anprobe23-cell.hit { box-shadow: inset 0 0 0 4px #1b7a49; }
+.t-anprobe23-badge {
+  position: absolute; top: 2px; left: 2px; min-width: 1.15rem; height: 1.15rem; padding: 0 0.2rem; border-radius: 999px; display: grid; place-items: center;
+  background: #0a86a6; color: #fff; font-size: 0.75rem; font-weight: 800; line-height: 1;
+}
+.t-anprobe23-cell.hit .t-anprobe23-badge { background: #1b7a49; }
+.t-anprobe23-over .t-anprobe23-cell:not(.reg):not(.mid) svg { opacity: 0.45; }
+.t-anprobe23-over .t-anprobe23-cell.reg { background: #2a5db0; }
+.t-anprobe23-over .t-anprobe23-cell.mid { background: #a9e5b5; }
+.t-anprobe23-over .t-anprobe23-cell.reg svg, .t-anprobe23-over .t-anprobe23-cell.mid svg { display: none; }
+.t-anprobe23-rtxt { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.1rem, 5vw, 1.8rem); line-height: 1; color: #ffd83a; }
+.t-anprobe23-cell.mid .t-anprobe23-rtxt { color: #12331d; }
+
+.t-anprobe23-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; justify-content: space-between; margin: 0.6rem 0 0.2rem; }
+.t-anprobe23-count { font-weight: 700; font-variant-numeric: tabular-nums; }
+.t-anprobe23-new { min-height: 2.4rem; padding-block: 0.3rem; }
+.t-anprobe23-feed { margin: 0.4rem 0 0; font-size: 0.95rem; color: var(--ink); min-height: 4.2em; }
+
+.t-anprobe23-ans { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; font-weight: 600; }
+.t-anprobe23-num {
+  width: 4.5rem; min-height: 2.75rem; text-align: center; font: inherit; font-size: 1.3rem; font-weight: 700; color: var(--ink);
+  background: var(--surface); border: 3px solid var(--line); border-radius: 10px; padding: 0.2rem 0.4rem;
+}
+.t-anprobe23-num:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-anprobe23-num.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-anprobe23-num.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-anprobe23-num:disabled { opacity: 1; }

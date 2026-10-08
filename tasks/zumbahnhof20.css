@@ -1,0 +1,64 @@
+/* Stile für zumbahnhof20 (Präfix t-zumbahnhof20-). Schienen nutzen Ink-Farbe, Schwellen und Haus behalten ihre Farben. */
+.t-zumbahnhof20-wrap {
+  --zb-rail: color-mix(in srgb, var(--ink) 80%, var(--surface));
+  display: grid; gap: 0.9rem; max-width: 40rem; margin: 0 auto; min-width: 0;
+}
+.t-zumbahnhof20-stage { position: relative; padding-left: 3.1rem; }
+.t-zumbahnhof20-start { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3rem; display: grid; justify-items: center; gap: 0; }
+.t-zumbahnhof20-trainsvg { width: 2.6rem; height: auto; display: block; }
+.t-zumbahnhof20-arrow { color: var(--bad); font-size: 1.25rem; line-height: 1; margin-top: -0.1rem; }
+.t-zumbahnhof20-field { position: relative; }
+.t-zumbahnhof20-board { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border: 2px solid var(--line); border-radius: 6px; background: var(--surface); overflow: hidden; }
+.t-zumbahnhof20-board.check.ok, .t-zumbahnhof20-board.solution { border-color: var(--ok); }
+.t-zumbahnhof20-cell { aspect-ratio: 1; min-width: 0; border: 1px solid var(--line); padding: 0; margin: 0; background: var(--surface); display: grid; place-items: center; position: relative; }
+.t-zumbahnhof20-cell svg { display: block; width: 100%; height: 100%; }
+.t-zumbahnhof20-target { appearance: none; font: inherit; color: inherit; cursor: pointer; touch-action: manipulation; border-radius: 0; }
+.t-zumbahnhof20-target:hover, .t-zumbahnhof20-target.over { background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
+.t-zumbahnhof20-target:disabled { cursor: default; }
+.t-zumbahnhof20-target:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
+.t-zumbahnhof20-dot { width: 40%; aspect-ratio: 1; border-radius: 50%; background: var(--c6); border: 3px solid color-mix(in srgb, var(--c6) 60%, var(--ink)); box-sizing: border-box; display: block; }
+.t-zumbahnhof20-target.filled .t-zumbahnhof20-dot { display: none; }
+.t-zumbahnhof20-target.filled { box-shadow: inset 0 0 0 3px var(--c6); }
+.t-zumbahnhof20-overlay { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+
+.t-zumbahnhof20-sl { stroke: #8f6a2e; stroke-width: 9; }
+.t-zumbahnhof20-rail { fill: none; stroke: var(--zb-rail); stroke-width: 6; }
+.t-zumbahnhof20-buf { fill: var(--bad); stroke: var(--zb-rail); stroke-width: 1.5; }
+.t-zumbahnhof20-bufd { fill: var(--ink); }
+.t-zumbahnhof20-hw { fill: var(--slot); stroke: var(--ink); stroke-width: 2; }
+.t-zumbahnhof20-hr { fill: var(--c1); stroke: var(--ink); stroke-width: 2; }
+.t-zumbahnhof20-hroof { fill: var(--c1); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.t-zumbahnhof20-hclock { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+.t-zumbahnhof20-hhand { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; }
+.t-zumbahnhof20-hdoor { fill: var(--c2); stroke: var(--ink); stroke-width: 2; }
+.t-zumbahnhof20-hwin { fill: var(--c4); stroke: var(--ink); stroke-width: 1.5; }
+.t-zumbahnhof20-tbody, .t-zumbahnhof20-tcab { fill: var(--c1); stroke: var(--ink); stroke-width: 2; }
+.t-zumbahnhof20-troof, .t-zumbahnhof20-tchim { fill: var(--c6); stroke: var(--ink); stroke-width: 2; }
+.t-zumbahnhof20-tnose { fill: var(--c2); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.t-zumbahnhof20-twheel { fill: var(--surface2); stroke: var(--ink); stroke-width: 3; }
+
+.t-zumbahnhof20-route { fill: none; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; opacity: 0.55; }
+.t-zumbahnhof20-route.ok { stroke: var(--ok); }
+.t-zumbahnhof20-route.bad { stroke: var(--bad); }
+.t-zumbahnhof20-cross circle { fill: var(--bad); }
+.t-zumbahnhof20-tick circle { fill: var(--ok); }
+.t-zumbahnhof20-cross path, .t-zumbahnhof20-tick path { fill: none; stroke: #fff; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.t-zumbahnhof20-anim rect, .t-zumbahnhof20-anim path { fill: var(--c1); stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+.t-zumbahnhof20-anim .t-zumbahnhof20-aw { fill: var(--surface); stroke-width: 2; }
+
+.t-zumbahnhof20-pool { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.4rem; padding: 0.5rem; border-radius: 10px; background: var(--slot); border: 1px solid var(--slot-line); }
+.t-zumbahnhof20-piece { appearance: none; padding: 0; border: 3px solid var(--ink); border-radius: 6px; background: var(--surface); cursor: grab; touch-action: manipulation; min-width: 0; aspect-ratio: 1; display: block; }
+.t-zumbahnhof20-piece:disabled { cursor: default; opacity: 0.6; }
+.t-zumbahnhof20-piece.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-zumbahnhof20-piece:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-zumbahnhof20-pic { display: block; width: 100%; height: 100%; pointer-events: none; }
+.t-zumbahnhof20-pic svg { display: block; width: 100%; height: 100%; }
+.t-zumbahnhof20-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; min-height: 2.8rem; }
+.t-zumbahnhof20-msg { margin: 0; font-size: 0.95rem; color: var(--muted); flex: 1 1 12rem; min-width: 0; }
+.t-zumbahnhof20-run { min-height: 2.6rem; }
+
+@media (max-width: 26rem) {
+  .t-zumbahnhof20-stage { padding-left: 2.4rem; }
+  .t-zumbahnhof20-start { width: 2.3rem; }
+  .t-zumbahnhof20-trainsvg { width: 2.1rem; }
+}

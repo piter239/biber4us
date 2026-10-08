@@ -1,0 +1,48 @@
+/* Stile für schluesselanhaenger21 (Präfix t-schluesselanhaenger21-). Perlen behalten ihre Farben in Hell und Dunkel. */
+.t-schluesselanhaenger21-board { display: grid; gap: 1.1rem; }
+.t-schluesselanhaenger21-board > section { min-width: 0; }
+.t-schluesselanhaenger21-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-schluesselanhaenger21-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; align-items: center; }
+.t-schluesselanhaenger21-leg { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.95rem; }
+.t-schluesselanhaenger21-given { display: grid; gap: 0.5rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.5rem 0.7rem; }
+.t-schluesselanhaenger21-row { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: 0.6rem; align-items: center; }
+.t-schluesselanhaenger21-row + .t-schluesselanhaenger21-row { border-top: 1px solid var(--line); padding-top: 0.5rem; }
+.t-schluesselanhaenger21-name { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; }
+.t-schluesselanhaenger21-chainbox { display: block; min-width: 0; }
+.t-schluesselanhaenger21-chain { display: block; width: 100%; height: auto; }
+.t-schluesselanhaenger21-g { fill: #2fa032; stroke: #14561a; stroke-width: 1.2; }
+.t-schluesselanhaenger21-gl { fill: #9be39d; }
+.t-schluesselanhaenger21-r { fill: #d60000; stroke: #6d0000; stroke-width: 1.2; stroke-linejoin: round; }
+.t-schluesselanhaenger21-rl { fill: #ff6a5c; }
+.t-schluesselanhaenger21-s { fill: #ffbf8a; stroke: #b9743d; stroke-width: 1; }
+.t-schluesselanhaenger21-cord { fill: none; stroke: #0e6b3a; stroke-width: 2.5; stroke-linecap: round; }
+.t-schluesselanhaenger21-tas { fill: none; stroke: #0e6b3a; stroke-width: 2.4; stroke-linecap: round; }
+.t-schluesselanhaenger21-ring { fill: none; stroke: #c2784a; stroke-width: 4; }
+.t-schluesselanhaenger21-shaft { fill: none; stroke: #c2784a; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+
+.t-schluesselanhaenger21-opts { display: grid; gap: 0.6rem; }
+.t-schluesselanhaenger21-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.4rem; align-items: center; text-align: left;
+  padding: 0.45rem 0.8rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600; min-width: 0;
+}
+.t-schluesselanhaenger21-opt:hover { border-color: var(--accent); }
+.t-schluesselanhaenger21-opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-schluesselanhaenger21-opt[aria-disabled="true"] { cursor: default; }
+.t-schluesselanhaenger21-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-schluesselanhaenger21-opt.selected, .t-schluesselanhaenger21-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-schluesselanhaenger21-opt.right, .t-schluesselanhaenger21-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-schluesselanhaenger21-opt.wrong, .t-schluesselanhaenger21-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-schluesselanhaenger21-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-schluesselanhaenger21-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-schluesselanhaenger21-opt.wrong .t-schluesselanhaenger21-mark { background: var(--bad); }
+.t-schluesselanhaenger21-table { border-collapse: collapse; margin: 0.4rem 0 0.8rem; }
+.t-schluesselanhaenger21-table th, .t-schluesselanhaenger21-table td { border: 1px solid var(--line); padding: 0.2rem 0.7rem; text-align: left; }
+.t-schluesselanhaenger21-table thead th { background: var(--surface2); }
+.t-schluesselanhaenger21-code { display: block; height: auto; }
+@media (max-width: 30rem) {
+  .t-schluesselanhaenger21-row { grid-template-columns: minmax(0, 1fr); gap: 0.1rem; }
+}

@@ -1,0 +1,34 @@
+/* Stile für faktencheck24 (Präfix t-faktencheck24-). Das Foto und die Symbole behalten ihre Farben. */
+.t-faktencheck24-board { display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: start; }
+.t-faktencheck24-photo { margin: 0; }
+.t-faktencheck24-photo img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.t-faktencheck24-opts { display: grid; gap: 0.8rem; }
+.t-faktencheck24-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.5rem; align-items: center; text-align: left;
+  padding: 0.7rem 0.9rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 500; line-height: 1.9;
+}
+.t-faktencheck24-opt:hover { border-color: var(--accent); }
+.t-faktencheck24-opt[aria-disabled="true"] { cursor: default; }
+.t-faktencheck24-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-faktencheck24-opt.selected, .t-faktencheck24-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-faktencheck24-opt.right, .t-faktencheck24-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-faktencheck24-opt.wrong, .t-faktencheck24-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-faktencheck24-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-faktencheck24-ic { display: inline-block; vertical-align: middle; height: 1.7em; width: auto; max-width: 3.2em; margin: 0 0.1em; }
+.t-faktencheck24-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-faktencheck24-opt.wrong .t-faktencheck24-mark { background: var(--bad); }
+
+.t-faktencheck24-why { list-style: none; margin: 0.6rem 0; padding: 0; display: grid; gap: 0.7rem; }
+.t-faktencheck24-why li { line-height: 1.9; }
+.t-faktencheck24-res { font-weight: 800; }
+.t-faktencheck24-res.is-true { color: var(--ok); }
+.t-faktencheck24-res.is-false { color: var(--bad); }
+
+@media (max-width: 44rem) {
+  .t-faktencheck24-board { grid-template-columns: minmax(0, 1fr); }
+  .t-faktencheck24-photo { max-width: 16rem; margin: 0 auto; }
+}

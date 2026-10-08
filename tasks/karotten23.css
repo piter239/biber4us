@@ -1,0 +1,63 @@
+/* Stile für karotten23 (Präfix t-karotten23-). Hügel und Samen behalten ihre Farben in Hell und Dunkel. */
+.t-karotten23-board { display: grid; gap: 1.1rem; max-width: 40rem; margin: 0 auto; min-width: 0; }
+.t-karotten23-board > section { min-width: 0; }
+.t-karotten23-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.5rem; }
+
+.t-karotten23-hill { fill: #a8643a; stroke: #6a3b1c; stroke-width: 2.5; stroke-linejoin: round; }
+.t-karotten23-seed ellipse { fill: #d8b890; stroke: #7a5a3a; stroke-width: 1.6; }
+.t-karotten23-seed path { fill: none; stroke: #7a5a3a; stroke-width: 1.2; stroke-linecap: round; }
+.t-karotten23-jump { fill: none; stroke: var(--c4); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+.t-karotten23-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.t-karotten23-legend li { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); gap: 0.7rem; align-items: center; padding: 0.3rem 0.6rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; }
+.t-karotten23-legend svg { width: 100%; height: auto; display: block; }
+
+.t-karotten23-prog { list-style: none; margin: 0; padding: 0.5rem; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.3rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; }
+.t-karotten23-prog li { position: relative; min-width: 0; background: var(--surface); border-radius: 8px; padding: 0.2rem 0.05rem 0.1rem; }
+.t-karotten23-prog svg { width: 100%; height: auto; display: block; }
+.t-karotten23-num { position: absolute; top: 1px; left: 3px; font-size: 0.7rem; font-weight: 700; color: var(--muted); }
+
+.t-karotten23-try { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem 0.8rem 0.8rem; }
+.t-karotten23-try h3 { text-transform: none; letter-spacing: 0; font-size: 0.95rem; }
+.t-karotten23-starts { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
+.t-karotten23-start {
+  appearance: none; min-height: 2.5rem; padding: 0.25rem 0.9rem; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--accent);
+}
+.t-karotten23-start:hover, .t-karotten23-start.selected { background: color-mix(in srgb, var(--accent) 18%, var(--surface)); }
+.t-karotten23-start.selected { box-shadow: 0 0 0 2px var(--accent); }
+.t-karotten23-hills, .t-karotten23-expl svg { display: block; width: 100%; height: auto; overflow: visible; }
+.t-karotten23-sky { fill: var(--surface); stroke: var(--line); }
+.t-karotten23-hname { fill: #fff6e6; font-size: 17px; font-weight: 800; font-family: var(--font-display); }
+.t-karotten23-step path { fill: none; stroke: var(--c4); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.t-karotten23-step text { fill: var(--ink); font-size: 14px; font-weight: 800; font-family: var(--font-body); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+.t-karotten23-step.t-karotten23-bad path { stroke: var(--bad); stroke-dasharray: 5 4; }
+.t-karotten23-note { margin: 0.5rem 0 0; font-size: 0.95rem; color: var(--ink); min-height: 2.9em; }
+.t-karotten23-expl { max-width: 28rem; margin: 0.5rem 0; }
+
+.t-karotten23-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+.t-karotten23-hbtn {
+  appearance: none; position: relative; display: grid; justify-items: center; align-items: end; gap: 0; min-width: 0; padding: 0.2rem 0.2rem 0.3rem;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; font: inherit; cursor: pointer; touch-action: manipulation;
+}
+.t-karotten23-hbtn:not(:disabled):hover { border-color: var(--accent); }
+.t-karotten23-hbtn:disabled { cursor: default; color: var(--ink); }
+.t-karotten23-hbtn.selected { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-karotten23-hbtn.off:not(.selected) { opacity: 0.75; }
+.t-karotten23-hbtn.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-karotten23-hbtn.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-karotten23-seedbox { display: block; height: 2rem; width: 1.6rem; }
+.t-karotten23-seedbox svg { display: block; width: 100%; height: 100%; }
+.t-karotten23-bighill { display: block; width: 100%; max-width: 5.5rem; height: auto; }
+.t-karotten23-hlabel { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; line-height: 1.2; }
+.t-karotten23-mark {
+  position: absolute; top: -10px; right: -8px; width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.9rem; color: #fff; background: var(--ok);
+}
+.t-karotten23-hbtn.wrong .t-karotten23-mark { background: var(--bad); }
+.t-karotten23-count { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--muted); }
+
+@media (max-width: 26rem) {
+  .t-karotten23-prog { gap: 0.2rem; padding: 0.35rem; }
+  .t-karotten23-legend li { grid-template-columns: 2.8rem minmax(0, 1fr); }
+}

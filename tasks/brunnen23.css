@@ -1,0 +1,16 @@
+/* Aufgabe Brunnen (2023) */
+.t-brunnen23-box { display: grid; gap: 0.6rem; min-width: 0; }
+.t-brunnen23-svg { display: block; width: 100%; max-width: 40rem; height: auto; margin-inline: auto; background: var(--surface); border-radius: 12px; border: 2px solid var(--line); touch-action: manipulation; }
+.t-brunnen23-edges line { stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; }
+.t-brunnen23-hit { fill: transparent; }
+.t-brunnen23-dot { fill: var(--c2); stroke: color-mix(in srgb, var(--c2) 55%, var(--ink)); stroke-width: 1.2; }
+.t-brunnen23-node { cursor: pointer; outline: none; }
+.t-brunnen23-node.fixed { cursor: default; }
+.t-brunnen23-node:hover .t-brunnen23-dot { fill: color-mix(in srgb, var(--c2) 70%, var(--surface)); stroke: var(--accent); stroke-width: 2.5; }
+.t-brunnen23-node.fixed:hover .t-brunnen23-dot { stroke-width: 1.2; }
+.t-brunnen23-node:focus-visible .t-brunnen23-dot { stroke: var(--focus); stroke-width: 4; }
+.t-brunnen23-node.fixed .t-brunnen23-dot, .t-brunnen23-node.new .t-brunnen23-dot { fill: var(--c4); stroke: color-mix(in srgb, var(--c4) 60%, var(--ink)); }
+.t-brunnen23-node.new .t-brunnen23-dot { fill: var(--c3); stroke: var(--accent); stroke-width: 3.5; }
+.t-brunnen23-drop { fill: var(--paper); pointer-events: none; }
+.t-brunnen23-ring { fill: none; stroke: var(--bad); stroke-width: 3.5; stroke-dasharray: 5 4; pointer-events: none; }
+.t-brunnen23-status { color: var(--muted); font-size: 0.95rem; min-height: 1.5em; margin: 0; }

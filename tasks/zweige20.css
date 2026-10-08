@@ -1,0 +1,39 @@
+/* Stile für zweige20 (Präfix t-zweige20-). Bilder liegen auf der hellen Papierfläche, damit sie in Hell und Dunkel gleich lesbar sind. */
+.t-zweige20-board { position: relative; max-width: 36rem; margin-inline: auto; }
+.t-zweige20-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(2rem, 3.5rem) minmax(0, 1.35fr); row-gap: 0.7rem; align-items: stretch; }
+.t-zweige20-gap { display: block; }
+.t-zweige20-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: visible; }
+.t-zweige20-line { stroke: var(--muted); stroke-width: 5; stroke-linecap: round; }
+.t-zweige20-line.t-zweige20-pending { stroke: var(--accent); stroke-dasharray: 2 9; }
+.t-zweige20-line.t-zweige20-right { stroke: var(--ok); }
+.t-zweige20-line.t-zweige20-wrong { stroke: var(--bad); }
+
+.t-zweige20-card {
+  appearance: none; position: relative; display: grid; place-items: center; padding: 0; min-width: 0; height: 5.8rem;
+  background: var(--paper); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: pan-y;
+  -webkit-user-select: none; user-select: none; font: inherit; color: var(--ink);
+}
+.t-zweige20-card img { position: absolute; inset: 0.4rem; width: calc(100% - 0.8rem); height: calc(100% - 0.8rem); object-fit: contain; pointer-events: none; -webkit-user-drag: none; }
+.t-zweige20-card:hover:not(:disabled) { border-color: var(--accent); }
+.t-zweige20-card:disabled { cursor: default; opacity: 1; }
+.t-zweige20-card.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-zweige20-card.right { border-color: var(--ok); }
+.t-zweige20-card.wrong { border-color: var(--bad); }
+.t-zweige20-card:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-zweige20-dot {
+  position: absolute; top: 50%; width: 1.3rem; height: 1.3rem; margin-top: -0.65rem; border-radius: 50%;
+  background: var(--c2); border: 3px solid var(--surface); box-shadow: 0 0 0 2px var(--line);
+}
+.t-zweige20-animal .t-zweige20-dot { right: -0.65rem; }
+.t-zweige20-branch .t-zweige20-dot { left: -0.65rem; }
+.t-zweige20-card.linked .t-zweige20-dot { background: var(--accent); }
+.t-zweige20-mark {
+  position: absolute; top: -10px; left: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok); z-index: 3;
+}
+.t-zweige20-card.wrong .t-zweige20-mark { background: var(--bad); }
+
+@media (max-width: 26rem) {
+  .t-zweige20-card { height: 4.8rem; }
+  .t-zweige20-card img { inset: 0.3rem; width: calc(100% - 0.6rem); height: calc(100% - 0.6rem); }
+}

@@ -1,0 +1,46 @@
+/* Stile für malerei23 (Präfix t-malerei23-). Die Bilder behalten ihre Farben (Türkis/Mint) in Hell und Dunkel. */
+.t-malerei23-fig { margin: 0.4rem 0 0.8rem; }
+.t-malerei23-fig img { display: block; max-width: 100%; height: auto; border-radius: 6px; }
+.t-malerei23-fig2 img { max-width: min(100%, 20rem); }
+
+.t-malerei23-board { display: grid; gap: 1.2rem; max-width: 40rem; margin: 0 auto; min-width: 0; }
+.t-malerei23-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: 0.8rem; }
+.t-malerei23-opt {
+  appearance: none; position: relative; display: block; min-width: 0; padding: 0.4rem; background: var(--surface2); color: var(--ink);
+  border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit;
+}
+.t-malerei23-opt img { display: block; width: 100%; height: auto; aspect-ratio: 1; border-radius: 4px; pointer-events: none; }
+.t-malerei23-opt:hover { border-color: var(--accent); }
+.t-malerei23-opt[aria-disabled="true"] { cursor: default; }
+.t-malerei23-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-malerei23-opt.selected, .t-malerei23-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface2)); }
+.t-malerei23-opt.right, .t-malerei23-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-malerei23-opt.wrong, .t-malerei23-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-malerei23-key {
+  position: absolute; top: 0.55rem; left: 0.55rem; min-width: 1.7rem; height: 1.7rem; padding: 0 0.3rem; display: grid; place-items: center; border-radius: 8px;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--line); font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; line-height: 1;
+}
+.t-malerei23-opt.selected .t-malerei23-key { border-color: var(--accent); }
+.t-malerei23-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-malerei23-opt.wrong .t-malerei23-mark { background: var(--bad); }
+
+.t-malerei23-steps { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem 0.8rem 0.9rem; min-width: 0; }
+.t-malerei23-steps[hidden] { display: none; }
+.t-malerei23-steps h3 { font-size: 0.95rem; margin: 0 0 0.6rem; font-family: var(--font-body); font-weight: 700; }
+.t-malerei23-stepgrid { display: grid; grid-template-columns: minmax(0, 16rem) minmax(0, 1fr); gap: 0.8rem 1.2rem; align-items: center; }
+.t-malerei23-stepimg svg { display: block; width: 100%; height: auto; border-radius: 4px; }
+.t-malerei23-bg { fill: #6bdbbf; }
+.t-malerei23-dark { fill: #1a6672; }
+.t-malerei23-todo { fill: var(--surface); fill-opacity: 0.55; stroke: var(--muted); stroke-width: 0.8; stroke-dasharray: 3 2; }
+.t-malerei23-one { fill: var(--ink); font-family: var(--font-display); font-weight: 700; }
+.t-malerei23-rlabel { display: grid; gap: 0.3rem; font-weight: 700; font-size: 0.9rem; }
+.t-malerei23-range { width: 100%; accent-color: var(--accent); min-height: 2rem; }
+.t-malerei23-note { margin: 0.4rem 0 0; font-size: 0.92rem; color: var(--ink); }
+
+@media (max-width: 34rem) {
+  .t-malerei23-stepgrid { grid-template-columns: minmax(0, 1fr); }
+  .t-malerei23-stepimg { max-width: 16rem; }
+}

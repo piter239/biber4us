@@ -1,0 +1,58 @@
+/* Stile für hotspot20 (Präfix t-hotspot20-). Fliesen in Türkis (c3), Wärmestufen aus c1/c2 mit Zahlen - in Hell und Dunkel lesbar. */
+.t-hotspot20-wrap { display: grid; gap: 0.7rem; max-width: 46rem; margin-inline: auto; }
+.t-hotspot20-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.9rem; }
+.t-hotspot20-stocklab { font-weight: 700; }
+.t-hotspot20-stocks { display: inline-flex; gap: 0.4rem; }
+.t-hotspot20-stock { width: 2.1rem; height: 2.1rem; display: grid; place-items: center; border-radius: 50%; border: 2px dashed var(--line); background: var(--surface2); }
+.t-hotspot20-stock.used { opacity: 0.5; }
+.t-hotspot20-stock svg { width: 100%; height: 100%; display: block; }
+.t-hotspot20-tgl { min-height: 2.4rem; padding-block: 0.3rem; }
+
+.t-hotspot20-floor {
+  --hs-gap: 3px; display: grid; grid-template-columns: repeat(15, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); gap: var(--hs-gap);
+  padding: 0; -webkit-user-select: none; user-select: none;
+}
+.t-hotspot20-tile {
+  appearance: none; position: relative; display: grid; place-items: center; aspect-ratio: 1; min-width: 0; padding: 0; margin: 0;
+  grid-column: calc(var(--c) + 1); grid-row: calc(var(--r) + 1);
+  background: color-mix(in srgb, var(--c3) 62%, var(--surface)); border: 2px solid color-mix(in srgb, var(--c3) 45%, var(--surface)); border-radius: 6px;
+  cursor: pointer; touch-action: manipulation; font: inherit; color: var(--ink); -webkit-tap-highlight-color: transparent;
+}
+.t-hotspot20-tile:hover { border-color: var(--accent); }
+.t-hotspot20-tile:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; z-index: 2; }
+.t-hotspot20-tile.on { border-color: var(--ink); }
+.t-hotspot20-tile[aria-disabled="true"] { cursor: default; }
+.t-hotspot20-tile[aria-disabled="true"]:hover { border-color: color-mix(in srgb, var(--c3) 45%, var(--surface)); }
+.t-hotspot20-tile.on[aria-disabled="true"]:hover { border-color: var(--ink); }
+.t-hotspot20-tile.w0 { background: var(--c1); }
+.t-hotspot20-tile.w1 { background: color-mix(in srgb, var(--c1) 55%, var(--c2)); }
+.t-hotspot20-tile.w2 { background: var(--c2); }
+.t-hotspot20-tile.w3 { background: color-mix(in srgb, var(--c2) 45%, var(--surface)); }
+.t-hotspot20-tile.w4 { background: color-mix(in srgb, var(--c2) 22%, var(--surface)); }
+.t-hotspot20-tile.late { border: 3px solid var(--bad); }
+.t-hotspot20-n { font: 800 clamp(0.75rem, 2.4vw, 1.15rem) var(--font-display); color: #1b1c21; pointer-events: none; }
+.t-hotspot20-fire, .t-hotspot20-stock .t-hotspot20-fire { display: block; width: 86%; height: 86%; pointer-events: none; }
+.t-hotspot20-disc { fill: #1b1c21; }
+.t-hotspot20-fl1 { fill: #ff8a1f; }
+.t-hotspot20-fl2 { fill: #ffd23f; }
+.t-hotspot20-sum { margin: 0; min-height: 1.5em; font-weight: 600; }
+.t-hotspot20-turn { display: none; margin: 0; font-size: 0.85rem; color: var(--muted); }
+
+.t-hotspot20-ex {
+  display: grid; grid-template-columns: repeat(6, 2.2rem); grid-auto-rows: 2.2rem; gap: 2px; margin: 0.2rem 0; width: max-content; max-width: 100%;
+}
+.t-hotspot20-exc { display: grid; place-items: center; border-radius: 4px; font: 800 1rem var(--font-display); color: #1b1c21; background: color-mix(in srgb, var(--c2) 22%, var(--surface)); }
+.t-hotspot20-exc svg { width: 90%; height: 90%; }
+.t-hotspot20-exc.w0 { background: var(--c1); }
+.t-hotspot20-exc.w1 { background: color-mix(in srgb, var(--c1) 55%, var(--c2)); }
+.t-hotspot20-exc.w2 { background: var(--c2); }
+.t-hotspot20-exc.w3 { background: color-mix(in srgb, var(--c2) 45%, var(--surface)); }
+
+/* schmale Bildschirme: Grundriss um eine Vierteldrehung gedreht (Zeile <-> Spalte), damit die Fliesen gross genug zum Antippen sind */
+@media (max-width: 36rem) {
+  .t-hotspot20-floor { grid-template-columns: repeat(5, minmax(0, 1fr)); grid-template-rows: none; max-width: 22rem; margin-inline: auto; width: 100%; }
+  .t-hotspot20-tile { grid-column: calc(var(--r) + 1); grid-row: calc(var(--c) + 1); }
+  .t-hotspot20-n { font-size: 1.1rem; }
+  .t-hotspot20-turn { display: block; }
+  .t-hotspot20-ex { grid-template-columns: repeat(6, 1.9rem); grid-auto-rows: 1.9rem; }
+}

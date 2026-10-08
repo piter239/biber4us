@@ -1,0 +1,59 @@
+/* Stile für herzbild22 (Präfix t-herzbild22-). Formen behalten ihr Rot auf hellem Papier in Hell und Dunkel. */
+.t-herzbild22-board { display: grid; gap: 1.25rem; }
+.t-herzbild22-fig {
+  display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: nowrap;
+  background: var(--paper); border-radius: 12px; padding: 0.6rem 0.8rem; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2);
+  max-width: 28rem; margin-inline: auto; width: 100%;
+}
+.t-herzbild22-pair { flex: 1 1 0; min-width: 0; max-width: 10rem; height: auto; }
+.t-herzbild22-heart { flex: 1 1 0; min-width: 0; max-width: 8rem; height: auto; }
+.t-herzbild22-arrow {
+  flex: none; position: relative; width: 3rem; height: 1.7rem; background: #7d7d7d; color: #fff; font-weight: 800; font-size: 1.1rem;
+  display: grid; place-items: center; border-radius: 3px 0 0 3px; margin-right: 0.8rem; font-family: var(--font-display);
+}
+.t-herzbild22-arrow::after {
+  content: ''; position: absolute; left: 100%; top: -0.35rem; border-left: 0.8rem solid #7d7d7d; border-top: 1.05rem solid transparent; border-bottom: 1.05rem solid transparent;
+}
+.t-herzbild22-sh { fill: #f10f1a; stroke: #b50810; stroke-width: 1; }
+.t-herzbild22-ghost { fill: none; stroke: #8a8a8a; stroke-width: 1.2; stroke-dasharray: 3 3; }
+.t-herzbild22-cnt { font: 700 10px var(--font-body); fill: #333; }
+
+.t-herzbild22-opts { display: grid; gap: 0.9rem; }
+.t-herzbild22-card { display: grid; gap: 0.4rem; }
+.t-herzbild22-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.6rem; align-items: start; text-align: left;
+  padding: 0.65rem 0.8rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600;
+}
+.t-herzbild22-opt:hover { border-color: var(--accent); }
+.t-herzbild22-opt[aria-disabled="true"] { cursor: default; }
+.t-herzbild22-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-herzbild22-opt.selected, .t-herzbild22-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-herzbild22-opt.right, .t-herzbild22-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-herzbild22-opt.wrong, .t-herzbild22-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-herzbild22-key { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+.t-herzbild22-txt { display: flex; flex-wrap: wrap; gap: 0.15rem 1rem; }
+.t-herzbild22-step { white-space: nowrap; }
+.t-herzbild22-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-herzbild22-opt.wrong .t-herzbild22-mark { background: var(--bad); }
+.t-herzbild22-tg { justify-self: start; min-height: 2.4rem; padding: 0.25rem 0.8rem; font-size: 0.92rem; }
+
+.t-herzbild22-flowbox[hidden] { display: none; }
+.t-herzbild22-flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(7.2rem, 1fr)); gap: 0.5rem; }
+.t-herzbild22-flow li { display: grid; gap: 0.15rem; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.35rem; min-width: 0; }
+.t-herzbild22-state { display: block; width: 100%; height: auto; background: var(--paper); border-radius: 6px; }
+.t-herzbild22-cap { font-weight: 700; font-size: 0.88rem; }
+.t-herzbild22-inv { font-size: 0.8rem; color: var(--muted); }
+
+.t-herzbild22-expl { display: flex; align-items: center; gap: 0.9rem; margin: 0.5rem 0 0.8rem; }
+.t-herzbild22-expl .t-herzbild22-heart { flex: none; width: 7rem; background: var(--paper); border-radius: 8px; padding: 0.3rem; }
+.t-herzbild22-expl span { color: var(--muted); font-size: 0.95rem; }
+
+@media (max-width: 30rem) {
+  .t-herzbild22-fig { gap: 0.4rem; padding-inline: 0.5rem; }
+  .t-herzbild22-arrow { width: 2.2rem; margin-right: 0.7rem; }
+  .t-herzbild22-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

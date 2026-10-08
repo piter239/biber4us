@@ -1,0 +1,35 @@
+/* Aufgabe Wassermühlen (Heft 2021): Bachbild liegt auf hellem Papier, Wasser/Mühlen behalten ihre Zeichenfarben */
+.t-wassermuehlen21-wrap { display: grid; gap: 0.7rem; min-width: 0; }
+.t-wassermuehlen21-stage { position: relative; width: 100%; max-width: 40rem; margin: 0 auto; aspect-ratio: 1330 / 990; background: var(--paper); border-radius: 12px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); }
+.t-wassermuehlen21-stage.solution { box-shadow: 0 0 0 3px var(--ok); }
+.t-wassermuehlen21-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.t-wassermuehlen21-edge { fill: none; stroke: #1f4458; stroke-width: 54; stroke-linecap: butt; }
+.t-wassermuehlen21-fill { fill: none; stroke: #cdb48d; stroke-width: 44; stroke-linecap: butt; transition: stroke 0.25s; }
+.t-wassermuehlen21-wet .t-wassermuehlen21-fill { stroke: #7fd0f4; }
+.t-wassermuehlen21-arrows path { fill: none; stroke: #1f4458; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.t-wassermuehlen21-badge circle { fill: #fff; stroke: #1f4458; stroke-width: 6; }
+.t-wassermuehlen21-badge text { font: 800 38px var(--font-body); fill: #1f4458; }
+.t-wassermuehlen21-badge.wet circle { fill: #bfe8fb; }
+.t-wassermuehlen21-badge.hit circle { stroke: #1b7a49; stroke-width: 10; }
+.t-wassermuehlen21-badge.miss circle { stroke: #b3261e; stroke-width: 10; fill: #fbd9d5; }
+.t-wassermuehlen21-gate {
+  appearance: none; position: absolute; transform: translate(-50%, -50%); width: 42px; height: 42px; min-width: 42px; min-height: 42px; padding: 0; margin: 0;
+  background: transparent; border: 0; border-radius: 8px; cursor: pointer; touch-action: manipulation;
+}
+.t-wassermuehlen21-gate svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.t-wassermuehlen21-gate .t-wassermuehlen21-bar { fill: #d4152a; stroke: #6b0713; stroke-width: 2; opacity: 0.55; fill: none; stroke-dasharray: 4 3; }
+.t-wassermuehlen21-gate .t-wassermuehlen21-bar path { fill: none; }
+.t-wassermuehlen21-gate:not(.closed) .t-wassermuehlen21-bar path { display: none; }
+.t-wassermuehlen21-gate .t-wassermuehlen21-post { fill: #d4152a; stroke: #6b0713; stroke-width: 2; }
+.t-wassermuehlen21-gate.closed .t-wassermuehlen21-bar { opacity: 1; fill: #d4152a; stroke-dasharray: none; }
+.t-wassermuehlen21-gate:not(.closed) .t-wassermuehlen21-post { fill: #f2a1a8; opacity: 0.9; }
+.t-wassermuehlen21-gate:not(:disabled):hover { background: rgb(10 134 166 / 0.2); }
+.t-wassermuehlen21-gate:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-wassermuehlen21-gate:disabled { cursor: default; }
+.t-wassermuehlen21-gate.bad { background: rgb(179 38 30 / 0.25); box-shadow: 0 0 0 3px #b3261e; }
+.t-wassermuehlen21-let {
+  position: absolute; left: -7px; top: -9px; min-width: 19px; height: 19px; padding: 0 3px; border-radius: 10px; background: #fff; color: #1f4458; border: 2px solid #1f4458;
+  font: 800 12px/15px var(--font-body); text-align: center; pointer-events: none;
+}
+.t-wassermuehlen21-status { font-size: 0.97rem; text-align: center; min-height: 3em; }
+.t-wassermuehlen21-legend { font-size: 0.9rem; color: var(--muted); text-align: center; }

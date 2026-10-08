@@ -1,0 +1,29 @@
+/* Stile für rueckseite20 (Präfix t-rueckseite20-). Karten in Blau (c4), umgedrehte Karten in Violett (c5), wie im Heft. */
+.t-rueckseite20-board { max-width: 32rem; margin-inline: auto; }
+.t-rueckseite20-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; padding-top: 0.6rem; }
+.t-rueckseite20-card {
+  appearance: none; position: relative; display: grid; grid-template-rows: 1fr auto; place-items: center; min-width: 0; aspect-ratio: 3 / 4; padding: 0.4rem 0.2rem 0.3rem;
+  background: var(--c4); color: #fff; border: 4px solid color-mix(in srgb, var(--c4) 55%, var(--ink)); border-radius: 14px; cursor: pointer;
+  touch-action: manipulation; font: inherit; -webkit-tap-highlight-color: transparent; transition: transform 0.15s;
+}
+.t-rueckseite20-card:hover:not(:disabled) { transform: translateY(-3px); }
+.t-rueckseite20-card:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.t-rueckseite20-card:disabled { cursor: default; opacity: 1; }
+.t-rueckseite20-face { font: 700 clamp(2.2rem, 11vw, 3.6rem) var(--font-display); line-height: 1; text-shadow: 0 0 3px rgb(0 0 0 / 0.55), 0 1px 0 rgb(0 0 0 / 0.5); }
+.t-rueckseite20-tag { font: 700 0.72rem var(--font-body); letter-spacing: 0.03em; opacity: 0.95; min-height: 1em; }
+.t-rueckseite20-card.sel { box-shadow: 0 0 0 4px var(--surface), 0 0 0 7px var(--accent); transform: translateY(-3px); }
+.t-rueckseite20-card.flipped { background: var(--c5); border-color: color-mix(in srgb, var(--c5) 55%, var(--ink)); }
+.t-rueckseite20-card.right { box-shadow: 0 0 0 4px var(--surface), 0 0 0 7px var(--ok); }
+.t-rueckseite20-card.wrong { box-shadow: 0 0 0 4px var(--surface), 0 0 0 7px var(--bad); opacity: 0.85; }
+.t-rueckseite20-card.missed { box-shadow: 0 0 0 4px var(--surface), 0 0 0 7px var(--ok); border-style: dashed; }
+.t-rueckseite20-mark {
+  position: absolute; top: -12px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok); z-index: 2;
+}
+.t-rueckseite20-card.wrong .t-rueckseite20-mark { background: var(--bad); }
+.t-rueckseite20-hint { margin: 1rem 0 0; font-size: 0.95rem; color: var(--muted); text-align: center; }
+@media (max-width: 26rem) {
+  .t-rueckseite20-cards { gap: 0.5rem; }
+  .t-rueckseite20-card { border-width: 3px; border-radius: 11px; }
+  .t-rueckseite20-tag { font-size: 0.62rem; }
+}

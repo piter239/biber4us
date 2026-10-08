@@ -1,0 +1,42 @@
+/* Aufgabe Ballon-Maschine 1 */
+.t-ballon124-board { display: grid; gap: 1rem; max-width: 34rem; margin: 0 auto; }
+.t-ballon124-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.5rem; }
+.t-ballon124-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.t-ballon124-figure { margin: 0; text-align: center; min-width: 0; }
+.t-ballon124-figure figcaption { font-weight: 700; font-size: 0.9rem; color: var(--muted); margin-top: 0.2rem; }
+.t-ballon124-fig { background: var(--surface2); border-radius: 12px; padding: 0.25rem; }
+.t-ballon124-frame { display: block; width: 100%; height: auto; }
+.t-ballon124-rim { fill: #b98a52; }
+.t-ballon124-floor { fill: #f3dcba; }
+.t-ballon124-bal, .t-ballon124-bal0 { fill: none; stroke: #8a170c; stroke-width: 5; stroke-linecap: round; }
+.t-ballon124-bal0 { stroke-width: 5.5; }
+.t-ballon124-nozzle { fill: none; stroke: #8a170c; stroke-width: 2.4; stroke-linecap: round; }
+.t-ballon124-badge { fill: #b3261e; stroke: #fff; stroke-width: 1; }
+.t-ballon124-bt { fill: #fff; font: 700 8.5px var(--font-body); }
+
+.t-ballon124-slots { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.5rem; }
+.t-ballon124-step { display: grid; justify-items: center; gap: 0.2rem; min-width: 0; }
+.t-ballon124-no { font-size: 0.75rem; font-weight: 700; color: var(--muted); }
+.t-ballon124-slot {
+  appearance: none; width: 100%; max-width: 3.6rem; aspect-ratio: 1; padding: 0; border: 3px dashed var(--slot-line); background: var(--slot);
+  border-radius: 12px; font: 800 1.5rem/1 var(--font-display); color: var(--ink); cursor: pointer; position: relative; touch-action: manipulation;
+}
+.t-ballon124-slot.filled { border-style: solid; background: var(--surface); border-color: var(--ink); }
+.t-ballon124-slot:disabled { cursor: default; opacity: 1; }
+.t-ballon124-slot.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-ballon124-slot.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-ballon124-mark { position: absolute; top: -9px; right: -9px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 800 0.8rem/1 var(--font-body); color: #fff; background: var(--ok); }
+.t-ballon124-slot.wrong .t-ballon124-mark { background: var(--bad); }
+.t-ballon124-pool { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+.t-ballon124-letter {
+  appearance: none; width: 3.1rem; height: 3.1rem; border-radius: 50%; border: 3px solid var(--surface); background: var(--c1); color: #fff;
+  font: 800 1.35rem/1 var(--font-display); cursor: pointer; touch-action: manipulation; box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+}
+.t-ballon124-letter:hover:not(:disabled) { filter: brightness(1.1); }
+.t-ballon124-letter:disabled { cursor: default; }
+.t-ballon124-letter.used { background: var(--muted); opacity: 0.35; box-shadow: none; }
+.t-ballon124-clear { margin-left: auto; }
+.t-ballon124-status { margin: 0; font-weight: 600; min-height: 1.5em; }
+@media (max-width: 24rem) {
+  .t-ballon124-letter { width: 2.7rem; height: 2.7rem; font-size: 1.15rem; }
+}

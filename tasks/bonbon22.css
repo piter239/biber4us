@@ -1,0 +1,86 @@
+/* Aufgabe Bonbon-Spender (Heft 2022) */
+.t-bonbon22-want { list-style: none; margin: 0.5rem 0 0.25rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 0.7rem; }
+.t-bonbon22-want li { display: grid; justify-items: center; gap: 0.2rem; }
+.t-bonbon22-want img { display: block; width: 60px; height: auto; }
+.t-bonbon22-want li > span[aria-hidden] {
+  width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--surface2); color: var(--ink);
+  font: 700 0.95rem var(--font-body); border: 1px solid var(--line);
+}
+.t-bonbon22-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.t-bonbon22 { display: grid; gap: 0.75rem; }
+.t-bonbon22-board {
+  display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; justify-content: center; align-items: flex-start;
+  background: var(--paper); border-radius: 12px; padding: 0.9rem 0.8rem 1rem; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); color: #15303a;
+}
+.t-bonbon22-board section { min-width: 0; }
+.t-bonbon22-board h3 {
+  font: 700 0.8rem var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: #556d76; margin: 0 0 0.5rem; text-align: center;
+}
+.t-bonbon22-poolbox { flex: 1 1 11rem; max-width: 15rem; }
+.t-bonbon22-pool {
+  display: flex; flex-wrap: wrap; gap: 0.7rem 0.6rem; justify-content: center; align-content: flex-start; min-height: 11rem;
+  padding: 0.6rem 0.4rem; border: 3px dashed transparent; border-radius: 12px;
+}
+.t-bonbon22-pool.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.t-bonbon22-candy {
+  appearance: none; background: none; border: 3px solid transparent; border-radius: 12px; padding: 0; width: 80px; cursor: grab; touch-action: manipulation;
+  display: block;
+}
+.t-bonbon22-candy:hover:not(:disabled) { border-color: color-mix(in srgb, var(--accent) 60%, transparent); }
+.t-bonbon22-candy:focus-visible, .t-bonbon22-slot.top:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-bonbon22-candy:disabled { cursor: default; }
+.t-bonbon22-img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-bonbon22-candy.dragging, .t-bonbon22-slot.dragging { opacity: 0.4; }
+.t-bonbon22-empty { margin: 0; align-self: center; color: #556d76; font-size: 0.9rem; text-align: center; }
+
+.t-bonbon22-dispbox { flex: 0 0 auto; }
+.t-bonbon22-disp {
+  --tw: 84px; --hw: 124px;
+  position: relative; width: calc(var(--tw) + 36px); padding-top: calc(var(--hw) * 0.865 * 228 / 220 - 2px); border-radius: 12px;
+  border: 3px dashed transparent; margin: 0 auto; box-sizing: content-box;
+}
+.t-bonbon22-disp.over { border-color: var(--accent); }
+.t-bonbon22-head {
+  position: absolute; top: 0; left: 18px; width: var(--hw); height: auto; display: block; pointer-events: none;
+}
+.t-bonbon22-tube {
+  position: relative; width: var(--tw); box-sizing: content-box; margin-left: 0; height: 326px; border: 4px solid #15303a; border-top: 0;
+  background: #e8eef0; display: flex; flex-direction: column; justify-content: flex-end; border-radius: 0 0 4px 4px;
+}
+.t-bonbon22-stack { display: flex; flex-direction: column; gap: 3px; padding: 0 0 36px; }
+.t-bonbon22-slot {
+  appearance: none; position: relative; display: block; padding: 0; margin: 0; background: none; border: 3px solid transparent; border-radius: 10px;
+  width: 100%; box-sizing: border-box;
+}
+.t-bonbon22-slot.top { cursor: grab; touch-action: manipulation; }
+.t-bonbon22-slot.top:hover { border-color: color-mix(in srgb, var(--accent) 60%, transparent); }
+.t-bonbon22-slot.right { border-color: #1b7a49; }
+.t-bonbon22-slot.wrong { border-color: #b3261e; }
+.t-bonbon22-mark {
+  position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.85rem; color: #fff; z-index: 1;
+}
+.t-bonbon22-slot.right .t-bonbon22-mark { background: #1b7a49; }
+.t-bonbon22-slot.wrong .t-bonbon22-mark { background: #b3261e; }
+.t-bonbon22-spring { position: absolute; left: 50%; bottom: 4px; width: 38px; height: 30px; transform: translateX(-50%); color: #15303a; pointer-events: none; }
+.t-bonbon22-base {
+  width: calc(var(--tw) + 24px); height: 14px; margin-left: -8px; background: var(--c2); border: 4px solid #15303a; border-radius: 6px; box-sizing: content-box;
+  margin-top: -2px;
+}
+
+.t-bonbon22-out { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.9rem; font-size: 0.95rem; color: var(--muted); }
+.t-bonbon22-out ol { list-style: none; margin: 0; padding: 0; display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.t-bonbon22-out li { position: relative; padding: 3px; border: 3px solid transparent; border-radius: 9px; background: var(--paper); }
+.t-bonbon22-out li.right { border-color: #1b7a49; }
+.t-bonbon22-out li.wrong { border-color: #b3261e; }
+.t-bonbon22-mini { display: block; width: 48px; height: auto; }
+.t-bonbon22-n {
+  position: absolute; left: 50%; bottom: -9px; transform: translateX(-50%); min-width: 18px; height: 18px; border-radius: 9px; padding: 0 4px;
+  display: grid; place-items: center; background: var(--surface2); color: var(--ink); border: 1px solid var(--line); font: 700 0.7rem var(--font-body);
+}
+.t-bonbon22-info { margin: 0; color: var(--muted); font-size: 0.95rem; min-height: 1.4em; }
+@media (max-width: 26rem) {
+  .t-bonbon22-board { padding-left: 0.4rem; padding-right: 0.4rem; gap: 1rem 0.8rem; }
+  .t-bonbon22-candy { width: 72px; }
+}

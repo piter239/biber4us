@@ -1,0 +1,62 @@
+/* Stile für rundgang20 (Präfix t-rundgang20-). Raumfarben kommen aus den Objektfarben --c1…--c6, abgemischt mit der Fläche. */
+.t-rundgang20-board { display: grid; gap: 1rem; max-width: 46rem; margin: 0 auto; min-width: 0; }
+.t-rundgang20-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+.t-rundgang20-card {
+  position: relative; display: grid; gap: 0.2rem; padding: 0.5rem 0.55rem 0.6rem; background: var(--surface2); color: var(--ink);
+  border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation; min-width: 0;
+}
+.t-rundgang20-card:hover { border-color: var(--accent); }
+.t-rundgang20-card[aria-disabled="true"] { cursor: default; }
+.t-rundgang20-card[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-rundgang20-card:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-rundgang20-card.selected, .t-rundgang20-card.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-rundgang20-card.right, .t-rundgang20-card.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-rundgang20-card.wrong, .t-rundgang20-card.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-rundgang20-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-rundgang20-pic, .t-rundgang20-trypic { min-width: 0; }
+.t-rundgang20-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-rundgang20-card.wrong .t-rundgang20-mark { background: var(--bad); }
+.t-rundgang20-note { margin: 0; font-size: 0.95rem; color: var(--muted); min-height: 1.5em; }
+
+.t-rundgang20-plan { display: block; width: 100%; height: auto; overflow: visible; }
+.t-rundgang20-room { fill: color-mix(in srgb, var(--rc) 38%, var(--surface)); stroke: var(--ink); stroke-width: 2.5; }
+.t-rundgang20-num { fill: var(--ink); font: 700 34px var(--font-display); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.t-rundgang20-gap { stroke: var(--surface2); stroke-width: 6; }
+.t-rundgang20-card.selected .t-rundgang20-gap { stroke: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-rundgang20-card.right .t-rundgang20-gap { stroke: var(--ok-bg); }
+.t-rundgang20-card.wrong .t-rundgang20-gap { stroke: var(--bad-bg); }
+.t-rundgang20-trypic .t-rundgang20-gap { stroke: var(--surface2); }
+.t-rundgang20-tick { fill: none; stroke: var(--ink); stroke-width: 3; }
+.t-rundgang20-arrow { fill: var(--ink); opacity: 0.8; stroke: none; }
+.t-rundgang20-route { fill: none; stroke: var(--accent); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; stroke-dasharray: 2 11; }
+.t-rundgang20-route.done { stroke: var(--ok); stroke-dasharray: none; opacity: 0.8; }
+.t-rundgang20-stepdot { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+.t-rundgang20-stepnum { fill: var(--ink); font: 700 14px var(--font-body); text-anchor: middle; dominant-baseline: central; }
+
+.t-rundgang20-try { display: grid; gap: 0.6rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.8rem 0.9rem 1rem; min-width: 0; }
+.t-rundgang20-try h3 { margin: 0; font: 700 0.8rem var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.t-rundgang20-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.t-rundgang20-tab {
+  appearance: none; min-height: 2.5rem; padding: 0.3rem 0.9rem; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--line);
+}
+.t-rundgang20-tab:hover { border-color: var(--accent); }
+.t-rundgang20-tab.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
+.t-rundgang20-trypic { background: var(--surface); border-radius: 10px; padding: 0.4rem; max-width: 32rem; }
+.t-rundgang20-rm { cursor: pointer; outline: none; }
+.t-rundgang20-rm .t-rundgang20-room { transition: opacity 0.12s; }
+.t-rundgang20-rm.can .t-rundgang20-room { stroke: var(--accent); stroke-width: 5; }
+.t-rundgang20-rm.visited .t-rundgang20-room { opacity: 0.75; }
+.t-rundgang20-rm:hover .t-rundgang20-room { opacity: 0.8; }
+.t-rundgang20-rm:focus-visible .t-rundgang20-room { stroke: var(--focus); stroke-width: 6; stroke-dasharray: 10 6; }
+.t-rundgang20-status { margin: 0; min-height: 3.2em; font-size: 0.95rem; }
+.t-rundgang20-status.good { color: var(--ok); font-weight: 600; }
+.t-rundgang20-tryact { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-rundgang20-small { min-height: 2.4rem; padding-block: 0.3rem; }
+
+@media (max-width: 34rem) {
+  .t-rundgang20-cards { grid-template-columns: minmax(0, 1fr); max-width: 24rem; width: 100%; margin: 0 auto; }
+}

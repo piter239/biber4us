@@ -1,0 +1,39 @@
+/* Aufgabe Bilder verschlüsseln */
+.t-verschluesseln24-ops { margin: 0.5rem 0; padding-left: 1.1rem; display: grid; gap: 0.7rem; }
+.t-verschluesseln24-ex { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.4rem; flex-wrap: wrap; }
+.t-verschluesseln24-g { border-collapse: collapse; background: var(--paper); color: #15303a; }
+.t-verschluesseln24-g td { border: 1px solid #8a9aa0; width: 1.7rem; height: 1.7rem; text-align: center; font: 600 0.95rem/1 var(--font-body); padding: 0; }
+.t-verschluesseln24-g td.m { background: #c98f93; }
+.t-verschluesseln24-board { display: grid; gap: 1.1rem; max-width: 36rem; margin: 0 auto; }
+.t-verschluesseln24-board > section { min-width: 0; }
+.t-verschluesseln24-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.5rem; }
+.t-verschluesseln24-orig { width: 7rem; }
+.t-verschluesseln24-pic { display: block; width: 100%; height: auto; }
+.t-verschluesseln24-orig .t-verschluesseln24-pic { border-radius: 4px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.3); }
+.t-verschluesseln24-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(5.6rem, 1fr)); gap: 0.6rem; }
+.t-verschluesseln24-opt {
+  appearance: none; position: relative; display: grid; gap: 0.3rem; justify-items: center; padding: 0.45rem 0.4rem 0.5rem; border: 3px solid var(--line);
+  background: var(--surface); border-radius: 12px; cursor: pointer; color: var(--ink); touch-action: manipulation; min-width: 0;
+}
+.t-verschluesseln24-opt:hover { border-color: var(--accent); }
+.t-verschluesseln24-opt.selected { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.t-verschluesseln24-opt.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-verschluesseln24-opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-verschluesseln24-opt[aria-disabled="true"] { cursor: default; }
+.t-verschluesseln24-key { font: 800 1.1rem/1 var(--font-display); }
+.t-verschluesseln24-opt .t-verschluesseln24-pic { width: 100%; max-width: 6rem; border-radius: 3px; }
+.t-verschluesseln24-mark { position: absolute; top: -10px; right: -8px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font: 800 0.9rem/1 var(--font-body); color: #fff; background: var(--ok); }
+.t-verschluesseln24-opt.wrong .t-verschluesseln24-mark { background: var(--bad); }
+.t-verschluesseln24-try { background: var(--surface2); border-radius: 12px; padding: 0.7rem 0.8rem; }
+.t-verschluesseln24-tryrow { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+.t-verschluesseln24-canvas { width: 9rem; height: 9rem; border-radius: 4px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.3); flex: 0 0 auto; image-rendering: auto; }
+.t-verschluesseln24-trycol { display: grid; gap: 0.5rem; flex: 1 1 10rem; min-width: 0; }
+.t-verschluesseln24-exbtns { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.t-verschluesseln24-extext { margin: 0; font-weight: 600; font-size: 0.95rem; }
+.t-verschluesseln24-steps { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin: 0.5rem 0; }
+.t-verschluesseln24-step { margin: 0; text-align: center; font-size: 0.85rem; }
+.t-verschluesseln24-step img { display: block; width: 96px; height: 96px; border-radius: 4px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.3); }
+@media (max-width: 24rem) {
+  .t-verschluesseln24-g td { width: 1.5rem; height: 1.5rem; }
+  .t-verschluesseln24-step img { width: 80px; height: 80px; }
+}

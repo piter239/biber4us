@@ -1,0 +1,38 @@
+/* Aufgabe Baumtouren */
+.t-baumtouren24-board { display: grid; gap: 1.1rem; max-width: 36rem; margin: 0 auto; }
+.t-baumtouren24-board > section { min-width: 0; }
+.t-baumtouren24-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.5rem; }
+.t-baumtouren24-tours { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.t-baumtouren24-tour { display: flex; align-items: center; gap: 0.3rem; background: var(--paper); border-radius: 10px; padding: 0.3rem 0.5rem; box-shadow: 0 1px 3px rgb(0 0 0 / 0.18); color: #15303a; }
+.t-baumtouren24-tname { flex: 0 0 3.6rem; font-weight: 700; font-size: 0.9rem; }
+.t-baumtouren24-lt { font: 800 1.2rem/1 var(--font-body); }
+.t-baumtouren24-timg { height: 2.6rem; width: auto; max-width: 2.4rem; object-fit: contain; flex: 0 1 auto; margin-inline: auto; }
+.t-baumtouren24-img { display: block; height: 100%; width: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-baumtouren24-pool { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.4rem; }
+.t-baumtouren24-gap { aspect-ratio: 3 / 4; border-radius: 10px; background: var(--surface2); }
+.t-baumtouren24-tree {
+  appearance: none; aspect-ratio: 3 / 4; padding: 0.25rem; border: 3px solid transparent; background: var(--paper); border-radius: 10px; cursor: pointer;
+  touch-action: manipulation; box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); min-width: 0;
+}
+.t-baumtouren24-tree:hover:not(:disabled), .t-baumtouren24-tree:focus-visible { border-color: var(--accent); }
+.t-baumtouren24-tree:disabled { cursor: default; }
+.t-baumtouren24-slots { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.4rem; }
+.t-baumtouren24-slot {
+  appearance: none; position: relative; aspect-ratio: 3 / 4; padding: 0.25rem; min-width: 0; border: 3px dashed var(--slot-line); background: var(--slot);
+  border-radius: 10px; display: grid; place-items: center; cursor: pointer; touch-action: manipulation;
+}
+.t-baumtouren24-slot.filled { border-style: solid; background: var(--paper); }
+.t-baumtouren24-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.t-baumtouren24-slot.right { border-color: var(--ok); border-style: solid; }
+.t-baumtouren24-slot.wrong { border-color: var(--bad); border-style: solid; }
+.t-baumtouren24-slot:disabled { cursor: default; opacity: 1; }
+.t-baumtouren24-ph { font: 800 1.4rem/1 var(--font-display); color: var(--muted); }
+.t-baumtouren24-mark { position: absolute; top: -10px; right: -8px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font: 800 0.9rem/1 var(--font-body); color: #fff; background: var(--ok); }
+.t-baumtouren24-slot.wrong .t-baumtouren24-mark { background: var(--bad); }
+.t-baumtouren24-axis { display: flex; justify-content: space-between; margin-top: 0.3rem; font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+.t-baumtouren24-sol { display: flex; align-items: flex-end; gap: 0.4rem; flex-wrap: wrap; }
+.t-baumtouren24-sol img { height: 3.2rem; width: auto; }
+@media (max-width: 26rem) {
+  .t-baumtouren24-tname { flex-basis: 2.8rem; font-size: 0.8rem; }
+  .t-baumtouren24-timg { height: 2.2rem; max-width: 1.9rem; }
+}

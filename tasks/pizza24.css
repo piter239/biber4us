@@ -1,0 +1,46 @@
+/* Stile für pizza24 (Präfix t-pizza24-). Die Belag-Bilder behalten ihre Farben in Hell und Dunkel. */
+.t-pizza24-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 1.25rem 2rem; align-items: start; }
+.t-pizza24-board > section { min-width: 0; }
+.t-pizza24-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-pizza24-board section > h3:not(:first-child) { margin-top: 1rem; }
+.t-pizza24-scroll { max-width: 100%; overflow-x: auto; }
+
+.t-pizza24-tab { border-collapse: separate; border-spacing: 0; background: var(--surface); border: 2px solid var(--line); border-radius: 12px; width: 100%; }
+.t-pizza24-tab th { text-align: left; padding: 0.3rem 0.7rem; font-family: var(--font-display); font-weight: 700; color: var(--ink); }
+.t-pizza24-tab td { padding: 0.3rem 0.2rem; text-align: center; }
+.t-pizza24-tab tr + tr > * { border-top: 1px solid var(--line); }
+.t-pizza24-wish { position: relative; display: inline-grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 8px; }
+.t-pizza24-wish img { width: 2.4rem; height: 2.4rem; object-fit: contain; }
+.t-pizza24-wish.met { background: var(--ok-bg); box-shadow: 0 0 0 2px var(--ok); }
+.t-pizza24-wish.unmet img { opacity: 0.45; }
+.t-pizza24-tick { position: absolute; right: -6px; top: -8px; width: 1.1rem; height: 1.1rem; border-radius: 50%; background: var(--ok); color: #fff; font-size: 0.75rem; font-weight: 800; display: grid; place-items: center; }
+.t-pizza24-cnt { font-size: 0.85rem; color: var(--muted); white-space: nowrap; padding-right: 0.6rem !important; }
+
+.t-pizza24-pizza { position: relative; width: min(100%, 17rem); aspect-ratio: 640 / 617; margin: 0 auto; }
+.t-pizza24-base { position: absolute; inset: 0; width: 100%; height: 100%; display: block; user-select: none; }
+.t-pizza24-on { position: absolute; width: 17%; height: auto; max-height: 17%; object-fit: contain; pointer-events: none; user-select: none; filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.35)); }
+
+.t-pizza24-tops { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+.t-pizza24-top {
+  appearance: none; display: grid; justify-items: center; gap: 0.2rem; padding: 0.45rem 0.25rem 0.4rem; min-height: 5.2rem;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation;
+  font: inherit; font-weight: 600; font-size: 0.92rem; min-width: 0;
+}
+.t-pizza24-top img { width: 3rem; height: 3rem; object-fit: contain; }
+.t-pizza24-top:hover { border-color: var(--accent); }
+.t-pizza24-top.on, .t-pizza24-top.on:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface2)); }
+.t-pizza24-top.full { opacity: 0.55; }
+.t-pizza24-top[aria-disabled="true"] { cursor: default; }
+.t-pizza24-top[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-pizza24-top[aria-disabled="true"].on:hover { border-color: var(--accent); }
+.t-pizza24-info { margin: 0.7rem 0 0; font-size: 0.95rem; color: var(--muted); min-height: 2.9em; }
+
+.t-pizza24-sumtab { border-collapse: collapse; background: var(--surface); margin: 0.4rem 0 0.8rem; font-size: 0.95rem; }
+.t-pizza24-sumtab th, .t-pizza24-sumtab td { border: 1px solid var(--line); padding: 0.25rem 0.5rem; text-align: center; }
+.t-pizza24-sumtab thead img { width: 2rem; height: 2rem; object-fit: contain; vertical-align: middle; }
+.t-pizza24-sumtab tbody th { text-align: left; }
+.t-pizza24-sum th, .t-pizza24-sum td { font-weight: 800; background: var(--surface2); }
+
+@media (max-width: 44rem) {
+  .t-pizza24-board { grid-template-columns: minmax(0, 1fr); }
+}

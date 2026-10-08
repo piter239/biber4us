@@ -1,0 +1,52 @@
+/* Aufgabe Vertauschen (Heft 2022) */
+.t-vertauschen22-fig { margin: 0.5rem 0; padding: 0.6rem; background: var(--paper); border-radius: 10px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); max-width: 460px; }
+.t-vertauschen22-fig img { display: block; width: 100%; height: auto; }
+.t-vertauschen22 { display: grid; gap: 1.2rem; max-width: 520px; }
+.t-vertauschen22 section { min-width: 0; }
+.t-vertauschen22 h3 {
+  font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem;
+}
+.t-vertauschen22-bags {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; align-items: end;
+  background: var(--paper); border-radius: 12px; padding: 0.8rem 0.5rem 0.6rem; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2);
+}
+.t-vertauschen22-col { display: grid; justify-items: center; align-content: end; gap: 0.35rem; min-width: 0; }
+.t-vertauschen22-bag { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-vertauschen22-lab { font: 700 0.9rem var(--font-body); color: #15303a; }
+.t-vertauschen22-slot {
+  appearance: none; position: relative; width: 76%; max-width: 110px; aspect-ratio: 1; padding: 4px; border: 3px dashed #e3c85a; background: #ffeb9e;
+  border-radius: 12px; display: grid; place-items: center; cursor: pointer; touch-action: manipulation; color: #15303a;
+}
+.t-vertauschen22-slot.filled { border-style: solid; background: transparent; border-color: #d5cdb8; }
+.t-vertauschen22-slot.over { border-color: var(--accent); background: #cfeaf2; }
+.t-vertauschen22-slot.right { border-color: #1b7a49; border-style: solid; }
+.t-vertauschen22-slot.wrong { border-color: #b3261e; border-style: solid; }
+.t-vertauschen22-slot:disabled { cursor: default; }
+.t-vertauschen22-slot:focus-visible, .t-vertauschen22-thing:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-vertauschen22-slot.dragging, .t-vertauschen22-thing.dragging { opacity: 0.4; }
+.t-vertauschen22-ph { color: #556d76; font-size: 0.8rem; text-align: center; }
+.t-vertauschen22-timg { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-vertauschen22-mark {
+  position: absolute; top: -10px; right: -10px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.9rem; color: #fff;
+}
+.t-vertauschen22-slot.right .t-vertauschen22-mark { background: #1b7a49; }
+.t-vertauschen22-slot.wrong .t-vertauschen22-mark { background: #b3261e; }
+.t-vertauschen22-pool { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+.t-vertauschen22-cell { aspect-ratio: 1; max-width: 110px; width: 76%; margin: 0 auto; border-radius: 12px; background: var(--surface2); }
+.t-vertauschen22-thing {
+  appearance: none; justify-self: center; width: 76%; max-width: 110px; aspect-ratio: 1; padding: 6px; border: 3px solid transparent; border-radius: 12px;
+  background: var(--paper); box-shadow: 0 1px 3px rgb(0 0 0 / 0.25); cursor: grab; touch-action: manipulation; display: grid; place-items: center;
+}
+.t-vertauschen22-thing.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-vertauschen22-thing:disabled { cursor: default; }
+.t-vertauschen22-steps { border-collapse: collapse; margin: 0.4rem 0 0.8rem; font-size: 0.95rem; width: 100%; max-width: 440px; }
+.t-vertauschen22-steps th, .t-vertauschen22-steps td { padding: 0.25rem 0.4rem; border-bottom: 1px solid var(--line); text-align: center; vertical-align: middle; }
+.t-vertauschen22-steps thead th { color: var(--muted); font-weight: 600; }
+.t-vertauschen22-steps tbody th { text-align: left; font-weight: 600; }
+.t-vertauschen22-steps td img { display: inline-block; vertical-align: middle; height: 30px; width: auto; }
+@media (max-width: 26rem) {
+  .t-vertauschen22-bags { padding-left: 0.3rem; padding-right: 0.3rem; gap: 0.3rem; }
+  .t-vertauschen22-steps { font-size: 0.85rem; }
+  .t-vertauschen22-steps th, .t-vertauschen22-steps td { padding: 0.2rem 0.2rem; }
+}

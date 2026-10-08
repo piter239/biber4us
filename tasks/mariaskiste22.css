@@ -1,0 +1,73 @@
+/* Stile für mariaskiste22 (Präfix t-mariaskiste22-). Holz und Schlossräder behalten ihre Farben in Hell und Dunkel. */
+.t-mariaskiste22-board { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: start; }
+.t-mariaskiste22-board > section { min-width: 0; }
+.t-mariaskiste22-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+
+.t-mariaskiste22-lock {
+  display: inline-flex; gap: 3px; padding: 4px 8px; border-radius: 6px; background: #9a6026; box-shadow: inset 0 0 0 2px #5a3010; flex: none;
+}
+.t-mariaskiste22-wheel {
+  display: grid; place-items: center; width: 34px; height: 40px; background: linear-gradient(#cfcaca, #ece8e8 25%, #e6e2e2 75%, #b5aeae); border-radius: 4px;
+  box-shadow: 0 0 0 2px #5a3010;
+}
+.t-mariaskiste22-sym { width: 24px; height: 24px; fill: #111; display: block; }
+.t-mariaskiste22-big { padding: 6px 12px; gap: 5px; border-radius: 8px; }
+.t-mariaskiste22-big .t-mariaskiste22-wheel { width: 48px; height: 56px; }
+.t-mariaskiste22-big .t-mariaskiste22-sym { width: 34px; height: 34px; }
+
+.t-mariaskiste22-clues { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.t-mariaskiste22-clue {
+  display: grid; grid-template-columns: 1.4rem auto minmax(0, 1fr); gap: 0.7rem; align-items: center;
+  background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 0.45rem 0.7rem;
+}
+.t-mariaskiste22-cn { font-family: var(--font-display); font-weight: 700; color: var(--muted); text-align: center; }
+.t-mariaskiste22-ct { font-size: 0.95rem; }
+
+.t-mariaskiste22-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+.t-mariaskiste22-opt {
+  appearance: none; position: relative; display: grid; gap: 0.35rem; justify-items: center; text-align: center;
+  padding: 0.6rem 0.4rem 0.7rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600; min-width: 0;
+}
+.t-mariaskiste22-opt:hover { border-color: var(--accent); }
+.t-mariaskiste22-opt[aria-disabled="true"] { cursor: default; }
+.t-mariaskiste22-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-mariaskiste22-opt.selected, .t-mariaskiste22-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-mariaskiste22-opt.right, .t-mariaskiste22-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-mariaskiste22-opt.wrong, .t-mariaskiste22-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-mariaskiste22-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-mariaskiste22-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-mariaskiste22-opt.wrong .t-mariaskiste22-mark { background: var(--bad); }
+
+.t-mariaskiste22-notes { margin-top: 1rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 0.4rem 0.7rem 0.7rem; }
+.t-mariaskiste22-notes summary { cursor: pointer; font-weight: 700; padding: 0.3rem 0; }
+.t-mariaskiste22-notetab { border-collapse: collapse; width: 100%; margin-top: 0.4rem; font-size: 0.9rem; }
+.t-mariaskiste22-notetab th, .t-mariaskiste22-notetab td { padding: 2px; text-align: center; font-weight: 600; color: var(--muted); }
+.t-mariaskiste22-notetab th[scope="row"] { text-align: left; color: var(--ink); }
+.t-mariaskiste22-rowbtn {
+  appearance: none; display: inline-flex; align-items: center; gap: 0.4rem; background: transparent; border: 0; padding: 2px 4px; border-radius: 6px;
+  cursor: pointer; color: inherit; font-weight: 600; min-height: 2.2rem; touch-action: manipulation;
+}
+.t-mariaskiste22-rowbtn svg { width: 20px; height: 20px; fill: currentColor; flex: none; }
+.t-mariaskiste22-rowbtn[aria-pressed="true"] { text-decoration: line-through; opacity: 0.6; }
+.t-mariaskiste22-note {
+  appearance: none; width: 100%; min-width: 2.2rem; height: 2.2rem; border: 2px solid var(--line); background: var(--surface); border-radius: 8px; cursor: pointer;
+  font-weight: 800; font-size: 1rem; color: var(--ink); touch-action: manipulation;
+}
+.t-mariaskiste22-n-no { color: var(--bad); background: var(--bad-bg); border-color: var(--bad); }
+.t-mariaskiste22-n-yes { color: var(--ok); background: var(--ok-bg); border-color: var(--ok); }
+
+@media (max-width: 44rem) {
+  .t-mariaskiste22-board { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 26rem) {
+  .t-mariaskiste22-clue { grid-template-columns: 1rem auto minmax(0, 1fr); gap: 0.45rem; padding-inline: 0.45rem; }
+  .t-mariaskiste22-wheel { width: 28px; height: 34px; }
+  .t-mariaskiste22-sym { width: 20px; height: 20px; }
+  .t-mariaskiste22-ct { font-size: 0.88rem; }
+  .t-mariaskiste22-big .t-mariaskiste22-wheel { width: 38px; height: 46px; }
+  .t-mariaskiste22-big .t-mariaskiste22-sym { width: 28px; height: 28px; }
+}

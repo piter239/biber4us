@@ -1,0 +1,33 @@
+/* Aufgabe Konflikt-Detektor (2023) */
+.t-konflikt23-mini { display: block; width: 14rem; max-width: 100%; height: auto; margin: 0.3rem 0; }
+.t-konflikt23-box { display: grid; gap: 0.6rem; min-width: 0; }
+.t-konflikt23-svg { display: block; width: 100%; max-width: 34rem; height: auto; margin-inline: auto; background: var(--surface); border: 2px solid var(--line); border-radius: 12px; touch-action: manipulation; }
+.t-konflikt23-line { stroke: var(--muted); stroke-width: 2; }
+.t-konflikt23-line.act { stroke: var(--accent); stroke-width: 3.2; }
+.t-konflikt23-ah { fill: var(--muted); }
+.t-konflikt23-unit .t-konflikt23-uc, circle.t-konflikt23-unit { fill: var(--surface); stroke: var(--ink); stroke-width: 2.2; }
+.t-konflikt23-unit.on .t-konflikt23-uc { fill: color-mix(in srgb, var(--accent) 38%, var(--surface)); stroke: var(--accent); stroke-width: 3; }
+.t-konflikt23-unit.right .t-konflikt23-uc { stroke: var(--ok); stroke-width: 4; }
+.t-konflikt23-unit.wrong .t-konflikt23-uc { stroke: var(--bad); stroke-width: 4; }
+.t-konflikt23-unit.input { cursor: pointer; outline: none; }
+.t-konflikt23-unit.input:hover .t-konflikt23-uc { stroke: var(--accent); }
+.t-konflikt23-unit.input:focus-visible .t-konflikt23-uc { stroke: var(--focus); stroke-width: 4.5; }
+.t-konflikt23-ut { fill: var(--ink); font: 700 20px var(--font-body); pointer-events: none; }
+.t-konflikt23-yn { fill: var(--muted); font: 600 11px var(--font-body); pointer-events: none; }
+.t-konflikt23-sw { cursor: pointer; outline: none; }
+.t-konflikt23-hit { fill: transparent; }
+.t-konflikt23-sgc, circle.t-konflikt23-sg { fill: var(--surface2); stroke: var(--slot-line); stroke-width: 2; stroke-dasharray: 3 2.5; }
+.t-konflikt23-sw.plus .t-konflikt23-sgc { fill: var(--ok-bg); stroke: var(--ok); stroke-dasharray: none; }
+.t-konflikt23-sw.minus .t-konflikt23-sgc { fill: var(--bad-bg); stroke: var(--bad); stroke-dasharray: none; }
+.t-konflikt23-sw:hover .t-konflikt23-sgc { stroke: var(--accent); }
+.t-konflikt23-sw:focus-visible .t-konflikt23-sgc { stroke: var(--focus); stroke-width: 4; stroke-dasharray: none; }
+.t-konflikt23-st { font: 800 21px var(--font-body); pointer-events: none; }
+.t-konflikt23-st.plus, .t-konflikt23-sw.plus .t-konflikt23-st { fill: var(--ok); }
+.t-konflikt23-st.minus, .t-konflikt23-sw.minus .t-konflikt23-st { fill: var(--bad); }
+.t-konflikt23-status { margin: 0; color: var(--muted); font-size: 0.95rem; min-height: 1.5em; }
+.t-konflikt23-tw { overflow-x: auto; margin: 0.5rem 0; }
+.t-konflikt23-tab { border-collapse: collapse; font-size: 0.95rem; }
+.t-konflikt23-tab th, .t-konflikt23-tab td { padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--line); text-align: center; }
+.t-konflikt23-tab th { color: var(--muted); font-weight: 700; }
+.t-konflikt23-tab tr.ok td:last-child { color: var(--ok); font-weight: 800; }
+.t-konflikt23-tab tr.bad td:last-child { color: var(--bad); font-weight: 800; }

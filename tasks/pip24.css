@@ -1,0 +1,57 @@
+/* Stile für pip24 (Präfix t-pip24-). Der Inselplan behält seine Farben in Hell und Dunkel. */
+.t-pip24-fig { margin: 0.6rem 0; }
+.t-pip24-fig img { display: block; width: 100%; max-width: 13rem; height: auto; }
+
+.t-pip24-board { display: grid; grid-template-columns: minmax(0, 24rem) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: start; }
+.t-pip24-board > section { min-width: 0; }
+.t-pip24-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+
+.t-pip24-map { position: relative; width: 100%; aspect-ratio: 700 / 757; }
+.t-pip24-map > img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+.t-pip24-cell {
+  appearance: none; position: absolute; padding: 0; margin: 0; border: 3px solid transparent; background: transparent; cursor: pointer;
+  display: grid; place-items: center; font-size: 1.6rem; color: #fff; touch-action: manipulation; border-radius: 2px;
+}
+.t-pip24-cell:not(:disabled):hover { background: rgb(255 255 255 / 0.25); border-color: var(--accent); }
+.t-pip24-cell.sel { background: rgb(230 100 20 / 0.62); border-color: #e66414; }
+.t-pip24-cell.out { background: rgb(75 50 25 / 0.88); cursor: default; }
+.t-pip24-cell.found { background: rgb(255 200 40 / 0.55); border-color: #b8860b; color: #5a3a00; opacity: 1; }
+.t-pip24-cell:disabled { cursor: default; }
+.t-pip24-cell:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; z-index: 1; }
+
+.t-pip24-ctl { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.7rem; }
+.t-pip24-btn {
+  appearance: none; min-height: 2.6rem; padding: 0.35rem 1rem; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--accent);
+}
+.t-pip24-btn:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-pip24-ask:not(:disabled) { background: var(--accent); color: var(--accent-ink); }
+.t-pip24-btn:disabled { opacity: 0.4; cursor: not-allowed; border-color: var(--line); }
+.t-pip24-info { margin: 0.6rem 0 0; font-size: 0.95rem; color: var(--ink); min-height: 2.9em; }
+.t-pip24-log { margin: 0.3rem 0 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--muted); }
+
+.t-pip24-ansrow { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.7rem; font-weight: 600; font-size: 1.1rem; }
+.t-pip24-num {
+  width: 4.2rem; min-height: 3rem; padding: 0.2rem 0.5rem; text-align: center; font: inherit; font-size: 1.4rem; font-weight: 700;
+  background: var(--surface); color: var(--ink); border: 3px solid var(--line); border-radius: 10px;
+}
+.t-pip24-num:focus { border-color: var(--accent); }
+.t-pip24-num.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-pip24-num.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-pip24-mark { font-weight: 800; font-size: 1.3rem; }
+.t-pip24-mark.ok { color: var(--ok); }
+.t-pip24-mark.bad { color: var(--bad); }
+
+.t-pip24-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; margin: 0.6rem 0 0.3rem; }
+.t-pip24-steps figure { margin: 0; text-align: center; }
+.t-pip24-steps figcaption { font-size: 0.82rem; color: var(--muted); }
+.t-pip24-mini { display: block; width: 100%; height: auto; }
+.t-pip24-c-cand { fill: var(--surface); stroke: var(--line); stroke-width: 1; }
+.t-pip24-c-ask { fill: #e66414; }
+.t-pip24-c-out { fill: var(--muted); opacity: 0.55; }
+.t-pip24-legend { font-size: 0.88rem; color: var(--muted); }
+
+@media (max-width: 44rem) {
+  .t-pip24-board { grid-template-columns: minmax(0, 1fr); }
+  .t-pip24-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

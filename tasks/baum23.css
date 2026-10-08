@@ -1,0 +1,45 @@
+/* Aufgabe Ein besonderer Baum (2023) */
+.t-baum23-inl { display: inline-block; vertical-align: middle; margin: 0 0.15rem; }
+.t-baum23-rules { margin: 0.4rem 0 0.8rem; padding-left: 1.3rem; }
+.t-baum23-rules li { margin: 0.45rem 0; }
+.t-baum23-box { display: grid; gap: 1.1rem; min-width: 0; }
+.t-baum23-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; min-width: 0; }
+.t-baum23-start { padding: 0.4rem 0.7rem; border-radius: 999px; background: var(--surface2); border: 2px solid var(--line); font-size: 0.95rem; white-space: nowrap; }
+.t-baum23-start b { font-size: 1.15rem; color: var(--c1); }
+.t-baum23-seq { display: flex; flex-wrap: wrap; gap: 0.35rem; min-width: 0; flex: 1 1 100%; }
+.t-baum23-an {
+  appearance: none; display: grid; place-items: center; min-width: 2.7rem; height: 2.7rem; padding: 0 0.3rem; margin: 0;
+  background: var(--paper); border: 2px solid var(--line); border-radius: 9px; cursor: pointer; touch-action: manipulation; position: relative;
+}
+.t-baum23-an:hover:not(:disabled) { border-color: var(--accent); }
+.t-baum23-an:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-baum23-an:disabled { cursor: default; }
+.t-baum23-an img { display: block; pointer-events: none; user-select: none; max-height: 2rem; width: auto; }
+.t-baum23-an.done { background: var(--surface2); }
+.t-baum23-an.done img { opacity: 0.3; }
+.t-baum23-an.done::after { content: '✓'; position: absolute; inset: 0; display: grid; place-items: center; font-weight: 800; font-size: 1.2rem; color: var(--ok); }
+.t-baum23-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; }
+.t-baum23-opt { display: block; position: relative; cursor: pointer; min-width: 0; }
+.t-baum23-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-baum23-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.15rem; padding: 0.6rem 0.4rem; border: 3px solid var(--line);
+  border-radius: 12px; background: var(--surface); position: relative; text-align: center; min-height: 4.4rem; justify-content: center;
+}
+.t-baum23-opt input:checked + .t-baum23-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-baum23-opt input:focus-visible + .t-baum23-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-baum23-opt input:disabled { cursor: default; }
+.t-baum23-opt.right .t-baum23-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-baum23-opt.wrong .t-baum23-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-baum23-let { font-weight: 800; color: var(--muted); }
+.t-baum23-num { font-weight: 700; font-size: 1.1rem; }
+.t-baum23-mark { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 0.95rem; }
+.t-baum23-opt.right .t-baum23-mark { background: var(--ok); }
+.t-baum23-opt.wrong .t-baum23-mark { background: var(--bad); }
+.t-baum23-trace { list-style: none; margin: 0.6rem 0; padding: 0; display: grid; gap: 0.3rem; max-width: 24rem; }
+.t-baum23-trace li { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) 2rem; align-items: center; gap: 0.5rem; padding: 0.2rem 0.5rem; border-radius: 8px; background: var(--surface2); }
+.t-baum23-trace b { text-align: right; font-size: 1.1rem; }
+.t-baum23-tn { display: grid; place-items: center; background: var(--paper); border-radius: 6px; height: 2rem; }
+.t-baum23-tp { max-height: 1.6rem; width: auto; display: block; }
+@media (max-width: 30rem) {
+  .t-baum23-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

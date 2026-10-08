@@ -1,0 +1,51 @@
+/* Stile für saegerei23 (Präfix t-saegerei23-). Holzstämme behalten ihre Farben in Hell und Dunkel. */
+.t-saegerei23-board { display: grid; gap: 1.1rem; max-width: 40rem; margin: 0 auto; min-width: 0; }
+.t-saegerei23-board > section { min-width: 0; }
+.t-saegerei23-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.5rem; }
+
+.t-saegerei23-roadbox { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.5rem 0.5rem 0.2rem; }
+.t-saegerei23-road { display: block; width: 100%; height: auto; overflow: visible; }
+.t-saegerei23-ground { fill: color-mix(in srgb, var(--c6) 22%, var(--surface)); }
+.t-saegerei23-gap { fill: var(--slot); stroke: var(--slot-line); stroke-width: 2; stroke-dasharray: 5 4; }
+.t-saegerei23-gaplbl { fill: var(--ink); font-size: 12px; font-weight: 700; font-family: var(--font-body); }
+.t-saegerei23-wood rect, .t-saegerei23-logsvg rect { stroke-width: 2; }
+.t-saegerei23-wood text, .t-saegerei23-logsvg text { font-size: 13px; font-weight: 800; font-family: var(--font-body); }
+.t-saegerei23-fix rect { fill: #6b4527; stroke: #3d2713; }
+.t-saegerei23-fix text { fill: #fff6e6; }
+.t-saegerei23-fix .t-saegerei23-ring { fill: #8d6238; stroke: #3d2713; stroke-width: 1.5; }
+.t-saegerei23-new rect, .t-saegerei23-logsvg rect { fill: #e2b274; stroke: #8a5a24; }
+.t-saegerei23-new text, .t-saegerei23-logsvg text { fill: #3a2410; }
+.t-saegerei23-new .t-saegerei23-ring, .t-saegerei23-logsvg .t-saegerei23-ring { fill: #f3d6a3; stroke: #8a5a24; stroke-width: 1.5; }
+.t-saegerei23-note { margin: 0.5rem 0 0; font-size: 0.95rem; color: var(--muted); min-height: 2.9em; }
+
+.t-saegerei23-slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+.t-saegerei23-slot {
+  appearance: none; position: relative; display: grid; align-content: center; justify-items: center; gap: 0.15rem; min-width: 0; min-height: 4.6rem;
+  padding: 0.3rem 0.2rem 0.4rem; background: var(--slot); color: var(--ink); border: 3px solid var(--slot-line); border-radius: 12px;
+  font: inherit; cursor: pointer; touch-action: manipulation;
+}
+.t-saegerei23-slot:disabled { cursor: default; color: var(--ink); }
+.t-saegerei23-slot:not(:disabled):hover { border-color: var(--accent); }
+.t-saegerei23-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, var(--slot)); }
+.t-saegerei23-slot.right { border-color: var(--ok); }
+.t-saegerei23-slot.wrong { border-color: var(--bad); }
+.t-saegerei23-no { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; line-height: 1; }
+.t-saegerei23-ph { font-size: 1.4rem; font-weight: 700; color: var(--muted); line-height: 1.6; }
+.t-saegerei23-holder { display: block; max-width: 100%; }
+.t-saegerei23-slot .t-saegerei23-logsvg { max-width: 100%; height: auto; display: block; }
+.t-saegerei23-mark {
+  position: absolute; top: -10px; right: -8px; width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.9rem; color: #fff; background: var(--ok);
+}
+.t-saegerei23-slot.wrong .t-saegerei23-mark { background: var(--bad); }
+
+.t-saegerei23-pool { display: flex; flex-wrap: wrap; gap: 0.6rem 0.8rem; align-items: center; min-height: 3.2rem; padding: 0.5rem; border-radius: 12px; background: var(--surface2); }
+.t-saegerei23-log { appearance: none; padding: 0.2rem; border: 3px solid transparent; border-radius: 10px; background: transparent; cursor: pointer; touch-action: manipulation; line-height: 0; }
+.t-saegerei23-log:not(:disabled):hover { border-color: var(--accent); }
+.t-saegerei23-log:disabled { cursor: default; }
+.t-saegerei23-ghost { display: inline-grid; place-items: center; min-height: 40px; padding: 0 0.7rem; border: 2px dashed var(--line); border-radius: 10px; color: var(--muted); font-size: 0.85rem; opacity: 0.7; }
+
+@media (max-width: 26rem) {
+  .t-saegerei23-slots { gap: 0.35rem; }
+  .t-saegerei23-slot { min-height: 4.2rem; padding-inline: 0.1rem; }
+}
