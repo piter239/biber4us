@@ -1,0 +1,51 @@
+/* Stile für nimm20 (Präfix t-nimm20-). Steine behalten ihre Farben (schwarz/weiß) in Hell und Dunkel. */
+.t-nimm20-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: start; }
+.t-nimm20-board > section { min-width: 0; }
+.t-nimm20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-nimm20-game { grid-column: 1 / -1; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.8rem 0.9rem 1rem; display: grid; gap: 0.6rem; }
+
+.t-nimm20-stonebox { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem 0.5rem; }
+.t-nimm20-game .t-nimm20-stonebox { background: var(--surface); max-width: 26rem; }
+.t-nimm20-stones { display: block; width: 100%; height: auto; overflow: visible; }
+.t-nimm20-black ellipse { fill: #1b1c21; stroke: #5d6068; stroke-width: 2; }
+.t-nimm20-white ellipse { fill: #f4f2ea; stroke: #8f8c80; stroke-width: 2; }
+.t-nimm20-shine { fill: none; stroke-width: 3; stroke-linecap: round; }
+.t-nimm20-black .t-nimm20-shine { stroke: #8d909a; }
+.t-nimm20-white .t-nimm20-shine { stroke: #ffffff; }
+.t-nimm20-ghost { opacity: 0.55; }
+.t-nimm20-ghost ellipse { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 6 5; }
+.t-nimm20-ghost .t-nimm20-shine { display: none; }
+.t-nimm20-note { margin: 0.5rem 0 0; font-size: 0.95rem; color: var(--muted); min-height: 2.9em; }
+.t-nimm20-game .t-nimm20-note { color: var(--ink); margin: 0; }
+
+.t-nimm20-opts { display: grid; gap: 0.7rem; }
+.t-nimm20-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.5rem; align-items: start; text-align: left;
+  padding: 0.65rem 0.8rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600;
+}
+.t-nimm20-opt:hover { border-color: var(--accent); }
+.t-nimm20-opt[aria-disabled="true"] { cursor: default; }
+.t-nimm20-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-nimm20-opt.selected, .t-nimm20-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-nimm20-opt.right, .t-nimm20-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-nimm20-opt.wrong, .t-nimm20-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-nimm20-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-nimm20-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-nimm20-opt.wrong .t-nimm20-mark { background: var(--bad); }
+
+.t-nimm20-mvs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-nimm20-mv {
+  appearance: none; min-height: 2.75rem; padding: 0.4rem 0.9rem; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--accent);
+}
+.t-nimm20-mv:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-nimm20-mv:disabled { opacity: 0.4; cursor: not-allowed; border-color: var(--line); }
+.t-nimm20-again { justify-self: start; min-height: 2.4rem; padding-block: 0.3rem; }
+
+@media (max-width: 44rem) {
+  .t-nimm20-board { grid-template-columns: minmax(0, 1fr); }
+}

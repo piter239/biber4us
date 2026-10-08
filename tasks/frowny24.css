@@ -1,0 +1,36 @@
+/* Aufgabe Frowny */
+.t-frowny24-pic { height: 1.9rem; width: auto; vertical-align: middle; }
+
+.t-frowny24-board { display: inline-grid; grid-template-columns: repeat(3, 2.9rem); grid-auto-rows: 2.9rem; gap: 2px; background: var(--ink); padding: 2px; border-radius: 4px; vertical-align: top; }
+.t-frowny24-board.small { grid-template-columns: repeat(3, 1.9rem); grid-auto-rows: 1.9rem; }
+.t-frowny24-cell { position: relative; display: grid; place-items: center; background: var(--surface2); min-width: 0; }
+.t-frowny24-cell.here { background: var(--paper); }
+.t-frowny24-cell.take { background: var(--slot); }
+.t-frowny24-cell img { width: 88%; height: auto; max-height: 88%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-frowny24-cell.ring::after { content: ''; position: absolute; inset: 1px; border-radius: 50%; border: 3px solid var(--c4); pointer-events: none; }
+.t-frowny24-cell.ring-dan::after { border-color: var(--c1); }
+.t-frowny24-board.small .t-frowny24-cell.ring::after { border-width: 2px; }
+
+.t-frowny24-exrow { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.6rem 0.4rem; margin: 0.6rem 0 0.8rem; }
+.t-frowny24-ex { display: inline-grid; gap: 0.25rem; justify-items: center; }
+.t-frowny24-who { font-size: 0.8rem; font-weight: 700; color: var(--muted); display: inline-flex; align-items: center; gap: 0.25rem; }
+.t-frowny24-who img { height: 1.1rem; width: auto; }
+.t-frowny24-arrow { align-self: center; color: var(--muted); font-size: 1.3rem; padding-top: 1rem; }
+.t-frowny24-res { margin: 0.5rem 0; }
+
+.t-frowny24-opts { display: grid; grid-template-columns: repeat(4, minmax(0, max-content)); gap: 0.8rem; justify-content: start; }
+.t-frowny24-opt { display: block; position: relative; cursor: pointer; min-width: 0; }
+.t-frowny24-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-frowny24-card { display: grid; gap: 0.35rem; justify-items: center; padding: 0.45rem 0.55rem 0.55rem; border: 3px solid var(--line); border-radius: 10px; background: var(--surface); box-sizing: border-box; height: 100%; }
+.t-frowny24-opt input:checked + .t-frowny24-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-frowny24-opt input:focus-visible + .t-frowny24-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-frowny24-opt input:disabled { cursor: default; }
+.t-frowny24-opt.right .t-frowny24-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-frowny24-opt.wrong .t-frowny24-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-frowny24-opthead { font-weight: 800; display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.t-frowny24-opt.right .t-frowny24-mark { color: var(--ok); }
+.t-frowny24-opt.wrong .t-frowny24-mark { color: var(--bad); }
+@media (max-width: 34rem) {
+  .t-frowny24-opts { grid-template-columns: repeat(2, minmax(0, max-content)); }
+  .t-frowny24-board { grid-template-columns: repeat(3, 2.7rem); grid-auto-rows: 2.7rem; }
+}

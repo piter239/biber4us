@@ -1,0 +1,35 @@
+/* Aufgabe Überblick (Präfix t-ueberblick21-) */
+.t-ueberblick21 {
+  --ub-forest: color-mix(in srgb, var(--c6) 58%, var(--surface));
+  --ub-bush: color-mix(in srgb, var(--c6) 78%, var(--ink) 22%);
+  --ub-soil: color-mix(in srgb, var(--c2) 55%, var(--ink) 45%);
+  --ub-clear: color-mix(in srgb, var(--c2) 80%, var(--c1) 20%);
+}
+.t-ueberblick21-board { display: grid; gap: 0.6rem; min-width: 0; }
+.t-ueberblick21-map { max-width: 44rem; width: 100%; margin-inline: auto; min-width: 0; }
+.t-ueberblick21-svg { display: block; width: 100%; height: auto; user-select: none; -webkit-tap-highlight-color: transparent; }
+.t-ueberblick21-forest { fill: var(--ub-forest); stroke: var(--ub-bush); stroke-width: 4; }
+.t-ueberblick21-bush { fill: var(--ub-bush); opacity: 0.55; }
+.t-ueberblick21-halo { fill: none; stroke: transparent; stroke-width: 34; stroke-linecap: round; transition: stroke 0.15s; }
+.t-ueberblick21-halo.on { stroke: var(--surface); stroke-opacity: 0.55; }
+.t-ueberblick21-edge-edge { fill: none; stroke: var(--ub-soil); stroke-width: 17; stroke-linecap: round; }
+.t-ueberblick21-edge { fill: none; stroke: var(--ub-clear); stroke-width: 11; stroke-linecap: round; stroke-dasharray: none; }
+.t-ueberblick21-edge.on { stroke: var(--c4); stroke-width: 9; }
+.t-ueberblick21-node { cursor: pointer; outline: none; }
+.t-ueberblick21-node .hit { fill: transparent; }
+.t-ueberblick21-node .clear { fill: var(--ub-clear); stroke: var(--ub-soil); stroke-width: 5; }
+.t-ueberblick21-node .clear-hi { fill: #fff; opacity: 0.18; }
+.t-ueberblick21-node:hover .clear { fill: color-mix(in srgb, var(--accent) 30%, var(--ub-clear)); }
+.t-ueberblick21-node.on .clear { fill: color-mix(in srgb, var(--accent) 40%, var(--ub-clear)); stroke: var(--accent); stroke-width: 7; }
+.t-ueberblick21-node.right .clear { fill: color-mix(in srgb, var(--ok) 45%, var(--ub-clear)); stroke: var(--ok); }
+.t-ueberblick21-node.wrong .clear { fill: color-mix(in srgb, var(--bad) 40%, var(--ub-clear)); stroke: var(--bad); }
+.t-ueberblick21-node:focus-visible .clear { stroke: var(--focus); stroke-width: 7; stroke-dasharray: 10 5; }
+.t-ueberblick21-node.locked { cursor: default; }
+.t-ueberblick21-helper { display: none; pointer-events: none; }
+.t-ueberblick21-node.on .t-ueberblick21-helper { display: block; }
+.t-ueberblick21-helper .bd { fill: var(--c4); stroke: var(--surface); stroke-width: 2.5; }
+.t-ueberblick21-helper .hd { fill: color-mix(in srgb, var(--c2) 45%, var(--surface)); stroke: var(--ink); stroke-width: 2; }
+.t-ueberblick21-helper .cap { fill: var(--c1); stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
+.t-ueberblick21-helper .ey { fill: var(--ink); }
+.t-ueberblick21-stat { margin: 0; text-align: center; font-weight: 700; color: var(--muted); }
+.t-ueberblick21-stat.full { color: var(--ok); }

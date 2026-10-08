@@ -1,0 +1,61 @@
+/* Aufgabe Zauberschule (Präfix t-zs22-) */
+.t-zs22-play { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0.8rem 1rem 1rem; display: grid; gap: 0.8rem; }
+.t-zs22-play h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0; }
+.t-zs22-boards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; max-width: 40rem; margin-inline: auto; width: 100%; border-radius: 10px; }
+.t-zs22-boards:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.t-zs22-fl, .t-zs22-figs figure { margin: 0; min-width: 0; }
+.t-zs22-fl figcaption, .t-zs22-figs figcaption { font-size: 0.85rem; font-weight: 700; color: var(--muted); margin-bottom: 0.2rem; text-align: center; }
+.t-zs22-figs figcaption { margin: 0.2rem 0 0; }
+.t-zs22-svg { display: block; width: 100%; height: auto; }
+.t-zs22-paper { fill: var(--slot); stroke: var(--slot-line); stroke-width: 2; }
+.t-zs22-grid { stroke: var(--slot-line); stroke-width: 1.2; }
+.t-zs22-a { fill: color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-zs22-b { fill: color-mix(in srgb, var(--ok) 35%, transparent); }
+.t-zs22-outer { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linejoin: round; }
+.t-zs22-wall { stroke: var(--ink); stroke-width: 5; stroke-linecap: square; }
+.t-zs22-mark { font: 800 13px var(--font-body); fill: var(--ink); }
+.t-zs22-num { font: 700 15px var(--font-body); fill: var(--ink); }
+.t-zs22-num.goal { font-size: 17px; font-weight: 800; }
+.t-zs22-hit { fill: transparent; cursor: pointer; }
+.t-zs22-hit:hover { fill: color-mix(in srgb, var(--accent) 16%, transparent); }
+.t-zs22-path { stroke: var(--accent); stroke-width: 6; stroke-linecap: round; opacity: 0.85; }
+.t-zs22-stair { fill: none; stroke: var(--c5); stroke-width: 3; stroke-dasharray: 4 3; }
+.t-zs22-ron { fill: var(--c1); stroke: var(--ink); stroke-width: 2; }
+.t-zs22-rt { font: 800 14px var(--font-body); fill: #fff; pointer-events: none; }
+.t-zs22-ghost { fill: none; stroke: var(--c1); stroke-width: 3; stroke-dasharray: 3 3; pointer-events: none; }
+.t-zs22-tools { display: grid; gap: 0.6rem; justify-items: center; }
+.t-zs22-pad { display: grid; grid-template-columns: repeat(3, 4.2rem); grid-template-areas: ". u ." "l dn r" "st st st"; gap: 0.35rem; justify-content: center; }
+.t-zs22-d {
+  appearance: none; min-height: 3rem; border: 2px solid var(--ink); border-radius: 10px; background: var(--surface2); color: var(--ink);
+  font: 800 1.3rem var(--font-body); cursor: pointer; touch-action: manipulation; padding: 0 0.4rem;
+}
+.t-zs22-d.u { grid-area: u; } .t-zs22-d.l { grid-area: l; } .t-zs22-d.dn { grid-area: dn; } .t-zs22-d.r { grid-area: r; }
+.t-zs22-d.st { grid-area: st; font-size: 0.95rem; white-space: nowrap; }
+.t-zs22-d:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 18%, var(--surface2)); }
+.t-zs22-d:disabled { opacity: 0.35; cursor: default; }
+.t-zs22-info { margin: 0; text-align: center; font-weight: 700; min-height: 2.6em; }
+.t-zs22-info.goal { color: var(--ok); }
+.t-zs22-row { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.t-zs22-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: 0.6rem; margin-top: 1rem; }
+.t-zs22-opt {
+  appearance: none; position: relative; display: flex; align-items: center; gap: 0.6rem; min-height: 3rem; padding: 0.4rem 0.8rem;
+  border: 3px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: 700 1.1rem var(--font-body);
+  cursor: pointer; touch-action: manipulation; text-align: left;
+}
+.t-zs22-opt b { display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 2px solid var(--ink); font-size: 0.95rem; flex: none; }
+.t-zs22-opt:not(:disabled):hover { border-color: var(--accent); }
+.t-zs22-opt.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.t-zs22-opt.on b { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.t-zs22-opt.right { border-color: var(--ok); background: var(--ok-bg); box-shadow: none; }
+.t-zs22-opt.wrong { border-color: var(--bad); background: var(--bad-bg); box-shadow: none; }
+.t-zs22-opt.right b { background: var(--ok); border-color: var(--ok); color: #fff; }
+.t-zs22-opt.wrong b { background: var(--bad); border-color: var(--bad); color: #fff; }
+.t-zs22-opt:disabled { cursor: default; }
+.t-zs22-mk { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: #fff; font-size: 0.9rem; }
+.t-zs22-mk:empty { display: none; }
+.t-zs22-opt.right .t-zs22-mk { background: var(--ok); }
+.t-zs22-opt.wrong .t-zs22-mk { background: var(--bad); }
+.t-zs22-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; max-width: 36rem; margin: 0.6rem 0 1rem; }
+@media (max-width: 34rem) {
+  .t-zs22-boards, .t-zs22-figs { grid-template-columns: minmax(0, 1fr); max-width: 22rem; }
+}

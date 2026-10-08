@@ -1,0 +1,62 @@
+/* Aufgabe Berukone (Präfix t-berukone24) */
+.t-berukone24-examples { display: flex; flex-wrap: wrap; gap: 0.8rem 2.5rem; margin: 0.6rem 0 1rem; }
+.t-berukone24-examples figure { margin: 0; display: grid; gap: 0.4rem; justify-items: start; }
+.t-berukone24-examples figcaption { font-size: 0.95rem; color: var(--muted); }
+.t-berukone24-static { display: block; width: 100%; height: auto; }
+.t-berukone24-exg { max-width: 8rem; }
+.t-berukone24-sc { fill: var(--slot); stroke: var(--slot-line); stroke-width: 1.5; }
+.t-berukone24-sl { fill: none; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.t-berukone24-sb { fill: var(--surface); stroke-width: 3; }
+.t-berukone24-sb.bad { stroke-width: 4; }
+.t-berukone24-st { fill: var(--ink); font-family: var(--font-display); font-weight: 700; font-size: 19px; }
+.t-berukone24-figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 8.5rem)); gap: 0.8rem 1rem; margin: 0.6rem 0 0.9rem; }
+.t-berukone24-fig { margin: 0; display: grid; gap: 0.25rem; justify-items: start; min-width: 0; }
+.t-berukone24-fig figcaption { font-family: var(--font-display); font-weight: 700; }
+.t-berukone24-fig.no { color: var(--bad); }
+.t-berukone24-fig .t-berukone24-exg { max-width: none; }
+
+.t-berukone24-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 0.8rem; max-width: 52rem; }
+.t-berukone24-card {
+  position: relative; display: grid; gap: 0.45rem; min-width: 0; padding: 0.5rem 0.55rem 0.6rem;
+  background: var(--surface2); border: 3px solid var(--line); border-radius: 12px;
+}
+.t-berukone24-card.selected { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface2)); }
+.t-berukone24-card.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-berukone24-card.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-berukone24-key { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
+.t-berukone24-grid {
+  position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; max-width: 15rem; aspect-ratio: 1;
+  background: var(--slot); border: 2px solid var(--slot-line); border-radius: 4px; touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.t-berukone24-grid.locked { opacity: 0.92; }
+.t-berukone24-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+.t-berukone24-line { fill: none; stroke-width: 0.2; stroke-linecap: round; stroke-linejoin: round; }
+.t-berukone24-line.act { opacity: 0.6; stroke-dasharray: 0.01 0.38; stroke-width: 0.2; }
+.t-berukone24-cell {
+  appearance: none; position: relative; z-index: 2; min-width: 0; padding: 0; margin: 0; background: transparent; color: var(--ink);
+  border: 1px solid var(--slot-line); border-radius: 0; font: inherit; font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.05rem, 5.2vw, 1.5rem); display: grid; place-items: center; cursor: pointer; touch-action: none;
+}
+.t-berukone24-cell:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; z-index: 3; }
+.t-berukone24-cell.num::before {
+  content: ""; position: absolute; width: 74%; height: 74%; border-radius: 50%; background: var(--surface); border: 3px solid var(--cc, var(--ink)); z-index: -1;
+}
+.t-berukone24-grid.locked .t-berukone24-cell { cursor: default; }
+.t-berukone24-pick {
+  appearance: none; display: block; width: 100%; padding: 0.45rem 0.4rem; background: var(--surface); color: var(--ink);
+  border: 2px solid var(--line); border-radius: 9px; font-weight: 700; cursor: pointer; touch-action: manipulation;
+}
+.t-berukone24-pick:hover { border-color: var(--accent); }
+.t-berukone24-pick[aria-checked="true"] { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+.t-berukone24-pick[aria-disabled="true"] { cursor: default; }
+.t-berukone24-pick[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-berukone24-pick[aria-checked="true"][aria-disabled="true"]:hover { border-color: var(--accent); }
+.t-berukone24-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok); z-index: 4;
+}
+.t-berukone24-card.wrong .t-berukone24-mark { background: var(--bad); }
+.t-berukone24-live { margin: 0.5rem 0 0; min-height: 1.5em; color: var(--muted); font-size: 0.95rem; }
+@media (max-width: 40rem) {
+  .t-berukone24-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

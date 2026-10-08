@@ -1,0 +1,47 @@
+/* Aufgabe Karten drehen (Präfix t-kartendrehen24) */
+.t-kartendrehen24-svg { display: block; width: 100%; height: auto; }
+.t-kartendrehen24-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; align-items: center; margin: 0.6rem 0; }
+.t-kartendrehen24-legend span { display: inline-flex; align-items: center; gap: 0.6rem; }
+.t-kartendrehen24-legend .t-kartendrehen24-svg { width: 2.6rem; }
+.t-kartendrehen24-example { display: grid; gap: 0.6rem; margin: 0.6rem 0 0.8rem; }
+.t-kartendrehen24-example > div { display: flex; align-items: center; gap: 0.8rem; }
+.t-kartendrehen24-lab { width: 5rem; flex: none; font-weight: 600; }
+.t-kartendrehen24-mini { display: inline-flex; align-items: center; gap: 0.25rem; }
+.t-kartendrehen24-mini .t-kartendrehen24-svg { width: 1.9rem; flex: none; }
+.t-kartendrehen24-dots { padding: 0 0.3rem; font-weight: 700; color: var(--muted); }
+
+.t-kartendrehen24-board { display: grid; gap: 1.1rem; max-width: 40rem; }
+.t-kartendrehen24-sim { background: var(--surface2); border: 1px solid var(--line); border-radius: var(--radius); padding: 0.8rem 0.9rem 0.9rem; display: grid; gap: 0.6rem; }
+.t-kartendrehen24-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.3rem 1rem; align-items: baseline; }
+.t-kartendrehen24-count { color: var(--muted); font-weight: 600; }
+.t-kartendrehen24-row { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0.4rem; max-width: 24rem; }
+.t-kartendrehen24-card { position: relative; border-radius: 7px; padding: 2px; border: 2px solid transparent; }
+.t-kartendrehen24-card.chg { border-color: var(--c2); background: color-mix(in srgb, var(--c2) 22%, transparent); }
+.t-kartendrehen24-dir { color: var(--muted); font-size: 0.9rem; margin: 0; }
+.t-kartendrehen24-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-kartendrehen24-live { margin: 0; min-height: 3em; color: var(--muted); font-size: 0.95rem; }
+.t-kartendrehen24-answer { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.4rem; font-size: 1.1rem; font-weight: 600; }
+.t-kartendrehen24-inwrap { position: relative; display: inline-block; }
+.t-kartendrehen24-input {
+  width: 4.6rem; padding: 0.35rem 0.5rem; font: inherit; font-size: 1.2rem; text-align: center; color: var(--ink);
+  background: var(--surface); border: 2px solid var(--line); border-radius: 8px;
+}
+.t-kartendrehen24-input:focus-visible { border-color: var(--accent); }
+.t-kartendrehen24-input:disabled { opacity: 1; color: var(--ink); background: var(--surface2); }
+.t-kartendrehen24-right .t-kartendrehen24-input { border-color: var(--ok); background: var(--ok-bg); }
+.t-kartendrehen24-wrong .t-kartendrehen24-input { border-color: var(--bad); background: var(--bad-bg); }
+.t-kartendrehen24-mark {
+  position: absolute; top: -12px; right: -12px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-kartendrehen24-wrong .t-kartendrehen24-mark { background: var(--bad); }
+.t-kartendrehen24-tab { border-collapse: collapse; margin: 0.6rem 0 0.8rem; max-width: 100%; }
+.t-kartendrehen24-tab th, .t-kartendrehen24-tab td { padding: 0.3rem 0.6rem 0.3rem 0; text-align: left; font-weight: 600; vertical-align: middle; }
+.t-kartendrehen24-tab th { white-space: nowrap; font-size: 0.95rem; color: var(--muted); }
+@media (min-width: 40rem) {
+  .t-kartendrehen24-row { grid-template-columns: repeat(16, minmax(0, 1fr)); max-width: 40rem; }
+}
+@media (max-width: 24rem) {
+  .t-kartendrehen24-lab { width: 4.2rem; }
+  .t-kartendrehen24-mini .t-kartendrehen24-svg { width: 1.6rem; }
+}

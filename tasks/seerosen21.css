@@ -1,0 +1,51 @@
+/* Aufgabe Seerosen-Treff (Präfix t-seerosen21-) */
+.t-seerosen21 {
+  --sr-leaf: color-mix(in srgb, var(--c6) 62%, var(--surface));
+  --sr-water: color-mix(in srgb, var(--c4) 16%, var(--surface));
+}
+.t-seerosen21-board { display: grid; gap: 0.8rem; min-width: 0; }
+.t-seerosen21-lake { max-width: 40rem; width: 100%; margin-inline: auto; min-width: 0; }
+.t-seerosen21-svg { display: block; width: 100%; height: auto; user-select: none; -webkit-tap-highlight-color: transparent; }
+.t-seerosen21-water { fill: var(--sr-water); stroke: var(--line); stroke-width: 2; }
+.t-seerosen21-axis { font: 800 17px var(--font-body); fill: var(--muted); }
+.t-seerosen21-leaf { cursor: pointer; outline: none; }
+.t-seerosen21-leaf .shape { fill: var(--sr-leaf); stroke: var(--ink); stroke-width: 2.2; stroke-linejoin: round; }
+.t-seerosen21-leaf .shine { fill: none; stroke: #fff; stroke-opacity: 0.45; stroke-width: 3; stroke-linecap: round; }
+.t-seerosen21-leaf.start .shape { fill: color-mix(in srgb, var(--c2) 70%, var(--surface)); }
+.t-seerosen21-leaf:hover .shape { fill: color-mix(in srgb, var(--accent) 22%, var(--sr-leaf)); }
+.t-seerosen21-leaf.start:hover .shape { fill: color-mix(in srgb, var(--accent) 22%, var(--c2)); }
+.t-seerosen21-leaf.mr .shape { fill: color-mix(in srgb, var(--c1) 38%, var(--sr-leaf)); }
+.t-seerosen21-leaf.mb .shape { fill: color-mix(in srgb, var(--c4) 42%, var(--sr-leaf)); }
+.t-seerosen21-leaf.mr.mb .shape { fill: color-mix(in srgb, var(--c5) 55%, var(--sr-leaf)); }
+.t-seerosen21-leaf .mk { display: none; stroke: var(--ink); stroke-width: 1.5; }
+.t-seerosen21-leaf .mk-r { fill: var(--c1); }
+.t-seerosen21-leaf .mk-b { fill: var(--c4); }
+.t-seerosen21-leaf.mr .mk-r, .t-seerosen21-leaf.mb .mk-b { display: block; }
+.t-seerosen21-leaf.picked .shape { stroke: var(--accent); stroke-width: 6; fill: color-mix(in srgb, var(--accent) 45%, var(--sr-leaf)); }
+.t-seerosen21-leaf.right .shape { stroke: var(--ok); stroke-width: 6; fill: color-mix(in srgb, var(--ok) 45%, var(--sr-leaf)); }
+.t-seerosen21-leaf.wrong .shape { stroke: var(--bad); stroke-width: 6; fill: color-mix(in srgb, var(--bad) 40%, var(--sr-leaf)); }
+.t-seerosen21-leaf:focus-visible .shape { stroke: var(--focus); stroke-width: 6; stroke-dasharray: 8 4; }
+.t-seerosen21-leaf.locked { cursor: default; }
+.t-seerosen21-arrows, .t-seerosen21-frog { pointer-events: none; }
+.t-seerosen21-arrow line { stroke: var(--ink); stroke-width: 4.6; stroke-linecap: butt; }
+.t-seerosen21-arrow polygon { fill: var(--ink); }
+.t-seerosen21-frog .fb, .t-seerosen21-frog .fl { stroke: var(--ink); stroke-width: 1.6; }
+.t-seerosen21-frog.red .fb, .t-seerosen21-frog.red .fl { fill: var(--c1); }
+.t-seerosen21-frog.blue .fb, .t-seerosen21-frog.blue .fl { fill: var(--c4); }
+.t-seerosen21-frog .fv { fill: #fff; opacity: 0.35; }
+.t-seerosen21-frog .fe { fill: #fff; stroke: var(--ink); stroke-width: 1.6; }
+.t-seerosen21-frog .fp { fill: var(--ink); }
+.t-seerosen21-frog .fm { fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; }
+
+.t-seerosen21-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; }
+.t-seerosen21-modes { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.t-seerosen21-mode, .t-seerosen21-clear {
+  appearance: none; font: inherit; font-weight: 700; font-size: 0.92rem; padding: 0.4rem 0.8rem; min-height: 40px;
+  border: 2px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); cursor: pointer; touch-action: manipulation;
+}
+.t-seerosen21-mode.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
+.t-seerosen21-mode.m-r.on { border-color: var(--c1); background: color-mix(in srgb, var(--c1) 22%, var(--surface)); }
+.t-seerosen21-mode.m-b.on { border-color: var(--c4); background: color-mix(in srgb, var(--c4) 22%, var(--surface)); }
+.t-seerosen21-clear { border-style: dashed; color: var(--muted); font-weight: 600; }
+.t-seerosen21-mode:disabled, .t-seerosen21-clear:disabled { opacity: 0.55; cursor: default; }
+.t-seerosen21-hint { flex: 1 1 100%; margin: 0; font-size: 0.93rem; color: var(--muted); }

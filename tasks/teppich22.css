@@ -1,0 +1,82 @@
+/* Aufgabe Teppichmuster (Präfix t-teppich22-) */
+.t-teppich22-tool { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0.8rem 1rem 1rem; }
+.t-teppich22-tool h3, .t-teppich22-h { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-teppich22-h { margin-top: 1.2rem; }
+.t-teppich22-toolrow { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 1rem 1.5rem; align-items: start; }
+
+/* Ablaufplan */
+.t-teppich22-flow { display: grid; gap: 0.15rem; min-width: 0; }
+.t-teppich22-start { font-weight: 800; }
+.t-teppich22-nein { font-weight: 800; padding-left: 1rem; color: var(--muted); }
+.t-teppich22-step { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.5rem; align-items: center; }
+.t-teppich22-q {
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.1rem 0.5rem; align-items: center;
+  padding: 0.45rem 0.6rem; border: 2px solid var(--ink); border-radius: 14px; background: var(--surface2); font-size: 0.95rem; line-height: 1.25;
+}
+.t-teppich22-qn { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--ink); color: var(--surface); font-weight: 800; font-size: 0.85rem; }
+.t-teppich22-q.reached { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-teppich22-q.skipped { opacity: 0.5; }
+.t-teppich22-ans { position: absolute; top: -0.7rem; right: 0.5rem; padding: 0 0.5rem; border-radius: 999px; font-weight: 800; font-size: 0.8rem; line-height: 1.4rem; color: #fff; }
+.t-teppich22-ans:empty { display: none; }
+.t-teppich22-ans.y { background: var(--ok); }
+.t-teppich22-ans.n { background: var(--bad); }
+.t-teppich22-outs { display: grid; gap: 0.3rem; }
+.t-teppich22-out { display: flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.4rem; border-radius: 10px; border: 2px solid transparent; white-space: nowrap; }
+.t-teppich22-out img { width: 2.4rem; height: 2.4rem; object-fit: contain; background: #f4efe0; border-radius: 6px; padding: 0.15rem; }
+.t-teppich22-out.hit { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
+.t-teppich22-out.dim { opacity: 0.45; }
+.t-teppich22-lbl { font-weight: 800; font-size: 0.9rem; }
+
+/* Teppich */
+.t-teppich22-carpet { display: grid; grid-template-columns: 1.3rem repeat(6, minmax(0, 1fr)); gap: 0; width: 100%; min-width: 0; font-weight: 800; }
+.t-teppich22-ax { display: grid; place-items: center; font: 800 0.8rem var(--font-body); color: var(--c5); min-height: 1.1rem; }
+.t-teppich22-cell { display: grid; place-items: center; aspect-ratio: 1.2; padding: 0; margin: 0; border: 0; border-radius: 0; min-width: 0; color: #15303a; }
+.t-teppich22-cell img, .t-teppich22-sym { display: block; width: 66%; height: 66%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-teppich22-bg0 { background: #f1f19e; }
+.t-teppich22-bg1 { background: #8ff0bd; }
+.t-teppich22-bg2 { background: #e4c9b6; }
+.t-teppich22-bg3 { background: #8ed0f1; }
+.t-teppich22-cellbtn { appearance: none; cursor: pointer; touch-action: manipulation; outline-offset: -3px; }
+.t-teppich22-cellbtn:hover { filter: brightness(0.94); }
+.t-teppich22-cellbtn.cur { box-shadow: inset 0 0 0 3px var(--accent); }
+.t-teppich22-probecol { display: grid; gap: 0.5rem; justify-items: start; min-width: 0; }
+.t-teppich22-probe { max-width: 22rem; }
+.t-teppich22-pinfo { margin: 0; font-size: 0.92rem; color: var(--muted); min-height: 2.6em; }
+
+/* Auswahl */
+.t-teppich22-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.t-teppich22-card {
+  appearance: none; position: relative; display: block; width: 100%; min-width: 0; margin: 0; padding: 2.1rem 0.6rem 0.6rem;
+  border: 3px solid var(--line); border-radius: 12px; background: var(--surface); cursor: pointer; touch-action: manipulation; font: inherit; color: var(--ink); text-align: left;
+}
+.t-teppich22-card .t-teppich22-carpet { pointer-events: none; }
+.t-teppich22-card:not(:disabled):hover { border-color: var(--accent); }
+.t-teppich22-card:disabled { cursor: default; }
+.t-teppich22-letter {
+  position: absolute; top: 0.4rem; left: 0.6rem; width: 1.7rem; height: 1.7rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--ink); font: 800 1rem var(--font-body);
+}
+.t-teppich22-card.on { border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-teppich22-card.on .t-teppich22-letter { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.t-teppich22-card.right { border-color: var(--ok); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 30%, transparent); }
+.t-teppich22-card.wrong { border-color: var(--bad); box-shadow: 0 0 0 4px color-mix(in srgb, var(--bad) 30%, transparent); }
+.t-teppich22-card.right .t-teppich22-letter { background: var(--ok); border-color: var(--ok); color: #fff; }
+.t-teppich22-card.wrong .t-teppich22-letter { background: var(--bad); border-color: var(--bad); color: #fff; }
+.t-teppich22-badge { position: absolute; top: -10px; right: -10px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 1rem; color: #fff; }
+.t-teppich22-badge[hidden] { display: none; }
+.t-teppich22-card.right .t-teppich22-badge { background: var(--ok); }
+.t-teppich22-card.wrong .t-teppich22-badge { background: var(--bad); }
+
+/* Erklärung */
+.t-teppich22-figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin: 0.6rem 0 1rem; }
+.t-teppich22-fig { margin: 0; min-width: 0; }
+.t-teppich22-fig figcaption { font-size: 0.88rem; color: var(--muted); margin-top: 0.3rem; }
+.t-teppich22-fig .t-teppich22-cell img { width: 72%; height: 72%; }
+
+@media (max-width: 44rem) {
+  .t-teppich22-toolrow { grid-template-columns: minmax(0, 1fr); }
+  .t-teppich22-figs { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 36rem) {
+  .t-teppich22-grid { grid-template-columns: minmax(0, 1fr); }
+}

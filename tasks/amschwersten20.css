@@ -1,0 +1,56 @@
+/* Stile für amschwersten20 (Präfix t-amschwersten20-). Kistenbilder behalten ihre Heftfarben auf hellem Grund (in Hell und Dunkel gleich lesbar). */
+.t-amschwersten20-board, .t-amschwersten20-chain {
+  --am-line: #2a2a33;
+  --am-herz: #d873a6; --am-herz-l: #c0213c;
+  --am-stern: #fbee1e; --am-stern-l: #ee9a12;
+  --am-fuenf: #8b3f8f; --am-fuenf-l: #5b2a86;
+  --am-kreis: #d6d65a; --am-kreis-l: #12963f;
+  --am-quad: #2fa6e0; --am-quad-l: #13287f;
+}
+.t-amschwersten20-board { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+.t-amschwersten20-board > section { min-width: 0; }
+.t-amschwersten20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+
+.t-amschwersten20-box { fill: var(--paper); stroke: var(--am-line); stroke-width: 3; }
+.t-amschwersten20-herz { fill: var(--am-herz); stroke: var(--am-herz-l); stroke-width: 3; stroke-linejoin: round; }
+.t-amschwersten20-stern { fill: var(--am-stern); stroke: var(--am-stern-l); stroke-width: 3; stroke-linejoin: round; }
+.t-amschwersten20-fuenfeck { fill: var(--am-fuenf); stroke: var(--am-fuenf-l); stroke-width: 3; stroke-linejoin: round; }
+.t-amschwersten20-kreis { fill: var(--am-kreis); stroke: var(--am-kreis-l); stroke-width: 5; }
+.t-amschwersten20-quadrat { fill: var(--am-quad); stroke: var(--am-quad-l); stroke-width: 5; stroke-linejoin: round; }
+
+.t-amschwersten20-scales { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.8rem, 1fr)); gap: 0.6rem; }
+.t-amschwersten20-scale-wrap { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.35rem; min-width: 0; }
+.t-amschwersten20-scale { display: block; width: 100%; height: auto; overflow: visible; }
+.t-amschwersten20-base, .t-amschwersten20-post { fill: var(--muted); }
+.t-amschwersten20-beam { stroke: var(--muted); stroke-width: 6; stroke-linecap: round; }
+.t-amschwersten20-plate { stroke: var(--c2); stroke-width: 5; stroke-linecap: round; }
+.t-amschwersten20-pivot { fill: var(--surface); stroke: var(--muted); stroke-width: 3; }
+.t-amschwersten20-sc-crate rect.t-amschwersten20-box { transition: stroke 0.15s; }
+.t-amschwersten20-sc-crate.hl rect.t-amschwersten20-box { stroke: var(--accent); stroke-width: 7; }
+.t-amschwersten20-sc-crate.hl { filter: drop-shadow(0 0 3px var(--accent)); }
+
+.t-amschwersten20-opts { display: grid; grid-template-columns: repeat(5, minmax(0, 5.2rem)); gap: 0.6rem; }
+.t-amschwersten20-opt {
+  appearance: none; position: relative; padding: 0.3rem; background: var(--surface2); color: var(--ink);
+  border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation; min-width: 0;
+}
+.t-amschwersten20-opt:hover { border-color: var(--accent); }
+.t-amschwersten20-opt[aria-disabled="true"] { cursor: default; }
+.t-amschwersten20-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-amschwersten20-opt.selected, .t-amschwersten20-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface2)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-amschwersten20-opt.right, .t-amschwersten20-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); box-shadow: none; }
+.t-amschwersten20-opt.wrong, .t-amschwersten20-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); box-shadow: none; }
+.t-amschwersten20-crate { display: block; width: 100%; height: auto; pointer-events: none; }
+.t-amschwersten20-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-amschwersten20-opt.wrong .t-amschwersten20-mark { background: var(--bad); }
+
+.t-amschwersten20-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin: 0.4rem 0 0.8rem; }
+.t-amschwersten20-crate-s { width: 2.6rem; height: 2.6rem; flex: none; }
+.t-amschwersten20-gt { font-family: var(--font-display); font-weight: 700; color: var(--muted); }
+
+@media (max-width: 30rem) {
+  .t-amschwersten20-opts { gap: 0.4rem; }
+}

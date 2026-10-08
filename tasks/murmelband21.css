@@ -1,0 +1,57 @@
+/* Aufgabe Murmelband (Präfix t-murmelband21-) */
+.t-murmelband21 {
+  --mb-brown: color-mix(in srgb, var(--c1) 35%, var(--c2) 65%);
+  --mb-body: color-mix(in srgb, var(--mb-brown) 55%, var(--ink) 45%);
+  --mb-belly: color-mix(in srgb, var(--mb-brown) 75%, var(--surface) 25%);
+}
+.t-murmelband21-board { display: grid; gap: 1.1rem; min-width: 0; }
+.t-murmelband21-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.4rem; }
+.t-murmelband21-rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.t-murmelband21-rule { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.7rem 0.7rem; min-width: 0; }
+.t-murmelband21-rule p { margin: 0 0 0.4rem; font-size: 0.92rem; color: var(--muted); }
+.t-murmelband21-rule .t-murmelband21-row { margin-top: 0.1rem; }
+.t-murmelband21-start { min-width: 0; }
+.t-murmelband21-row { min-width: 0; }
+.t-murmelband21-band { display: block; width: 100%; height: auto; max-width: 560px; }
+.t-murmelband21-rule .t-murmelband21-band { max-width: 300px; }
+
+.t-murmelband21-track { fill: color-mix(in srgb, var(--ink) 70%, var(--surface)); }
+.t-murmelband21-field { fill: color-mix(in srgb, var(--surface2) 80%, var(--muted) 20%); stroke: color-mix(in srgb, var(--ink) 55%, var(--surface)); stroke-width: 1.2; stroke-linejoin: round; }
+.t-murmelband21-glass { fill: color-mix(in srgb, var(--c4) 28%, var(--surface)); stroke: var(--c4); stroke-width: 1.4; }
+.t-murmelband21-swirl { fill: var(--c2); opacity: 0.9; }
+.t-murmelband21-shine { fill: #fff; opacity: 0.9; }
+.t-murmelband21-body, .t-murmelband21-tail { fill: var(--mb-body); stroke: color-mix(in srgb, var(--mb-body) 60%, var(--ink)); stroke-width: 1; }
+.t-murmelband21-tail { fill: color-mix(in srgb, var(--mb-body) 80%, var(--ink)); }
+.t-murmelband21-belly { fill: var(--mb-belly); }
+.t-murmelband21-nose { fill: var(--ink); }
+.t-murmelband21-tooth { fill: #fff; stroke: var(--ink); stroke-width: 0.7; }
+
+.t-murmelband21-opts { border: 0; margin: 0; padding: 0; display: grid; gap: 0.55rem; min-width: 0; }
+.t-murmelband21-opts legend { padding: 0; margin-bottom: 0.45rem; font-weight: 700; }
+.t-murmelband21-opt {
+  position: relative; display: grid; grid-template-columns: 2rem minmax(0, 1fr); align-items: center; gap: 0.4rem;
+  padding: 0.35rem 0.6rem 0.35rem 0.5rem; background: var(--surface); border: 3px solid var(--line); border-radius: 10px; cursor: pointer;
+}
+.t-murmelband21-opt:hover { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
+.t-murmelband21-opt.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.t-murmelband21-opt.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-murmelband21-opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-murmelband21-opt:has(.t-murmelband21-radio:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-murmelband21-radio { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.t-murmelband21-letter { font-weight: 800; font-size: 1.1rem; }
+.t-murmelband21-pic { display: block; min-width: 0; }
+.t-murmelband21-pic .t-murmelband21-band { max-width: 520px; }
+.t-murmelband21-mark { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; }
+.t-murmelband21-opt.right .t-murmelband21-mark { background: var(--ok); }
+.t-murmelband21-opt.wrong .t-murmelband21-mark { background: var(--bad); }
+.t-murmelband21-opt:has(.t-murmelband21-radio:disabled) { cursor: default; }
+
+.t-murmelband21-walk { list-style: none; margin: 0.6rem 0; padding: 0; display: grid; gap: 0.15rem; }
+.t-murmelband21-walk li { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); align-items: center; gap: 0.6rem; }
+.t-murmelband21-wtxt { font-size: 0.9rem; color: var(--muted); }
+.t-murmelband21-walk .t-murmelband21-band { max-width: 380px; }
+
+@media (max-width: 40rem) {
+  .t-murmelband21-rules { grid-template-columns: minmax(0, 1fr); }
+  .t-murmelband21-walk li { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}

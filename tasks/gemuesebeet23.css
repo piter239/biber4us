@@ -1,0 +1,66 @@
+/* Aufgabe Gemüsebeet (gemuesebeet23) */
+.t-gemuesebeet23-wrap { display: grid; gap: 1rem; min-width: 0; max-width: 40rem; margin: 0 auto; }
+.t-gemuesebeet23-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem 1.25rem; min-width: 0; }
+.t-gemuesebeet23-legend > div { min-width: 0; }
+.t-gemuesebeet23-legend h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.4rem; }
+.t-gemuesebeet23-legend ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.t-gemuesebeet23-pair {
+  display: inline-flex; align-items: center; gap: 0; padding: 0.1rem 0.3rem; border-radius: 8px;
+  background: var(--surface2); border: 2px solid transparent;
+}
+.t-gemuesebeet23-pair img { width: 1.9rem; height: 1.9rem; display: block; }
+.t-gemuesebeet23-pair.t-gemuesebeet23-bad { border-color: color-mix(in srgb, var(--c2) 70%, transparent); }
+.t-gemuesebeet23-pair.t-gemuesebeet23-good { border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
+.t-gemuesebeet23-sign { font-weight: 800; font-size: 1.1rem; width: 1.2rem; text-align: center; line-height: 1; }
+.t-gemuesebeet23-bad .t-gemuesebeet23-sign { color: var(--c2); }
+.t-gemuesebeet23-good .t-gemuesebeet23-sign { color: var(--ok); }
+
+.t-gemuesebeet23-pal { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; padding: 0.4rem; border-radius: 12px; background: var(--surface2); }
+.t-gemuesebeet23-veg {
+  appearance: none; display: grid; justify-items: center; gap: 0.1rem; padding: 0.35rem 0.2rem; min-width: 0;
+  border: 3px solid transparent; border-radius: 10px; background: var(--surface); color: var(--ink);
+  font: inherit; cursor: pointer; touch-action: manipulation;
+}
+.t-gemuesebeet23-veg img { width: 100%; max-width: 3.4rem; height: auto; aspect-ratio: 1; pointer-events: none; -webkit-user-drag: none; }
+.t-gemuesebeet23-vname { font-weight: 700; font-size: 0.85rem; overflow-wrap: anywhere; text-align: center; }
+.t-gemuesebeet23-count { font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.t-gemuesebeet23-veg:hover:not(:disabled) { border-color: color-mix(in srgb, var(--accent) 50%, transparent); }
+.t-gemuesebeet23-veg.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-gemuesebeet23-veg.empty { opacity: 0.45; }
+.t-gemuesebeet23-veg:disabled { cursor: default; }
+.t-gemuesebeet23-veg:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.t-gemuesebeet23-beet { padding: 0.5rem 0.25rem; border-radius: 12px; background: var(--surface2); }
+.t-gemuesebeet23-board { position: relative; width: 100%; aspect-ratio: 600 / 288.7; }
+.t-gemuesebeet23-hex {
+  position: absolute; width: 16.667%; height: 40%; padding: 0; margin: 0; border: 0; background: none;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  display: block; cursor: pointer; touch-action: manipulation; color: inherit; font: inherit;
+  --hex-edge: color-mix(in srgb, var(--c2) 55%, var(--ink));
+  --hex-fill: color-mix(in srgb, var(--c2) 42%, var(--surface));
+}
+.t-gemuesebeet23-edge, .t-gemuesebeet23-fill { position: absolute; display: block; }
+.t-gemuesebeet23-edge { inset: 0; background: var(--hex-edge); }
+.t-gemuesebeet23-fill {
+  inset: 3.5%; background: var(--hex-fill);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+.t-gemuesebeet23-hex img {
+  position: absolute; left: 14%; top: 17%; width: 72%; height: 66%; object-fit: contain;
+  pointer-events: none; user-select: none; -webkit-user-drag: none;
+}
+div.t-gemuesebeet23-hex { cursor: default; }
+.t-gemuesebeet23-board.armed button.t-gemuesebeet23-hex:hover { --hex-fill: color-mix(in srgb, var(--accent) 30%, var(--surface)); }
+.t-gemuesebeet23-hex:hover:not(.fixed):not(:disabled) { --hex-edge: var(--accent); }
+.t-gemuesebeet23-hex:focus-visible { --hex-edge: var(--focus); outline: none; }
+.t-gemuesebeet23-hex:focus-visible .t-gemuesebeet23-fill { inset: 7%; }
+.t-gemuesebeet23-hex.ok { --hex-edge: var(--ok); --hex-fill: color-mix(in srgb, var(--ok) 22%, var(--surface)); }
+.t-gemuesebeet23-hex.bad { --hex-edge: var(--bad); --hex-fill: color-mix(in srgb, var(--bad) 30%, var(--surface)); }
+.t-gemuesebeet23-hex:disabled { cursor: default; }
+.t-gemuesebeet23-status { margin: 0; min-height: 2.6em; color: var(--muted); font-size: 0.95rem; }
+
+@media (max-width: 30rem) {
+  .t-gemuesebeet23-legend { grid-template-columns: minmax(0, 1fr); }
+  .t-gemuesebeet23-pair img { width: 1.6rem; height: 1.6rem; }
+  .t-gemuesebeet23-vname { font-size: 0.78rem; }
+}

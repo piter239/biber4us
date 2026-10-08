@@ -1,0 +1,32 @@
+/* Aufgabe Erdbeerklau (Heft 2021): Zeichenfläche liegt immer auf hellem Papier, deshalb feste Zustandsfarben für diese Fläche */
+.t-erdbeerklau21-board { --eb-stick: #8a5a33; --eb-sel: #0a86a6; --eb-bad: #b3261e; --eb-gone: #a79482; display: grid; gap: 0.6rem; justify-items: center; }
+.t-erdbeerklau21-stage { width: 100%; max-width: 600px; background: var(--paper); border-radius: 12px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); padding: 0.5rem; }
+.t-erdbeerklau21-svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.t-erdbeerklau21-edge { cursor: pointer; outline: none; }
+.t-erdbeerklau21-edge .vis { fill: none; stroke: var(--eb-stick); stroke-width: 7; stroke-linecap: round; }
+.t-erdbeerklau21-edge .hit { fill: none; stroke: transparent; stroke-width: 42; stroke-linecap: round; pointer-events: stroke; }
+.t-erdbeerklau21-edge:hover .vis, .t-erdbeerklau21-edge:focus-visible .vis { stroke: var(--eb-sel); }
+.t-erdbeerklau21-edge:focus-visible .vis { stroke-width: 10; }
+.t-erdbeerklau21-edge.removed .vis { stroke: var(--eb-gone); stroke-dasharray: 3 14; stroke-width: 6; }
+.t-erdbeerklau21-edge.bad .vis { stroke: var(--eb-bad); stroke-width: 10; }
+.t-erdbeerklau21-edge.locked { cursor: default; }
+.t-erdbeerklau21-edge.locked:hover .vis { stroke: var(--eb-stick); }
+.t-erdbeerklau21-edge.locked.bad:hover .vis { stroke: var(--eb-bad); }
+.t-erdbeerklau21-edge.locked.removed:hover .vis { stroke: var(--eb-gone); }
+.t-erdbeerklau21-slot rect { fill: #ffeb9e; stroke: #b99a1a; stroke-width: 3; stroke-dasharray: 8 6; }
+.t-erdbeerklau21-slot.filled rect { fill: none; stroke: none; }
+.t-erdbeerklau21-slot.target rect { stroke: var(--eb-sel); }
+.t-erdbeerklau21-q { font: 700 38px var(--font-display); fill: #6b5a1a; }
+.t-erdbeerklau21-note { margin: 0; color: var(--muted); font-size: 0.95rem; text-align: center; }
+.t-erdbeerklau21-lab { margin: 0.4rem 0 0; font-weight: 700; text-align: center; }
+.t-erdbeerklau21-pal { display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center; }
+.t-erdbeerklau21-opt {
+  appearance: none; display: grid; justify-items: center; gap: 0.15rem; padding: 0.35rem 0.5rem; min-width: 4.8rem;
+  background: var(--paper); border: 3px solid var(--line); border-radius: 10px; color: #15303a; font: inherit; font-weight: 600; cursor: pointer; touch-action: manipulation;
+}
+.t-erdbeerklau21-opt svg { display: block; pointer-events: none; }
+.t-erdbeerklau21-opt.on { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-erdbeerklau21-opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-erdbeerklau21-opt:disabled { cursor: default; }
+.t-erdbeerklau21-info { margin: 0; padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 600; }
+.t-erdbeerklau21-info.bad { background: var(--bad-bg); color: var(--bad); }

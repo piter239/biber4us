@@ -1,0 +1,27 @@
+/* Aufgabe Verstecke */
+.t-verstecke22-wrap { display: grid; justify-items: center; gap: 0.5rem; --t-verstecke22-given: #6b0000; --t-verstecke22-pick: #0b5d2a; }
+.t-verstecke22-fig { width: 100%; max-width: 34rem; }
+.t-verstecke22-small { max-width: 26rem; margin: 0.5rem 0; }
+.t-verstecke22-svg { display: block; width: 100%; height: auto; overflow: visible; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.t-verstecke22-status { margin: 0; color: var(--muted); font-size: 0.95rem; text-align: center; }
+.t-verstecke22-lab { font: 700 34px var(--font-display); fill: var(--ink); }
+
+.t-verstecke22-cell { fill: transparent; stroke: none; cursor: pointer; outline: none; }
+.t-verstecke22-cell:hover { fill: color-mix(in srgb, var(--accent) 22%, transparent); }
+.t-verstecke22-cell.on { fill: color-mix(in srgb, var(--accent) 24%, transparent); }
+.t-verstecke22-cell.right { fill: color-mix(in srgb, var(--ok) 28%, transparent); }
+.t-verstecke22-cell.wrong { fill: color-mix(in srgb, var(--bad) 26%, transparent); }
+.t-verstecke22-cell:focus-visible { stroke: var(--focus); stroke-width: 7; stroke-linejoin: round; fill: color-mix(in srgb, var(--focus) 20%, transparent); }
+.t-verstecke22-cell[aria-disabled="true"] { cursor: default; }
+.t-verstecke22-cell[aria-disabled="true"]:hover { fill: transparent; }
+.t-verstecke22-cell.on[aria-disabled="true"]:hover { fill: color-mix(in srgb, var(--accent) 24%, transparent); }
+
+.t-verstecke22-x { fill: none; stroke-linecap: round; pointer-events: none; }
+.t-verstecke22-halo { fill: none; stroke: #fff; stroke-linecap: round; pointer-events: none; opacity: 0.85; }
+.t-verstecke22-wrap, .t-verstecke22-small { --t-verstecke22-given: #6b0000; --t-verstecke22-pick: #0b5d2a; }
+.t-verstecke22-x.given { stroke: var(--t-verstecke22-given); }
+.t-verstecke22-halo.given { stroke: none; }
+.t-verstecke22-x.pick, .t-verstecke22-x.right { stroke: var(--t-verstecke22-pick); }
+.t-verstecke22-x.wrong { stroke: var(--bad); }
+.t-verstecke22-stripes polygon { fill: var(--c2); stroke: none; }
+.t-verstecke22-stripes { opacity: 0.42; }

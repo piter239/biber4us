@@ -1,0 +1,60 @@
+/* Aufgabe Wanderungen (2023) */
+.t-wanderungen23 .t-wanderungen23-board { display: grid; gap: 0.9rem; min-width: 0; }
+.t-wanderungen23 .t-wanderungen23-mapwrap { background: var(--surface2); border-radius: 12px; padding: 0.4rem; min-width: 0; }
+.t-wanderungen23 .t-wanderungen23-map { display: block; width: 100%; height: auto; }
+.t-wanderungen23 .t-wanderungen23-road { fill: color-mix(in srgb, var(--muted) 55%, var(--surface2)); }
+.t-wanderungen23 .t-wanderungen23-hills { fill: color-mix(in srgb, var(--c6) 70%, var(--surface2)); stroke: color-mix(in srgb, var(--c6) 70%, var(--surface2)); stroke-width: 10; stroke-linejoin: round; }
+.t-wanderungen23 .t-wanderungen23-sep { stroke: var(--ink); stroke-width: 1.6; stroke-dasharray: 6 6; opacity: 0.75; }
+.t-wanderungen23 .t-wanderungen23-arr { fill: none; stroke-width: 3; stroke-linecap: round; }
+.t-wanderungen23 .t-wanderungen23-arr.given { stroke: var(--muted); }
+.t-wanderungen23 .t-wanderungen23-arr.plan { stroke: var(--accent); stroke-width: 4; }
+.t-wanderungen23 .t-wanderungen23-arr.bad { stroke: var(--bad); stroke-width: 4; stroke-dasharray: 7 6; }
+.t-wanderungen23 .t-wanderungen23-head { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.t-wanderungen23 .t-wanderungen23-head.g { stroke: var(--muted); }
+.t-wanderungen23 .t-wanderungen23-head.p { stroke: var(--accent); }
+.t-wanderungen23 .t-wanderungen23-head.b { stroke: var(--bad); }
+.t-wanderungen23 .t-wanderungen23-rl { fill: var(--ink); font: 700 18px var(--font-body); }
+.t-wanderungen23 .t-wanderungen23-rl.plan { fill: var(--accent); font-size: 15px; }
+.t-wanderungen23 .t-wanderungen23-house { cursor: pointer; outline: none; }
+.t-wanderungen23 .t-wanderungen23-hit { fill: transparent; }
+.t-wanderungen23 .t-wanderungen23-hbody { fill: var(--ink); stroke: var(--surface); stroke-width: 2; }
+.t-wanderungen23 .t-wanderungen23-roof { fill: var(--c2); stroke: var(--surface); stroke-width: 2; stroke-linejoin: round; }
+.t-wanderungen23 .t-wanderungen23-hl { fill: var(--surface); font: 700 18px var(--font-body); pointer-events: none; }
+.t-wanderungen23 .t-wanderungen23-house:hover .t-wanderungen23-hbody { fill: color-mix(in srgb, var(--accent) 60%, var(--ink)); }
+.t-wanderungen23 .t-wanderungen23-house.on .t-wanderungen23-hbody { fill: var(--accent); stroke: var(--ink); stroke-width: 3; }
+.t-wanderungen23 .t-wanderungen23-house.on .t-wanderungen23-hl { fill: var(--accent-ink); }
+.t-wanderungen23 .t-wanderungen23-house:focus-visible .t-wanderungen23-hit { stroke: var(--focus); stroke-width: 3; rx: 6; }
+.t-wanderungen23 .t-wanderungen23-pole { fill: var(--ink); }
+.t-wanderungen23 .t-wanderungen23-sign .t-wanderungen23-signb { fill: var(--c2); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
+.t-wanderungen23 .t-wanderungen23-busb { fill: var(--c1); stroke: var(--ink); stroke-width: 1.5; }
+.t-wanderungen23 .t-wanderungen23-busw { fill: color-mix(in srgb, var(--c4) 40%, var(--surface)); }
+.t-wanderungen23 .t-wanderungen23-wh { fill: var(--ink); stroke: var(--surface2); stroke-width: 2; }
+.t-wanderungen23 h3 { font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin: 0 0 0.5rem; }
+.t-wanderungen23 .t-wanderungen23-try { min-width: 0; }
+.t-wanderungen23 .t-wanderungen23-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.t-wanderungen23 .t-wanderungen23-chip {
+  appearance: none; width: 3rem; height: 3rem; border: 2px solid var(--line); border-radius: 10px; background: var(--surface);
+  font: 700 1.2rem var(--font-body); cursor: pointer; color: var(--ink); touch-action: manipulation;
+}
+.t-wanderungen23 .t-wanderungen23-chip:hover { border-color: var(--accent); }
+.t-wanderungen23 .t-wanderungen23-chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.t-wanderungen23 .t-wanderungen23-btn {
+  appearance: none; border: 2px solid var(--accent); background: transparent; color: var(--accent);
+  font-weight: 700; font-size: 0.9rem; padding: 0.35rem 0.8rem; border-radius: 9px; cursor: pointer; min-height: 2.4rem; margin-left: 0.3rem;
+}
+.t-wanderungen23 .t-wanderungen23-btn:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.t-wanderungen23 .t-wanderungen23-status { color: var(--muted); font-size: 0.95rem; margin-top: 0.5rem; min-height: 2.8em; }
+.t-wanderungen23 .t-wanderungen23-answer { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 600; }
+.t-wanderungen23 .t-wanderungen23-field { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.15rem 0.6rem; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); }
+.t-wanderungen23 .t-wanderungen23-field span { color: var(--muted); font-weight: 600; }
+.t-wanderungen23 .t-wanderungen23-field.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-wanderungen23 .t-wanderungen23-field.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-wanderungen23 .t-wanderungen23-input {
+  width: 3.4rem; font: 700 1.4rem var(--font-body); text-align: center; border: 0; background: transparent; color: var(--ink); padding: 0.3rem 0; min-height: 2.6rem;
+}
+.t-wanderungen23 .t-wanderungen23-input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+.t-wanderungen23 .t-wanderungen23-input:disabled { opacity: 1; -webkit-text-fill-color: var(--ink); }
+.t-wanderungen23-expl .t-wanderungen23-list { columns: 2; margin: 0.4rem 0; padding-left: 1.4rem; }
+@media (max-width: 30rem) {
+  .t-wanderungen23-expl .t-wanderungen23-list { columns: 1; }
+}

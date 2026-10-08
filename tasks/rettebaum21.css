@@ -1,0 +1,43 @@
+/* Aufgabe Rette den Baum! (Präfix t-rettebaum21-) */
+.t-rettebaum21 {
+  --rb-wood: color-mix(in srgb, var(--c2) 38%, var(--surface));
+  --rb-wood-edge: color-mix(in srgb, var(--c2) 55%, var(--ink) 45%);
+  --rb-leaf: color-mix(in srgb, var(--c1) 30%, var(--c2) 70%);
+  --rb-leaf-dark: color-mix(in srgb, var(--rb-leaf) 55%, var(--ink) 45%);
+}
+.t-rettebaum21-board { display: grid; gap: 0.6rem; min-width: 0; }
+.t-rettebaum21-info { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; margin: 0; font-size: 1.05rem; color: var(--muted); }
+.t-rettebaum21-info b { color: var(--ink); font-size: 1.2rem; }
+.t-rettebaum21-info.all b:last-child { color: var(--ok); }
+.t-rettebaum21-tree { position: relative; width: 100%; max-width: 46rem; margin-inline: auto; min-width: 0; container-type: inline-size; }
+.t-rettebaum21-svg { display: block; width: 100%; height: auto; user-select: none; }
+.t-rettebaum21-grass { fill: color-mix(in srgb, var(--c6) 60%, var(--surface)); }
+.t-rettebaum21-trunk { fill: var(--rb-wood); stroke: var(--rb-wood-edge); stroke-width: 4; stroke-linejoin: round; }
+.t-rettebaum21-branch .wood { fill: none; stroke: var(--rb-wood-edge); stroke-linecap: round; }
+.t-rettebaum21-branch .cutline { fill: none; stroke: var(--rb-wood); stroke-linecap: round; }
+.t-rettebaum21-branch.main .wood { stroke-width: 34; }
+.t-rettebaum21-branch.main .cutline { stroke-width: 28; }
+.t-rettebaum21-branch.twig .wood { stroke-width: 20; }
+.t-rettebaum21-branch.twig .cutline { stroke-width: 14; }
+.t-rettebaum21-branch.cut .cutline { stroke: var(--bad); stroke-dasharray: 3 16; }
+.t-rettebaum21-branch.cut .wood { stroke: var(--bad); opacity: 0.9; }
+.t-rettebaum21-branch.cut.right .wood, .t-rettebaum21-branch.cut.right .cutline { stroke: var(--ok); }
+.t-rettebaum21-branch.gone { opacity: 0.25; }
+.t-rettebaum21-leaf .bl { fill: var(--rb-leaf); stroke: var(--rb-leaf-dark); stroke-width: 3; stroke-linejoin: round; }
+.t-rettebaum21-leaf .bl2 { fill: var(--rb-leaf-dark); opacity: 0.45; }
+.t-rettebaum21-leaf .vein { fill: none; stroke: var(--rb-leaf-dark); stroke-width: 3; stroke-linecap: round; }
+.t-rettebaum21-leaf.off { opacity: 0; }
+.t-rettebaum21-leaf { transition: opacity 0.2s; }
+.t-rettebaum21-labels { position: absolute; inset: 0; pointer-events: none; }
+.t-rettebaum21-label {
+  appearance: none; position: absolute; transform: translate(-50%, -50%); pointer-events: auto;
+  width: clamp(32px, 5.2cqw, 46px); aspect-ratio: 1; padding: 0; border-radius: 50%;
+  border: 3px solid var(--rb-wood-edge); background: var(--surface); color: var(--ink);
+  font: 800 clamp(0.95rem, 3.2cqw, 1.35rem) var(--font-body); line-height: 1; display: grid; place-items: center; cursor: pointer; touch-action: manipulation;
+}
+.t-rettebaum21-label:not(:disabled):hover { background: color-mix(in srgb, var(--bad) 14%, var(--surface)); border-color: var(--bad); }
+.t-rettebaum21-label.cut { background: var(--bad); border-color: var(--bad); color: var(--bg); }
+.t-rettebaum21-label.cut.right { background: var(--ok); border-color: var(--ok); }
+.t-rettebaum21-label.gone { opacity: 0.35; }
+.t-rettebaum21-label:disabled { cursor: default; }
+.t-rettebaum21-label:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }

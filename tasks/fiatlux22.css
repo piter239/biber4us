@@ -1,0 +1,46 @@
+/* Aufgabe Fiat Lux */
+.t-fiatlux22-board-wrap { display: grid; justify-items: center; gap: 0.6rem; }
+.t-fiatlux22-fig { position: relative; width: 100%; max-width: 30rem; aspect-ratio: 400 / 480; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.t-fiatlux22-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.t-fiatlux22-tools { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; justify-content: center; }
+.t-fiatlux22-status { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.t-fiatlux22-help {
+  appearance: none; font: inherit; font-size: 0.9rem; font-weight: 600; color: var(--accent); background: transparent;
+  border: 1.5px solid var(--accent); border-radius: 999px; padding: 0.35rem 0.9rem; cursor: pointer; min-height: 40px; touch-action: manipulation;
+}
+.t-fiatlux22-help[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.t-fiatlux22-help:disabled { opacity: 0.5; cursor: default; }
+.t-fiatlux22-help:focus-visible, .t-fiatlux22-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.t-fiatlux22-btn { position: absolute; appearance: none; padding: 0; margin: 0; border: 0; background: transparent; border-radius: 10px; cursor: pointer; touch-action: manipulation; }
+.t-fiatlux22-btn:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.t-fiatlux22-btn:disabled { cursor: default; }
+
+.t-fiatlux22-wire { fill: none; stroke: var(--muted); stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+.t-fiatlux22-wire.on { stroke: var(--c2); stroke-width: 4; }
+.t-fiatlux22-gate { stroke: var(--ink); stroke-width: 1.8; stroke-linejoin: round; }
+.t-fiatlux22-gate.and { fill: color-mix(in srgb, var(--c2) 70%, var(--surface)); }
+.t-fiatlux22-gate.xor { fill: color-mix(in srgb, var(--c3) 62%, var(--surface)); }
+.t-fiatlux22-xorline { fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; }
+.t-fiatlux22-gtext { font: 700 8.5px var(--font-body); fill: var(--ink); pointer-events: none; }
+
+.t-fiatlux22-letter { font: 700 15px var(--font-display); fill: var(--ink); }
+.t-fiatlux22-track { fill: var(--surface2); stroke: var(--muted); stroke-width: 2; }
+.t-fiatlux22-sw.on .t-fiatlux22-track { fill: var(--accent); stroke: var(--accent); }
+.t-fiatlux22-knob { fill: var(--surface); stroke: var(--ink); stroke-width: 1.8; }
+.t-fiatlux22-state { font: 700 9px var(--font-body); fill: var(--muted); letter-spacing: 0.04em; }
+.t-fiatlux22-sw.on .t-fiatlux22-state { fill: var(--accent-ink); }
+
+.t-fiatlux22-board { fill: var(--surface2); stroke: var(--ink); stroke-width: 2; }
+.t-fiatlux22-bulb { fill: var(--line); stroke: var(--muted); stroke-width: 1; }
+.t-fiatlux22-sign { fill: none; stroke: var(--muted); stroke-width: 2; }
+.t-fiatlux22-signtext { font: 700 17px var(--font-display); fill: var(--muted); }
+.t-fiatlux22-lamp.on .t-fiatlux22-board { fill: color-mix(in srgb, var(--c2) 25%, var(--surface2)); stroke: var(--c2); }
+.t-fiatlux22-lamp.on .t-fiatlux22-bulb { fill: var(--c2); stroke: var(--ink); }
+.t-fiatlux22-lamp.on .t-fiatlux22-sign { stroke: var(--c2); stroke-width: 3; }
+.t-fiatlux22-lamp.on .t-fiatlux22-signtext { fill: var(--ink); }
+
+.t-fiatlux22-legend { list-style: none; margin: 0.4rem 0; padding: 0; display: grid; gap: 0.4rem; }
+.t-fiatlux22-legend li { display: flex; gap: 0.7rem; align-items: center; }
+.t-fiatlux22-legend svg { flex: none; width: 4rem; height: 2.5rem; }
+.t-fiatlux22-legend .t-fiatlux22-gtext { font-size: 8.5px; }

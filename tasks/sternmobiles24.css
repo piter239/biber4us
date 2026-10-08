@@ -1,0 +1,42 @@
+/* Aufgabe Stern-Mobiles (Präfix t-sternmobiles24) */
+.t-sternmobiles24-ex { display: flex; flex-wrap: wrap; gap: 0.8rem 2rem; align-items: center; margin: 0.8rem 0; }
+.t-sternmobiles24-ex figure { margin: 0; display: grid; gap: 0.3rem; justify-items: start; }
+.t-sternmobiles24-ex figcaption { color: var(--muted); font-size: 0.95rem; }
+.t-sternmobiles24-ex > div { min-width: 0; }
+.t-sternmobiles24-code {
+  display: inline-block; max-width: 100%; font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 1rem; padding: 0.3rem 0.6rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 8px;
+  overflow-wrap: anywhere; white-space: normal; word-spacing: 0.1em;
+}
+.t-sternmobiles24-target { font-size: 1.05rem; font-weight: 600; }
+.t-sternmobiles24-fig { display: block; width: 100%; height: auto; }
+.t-sternmobiles24-solfig { margin: 0.6rem 0; }
+.t-sternmobiles24-solfig .t-sternmobiles24-fig { max-width: 16rem; }
+.t-sternmobiles24-thr line { stroke: var(--ink); stroke-width: 1.1; }
+.t-sternmobiles24-rod rect { fill: var(--c2); }
+.t-sternmobiles24-dots circle { fill: var(--ink); }
+.t-sternmobiles24-dots .t-sternmobiles24-hang { fill: var(--c3); stroke: var(--ink); stroke-width: 0.8; }
+.t-sternmobiles24-stars polygon { fill: var(--c3); stroke: var(--ink); stroke-width: 0.6; stroke-linejoin: round; }
+
+.t-sternmobiles24-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 0.75rem; max-width: 52rem; }
+.t-sternmobiles24-opt {
+  appearance: none; position: relative; display: grid; gap: 0.3rem; align-content: start; justify-items: center; min-width: 0;
+  padding: 0.5rem 0.4rem 0.7rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font-weight: 700;
+}
+.t-sternmobiles24-opt:hover { border-color: var(--accent); }
+.t-sternmobiles24-opt[aria-disabled="true"] { cursor: default; }
+.t-sternmobiles24-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-sternmobiles24-pic { display: block; width: 100%; height: auto; }
+.t-sternmobiles24-key { font-family: var(--font-display); font-size: 1.15rem; justify-self: start; }
+.t-sternmobiles24-opt.selected, .t-sternmobiles24-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-sternmobiles24-opt.right, .t-sternmobiles24-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-sternmobiles24-opt.wrong, .t-sternmobiles24-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-sternmobiles24-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-sternmobiles24-opt.wrong .t-sternmobiles24-mark { background: var(--bad); }
+@media (max-width: 40rem) {
+  .t-sternmobiles24-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

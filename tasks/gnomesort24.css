@@ -1,0 +1,50 @@
+/* Aufgabe Baustein-Maschine 1 */
+.t-gnomesort24 { display: grid; gap: 1.2rem; min-width: 0; }
+.t-gnomesort24 > section { min-width: 0; }
+.t-gnomesort24 h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+
+.t-gnomesort24-box { --u: 1.55rem; max-width: 26rem; background: var(--surface2); border-radius: 12px; padding: 0.8rem 1rem 0.4rem; }
+.t-gnomesort24-stones { position: relative; height: calc(6 * var(--u) + 2.2rem); }
+.t-gnomesort24-base { position: absolute; left: 0; right: 0; bottom: 1.5rem; height: 3px; background: var(--ink); border-radius: 2px; }
+.t-gnomesort24-marker {
+  position: absolute; bottom: 0.1rem; width: 1.5rem; height: 1.3rem; background: var(--ink);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%); left: calc(var(--m, 1) * 100% / 6); transform: translateX(-50%);
+  transition: left 0.3s ease;
+}
+.t-gnomesort24-stone {
+  display: block; position: absolute; bottom: 1.5rem; width: calc(100% / 6); box-sizing: border-box; padding: 0 0.2rem;
+  left: calc(var(--i, 0) * 100% / 6); height: calc(var(--h) * var(--u));
+  transition: left 0.3s ease;
+}
+.t-gnomesort24-stone::before {
+  content: ''; position: absolute; inset: 0 0.2rem; background: var(--col); border-radius: 4px 4px 0 0;
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.18);
+}
+.t-gnomesort24-num { position: absolute; left: 0; right: 0; bottom: 0.15rem; text-align: center; color: var(--accent-ink); font-weight: 800; font-size: 0.95rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.t-gnomesort24-cap { margin: 0.5rem 0 0; min-height: 2.8em; font-size: 0.95rem; }
+.t-gnomesort24-ctl { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
+
+.t-gnomesort24-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+.t-gnomesort24-opt { display: block; position: relative; min-width: 0; cursor: pointer; }
+.t-gnomesort24-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-gnomesort24-card { display: grid; gap: 0.3rem; padding: 0.45rem 0.4rem 0.4rem; border: 3px solid var(--line); border-radius: 10px; background: var(--surface); height: 100%; box-sizing: border-box; }
+.t-gnomesort24-opt input:checked + .t-gnomesort24-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-gnomesort24-opt input:focus-visible + .t-gnomesort24-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-gnomesort24-opt input:disabled { cursor: default; }
+.t-gnomesort24-opt.right .t-gnomesort24-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-gnomesort24-opt.wrong .t-gnomesort24-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-gnomesort24-opthead { font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
+.t-gnomesort24-opt.right .t-gnomesort24-mark { color: var(--ok); }
+.t-gnomesort24-opt.wrong .t-gnomesort24-mark { color: var(--bad); }
+.t-gnomesort24-mini {
+  --u: 0.62rem; position: relative; display: flex; align-items: flex-end; gap: 0; padding-bottom: 0.1rem;
+  border-bottom: 2px solid var(--ink); margin-bottom: 0.7rem;
+}
+.t-gnomesort24-mini .t-gnomesort24-stone { position: relative; flex: 1 1 0; left: auto; bottom: auto; width: auto; min-width: 0; padding: 0; transition: none; }
+.t-gnomesort24-mini .t-gnomesort24-stone::before { inset: 0 1px; border-radius: 2px 2px 0 0; }
+.t-gnomesort24-mini .t-gnomesort24-num { font-size: 0.6rem; bottom: 0.05rem; }
+.t-gnomesort24-minimark { position: absolute; right: -0.35rem; bottom: -0.65rem; width: 0.7rem; height: 0.6rem; background: var(--ink); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+@media (max-width: 34rem) {
+  .t-gnomesort24-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-gnomesort24-box { --u: 1.35rem; }
+}

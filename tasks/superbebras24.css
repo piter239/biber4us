@@ -1,0 +1,33 @@
+/* Aufgabe Superbebras (Präfix t-superbebras24) */
+.t-superbebras24-intro { display: block; width: 100%; max-width: 24rem; height: auto; margin: 0.8rem 0; }
+.t-superbebras24-diawrap { display: flex; justify-content: center; margin: 0.8rem 0; }
+.t-superbebras24-diagram { display: block; width: 100%; max-width: 21rem; height: auto; }
+.t-superbebras24-arrow { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
+.t-superbebras24-head { fill: var(--ink); }
+.t-superbebras24-inl { display: inline-block; height: 2.7rem; width: auto; aspect-ratio: 40 / 100; vertical-align: middle; margin: 0 0.15rem; }
+.t-superbebras24-proof { display: block; width: 100%; max-width: 22rem; height: auto; margin: 0.6rem 0; }
+.t-superbebras24-hl { fill: none; stroke: var(--bad); stroke-width: 3; }
+.t-superbebras24-x { fill: none; stroke: var(--bad); stroke-width: 5; stroke-linecap: round; }
+
+.t-superbebras24-board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; max-width: 44rem; }
+.t-superbebras24-opt {
+  appearance: none; position: relative; display: grid; gap: 0.4rem; justify-items: start; min-width: 0;
+  padding: 0.5rem 0.6rem 0.7rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font-weight: 700; text-align: left;
+}
+.t-superbebras24-opt:hover { border-color: var(--accent); }
+.t-superbebras24-opt[aria-disabled="true"] { cursor: default; }
+.t-superbebras24-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-superbebras24-strip { display: block; width: 100%; height: auto; }
+.t-superbebras24-key { font-family: var(--font-display); font-size: 1.15rem; }
+.t-superbebras24-opt.selected, .t-superbebras24-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-superbebras24-opt.right, .t-superbebras24-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-superbebras24-opt.wrong, .t-superbebras24-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-superbebras24-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-superbebras24-opt.wrong .t-superbebras24-mark { background: var(--bad); }
+@media (max-width: 40rem) {
+  .t-superbebras24-board { grid-template-columns: minmax(0, 1fr); max-width: 24rem; }
+}

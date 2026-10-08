@@ -1,0 +1,40 @@
+/* Aufgabe Ogham (ogham23) */
+.t-ogham23-board { display: grid; gap: 1.25rem; min-width: 0; max-width: 42rem; margin: 0 auto; }
+.t-ogham23-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-ogham23-codes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
+.t-ogham23-col { display: grid; gap: 0.4rem; min-width: 0; justify-items: stretch; }
+.t-ogham23-num { text-align: center; font-weight: 700; font-size: 0.9rem; color: var(--muted); }
+.t-ogham23-fig { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.4rem 0.2rem; display: grid; place-items: center; }
+.t-ogham23-code { display: block; width: 100%; max-width: 6.2rem; height: auto; }
+.t-ogham23-stem, .t-ogham23-stroke { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+.t-ogham23-stem { stroke-width: 3.4; }
+.t-ogham23-slot {
+  appearance: none; width: 100%; min-height: 3rem; padding: 0.2rem; border: 3px dashed var(--slot-line); background: var(--slot);
+  border-radius: 9px; display: grid; place-items: center; cursor: pointer; position: relative; touch-action: manipulation; color: var(--ink); font: inherit;
+}
+.t-ogham23-slot.filled { border-style: solid; }
+.t-ogham23-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.t-ogham23-slot.right { border-color: var(--ok); border-style: solid; }
+.t-ogham23-slot.wrong { border-color: var(--bad); border-style: solid; }
+.t-ogham23-slot:disabled { cursor: default; }
+.t-ogham23-slot:focus-visible, .t-ogham23-word:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-ogham23-ph { color: var(--muted); font-size: 0.8rem; text-align: center; }
+.t-ogham23-wtxt, .t-ogham23-word { font-weight: 700; letter-spacing: 0.02em; overflow-wrap: anywhere; }
+.t-ogham23-wtxt { font-size: 0.9rem; pointer-events: none; }
+.t-ogham23-mark { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: var(--surface); }
+.t-ogham23-slot.right .t-ogham23-mark { background: var(--ok); }
+.t-ogham23-slot.wrong .t-ogham23-mark { background: var(--bad); }
+.t-ogham23-pool { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
+.t-ogham23-cell { min-height: 2.8rem; border-radius: 9px; background: var(--surface2); }
+.t-ogham23-word {
+  appearance: none; min-height: 2.8rem; padding: 0.3rem 0.2rem; border: 3px solid transparent; border-radius: 9px;
+  background: var(--slot); color: var(--ink); font-size: 0.9rem; cursor: grab; touch-action: manipulation; font-family: inherit;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+}
+.t-ogham23-word.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-ogham23-word:disabled { cursor: default; }
+@media (max-width: 34rem) {
+  .t-ogham23-codes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 0.75rem; }
+  .t-ogham23-pool { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+  .t-ogham23-code { max-width: 7.5rem; }
+}

@@ -1,0 +1,49 @@
+/* Aufgabe Biber-Burger (Präfix t-burger22-) */
+.t-burger22-legend { list-style: none; margin: 0.6rem 0 1rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(5.6rem, 1fr)); gap: 0.5rem; }
+.t-burger22-legend li { display: grid; grid-template-rows: 3.6rem auto; justify-items: center; align-items: center; gap: 0.2rem; text-align: center; font-size: 0.9rem; padding: 0.35rem 0.25rem 0.4rem; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.t-burger22-ic { display: grid; place-items: center; width: 100%; height: 100%; background: var(--paper); border-radius: 6px; padding: 0.2rem; }
+.t-burger22-ic img { max-width: 100%; max-height: 3rem; width: auto; height: auto; display: block; }
+.t-burger22-conds { margin: 0.4rem 0 0.2rem; padding-left: 1.4rem; }
+.t-burger22-conds li { margin: 0.15rem 0; }
+
+.t-burger22-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.t-burger22-card { position: relative; display: grid; gap: 0.4rem; min-width: 0; }
+.t-burger22-pick {
+  appearance: none; position: relative; display: block; width: 100%; padding: 1.7rem 0.4rem 0.4rem; margin: 0;
+  border: 3px solid var(--line); border-radius: 12px; background: var(--paper); cursor: pointer; touch-action: manipulation;
+  font: inherit; color: var(--ink);
+}
+.t-burger22-pick img { display: block; width: 100%; height: auto; max-width: 11rem; margin: 0 auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-burger22-pick:not(:disabled):hover { border-color: var(--accent); }
+.t-burger22-pick:disabled { cursor: default; }
+.t-burger22-letter {
+  position: absolute; top: 0.4rem; left: 0.5rem; width: 1.7rem; height: 1.7rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--ink); font: 800 1rem var(--font-body);
+}
+.t-burger22-card.on .t-burger22-pick { border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-burger22-card.on .t-burger22-letter { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.t-burger22-card.right .t-burger22-pick { border-color: var(--ok); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 30%, transparent); }
+.t-burger22-card.wrong .t-burger22-pick { border-color: var(--bad); box-shadow: 0 0 0 4px color-mix(in srgb, var(--bad) 30%, transparent); }
+.t-burger22-card.right .t-burger22-letter { background: var(--ok); border-color: var(--ok); color: #fff; }
+.t-burger22-card.wrong .t-burger22-letter { background: var(--bad); border-color: var(--bad); color: #fff; }
+.t-burger22-badge {
+  position: absolute; top: -10px; right: -10px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 1rem; color: #fff;
+}
+.t-burger22-badge[hidden] { display: none; }
+.t-burger22-card.right .t-burger22-badge { background: var(--ok); }
+.t-burger22-card.wrong .t-burger22-badge { background: var(--bad); }
+.t-burger22-notes { display: flex; align-items: center; justify-content: center; gap: 0.3rem; flex-wrap: wrap; }
+.t-burger22-nl { color: var(--muted); font-size: 0.8rem; margin-right: 0.1rem; }
+.t-burger22-chip {
+  appearance: none; min-width: 2.4rem; min-height: 2.2rem; padding: 0 0.4rem; border-radius: 8px; border: 2px solid var(--line);
+  background: var(--surface); color: var(--ink); font: 700 0.9rem var(--font-body); cursor: pointer; touch-action: manipulation;
+}
+.t-burger22-chip.s1 { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); }
+.t-burger22-chip.s2 { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
+.t-burger22-chip:disabled { cursor: default; opacity: 0.85; }
+.t-burger22-hint { margin: 0.8rem 0 0; color: var(--muted); font-size: 0.9rem; }
+.t-burger22-why { margin: 0.4rem 0 0.8rem; padding-left: 1.2rem; display: grid; gap: 0.35rem; }
+@media (max-width: 40rem) {
+  .t-burger22-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 0.7rem; }
+}

@@ -1,0 +1,25 @@
+/* Aufgabe Im Park */
+.t-impark24-seen { list-style: none; margin: 0.5rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
+.t-impark24-seen li { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.8rem; align-items: center; }
+.t-impark24-seen img { height: 3.4rem; width: auto; max-width: 3.2rem; object-fit: contain; justify-self: center; background: var(--paper); border-radius: 6px; padding: 3px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.2); }
+
+.t-impark24 { display: grid; gap: 0.5rem; padding: 0 1.1rem; }
+.t-impark24-map { position: relative; background: var(--paper); border-radius: 12px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); }
+.t-impark24-map > img { display: block; width: 100%; height: auto; border-radius: 12px; user-select: none; -webkit-user-drag: none; }
+.t-impark24-routes { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.t-impark24-route { fill: none; stroke: transparent; stroke-width: 16; stroke-linecap: round; stroke-linejoin: round; }
+.t-impark24-route.sel { stroke: var(--accent); stroke-opacity: 0.9; stroke-dasharray: 2 26; stroke-width: 18; }
+.t-impark24-route.sel.right { stroke: var(--ok); }
+.t-impark24-route.sel.wrong { stroke: var(--bad); }
+.t-impark24-hit { fill: none; stroke: transparent; stroke-width: 70; stroke-linecap: round; stroke-linejoin: round; cursor: pointer; pointer-events: stroke; }
+.t-impark24-btn {
+  appearance: none; position: absolute; transform: translate(-50%, -50%); min-width: 2.6rem; height: 2.6rem; padding: 0 0.5rem;
+  border-radius: 999px; border: 3px solid var(--ink); background: var(--surface); color: var(--ink);
+  font: 700 1.15rem/1 var(--font-display); cursor: pointer; touch-action: manipulation; box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+}
+.t-impark24-btn:hover:not(:disabled) { border-color: var(--accent); }
+.t-impark24-btn.sel { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.t-impark24-btn.right { background: var(--ok); border-color: var(--ok); color: var(--surface); }
+.t-impark24-btn.wrong { background: var(--bad); border-color: var(--bad); color: var(--surface); }
+.t-impark24-btn:disabled { cursor: default; }
+.t-impark24-info { margin: 0; font-weight: 600; text-align: center; min-height: 1.5em; }

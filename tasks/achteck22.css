@@ -1,0 +1,48 @@
+/* Aufgabe Geheimes Achteck (Präfix t-achteck22-) */
+.t-achteck22-ex { font: 700 1.05rem ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.04em; background: var(--surface2); padding: 0.1rem 0.5rem; border-radius: 6px; white-space: nowrap; }
+.t-achteck22-tool { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0.8rem 1rem 1rem; }
+.t-achteck22-tool h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.4rem; }
+.t-achteck22-wheelrow { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: 0.5rem 1.5rem; align-items: center; }
+.t-achteck22-svg { display: block; width: 100%; height: auto; max-width: 20rem; margin-inline: auto; }
+.t-achteck22-oct { fill: var(--c4); fill-opacity: 0.55; stroke: var(--c4); stroke-width: 3; stroke-linejoin: round; }
+.t-achteck22-dash { stroke: var(--surface); stroke-width: 1.5; stroke-dasharray: 5 5; opacity: 0.85; }
+.t-achteck22-lab rect { fill: var(--surface2); stroke: var(--line); stroke-width: 1; }
+.t-achteck22-lab text { font: 800 15px var(--font-body); fill: var(--ink); letter-spacing: 0.04em; }
+.t-achteck22-lab.on rect { fill: var(--accent); stroke: var(--accent); }
+.t-achteck22-lab.on text { fill: var(--accent-ink); }
+.t-achteck22-ptr { transform-box: view-box; transform-origin: 50% 50%; transition: transform 0.45s ease; }
+.t-achteck22-arrow { stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
+.t-achteck22-head { fill: var(--ink); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.t-achteck22-hub { fill: var(--surface); stroke: var(--ink); stroke-width: 4; }
+.t-achteck22-info { margin: 0 0 0.3rem; font-weight: 700; }
+.t-achteck22-small { margin: 0 0 0.3rem; color: var(--muted); font-size: 0.9rem; }
+.t-achteck22-seq { display: flex; gap: 0.4rem; flex-wrap: wrap; min-height: 3.4rem; margin-bottom: 0.6rem; }
+.t-achteck22-let { display: grid; justify-items: center; min-width: 2.6rem; padding: 0.15rem 0.3rem; border: 2px solid var(--line); border-radius: 8px; background: var(--paper); color: #15303a; }
+.t-achteck22-let b { font: 800 1.35rem/1.2 var(--font-body); }
+.t-achteck22-let i { font: 700 0.8rem/1.1 var(--font-body); font-style: normal; color: #556d76; }
+.t-achteck22-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.t-achteck22-code { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0 0.6rem; }
+.t-achteck22-code span { font: 800 1.5rem ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.06em; padding: 0.2rem 0.7rem; border-radius: 8px; background: var(--slot); border: 2px solid var(--slot-line); color: var(--ink); }
+.t-achteck22-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: 0.6rem; }
+.t-achteck22-opt {
+  appearance: none; position: relative; display: flex; align-items: center; gap: 0.6rem; min-height: 3rem; padding: 0.4rem 0.8rem;
+  border: 3px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: 700 1.15rem var(--font-body);
+  cursor: pointer; touch-action: manipulation; text-align: left;
+}
+.t-achteck22-opt b { display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; border: 2px solid var(--ink); font-size: 0.95rem; flex: none; }
+.t-achteck22-opt:not(:disabled):hover { border-color: var(--accent); }
+.t-achteck22-opt.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.t-achteck22-opt.on b { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.t-achteck22-opt.right { border-color: var(--ok); background: var(--ok-bg); box-shadow: none; }
+.t-achteck22-opt.wrong { border-color: var(--bad); background: var(--bad-bg); box-shadow: none; }
+.t-achteck22-opt.right b { background: var(--ok); border-color: var(--ok); color: #fff; }
+.t-achteck22-opt.wrong b { background: var(--bad); border-color: var(--bad); color: #fff; }
+.t-achteck22-opt:disabled { cursor: default; }
+.t-achteck22-mk { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: #fff; font-size: 0.9rem; }
+.t-achteck22-mk:empty { display: none; }
+.t-achteck22-opt.right .t-achteck22-mk { background: var(--ok); }
+.t-achteck22-opt.wrong .t-achteck22-mk { background: var(--bad); }
+@media (max-width: 40rem) {
+  .t-achteck22-wheelrow { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .t-achteck22-ptr { transition: none; } }

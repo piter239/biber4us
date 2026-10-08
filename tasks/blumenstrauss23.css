@@ -1,0 +1,71 @@
+/* Aufgabe Blumenstrauß (2023) */
+.t-blumenstrauss23-inl { display: inline-block; vertical-align: -0.45em; margin: 0 0.1rem; line-height: 0; height: 1.25em; }
+.t-blumenstrauss23-inl svg { display: block; width: 1rem; height: auto; }
+.t-blumenstrauss23-steps { margin: 0.4rem 0 0; padding-left: 1.4rem; }
+.t-blumenstrauss23-steps li { margin: 0.25rem 0; }
+
+.t-blumenstrauss23 .t-blumenstrauss23-board { display: grid; gap: 1rem; min-width: 0; }
+.t-blumenstrauss23 .t-blumenstrauss23-buckets { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 0.75rem; }
+.t-blumenstrauss23 .t-blumenstrauss23-bucket { border-radius: 12px; padding: 0.6rem 0.6rem 0.7rem; min-width: 0; border: 2px solid var(--line); }
+.t-blumenstrauss23 .t-blumenstrauss23-bucket.a { background: color-mix(in srgb, var(--c1) 16%, var(--surface)); }
+.t-blumenstrauss23 .t-blumenstrauss23-bucket.b { background: color-mix(in srgb, var(--c3) 16%, var(--surface)); }
+.t-blumenstrauss23 h3 { display: flex; align-items: center; gap: 0.45rem; font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin: 0 0 0.45rem; }
+.t-blumenstrauss23 .t-blumenstrauss23-tag { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; color: #fff; font-size: 0.85rem; letter-spacing: 0; }
+.t-blumenstrauss23 .a .t-blumenstrauss23-tag { background: var(--c1); }
+.t-blumenstrauss23 .b .t-blumenstrauss23-tag { background: var(--c3); }
+.t-blumenstrauss23 .t-blumenstrauss23-items { display: flex; flex-wrap: wrap; gap: 0.3rem; min-height: 6.4rem; align-items: flex-end; }
+.t-blumenstrauss23 .t-blumenstrauss23-empty { color: var(--muted); font-size: 0.9rem; align-self: center; margin: 0 auto; }
+.t-blumenstrauss23 .t-blumenstrauss23-item {
+  appearance: none; border: 3px solid transparent; background: none; padding: 0.15rem; border-radius: 10px; cursor: pointer;
+  width: 3.4rem; touch-action: manipulation; flex: 0 1 auto;
+}
+.t-blumenstrauss23 .t-blumenstrauss23-item:hover:not(:disabled) { border-color: color-mix(in srgb, var(--accent) 55%, transparent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.t-blumenstrauss23 .t-blumenstrauss23-item:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+.t-blumenstrauss23 .t-blumenstrauss23-item:disabled { cursor: default; }
+.t-blumenstrauss23 .t-blumenstrauss23-iw { display: block; pointer-events: none; }
+.t-blumenstrauss23 .t-blumenstrauss23-iw svg { display: block; width: 100%; height: auto; aspect-ratio: 40 / 96; }
+
+.t-blumenstrauss23-stem { fill: none; stroke: var(--c6); stroke-width: 2.6; stroke-linecap: round; }
+.t-blumenstrauss23-petal { fill: color-mix(in srgb, var(--c2) 38%, var(--paper)); stroke: color-mix(in srgb, var(--c2) 70%, var(--ink)); stroke-width: 0.8; }
+.t-blumenstrauss23-core { fill: var(--c2); stroke: color-mix(in srgb, var(--c2) 60%, var(--ink)); stroke-width: 0.8; }
+.t-blumenstrauss23-tulip { fill: var(--c1); stroke: color-mix(in srgb, var(--c1) 60%, var(--ink)); stroke-width: 0.8; stroke-linejoin: round; }
+.t-blumenstrauss23-tulipshade { fill: color-mix(in srgb, var(--c1) 70%, var(--ink)); opacity: 0.35; }
+.t-blumenstrauss23-leaf { fill: var(--c6); stroke: color-mix(in srgb, var(--c6) 60%, var(--ink)); stroke-width: 0.6; stroke-linejoin: round; }
+
+.t-blumenstrauss23 .t-blumenstrauss23-wrap {
+  position: relative; border-radius: 16px; padding: 0.7rem 0.8rem 0.8rem;
+  background: color-mix(in srgb, var(--c6) 22%, var(--surface)); border: 3px solid color-mix(in srgb, var(--c6) 45%, var(--line));
+}
+.t-blumenstrauss23 .t-blumenstrauss23-wrap.ok { border-color: var(--ok); }
+.t-blumenstrauss23 .t-blumenstrauss23-wrap.bad { border-color: var(--bad); }
+.t-blumenstrauss23 .t-blumenstrauss23-slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; max-width: 19rem; margin-inline: auto; }
+.t-blumenstrauss23 .t-blumenstrauss23-slot {
+  display: grid; place-items: center; aspect-ratio: 40 / 100; border: 2px dashed var(--slot-line); border-radius: 10px; background: color-mix(in srgb, var(--slot) 55%, var(--surface)); min-width: 0;
+}
+.t-blumenstrauss23 .t-blumenstrauss23-slot.filled { border-style: solid; border-color: transparent; background: var(--paper); }
+.t-blumenstrauss23 .t-blumenstrauss23-slot .t-blumenstrauss23-item { width: 100%; padding: 0.1rem; }
+.t-blumenstrauss23 .t-blumenstrauss23-ph { color: var(--muted); font-weight: 700; font-size: 1.1rem; }
+.t-blumenstrauss23 .t-blumenstrauss23-brand { margin-top: 0.5rem; text-align: right; font-family: var(--font-display); font-style: italic; color: color-mix(in srgb, var(--c6) 70%, var(--ink)); font-size: 1.05rem; }
+.t-blumenstrauss23 .t-blumenstrauss23-mark {
+  position: absolute; top: -12px; right: -8px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  color: #fff; font-weight: 800;
+}
+.t-blumenstrauss23 .ok .t-blumenstrauss23-mark { background: var(--ok); }
+.t-blumenstrauss23 .bad .t-blumenstrauss23-mark { background: var(--bad); }
+.t-blumenstrauss23 .t-blumenstrauss23-status { color: var(--muted); font-size: 0.95rem; min-height: 1.5em; }
+
+.t-blumenstrauss23-expl .t-blumenstrauss23-fig { margin: 0.8rem auto; max-width: 22rem; }
+.t-blumenstrauss23-flow { display: block; width: 100%; height: auto; }
+.t-blumenstrauss23-flow text { fill: var(--ink); font: 600 12px var(--font-body); }
+.t-blumenstrauss23-flow .t-blumenstrauss23-fb { fill: var(--surface); stroke: var(--muted); stroke-width: 1.6; }
+.t-blumenstrauss23-flow .t-blumenstrauss23-fd { fill: color-mix(in srgb, var(--accent) 14%, var(--surface)); stroke: var(--accent); stroke-width: 1.6; }
+.t-blumenstrauss23-flow .t-blumenstrauss23-fp { fill: color-mix(in srgb, var(--c6) 28%, var(--surface)); stroke: var(--c6); stroke-width: 1.6; }
+.t-blumenstrauss23-flow .t-blumenstrauss23-lines path { fill: none; stroke: var(--muted); stroke-width: 1.6; }
+.t-blumenstrauss23-flow .t-blumenstrauss23-ah { fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.t-blumenstrauss23-flow .t-blumenstrauss23-fl { font-weight: 700; fill: var(--muted); }
+
+@media (max-width: 30rem) {
+  .t-blumenstrauss23 .t-blumenstrauss23-buckets { grid-template-columns: minmax(0, 1fr); }
+  .t-blumenstrauss23 .t-blumenstrauss23-item { width: 3.1rem; }
+  .t-blumenstrauss23 .t-blumenstrauss23-items { min-height: 5.8rem; }
+}

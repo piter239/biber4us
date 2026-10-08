@@ -1,0 +1,45 @@
+/* Stile für parcours20 (Präfix t-parcours20-). Tische behalten ihre Holzfarbe auf dem Plan (in Hell und Dunkel gleich lesbar). */
+.t-parcours20-board {
+  --pc-table: #b98a62; --pc-edge: #7a5232; --pc-leg: #7a5232; --pc-num: #ffffff; --pc-numline: #5a3a20; --pc-x: #1f4fd8;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; max-width: 34rem; margin-inline: auto;
+}
+.t-parcours20-board > section { min-width: 0; }
+.t-parcours20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-parcours20-plan { max-width: 30rem; margin-inline: auto; }
+.t-parcours20-svg { display: block; width: 100%; height: auto; user-select: none; -webkit-user-select: none; }
+.t-parcours20-floor { fill: color-mix(in srgb, var(--c1) 14%, var(--surface)); stroke: var(--line); stroke-width: 2; }
+.t-parcours20-lane { stroke: color-mix(in srgb, var(--c1) 38%, var(--surface)); stroke-width: 16; stroke-linecap: butt; }
+.t-parcours20-hit { stroke: transparent; stroke-width: 44; cursor: pointer; }
+.t-parcours20-way { stroke: var(--c4); stroke-width: 10; stroke-linecap: round; pointer-events: none; }
+.t-parcours20-table { cursor: pointer; outline: none; }
+.t-parcours20-top { fill: var(--pc-table); stroke: var(--pc-edge); stroke-width: 3; }
+.t-parcours20-leg { fill: var(--pc-leg); }
+.t-parcours20-num { fill: var(--pc-num); stroke: var(--pc-numline); stroke-width: 5; paint-order: stroke; stroke-linejoin: round; font: 800 34px var(--font-display); }
+.t-parcours20-xo { stroke: var(--pc-x); stroke-width: 14; stroke-linecap: round; }
+.t-parcours20-xi { stroke: #ffffff; stroke-width: 6; stroke-linecap: round; }
+.t-parcours20-ring { fill: none; stroke: transparent; stroke-width: 5; pointer-events: none; }
+.t-parcours20-got .t-parcours20-ring { stroke: var(--ok); }
+.t-parcours20-here .t-parcours20-ring { stroke: var(--accent); stroke-width: 6; }
+.t-parcours20-table:hover .t-parcours20-top { filter: brightness(1.12); }
+.t-parcours20-table:focus-visible .t-parcours20-ring { stroke: var(--focus); stroke-width: 6; stroke-dasharray: 9 5; }
+.t-parcours20-tbub { fill: var(--c4); stroke: var(--surface); stroke-width: 3; pointer-events: none; }
+.t-parcours20-ttxt { fill: #ffffff; font: 800 16px var(--font-body); pointer-events: none; }
+.t-parcours20-arrow { fill: var(--c4); stroke: var(--surface); stroke-width: 1.5; stroke-linejoin: round; pointer-events: none; }
+.t-parcours20-start circle { fill: var(--surface); stroke: var(--c4); stroke-width: 3; }
+.t-parcours20-start text { fill: var(--ink); font: 800 14px var(--font-body); }
+.t-parcours20-start { pointer-events: none; }
+
+.t-parcours20-status { margin: 0.6rem 0 0; font-weight: 600; min-height: 2.9em; }
+.t-parcours20-msg { margin: 0.2rem 0 0; font-size: 0.92rem; color: var(--bad); min-height: 1.4em; }
+.t-parcours20-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
+.t-parcours20-btn { min-height: 2.4rem; padding-block: 0.3rem; }
+
+.t-parcours20-ans label { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; font-weight: 700; font-size: 1.05rem; }
+.t-parcours20-input {
+  width: 4.2rem; min-height: 2.9rem; text-align: center; font: inherit; font-family: var(--font-display); font-size: 1.4rem; font-weight: 700;
+  background: var(--surface); color: var(--ink); border: 3px solid var(--line); border-radius: 10px;
+}
+.t-parcours20-input:focus-visible { border-color: var(--accent); outline: 3px solid color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-parcours20-input.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-parcours20-input.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-parcours20-input:disabled { opacity: 1; }

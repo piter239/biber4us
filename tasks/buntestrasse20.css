@@ -1,0 +1,30 @@
+/* Aufgabe Bunte Straße */
+.t-buntestrasse20-wrap { display: grid; gap: 1rem; max-width: 34rem; margin: 0 auto; }
+.t-buntestrasse20-palette { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+.t-buntestrasse20-brush {
+  appearance: none; display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0.3rem 0.9rem 0.3rem 0.5rem;
+  border: 2px solid var(--line); border-radius: 999px; background: var(--surface); cursor: pointer; font-weight: 600; touch-action: manipulation;
+}
+.t-buntestrasse20-brush[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-buntestrasse20-brush:disabled { cursor: default; opacity: 0.6; }
+.t-buntestrasse20-sw { width: 1.5rem; height: 1.5rem; border-radius: 50%; border: 2px solid var(--ink); }
+.t-buntestrasse20-street { display: grid; gap: 0; background: var(--surface2); border-radius: 12px; padding: 0.6rem 0.4rem; }
+.t-buntestrasse20-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.35rem; align-items: end; }
+.t-buntestrasse20-road { height: 1.1rem; margin: 0.35rem -0.4rem; background: repeating-linear-gradient(90deg, var(--slot-line) 0 14px, transparent 14px 28px) center / 100% 3px no-repeat, var(--line); }
+.t-buntestrasse20-house {
+  appearance: none; display: block; width: 100%; padding: 2px; margin: 0; border: 3px solid transparent; border-radius: 10px;
+  background: none; cursor: pointer; touch-action: manipulation;
+}
+.t-buntestrasse20-house svg { display: block; width: 100%; height: auto; }
+.t-buntestrasse20-house.fixed { cursor: default; }
+button.t-buntestrasse20-house:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+button.t-buntestrasse20-house:disabled { cursor: default; }
+.t-buntestrasse20-house.bad { border-color: var(--bad); background: var(--bad-bg); }
+.t-buntestrasse20-p { stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.t-buntestrasse20-door { fill: var(--muted); stroke: var(--ink); stroke-width: 1.5; }
+.t-buntestrasse20-win { fill: var(--accent); stroke: var(--ink); stroke-width: 1.5; }
+.t-buntestrasse20-ladder { stroke: var(--muted); stroke-width: 2; fill: none; }
+.t-buntestrasse20-ch { font: 700 15px var(--font-body); fill: var(--accent-ink); }
+.t-buntestrasse20-graph { display: block; width: 100%; max-width: 22rem; height: auto; margin: 0.5rem 0; }
+.t-buntestrasse20-graph line { stroke: var(--muted); stroke-width: 2; }
+.t-buntestrasse20-graph circle { stroke: var(--ink); stroke-width: 2; }

@@ -1,0 +1,35 @@
+/* Aufgabe Brücken bauen! (bruecken23) */
+.t-bruecken23-wrap { display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; max-width: 52rem; margin: 0 auto; }
+.t-bruecken23-wrap > .t-bruecken23-map { order: 0; }
+.t-bruecken23-status { order: 1; margin: 0; min-height: 1.5em; color: var(--muted); font-weight: 600; }
+.t-bruecken23-map { display: block; width: 100%; height: auto; max-height: none; }
+.t-bruecken23-portrait { max-width: 26rem; margin: 0 auto; }
+.t-bruecken23-sea { fill: color-mix(in srgb, var(--accent) 30%, var(--surface2)); }
+.t-bruecken23-sand { fill: color-mix(in srgb, var(--c2) 40%, var(--surface)); }
+.t-bruecken23-grass { fill: color-mix(in srgb, var(--c6) 75%, var(--surface)); }
+.t-bruecken23-log { fill: color-mix(in srgb, var(--c2) 70%, var(--ink)); stroke: var(--ink); stroke-width: 2; }
+.t-bruecken23-logtop { fill: color-mix(in srgb, var(--c2) 60%, var(--surface)); stroke: var(--ink); stroke-width: 1.5; }
+.t-bruecken23-wall { fill: color-mix(in srgb, var(--c2) 25%, var(--surface)); stroke: var(--ink); stroke-width: 2; }
+.t-bruecken23-roof { fill: var(--c1); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.t-bruecken23-win { fill: color-mix(in srgb, var(--c4) 40%, var(--surface)); stroke: var(--ink); stroke-width: 1.5; }
+.t-bruecken23-door { fill: color-mix(in srgb, var(--c2) 60%, var(--ink)); stroke: var(--ink); stroke-width: 2; }
+.t-bruecken23-clock { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+.t-bruecken23-body { fill: var(--c4); stroke: var(--ink); stroke-width: 2; }
+.t-bruecken23-head { fill: color-mix(in srgb, var(--c2) 45%, var(--surface)); stroke: var(--ink); stroke-width: 2; }
+.t-bruecken23-hat { fill: var(--c1); stroke: var(--ink); stroke-width: 2; }
+.t-bruecken23-legs { stroke: var(--ink); stroke-width: 6; stroke-linecap: round; }
+.t-bruecken23-tag { fill: var(--ink); font: 700 40px var(--font-body); paint-order: stroke; stroke: var(--surface); stroke-width: 8px; stroke-linejoin: round; }
+.t-bruecken23-edge { cursor: pointer; outline: none; }
+.t-bruecken23-hit { stroke: transparent; stroke-width: 56; stroke-linecap: round; fill: none; }
+.t-bruecken23-hit2 { fill: transparent; }
+.t-bruecken23-portrait .t-bruecken23-hit { stroke-width: 50; }
+.t-bruecken23-line { stroke: var(--ink); stroke-width: 4.5; stroke-linecap: round; fill: none; }
+.t-bruecken23-num { fill: var(--ink); font: 700 56px var(--font-body); paint-order: stroke; stroke: var(--surface); stroke-width: 9px; stroke-linejoin: round; pointer-events: none; }
+.t-bruecken23-portrait .t-bruecken23-num { font-size: 46px; }
+.t-bruecken23-edge:hover .t-bruecken23-line { stroke: var(--accent); stroke-width: 7; }
+.t-bruecken23-edge:focus-visible .t-bruecken23-line { stroke: var(--focus); stroke-width: 9; }
+.t-bruecken23-edge.on .t-bruecken23-line { stroke: var(--ok); stroke-width: 14; }
+.t-bruecken23-edge.on .t-bruecken23-num { fill: var(--ok); }
+.t-bruecken23-locked .t-bruecken23-edge { cursor: default; }
+.t-bruecken23-locked .t-bruecken23-edge:not(.on):hover .t-bruecken23-line { stroke: var(--ink); stroke-width: 4.5; }
+.t-bruecken23-locked .t-bruecken23-edge.on:hover .t-bruecken23-line { stroke: var(--ok); stroke-width: 14; }

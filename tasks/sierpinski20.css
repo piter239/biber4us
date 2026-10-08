@@ -1,0 +1,25 @@
+/* Stile für sierpinski20 (Präfix t-sierpinski20-). Schwarz und Weiß sind Teil der Aufgabe und bleiben in Hell und Dunkel gleich. */
+.t-sierpinski20-board {
+  --sp-black: #14161b; --sp-white: #fdf9f1; --sp-line: #3a3d46;
+  max-width: 34rem; margin-inline: auto;
+}
+.t-sierpinski20-svg { display: block; width: 100%; height: auto; overflow: visible; user-select: none; -webkit-user-select: none; }
+.t-sierpinski20-cell { stroke-width: 1.4; stroke-linejoin: round; cursor: default; }
+.t-sierpinski20-edit { cursor: pointer; touch-action: manipulation; }
+.t-sierpinski20-pre, .t-sierpinski20-on { fill: var(--sp-black); stroke: var(--sp-black); }
+.t-sierpinski20-off { fill: var(--sp-white); stroke: var(--sp-line); }
+.t-sierpinski20-edit.t-sierpinski20-off:hover { fill: color-mix(in srgb, var(--accent) 22%, var(--sp-white)); }
+.t-sierpinski20-bad { fill: var(--bad); stroke: var(--bad); }
+.t-sierpinski20-miss { fill: color-mix(in srgb, var(--ok) 38%, var(--sp-white)); stroke: var(--ok); stroke-width: 2.4; }
+.t-sierpinski20-edit[aria-disabled="true"] { cursor: default; }
+.t-sierpinski20-cell:focus { outline: none; }
+.t-sierpinski20-cell:focus-visible { stroke: var(--focus); stroke-width: 4; paint-order: stroke; }
+.t-sierpinski20-edit:focus-visible { filter: drop-shadow(0 0 3px var(--focus)); }
+.t-sierpinski20-outline { fill: none; stroke: var(--sp-line); stroke-width: 2.4; stroke-linejoin: round; pointer-events: none; }
+
+.t-sierpinski20-steps { display: flex; flex-wrap: wrap; gap: 0.8rem 1.2rem; margin: 0.6rem 0 0.9rem; --sp-black: #14161b; --sp-white: #fdf9f1; --sp-line: #3a3d46; }
+.t-sierpinski20-steps figure { margin: 0; flex: 1 1 7rem; max-width: 11rem; text-align: center; }
+.t-sierpinski20-steps figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+.t-sierpinski20-mini { display: block; width: 100%; height: auto; }
+.t-sierpinski20-x-b { fill: var(--sp-black); stroke: var(--sp-black); stroke-width: 1; }
+.t-sierpinski20-x-w { fill: var(--sp-white); stroke: var(--sp-line); stroke-width: 1; }

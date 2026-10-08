@@ -1,0 +1,47 @@
+/* Aufgabe Muttern und Schrauben */
+.t-muttern22-board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.t-muttern22-card {
+  position: relative; display: grid; gap: 0.3rem; padding: 0.6rem 0.7rem 0.5rem; min-width: 0;
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius); cursor: pointer;
+  touch-action: manipulation;
+}
+.t-muttern22-card:hover { border-color: var(--accent); }
+.t-muttern22-card:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.t-muttern22-card:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-muttern22-card.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-muttern22-card.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-muttern22-card:has(input:disabled) { cursor: default; }
+.t-muttern22-radio { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-muttern22-radio:disabled { cursor: default; }
+.t-muttern22-letter { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; text-align: center; }
+.t-muttern22-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-muttern22-card.wrong .t-muttern22-mark { background: var(--bad); }
+.t-muttern22-figure { display: block; min-width: 0; }
+.t-muttern22-strip { display: block; width: 100%; height: auto; }
+
+.t-muttern22-nut .t-muttern22-top, .t-muttern22-screw .t-muttern22-top { fill: color-mix(in srgb, var(--muted) 30%, var(--surface)); stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+.t-muttern22-side { fill: color-mix(in srgb, var(--muted) 62%, var(--surface)); stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+.t-muttern22-hole { fill: var(--surface2); stroke: var(--ink); stroke-width: 1.2; }
+.t-muttern22-shaft { fill: color-mix(in srgb, var(--muted) 38%, var(--surface)); stroke: var(--ink); stroke-width: 1.4; }
+.t-muttern22-thread { stroke: var(--ink); stroke-width: 1.1; opacity: 0.7; fill: none; }
+.t-muttern22-arrow { fill: var(--bad); }
+
+.t-muttern22-why { list-style: none; margin: 0.5rem 0 0.9rem; padding: 0; display: grid; gap: 0.7rem; }
+.t-muttern22-why li { display: grid; grid-template-columns: 2.2rem minmax(0, 15rem) minmax(0, 1fr); gap: 0.2rem 0.8rem; align-items: center; }
+.t-muttern22-why .t-muttern22-figure { max-width: 15rem; }
+.t-muttern22-why li.ok strong { color: var(--ok); }
+.t-muttern22-why li.bad strong { color: var(--bad); }
+.t-muttern22-tablewrap { overflow-x: auto; }
+.t-muttern22-table { border-collapse: collapse; margin: 0.3rem 0 0.9rem; font-variant-numeric: tabular-nums; }
+.t-muttern22-table th, .t-muttern22-table td { border: 1px solid var(--line); padding: 0.2rem 0.7rem; text-align: left; }
+.t-muttern22-table td:not(:first-child), .t-muttern22-table th:not(:first-child) { text-align: center; }
+.t-muttern22-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+@media (max-width: 40rem) {
+  .t-muttern22-board { grid-template-columns: minmax(0, 1fr); }
+  .t-muttern22-why li { grid-template-columns: 2.2rem minmax(0, 1fr); }
+  .t-muttern22-why li > span:last-child { grid-column: 1 / -1; }
+}
