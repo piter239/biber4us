@@ -135,5 +135,4 @@
     reset: function () { reset(); refresh(); },
     showSolution: function () { selected = RIGHT; mark = 'solution'; locked = true; refresh(); }
   });
-  Biber.modules.nachbarn22._solutions = solutions;   /* nur für den Skripttest */
 })();

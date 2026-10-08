@@ -24,8 +24,7 @@
   }
   /* kleinstes k mit Entscheidung Rot (Heft: 4) */
   var ANSWER = (function () { for (var k = 1; k <= HOUSES.length; k++) if (decide(k) === 'r') return k; return null; })();
-  var MAXK = HOUSES.length;
-
+  
   var NAME = { b: 'Blaues Haus', r: 'Rotes Haus' };
 
   function houseShape(cls) {
@@ -48,10 +47,10 @@
       var cls = P + 'house ' + P + (o.c === 'b' ? 'blue' : 'red') + (n ? ' ' + P + 'marked' : '');
       out += '<g class="' + cls + '" data-id="' + o.id + '" transform="translate(' + o.x + ' ' + o.y + ')" role="button" tabindex="' + (o.id === focusId ? 0 : -1) +
         '" aria-label="' + NAME[o.c] + (n ? ', Nummer ' + n : '') + (locked ? '' : ', antippen zum Nummerieren') + '" aria-disabled="' + locked + '">' +
-        '<rect x="-24" y="-26" width="48" height="50" class="' + P + 'hit"/>' + houseShape(P + 'body') +
-        (n ? '<g class="' + P + 'badge" transform="translate(16 -22)"><circle r="12"/><text y="5" text-anchor="middle">' + n + '</text></g>' : '') + '</g>';
+        '<rect x="-30" y="-32" width="60" height="62" class="' + P + 'hit"/><g transform="scale(1.25)">' + houseShape(P + 'body') + '</g>' +
+        (n ? '<g class="' + P + 'badge" transform="translate(22 -30)"><circle r="17"/><text y="7" text-anchor="middle">' + n + '</text></g>' : '') + '</g>';
     });
-    out += '<g class="' + P + 'newhouse" transform="translate(' + NEW.x + ' ' + NEW.y + ')" role="img" aria-label="Neues Haus">' + houseShape(P + 'newbody') + '</g>';
+    out += '<g class="' + P + 'newhouse" transform="translate(' + NEW.x + ' ' + NEW.y + ')" role="img" aria-label="Neues Haus"><g transform="scale(1.25)">' + houseShape(P + 'newbody') + '</g></g>';
     svgHost.innerHTML = '<svg class="' + P + 'svg" viewBox="0 0 668 450" role="group" aria-label="Karte des Dorfes mit 8 blauen, 7 roten und dem neuen Haus">' + out + '</svg>';
     kInput.value = k === null ? '' : String(k);
     kInput.disabled = locked;
@@ -93,9 +92,9 @@
 
   function setK(v) {
     if (locked) return;
-    var n = parseInt(v, 10);
-    k = isFinite(n) && n >= 1 ? Math.min(n, 99) : null;
-    kInput.value = k === null ? '' : String(k);
+    var n = parseInt(v, 10), nk = isFinite(n) && n >= 1 ? Math.min(n, 99) : null;
+    if (nk === k) return;   /* unverändert: Leiste nicht neu zeichnen (sonst geht ein Klick auf Prüfen verloren) */
+    k = nk;
     api.changed(k === null ? '' : 'k = ' + k);
   }
 
@@ -120,10 +119,10 @@
       svgHost = h('div', { class: P + 'maphost' });
       kInput = h('input', {
         type: 'number', class: P + 'k', min: '1', max: '99', step: '1', inputmode: 'numeric', 'aria-label': 'Zahl k',
-        oninput: function () { setK(kInput.value); }, onchange: function () { setK(kInput.value); draw(); }
+        oninput: function () { setK(kInput.value); }, onchange: function () { setK(kInput.value); }
       });
-      var minus = h('button', { type: 'button', class: P + 'step', 'aria-label': 'k um 1 verkleinern', onclick: function () { if (!locked) { setK(String(Math.max(1, (k || 1) - 1))); } } }, '−');
-      var plus = h('button', { type: 'button', class: P + 'step', 'aria-label': 'k um 1 vergrößern', onclick: function () { if (!locked) { setK(String(Math.min(99, (k || 0) + 1))); } } }, '+');
+      var minus = h('button', { type: 'button', class: P + 'step', 'aria-label': 'k um 1 verkleinern', onclick: function () { if (!locked) { setK(String(Math.max(1, (k || 1) - 1))); kInput.value = String(k); } } }, '−');
+      var plus = h('button', { type: 'button', class: P + 'step', 'aria-label': 'k um 1 vergrößern', onclick: function () { if (!locked) { setK(String(Math.min(99, (k || 0) + 1))); kInput.value = String(k); } } }, '+');
       noteEl = h('p', { class: P + 'note', role: 'status', 'aria-live': 'polite' });
       var legend = h('p', { class: P + 'legend' });
       legend.innerHTML = legendIcon(P + 'body ' + P + 'blue-i') + ' Blaues Haus &nbsp; ' + legendIcon(P + 'body ' + P + 'red-i') + ' Rotes Haus &nbsp; ' + legendIcon(P + 'newbody') + ' Neues Haus';

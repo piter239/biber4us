@@ -55,6 +55,7 @@
 .t-erkundung24-ctl { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 @media (max-width: 40rem) {
   .t-erkundung24-work { grid-template-columns: minmax(0, 1fr); }
+  .t-erkundung24-bank { order: -1; }
   .t-erkundung24-bgroup { grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
   .t-erkundung24-gap { min-width: 6rem; }
 }

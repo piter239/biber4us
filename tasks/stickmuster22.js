@@ -177,5 +177,4 @@
     reset: function () { reset(); drawExample(); refresh(); },
     showSolution: function () { selected = RIGHT; mark = 'solution'; locked = true; refresh(); }
   });
-  Biber.modules.stickmuster22._check = function () { return OPTIONS.map(function (o) { return [o.key, run(o.prog, 1), makesTarget(o.prog)]; }); };   /* nur für den Skripttest */
 })();

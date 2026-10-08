@@ -73,7 +73,7 @@
   Biber.register({
     id: 'domino23',
     story: '<p>Jeder Dominostein hat zwei Felder. Auf jedem Feld sind 1 bis 6 Punkte. Du hast diese acht Steine:</p>' +
-      '<p class="' + P + 'steine">' + STONES.map(function (s) { return '<b>' + s[0] + '|' + s[1] + '</b>'; }).join(', ') + ' (oben|unten, wie im Bild unten)</p>' +
+      '<p class="' + P + 'steine">' + STONES.map(function (s) { return '<b>' + s[0] + '|' + s[1] + '</b>'; }).join(', ') + ' (oben|unten)</p>' +
       '<p>Alle acht Steine sollst du so in eine Reihe legen, dass auf den angrenzenden Feldern zweier benachbarter Steine immer gleich viele Punkte sind. Du kannst mehrere solcher Reihen legen. Es gibt aber Steine, die du auf keinen Fall an den Anfang oder das Ende deiner Reihe legen kannst.</p>',
     question: 'Welche Steine sind das?',
     howto: 'Tippe die Steine an, die nie am Anfang oder Ende der Reihe liegen können. Noch einmal tippen nimmt die Markierung weg.',

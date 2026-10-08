@@ -24,7 +24,7 @@
     { key: 'D', img: 'bodend', answer: 't2', w: 600, h: 594, alt: 'Boden D: Muster aus wellenartigen Linien mit kleinen Knubbeln und Kreisen',
       why: 'Nur dieses Muster ist nicht symmetrisch. Seine Linien treffen an den Kanten nicht genau aufeinander, das gibt die Knubbel im Boden.' }
   ];
-  var SLOT = { x: 0.382, y: 0.770, w: 0.232, h: 0.229 };
+  var SLOT = { x: 0.379, y: 0.767, w: 0.238, h: 0.237 };
 
   function tileImg(id, cls) {
     return h('img', { class: cls || P + 'tile', src: DIR + id + '.png', alt: TILES[id].alt, width: 120, height: 120, draggable: 'false' });

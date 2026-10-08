@@ -1,0 +1,51 @@
+/* Stile für meisterschaft22 (Präfix t-meisterschaft22-). Biber stehen auf hellen Kacheln, damit die schwarzen Umrisse in Hell und Dunkel lesbar bleiben. */
+.t-meisterschaft22-board { display: grid; gap: 1.1rem; }
+.t-meisterschaft22-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-meisterschaft22-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.t-meisterschaft22-tablewrap { overflow-x: auto; }
+.t-meisterschaft22-tab { border-collapse: collapse; width: 100%; max-width: 44rem; text-align: center; font-variant-numeric: tabular-nums; }
+.t-meisterschaft22-tab th, .t-meisterschaft22-tab td { border: 1px solid var(--line); padding: 0.25rem 0.1rem; background: var(--surface); }
+.t-meisterschaft22-tab thead th { background: var(--paper); padding: 0.2rem 0.1rem; }
+.t-meisterschaft22-tab th[scope="row"], .t-meisterschaft22-tab thead th:first-child { background: var(--surface2); text-align: left; padding-inline: 0.5rem; font-weight: 700; }
+.t-meisterschaft22-tab thead th:first-child { color: var(--ink); }
+.t-meisterschaft22-tab .t-meisterschaft22-sel { background: color-mix(in srgb, var(--accent) 22%, var(--surface)); }
+.t-meisterschaft22-tab thead .t-meisterschaft22-sel { background: color-mix(in srgb, var(--accent) 28%, var(--paper)); }
+.t-meisterschaft22-th { display: block; height: 2.7rem; width: auto; margin-inline: auto; }
+.t-meisterschaft22-rnd { display: none; }
+
+.t-meisterschaft22-team { display: inline-block; max-width: 100%; padding: 0.6rem; background: var(--surface2); border: 3px solid var(--line); border-radius: 14px; }
+.t-meisterschaft22-team.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-meisterschaft22-team.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-meisterschaft22-slots { display: flex; gap: 0.5rem; }
+.t-meisterschaft22-slot {
+  appearance: none; width: 4.4rem; height: 5.3rem; padding: 0.2rem; display: grid; place-items: center; border-radius: 10px; font: inherit; color: var(--muted);
+  background: var(--paper); border: 2px solid var(--line);
+}
+.t-meisterschaft22-slot img { display: block; max-width: 100%; max-height: 100%; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.t-meisterschaft22-empty { background: var(--slot); border: 3px dashed var(--slot-line); font-size: 1.6rem; font-weight: 700; color: var(--muted); }
+.t-meisterschaft22-fixed { border-color: var(--accent); }
+.t-meisterschaft22-filled { cursor: pointer; touch-action: manipulation; }
+.t-meisterschaft22-filled:not(:disabled):hover { border-color: var(--accent); }
+.t-meisterschaft22-filled:disabled { cursor: default; opacity: 1; }
+
+.t-meisterschaft22-pool { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-meisterschaft22-bv {
+  appearance: none; width: 4.4rem; height: 5.3rem; padding: 0.2rem; display: grid; place-items: center; border-radius: 10px; cursor: pointer; touch-action: manipulation;
+  background: var(--paper); border: 2px solid var(--line);
+}
+.t-meisterschaft22-bv img { display: block; max-width: 100%; max-height: 100%; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.t-meisterschaft22-bv:not(:disabled):hover { border-color: var(--accent); }
+.t-meisterschaft22-bv:disabled { cursor: default; opacity: 0.75; }
+.t-meisterschaft22-cell { width: 4.4rem; height: 5.3rem; border-radius: 10px; background: var(--surface2); }
+.t-meisterschaft22-msg { margin: 0; color: var(--muted); font-size: 0.95rem; min-height: 1.5em; }
+.t-meisterschaft22-sol { display: flex; gap: 0.5rem; }
+.t-meisterschaft22-xs { height: 4rem; width: auto; background: var(--paper); border-radius: 8px; padding: 0.2rem; }
+@media (max-width: 34rem) {
+  .t-meisterschaft22-th { height: 2.1rem; }
+  .t-meisterschaft22-rl, .t-meisterschaft22-bib { display: none; }
+  .t-meisterschaft22-rnd { display: inline; font-size: 0.8rem; }
+  .t-meisterschaft22-tab th[scope="row"], .t-meisterschaft22-tab thead th:first-child { padding-inline: 0.25rem; }
+  .t-meisterschaft22-tab { font-size: 0.9rem; }
+  .t-meisterschaft22-slot, .t-meisterschaft22-bv, .t-meisterschaft22-cell { width: 3.6rem; height: 4.5rem; }
+  .t-meisterschaft22-slots { gap: 0.35rem; }
+}

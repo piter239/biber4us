@@ -30,7 +30,7 @@
 .t-blumenkasten20-cell:focus-visible, .t-blumenkasten20-pal:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .t-blumenkasten20-cell:disabled { cursor: default; }
 .t-blumenkasten20-cell .t-blumenkasten20-fl { width: 118%; height: 118%; display: block; pointer-events: none; }
-.t-blumenkasten20-cell.t-blumenkasten20-filled { background: transparent; box-shadow: none; }
+.t-blumenkasten20-cell.t-blumenkasten20-filled, .t-blumenkasten20-cell.t-blumenkasten20-filled:not(:disabled):hover { background: transparent; box-shadow: none; }
 
 .t-blumenkasten20-bar { display: flex; align-items: center; justify-content: space-between; background: #6b4a25; color: #fff; padding: 0.35rem 0.9rem; }
 .t-blumenkasten20-barlbl { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; opacity: 0.85; }

@@ -14,7 +14,7 @@
 .t-neueshaus20-house:focus-visible .t-neueshaus20-body { stroke: var(--focus); stroke-width: 5; }
 .t-neueshaus20-house:not([aria-disabled="true"]):hover .t-neueshaus20-body { stroke-width: 4; }
 .t-neueshaus20-badge circle { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
-.t-neueshaus20-badge text { fill: var(--ink); font-family: var(--font-display); font-weight: 800; font-size: 16px; }
+.t-neueshaus20-badge text { fill: var(--ink); font-family: var(--font-display); font-weight: 800; font-size: 22px; }
 .t-neueshaus20-legend { margin: 0; display: flex; flex-wrap: wrap; gap: 0.2rem 0.4rem; align-items: center; color: var(--muted); font-size: 0.95rem; }
 .t-neueshaus20-lg { width: 1.6rem; height: 1.5rem; }
 .t-neueshaus20-lg .t-neueshaus20-body { stroke: var(--ink); stroke-width: 3; }
