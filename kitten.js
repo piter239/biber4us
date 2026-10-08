@@ -217,7 +217,71 @@
     '@keyframes bk-hblink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}',
     '.bk-hid.bk-found{animation:bk-hfound .9s ease-out 1 forwards}',
     '@keyframes bk-hfound{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-14px) scale(1.5)}100%{transform:translateY(-30px) scale(1.2);opacity:0}}',
-    '.bk-reduced .bk-gift{animation:none}'
+    '.bk-reduced .bk-gift{animation:none}',
+    '.bk-fx svg{overflow:visible}',
+    '.bk-tray svg,.bk-carton svg,.bk-cuke svg,.bk-cup svg,.bk-sign svg{display:block;width:100%;height:auto}',
+    /* Katzenklo */
+    '.bk-tray{position:absolute;left:-2%;top:60%;width:104%;animation:bk-boxin .5s ease-out 1 backwards}',
+    '.bk-sign{position:absolute;right:-14%;top:36%;width:38%;transform:rotate(8deg);animation:bk-signin .5s ease-out .2s 1 backwards}',
+    '@keyframes bk-boxin{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:none}}',
+    '@keyframes bk-signin{0%{opacity:0;transform:translateY(20px) rotate(8deg)}100%{opacity:1;transform:rotate(8deg)}}',
+    '.bk-sand{background:#c9b27c}',
+    '.bk-a-litter .bk-head{animation:bk-hunker 3.6s ease-in-out 1}',
+    '.bk-a-litter .bk-eye{animation:bk-squint2 3.6s ease-in-out 1}',
+    '.bk-a-litter .bk-pawL{animation:bk-scratch .3s ease-in-out 6 1.1s}',
+    '.bk-a-litter .bk-pawR{animation:bk-scratch .3s ease-in-out 6 1.25s}',
+    '@keyframes bk-hunker{0%,100%{transform:none}15%,55%{transform:translateY(9px) scale(.95)}70%{transform:translateY(-3px)}}',
+    '@keyframes bk-squint2{0%,100%{transform:scaleY(1)}15%,55%{transform:scaleY(.35)}}',
+    '@keyframes bk-scratch{0%,100%{transform:none}50%{transform:translate(-6px,-14px) rotate(-12deg)}}',
+    /* Karton */
+    '.bk-carton{position:absolute;left:-4%;top:56%;width:108%;animation:bk-boxin .5s ease-out 1 backwards}',
+    '.bk-a-carton .bk-peek{animation:bk-wiggle .16s ease-in-out 6 1s}',
+    '.bk-a-carton .bk-pupil{animation:bk-lookaround 1.2s ease-in-out 3 alternate}',
+    /* Laserpunkt */
+    '.bk-dot{position:absolute;width:9%;height:9%;border-radius:50%;background:#ff2d2d;box-shadow:0 0 12px 4px rgba(255,45,45,.55);animation:bk-dotrun 3.7s linear 1 forwards}',
+    '@keyframes bk-dotrun{0%{left:90%;top:70%}15%{left:20%;top:55%}30%{left:75%;top:30%}45%{left:35%;top:10%}60%{left:85%;top:50%}75%{left:15%;top:35%}90%{left:55%;top:60%;opacity:1}100%{left:55%;top:60%;opacity:0}}',
+    '.bk-a-laser .bk-pupil{animation:bk-zig 3.7s linear 1}',
+    '@keyframes bk-zig{0%{transform:translate(5px,3px)}15%{transform:translate(-5px,1px)}30%{transform:translate(5px,-3px)}45%{transform:translate(-2px,-5px)}60%{transform:translate(5px,0)}75%{transform:translate(-5px,-2px)}90%{transform:translate(0,2px)}100%{transform:none}}',
+    '.bk-a-laser .bk-pawR{animation:bk-swat .45s ease-in 3s 1}',
+    /* Gurke */
+    '.bk-cuke{position:absolute;left:6%;top:76%;width:46%;animation:bk-cukein 1.1s ease-out 1 backwards}',
+    '@keyframes bk-cukein{0%{transform:translateX(170%)}100%{transform:none}}',
+    '.bk-a-cuke .bk-svg{animation:bk-jump 1.1s ease-out 1.6s 1}',
+    '.bk-a-cuke .bk-tail{animation:bk-puff 1.8s ease-in-out 1.6s 1}',
+    '.bk-a-cuke .bk-pupil{animation:bk-shock 3.2s ease-in-out 1}',
+    '@keyframes bk-jump{0%{transform:none}25%{transform:translateY(-28px) rotate(-7deg) scale(1.05)}100%{transform:none}}',
+    '@keyframes bk-puff{0%,100%{transform:scale(1)}30%,70%{transform:scale(1.4)}}',
+    '@keyframes bk-shock{0%{transform:translate(5px,4px)}48%{transform:translate(5px,4px)}56%{transform:scale(.6)}90%{transform:scale(.6)}100%{transform:none}}',
+    /* Seifenblasen */
+    '.bk-sb{position:absolute;width:13%;height:13%;border-radius:50%;border:2px solid rgba(124,196,240,.9);background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.95),rgba(124,196,240,.15) 62%);opacity:0;animation:bk-sbfloat 2.4s ease-in-out 1 forwards}',
+    '@keyframes bk-sbfloat{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}80%{opacity:1;transform:translate(8px,-64px)}100%{opacity:0;transform:translate(8px,-72px) scale(1.5)}}',
+    '.bk-a-soap .bk-pawR{animation:bk-swat .5s ease-in 1.2s 3}',
+    /* Milchtritt */
+    '.bk-a-knead .bk-pawL{animation:bk-knead .7s ease-in-out 5}',
+    '.bk-a-knead .bk-pawR{animation:bk-knead .7s ease-in-out 5 .35s}',
+    '.bk-a-knead .bk-eye{animation:bk-sleepy 3.8s ease-in-out 1}',
+    '.bk-a-knead .bk-head{animation:bk-nuzzle .9s ease-in-out 4}',
+    '@keyframes bk-knead{0%,100%{transform:none}50%{transform:translateY(-12px) scale(1.12,1.05)}}',
+    '@keyframes bk-sleepy{0%,100%{transform:scaleY(1)}20%,80%{transform:scaleY(.3)}}',
+    /* Sternschnuppe */
+    '.bk-shoot{position:absolute;width:40%;height:3%;background:linear-gradient(90deg,transparent,#fff7c2,#f2c230);border-radius:3px;box-shadow:0 0 8px #f2c230;transform:rotate(30deg);opacity:0;animation:bk-shoot 1.5s ease-in 1 forwards}',
+    '@keyframes bk-shoot{0%{opacity:0;left:92%;top:-14%}15%{opacity:1}100%{opacity:0;left:8%;top:24%}}',
+    '.bk-a-wish .bk-pupil{animation:bk-lookup 3.7s ease-in-out 1}',
+    '.bk-a-wish .bk-eye{animation:bk-doze2 3.7s ease-in-out 1}',
+    '@keyframes bk-lookup{0%,50%{transform:translate(0,-5px)}70%,100%{transform:none}}',
+    '@keyframes bk-doze2{0%,55%,100%{transform:scaleY(1)}65%,90%{transform:scaleY(.07)}}',
+    /* Tasse */
+    '.bk-cup{position:absolute;left:62%;top:56%;width:26%;animation:bk-cupfall 3.4s ease-in 1 forwards}',
+    '@keyframes bk-cupfall{0%,34%{transform:none}46%{transform:translateX(34%)}54%{transform:translateX(52%) rotate(8deg)}100%{transform:translate(90%,300%) rotate(150deg);opacity:0}}',
+    '.bk-a-cup .bk-pawR{animation:bk-push .5s ease-in 1.1s 1}',
+    '.bk-a-cup .bk-pupil{animation:bk-cuplook 4s ease-in-out 1}',
+    '.bk-a-cup .bk-head{animation:bk-cuphead 4s ease-in-out 1}',
+    '@keyframes bk-push{0%,100%{transform:none}45%{transform:translate(12px,-38px) rotate(24deg)}}',
+    '@keyframes bk-cuplook{0%,55%{transform:translate(5px,3px)}70%,100%{transform:none}}',
+    '@keyframes bk-cuphead{0%,65%{transform:none}78%,92%{transform:rotate(-11deg)}100%{transform:none}}',
+    /* Konfetti */
+    '.bk-conf{position:fixed;top:-14px;width:9px;height:14px;z-index:2147483050;pointer-events:none;animation:bk-fall 3.1s ease-in 1 forwards}',
+    '@keyframes bk-fall{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(var(--dx),108vh) rotate(var(--rot))}}'
   ].join('\n');
 
   /* ---------- Kätzchen als SVG ---------- */
@@ -231,6 +295,11 @@
   var BUTTERFLY = '<svg viewBox="0 0 40 40" aria-hidden="true"><g class="bk-wing"><path d="M20 20C8 4 2 14 8 22c3 4 9 2 12-2z" fill="#7cc4f0" stroke="#2c6a96" stroke-width="1.6"/><path d="M20 20C32 4 38 14 32 22c-3 4-9 2-12-2z" fill="#f09ad0" stroke="#9a2c6a" stroke-width="1.6"/></g><path d="M20 12v16" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg>';
   var YARN = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#e8607a" stroke="#8a2a40" stroke-width="2"/><path d="M6 14c10 4 18 2 28-4M4 22c12 4 22 2 32-4M8 31c10 2 18 0 26-6M14 5c4 10 2 20-2 30" fill="none" stroke="#f9b0c0" stroke-width="2"/></svg>';
   var FISH = '<svg viewBox="0 0 60 36" aria-hidden="true"><path d="M4 18C16 4 36 4 46 18C36 32 16 32 4 18Z" fill="#6fb3d9" stroke="#2c5f80" stroke-width="2.4"/><path d="M46 18l12-12v24z" fill="#4a95c4" stroke="#2c5f80" stroke-width="2.4" stroke-linejoin="round"/><circle cx="14" cy="15" r="2.4" fill="#123"/><path d="M24 10q4 8 0 16" fill="none" stroke="#2c5f80" stroke-width="2"/></svg>';
+  var TRAY = '<svg viewBox="0 0 120 56" aria-hidden="true"><path d="M2 14h116l-10 40H12Z" fill="#8cb8d6" stroke="#2c5f80" stroke-width="3" stroke-linejoin="round"/><path d="M8 16h104l-3 9H11Z" fill="#d9c28a"/><rect x="2" y="8" width="116" height="9" rx="4.5" fill="#a9cde6" stroke="#2c5f80" stroke-width="3"/></svg>';
+  var SIGN = '<svg viewBox="0 0 60 44" aria-hidden="true"><rect x="3" y="3" width="54" height="24" rx="4" fill="#fff6dc" stroke="#7a4a22" stroke-width="2.4"/><text x="30" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="11" fill="#b3261e">BESETZT</text><path d="M30 27v15" stroke="#7a4a22" stroke-width="3" stroke-linecap="round"/></svg>';
+  var CARTON = '<svg viewBox="0 0 120 60" aria-hidden="true"><path d="M6 20h108l-6 38H12Z" fill="#c89a5b" stroke="#6b4420" stroke-width="3" stroke-linejoin="round"/><path d="M40 32h40" stroke="#6b4420" stroke-width="3" stroke-linecap="round" opacity=".5"/><rect x="2" y="13" width="116" height="9" rx="3" fill="#d9ab6d" stroke="#6b4420" stroke-width="3"/></svg>';
+  var CUKE = '<svg viewBox="0 0 70 24" aria-hidden="true"><ellipse cx="35" cy="12" rx="32" ry="9.5" fill="#4caf50" stroke="#1b5e20" stroke-width="2.4"/><path d="M12 8h5M26 15h5M42 8h5M54 15h5" stroke="#2e7d32" stroke-width="2" stroke-linecap="round"/><path d="M7 9q8-4 14-2" stroke="#a5d6a7" stroke-width="2" fill="none"/></svg>';
+  var CUP = '<svg viewBox="0 0 44 46" aria-hidden="true"><path d="M6 10h24v22c0 6-5 10-12 10S6 38 6 32Z" fill="#fff" stroke="#4a2e1a" stroke-width="2.6" stroke-linejoin="round"/><path d="M30 16q11 2 11 10t-11 8" fill="none" stroke="#4a2e1a" stroke-width="2.6"/><path d="M6 17h24" stroke="#d93a3a" stroke-width="3"/><path d="M13 6q2-4 0-6M21 6q2-4 0-6" stroke="#9aa5ab" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
   var MOUSE = '<svg viewBox="0 0 60 36" aria-hidden="true"><ellipse cx="28" cy="22" rx="22" ry="12" fill="#b8c0c8" stroke="#4a5560" stroke-width="2.4"/><circle cx="46" cy="12" r="6.5" fill="#b8c0c8" stroke="#4a5560" stroke-width="2.4"/><circle cx="52" cy="22" r="2.4" fill="#f4a3b4"/><circle cx="41" cy="19" r="1.8" fill="#222"/><path d="M6 22c-6 0-8 6-2 8" fill="none" stroke="#4a5560" stroke-width="2.4" stroke-linecap="round"/></svg>';
 
   /* Zubehör (nur eines ist sichtbar, gesteuert über data-acc) */
@@ -472,8 +541,33 @@
           for (var i = 0; i < 7; i++) addFx('', 'bk-dust', '--dx:' + Math.round(rnd(-48, 48)) + 'px;--dy:' + Math.round(rnd(-70, -20)) + 'px;left:' + rnd(42, 56) + '%', 900);
         }, 780);
       } },
-    stretch: { ms: 2600, phrases: ['Strecken tut gut. Probier es auch!', 'Aaah, strecken!'] }
+    stretch: { ms: 2600, phrases: ['Strecken tut gut. Probier es auch!', 'Aaah, strecken!'] },
+    litter: { ms: 4600, script: function (t) {
+      addFx(TRAY, 'bk-tray', '', 4800); addFx(SIGN, 'bk-sign', '', 4800);
+      showBubble('Psst… Bitte nicht stören!', 2300);
+      [1200, 1500, 1800, 2100, 2400].forEach(function (d) {
+        setTimeout(function () {
+          if (t !== tok) return;
+          for (var i = 0; i < 3; i++) addFx('', 'bk-dust bk-sand', '--dx:' + Math.round(rnd(-42, 42)) + 'px;--dy:' + Math.round(rnd(-54, -12)) + 'px;left:' + Math.round(rnd(28, 72)) + '%;top:62%', 900);
+        }, d);
+      });
+      setTimeout(function () { if (t === tok) showBubble('Fertig! Alles wieder zugedeckt.', 2300); }, 3000);
+    } },
+    carton: { ms: 3600, phrases: ['Wenn ich passe, dann sitze ich.', 'Ein Karton! Das ist mein Reich.'], run: function () { addFx(CARTON, 'bk-carton', '', 3800); } },
+    laser: { ms: 4300, phrases: ['Der rote Punkt! Wo ist er hin?!'], run: function () { addFx('', 'bk-dot', '', 4000); } },
+    cuke: { ms: 3500, phrases: ['Huch! Eine Gurke?!'], run: function () { addFx(CUKE, 'bk-cuke', '', 3500); } },
+    soap: { ms: 4300, phrases: ['Seifenblasen! Plopp!'],
+      run: function () { for (var i = 0; i < 5; i++) addFx('', 'bk-sb', 'left:' + Math.round(rnd(8, 76)) + '%;top:' + Math.round(rnd(40, 70)) + '%;animation-delay:' + (i * 0.45) + 's', 4400); } },
+    knead: { ms: 4000, phrases: ['Ich backe Brot. Mit den Pfoten.', 'Tret, tret… Gleich ist der Teig fertig.'], run: function (t) { setTimeout(function () { if (t === tok) hearts(3); }, 1200); } },
+    wish: { ms: 3700, phrases: ['Eine Sternschnuppe! Ich wünsche mir, dass Du alles schaffst.'],
+      run: function (t) { addFx('', 'bk-shoot', '', 1700); setTimeout(function () { if (t === tok) sparks(4); }, 1500); } },
+    cup: { ms: 4000, script: function (t) {
+      addFx(CUP, 'bk-cup', '', 3500);
+      setTimeout(function () { if (t === tok) showBubble('Ups.', 1500); }, 2100);
+      setTimeout(function () { if (t === tok) showBubble('War ich nicht.', 1900); }, 3200);
+    } }
   };
+  var BASEW = { cuke: 0.5, wish: 0.6, cup: 0.7, litter: 0.8 };
   var NAMES = Object.keys(ACTIONS);
   var REDUCED_OK = ['kiss', 'tilt', 'ear', 'wave', 'tail'];
 
@@ -498,7 +592,7 @@
   };
   function pickAction(list) {
     var w = TIMEW[dayPart()] || {}, total = 0, i;
-    var ws = list.map(function (n) { var x = w[n] || 1; total += x; return x; });
+    var ws = list.map(function (n) { var x = (w[n] || 1) * (BASEW[n] || 1); total += x; return x; });
     var r = Math.random() * total;
     for (i = 0; i < list.length; i++) { r -= ws[i]; if (r <= 0) return list[i]; }
     return list[0];
@@ -574,7 +668,8 @@
     } else {
       act(name); note(name);
       if (a.run) a.run(t);
-      var text = o.text || textFor(name, o.kind);
+      if (a.script) a.script(t);
+      var text = o.text || (a.script ? null : textFor(name, o.kind));
       if (text) setTimeout(function () { if (t === tok) showBubble(text); }, Math.min(700, a.ms / 3));
       if (!await sleep(a.ms + (text ? 700 : 0), t)) return;
     }
@@ -708,6 +803,10 @@
     ['a:tilt', 'Kopf neigen', 'Neugierig und verwundert.'], ['a:butterfly', 'Schmetterling', 'Ein flatterndes Ziel.'], ['a:yarn', 'Wollknäuel', 'Rollt und rollt.'],
     ['a:sleep', 'Einnicken', 'Huch, kurz weggedöst!'], ['a:mouse', 'Spielzeugmaus', 'Anschleichen und zupacken.'], ['a:knock', 'Anklopfen', 'Hallo, ist da jemand?'],
     ['a:peekaboo', 'Kuckuck', 'Weg und wieder da.'], ['a:sneeze', 'Niesen', 'Hatschi!'], ['a:stretch', 'Strecken', 'Aaah, das tut gut.'],
+    ['a:litter', 'Katzenklo', 'Bitte nicht stören!'], ['a:carton', 'Karton', 'Wenn es passt, dann sitzt es.'], ['a:laser', 'Roter Punkt', 'Wo ist er hin?'],
+    ['a:cuke', 'Gurke', 'Huch!'], ['a:soap', 'Seifenblasen', 'Plopp!'], ['a:knead', 'Milchtritt', 'Brot backen mit den Pfoten.'],
+    ['a:wish', 'Sternschnuppe', 'Ein Wunsch für Dich.'], ['a:cup', 'Tasse', 'Ups.'],
+    ['s:confetti', 'Konfetti', 'Fünf richtige Antworten in Folge.'], ['s:rufen', 'Gerufen', 'Man munkelt: Miau tippen.'],
     ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
     ['h:xmas', 'Weihnachtsmütze', 'Ho ho ho!'], ['h:silvester', 'Partyhut', 'Prosit Neujahr!'], ['h:halloween', 'Kürbishut', 'Buh!'], ['h:ostern', 'Blumenkranz', 'Frühlingsgefühle.'], ['h:sommer', 'Sonnenbrille', 'Cool bleiben.'],
     ['x:end']
@@ -729,6 +828,16 @@
     'a:peekaboo': { svg: '<rect x="20" y="104" width="170" height="60" fill="#8a9ca4"/>' },
     'a:sneeze': { cls: 'bk-happy', svg: '<circle cx="156" cy="100" r="5" fill="#8aa0a8"/><circle cx="170" cy="86" r="4" fill="#8aa0a8"/><circle cx="166" cy="112" r="3.5" fill="#8aa0a8"/>' },
     'a:stretch': { svg: '<ellipse cx="48" cy="26" rx="12" ry="17" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/><ellipse cx="152" cy="26" rx="12" ry="17" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/>' },
+    'a:litter': { cls: 'bk-happy', svg: '<path d="M12 122h176l-16 36H28z" fill="#8cb8d6" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><path d="M20 124h160l-5 12H25z" fill="#d9c28a"/>' },
+    'a:carton': { svg: '<path d="M16 112h168l-10 48H26z" fill="#c89a5b" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><rect x="10" y="104" width="180" height="14" rx="4" fill="#d9ab6d" stroke="' + LINE + '" stroke-width="3"/>' },
+    'a:laser': { svg: '<circle cx="158" cy="38" r="18" fill="#ff2d2d" opacity=".3"/><circle cx="158" cy="38" r="9" fill="#ff2d2d"/>' },
+    'a:cuke': { svg: '<ellipse cx="160" cy="126" rx="30" ry="10" fill="#4caf50" stroke="#1b5e20" stroke-width="3" transform="rotate(-14 160 126)"/>' },
+    'a:soap': { svg: '<circle cx="150" cy="30" r="14" fill="none" stroke="#7cc4f0" stroke-width="3"/><circle cx="174" cy="66" r="9" fill="none" stroke="#7cc4f0" stroke-width="3"/><circle cx="30" cy="40" r="11" fill="none" stroke="#7cc4f0" stroke-width="3"/>' },
+    'a:knead': { cls: 'bk-happy', svg: '<ellipse cx="64" cy="140" rx="18" ry="12" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/><ellipse cx="136" cy="140" rx="18" ry="12" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/>' },
+    'a:wish': { svg: '<path d="M176 4l-52 34" stroke="#f2c230" stroke-width="6" stroke-linecap="round"/><polygon points="120,40 126,32 134,38 126,44" fill="#f2c230"/>' },
+    'a:cup': { svg: '<g transform="translate(120 96) scale(1.1)">' + CUP.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    's:confetti': { svg: '<rect x="20" y="14" width="10" height="16" fill="#e05060" transform="rotate(20 25 22)"/><rect x="150" y="10" width="10" height="16" fill="#4a9ad9" transform="rotate(-30 155 18)"/><rect x="170" y="70" width="10" height="16" fill="#f2c230" transform="rotate(50 175 78)"/><rect x="10" y="80" width="10" height="16" fill="#4caf50" transform="rotate(-20 15 88)"/><rect x="100" y="4" width="10" height="16" fill="#b794f4" transform="rotate(35 105 12)"/>' },
+    's:rufen': { svg: '<text x="116" y="30" font-family="system-ui,sans-serif" font-weight="800" font-size="28" fill="#0a86a6">Miau?</text>' },
     's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
     'x:end': { svg: '' }
   };
@@ -800,6 +909,27 @@
     albumEl.addEventListener('click', function (e) { if (e.target === albumEl) closeAlbum(); });
   }
 
+  /* ---------- Konfetti ---------- */
+  function confetti() {
+    if (reduced) { sparks(8); return; }
+    var colors = ['#e05060', '#4a9ad9', '#f2c230', '#4caf50', '#b794f4', '#ff8a3d'];
+    for (var i = 0; i < 48; i++) {
+      var d = document.createElement('div');
+      d.className = 'bk-conf';
+      d.style.left = rnd(4, 96) + 'vw';
+      d.style.background = pick(colors);
+      d.style.animationDelay = rnd(0, 0.7).toFixed(2) + 's';
+      d.style.setProperty('--dx', Math.round(rnd(-90, 90)) + 'px');
+      d.style.setProperty('--rot', Math.round(rnd(240, 900)) + 'deg');
+      document.body.appendChild(d);
+      (function (el) { setTimeout(function () { el.remove(); }, 4200); })(d);
+    }
+  }
+  function streakParty() {
+    if (streak === 5 || streak === 10 || streak === 20) { unlock('s:confetti'); setTimeout(confetti, 600); return true; }
+    return false;
+  }
+
   /* ---------- Geschenk-Besuch ---------- */
   function gift() {
     var n = mem.correct || 0;
@@ -819,7 +949,8 @@
       var w = g.w || 52;
       addFx(g.svg, 'bk-gift', 'width:' + w + '%;left:' + ((100 - w) / 2) + '%', 5600);
       trill(); hearts(3); sparks(5);
-      showBubble((n === 1 ? 'Deine erste richtige Antwort! ' : n + ' richtige Antworten! ') + g.line, 4600);
+      var party = streakParty();
+      showBubble((n === 1 ? 'Deine erste richtige Antwort! ' : n + ' richtige Antworten! ') + g.line + (party ? ' Und ' + streak + ' in Folge!' : ''), 4800);
       if (!await sleep(5000, t)) return;
       await leave(t);
     })();
@@ -878,7 +1009,8 @@
     say: function (text, o) { return visit(Object.assign({ text: text, action: pick(['wave', 'tilt', 'kiss', 'ear']) }, o || {})); },
     cheer: function (text) {
       streak++;
-      var msg = text || (streak >= 3 ? streak + ' richtig in Folge! Wahnsinn!' : pick(CORRECT));
+      var party = streakParty();
+      var msg = text || (party ? streak + ' richtig in Folge! Konfetti!' : streak >= 3 ? streak + ' richtig in Folge! Wahnsinn!' : pick(CORRECT));
       if (busy) { showBubble(msg); return; }
       var t = ++tok; busy = true; visible = true; clearTimeout(timer);
       (async function () {
@@ -922,14 +1054,27 @@
     ['pointerup', 'pointercancel', 'dragend', 'drop'].forEach(function (n) {
       document.addEventListener(n, function () { setTimeout(function () { userBusy = false; }, 600); }, { passive: true, capture: true });
     });
-    document.addEventListener('keydown', function () { lastActivity = Date.now(); }, { passive: true });
+    var typed = '';
+    document.addEventListener('keydown', function (e) {
+      lastActivity = Date.now();
+      var el = document.activeElement;
+      if (!e.key || e.key.length !== 1 || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (el && (/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName) || el.isContentEditable)) { typed = ''; return; }
+      typed = (typed + e.key.toLowerCase()).slice(-4);
+      if (typed === 'miau' && !mem.off) {
+        typed = '';
+        unlock('s:rufen'); trill();
+        if (!busy) visit({ action: 'wave', side: pick(['bottom', 'left', 'right', 'top']), text: 'Du hast mich gerufen? Miau!' });
+        else if (visible) showBubble('Miau! Ich bin doch schon da.');
+      }
+    }, { passive: true });
     document.addEventListener('biber:result', function (e) {
       var d = (e && e.detail) || {};
       if (mem.off) return;
       if (d.correct) {
         if (d.counted !== false) {
           mem.correct = (mem.correct || 0) + 1; persist();
-          if (mem.correct >= mem.giftNext) { gift(); return; }
+          if (mem.correct >= mem.giftNext) { streak++; gift(); return; }
         }
         api.cheer();
       } else api.comfort();
