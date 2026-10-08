@@ -1,0 +1,49 @@
+/* Stile für stempelbild21 (Präfix t-stempelbild21-). Das Blatt Papier bleibt in Hell und Dunkel weiß, die Stempelbilder behalten ihre Farben. */
+.t-stempelbild21-board { display: grid; gap: 1.2rem; }
+.t-stempelbild21-board section { min-width: 0; }
+.t-stempelbild21-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-stempelbild21-sheetbox { max-width: 46rem; }
+.t-stempelbild21-sheet { display: block; width: 100%; height: auto; }
+.t-stempelbild21-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; max-width: 46rem; }
+.t-stempelbild21-opt {
+  appearance: none; position: relative; display: grid; grid-template-rows: auto 1fr; justify-items: center; gap: 0.3rem; padding: 0.5rem 0.4rem 0.6rem; min-width: 0;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 700;
+}
+.t-stempelbild21-opt:hover { border-color: var(--accent); }
+.t-stempelbild21-opt:focus-visible, .t-stempelbild21-stamp:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-stempelbild21-opt[aria-disabled="true"] { cursor: default; }
+.t-stempelbild21-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-stempelbild21-opt.selected, .t-stempelbild21-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-stempelbild21-opt.right, .t-stempelbild21-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-stempelbild21-opt.wrong, .t-stempelbild21-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-stempelbild21-key { font-family: var(--font-display); font-size: 1.15rem; }
+.t-stempelbild21-icon { display: block; width: auto; height: auto; max-width: 100%; max-height: 5.5rem; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-stempelbild21-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-stempelbild21-opt.wrong .t-stempelbild21-mark { background: var(--bad); }
+.t-stempelbild21-try { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem 0.9rem 0.9rem; display: grid; gap: 0.6rem; }
+.t-stempelbild21-try h3 { margin: 0; }
+.t-stempelbild21-stamps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; max-width: 36rem; }
+.t-stempelbild21-stamp {
+  appearance: none; display: grid; justify-items: center; align-content: end; gap: 0.2rem; padding: 0.4rem 0.2rem; min-width: 0; min-height: 3.2rem;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 10px; cursor: pointer; touch-action: manipulation; font: inherit; font-size: 0.9rem; font-weight: 600;
+}
+.t-stempelbild21-stamp:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-stempelbild21-stamp img { display: block; width: auto; height: auto; max-width: 100%; max-height: 3.6rem; pointer-events: none; }
+.t-stempelbild21-stamp:disabled { opacity: 0.4; cursor: not-allowed; border-color: var(--line); }
+.t-stempelbild21-order, .t-stempelbild21-note { margin: 0; }
+.t-stempelbild21-order { color: var(--muted); font-size: 0.95rem; }
+.t-stempelbild21-note { min-height: 2.9em; }
+.t-stempelbild21-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-stempelbild21-btn { min-height: 2.5rem; padding-block: 0.3rem; }
+.t-stempelbild21-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.5rem; }
+.t-stempelbild21-mini { display: block; width: auto; height: 3.4rem; max-width: 4.2rem; object-fit: contain; }
+.t-stempelbild21-arrow { color: var(--muted); font-size: 1.2rem; }
+@media (max-width: 36rem) {
+  .t-stempelbild21-opts { gap: 0.4rem; }
+  .t-stempelbild21-opt { padding-inline: 0.2rem; }
+  .t-stempelbild21-icon { max-height: 4rem; }
+}
+.t-stempelbild21-try .t-stempelbild21-sheetbox { max-width: 34rem; }

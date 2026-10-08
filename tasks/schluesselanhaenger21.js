@@ -48,7 +48,7 @@
     var key = '<path class="' + P + 'cord" d="M' + (x - 1) + ' 20 L' + (end + 6) + ' 20"/>' +
       '<circle class="' + P + 'ring" cx="' + (end + 8) + '" cy="20" r="9"/>' +
       '<path class="' + P + 'shaft" d="M' + (end + 17) + ' 20 L' + (end + 60) + ' 20 L' + (end + 60) + ' 26 M' + (end + 52) + ' 20 L' + (end + 52) + ' 25"/>';
-    return '<svg class="' + P + 'chain ' + (extra || '') + '" viewBox="0 0 ' + W + ' 40" role="img" aria-label="' + label + '" style="max-width:' + Math.round(W * 1.1) + 'px">' +
+    return '<svg class="' + P + 'chain ' + (extra || '') + '" viewBox="0 0 ' + W + ' 40" role="img" aria-label="' + label + '" style="max-width:' + Math.round(W * 1.5) + 'px">' +
       '<path class="' + P + 'cord" d="M30 20 L' + x + ' 20"/>' + tassel + out + key + '</svg>';
   }
   function beadWords(beads) {
@@ -114,7 +114,7 @@
       function codeCell(k) {
         var x = 2, out = '';
         CODE[k].split('').forEach(function (c) { out += beadSvg(c, x); x += BW[c]; });
-        return '<svg class="' + P + 'code" viewBox="0 0 ' + (x + 2) + ' 40" role="img" aria-label="Perlen für ' + k + ': ' + beadWords(CODE[k]) + '" style="width:' + Math.round((x + 2) * 0.9) + 'px">' + out + '</svg>';
+        return '<svg class="' + P + 'code" viewBox="0 0 ' + (x + 2) + ' 40" role="img" aria-label="Perlen für ' + k + ': ' + beadWords(CODE[k]) + '" style="width:' + Math.round((x + 2) * 1.3) + 'px">' + out + '</svg>';
       }
       var table = '<table class="' + P + 'table"><thead><tr><th scope="col">Buchstabe</th><th scope="col">Perlen</th></tr></thead><tbody>' +
         Object.keys(CODE).map(function (k) { return '<tr><th scope="row">' + k + '</th><td>' + codeCell(k) + '</td></tr>'; }).join('') + '</tbody></table>';
