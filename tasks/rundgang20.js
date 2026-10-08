@@ -42,19 +42,6 @@
   function hasDoor(plan, a, b) { return plan.doors.indexOf(dk(a, b)) >= 0; }
   function neighbours(plan, r) { var out = []; for (var i = 1; i <= 7; i++) if (i !== r && hasDoor(plan, r, i)) out.push(i); return out; }
 
-  /* Gibt es einen Rundgang? Suche über alle Wege (Hamiltonkreis von „außen“ nach „außen“) */
-  function findTours(plan) {
-    var tours = [];
-    (function dfs(path) {
-      var last = path[path.length - 1];
-      if (path.length === 7) { if (last === plan.exit) tours.push(path.slice()); return; }
-      neighbours(plan, last).forEach(function (n) {
-        if (path.indexOf(n) < 0) { path.push(n); dfs(path); path.pop(); }
-      });
-    })([ENTRY.room]);
-    return tours;
-  }
-
   /* ---------- Zeichnen ---------- */
   var COLORS = { 1: 'var(--c6)', 2: 'var(--c1)', 3: 'var(--c5)', 4: 'var(--c4)', 5: 'var(--c3)', 6: 'var(--c2)', 7: 'var(--slot-line)' };
   function planDoorsText(plan) {
@@ -252,7 +239,6 @@
       refresh();
     },
     reset: function () { reset(); refresh(); },
-    showSolution: function () { selected = RIGHT; mark = 'solution'; locked = true; refresh(); },
-    _tours: findTours
+    showSolution: function () { selected = RIGHT; mark = 'solution'; locked = true; refresh(); }
   });
 })();

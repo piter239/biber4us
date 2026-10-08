@@ -1,0 +1,48 @@
+/* Stile für boeden22 (Präfix t-boeden22-). Die Böden sind dunkle Tafeln mit festen Symbolfarben, in Hell und Dunkel gleich. */
+.t-boeden22-board { display: grid; gap: 1rem; }
+.t-boeden22-floors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.25rem; max-width: 46rem; }
+.t-boeden22-card { display: grid; gap: 0.4rem; min-width: 0; }
+.t-boeden22-head { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-display); font-size: 1.05rem; }
+.t-boeden22-cvwrap { border-radius: 8px; overflow: hidden; background: #333; line-height: 0; box-shadow: 0 1px 4px rgb(0 0 0 / 0.3); }
+.t-boeden22-cv { display: block; width: 100%; aspect-ratio: 1; cursor: crosshair; touch-action: manipulation; }
+.t-boeden22-cv:focus-visible { outline-offset: -3px; }
+
+.t-boeden22-rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.3rem; }
+.t-boeden22-rule {
+  appearance: none; position: relative; min-height: 2.75rem; padding: 0.2rem 0.1rem; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 3px solid var(--line); min-width: 0; font-size: 0.92rem;
+}
+.t-boeden22-rule:hover { border-color: var(--accent); }
+.t-boeden22-rule[aria-disabled="true"] { cursor: default; }
+.t-boeden22-rule[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-boeden22-rule.selected, .t-boeden22-rule.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
+.t-boeden22-rule.right, .t-boeden22-rule.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-boeden22-rule.wrong, .t-boeden22-rule.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-boeden22-rule.t-boeden22-used { opacity: 0.55; }
+.t-boeden22-mark { margin-left: auto; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; }
+.t-boeden22-ok { background: var(--ok); }
+.t-boeden22-no { background: var(--bad); }
+.t-boeden22-note { min-height: 1.4em; font-size: 0.92rem; color: var(--muted); margin: 0; }
+
+.t-boeden22-side { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.8rem 0.9rem 1rem; max-width: 46rem; min-width: 0; }
+.t-boeden22-side h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.5rem; }
+.t-boeden22-side h3.t-boeden22-h2 { margin-top: 0.9rem; }
+.t-boeden22-probe { font-size: 0.95rem; display: grid; gap: 0.5rem; }
+.t-boeden22-probe p { margin: 0; }
+.t-boeden22-sym { width: 1.25rem; height: 1.25rem; flex: none; vertical-align: -0.28em; }
+.t-boeden22-sl { display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+.t-boeden22-or { color: var(--muted); margin-inline: 0.25rem; }
+.t-boeden22-ptab { border-collapse: collapse; width: 100%; }
+.t-boeden22-ptab caption { text-align: left; color: var(--muted); font-size: 0.88rem; padding-bottom: 0.3rem; }
+.t-boeden22-ptab th, .t-boeden22-ptab td { text-align: left; padding: 0.3rem 0.5rem; border-top: 1px solid var(--line); vertical-align: middle; }
+.t-boeden22-ptab th span { display: block; font-weight: 400; font-size: 0.82rem; color: var(--muted); }
+.t-boeden22-ptab tr.t-boeden22-hit { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.t-boeden22-ptab tr.t-boeden22-hit th { color: var(--accent); }
+.t-boeden22-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.92rem; }
+.t-boeden22-legend li { display: inline-flex; align-items: center; gap: 0.35rem; }
+
+@media (max-width: 30rem) {
+  .t-boeden22-floors { gap: 0.8rem 0.6rem; }
+  .t-boeden22-rule { font-size: 0.85rem; border-width: 2px; border-radius: 8px; }
+  .t-boeden22-rn { font-size: 0.85rem; }
+}
