@@ -228,9 +228,9 @@
     question: 'Lege die drei Kärtchen so, dass Robertas Roboter das Ziel erreicht.',
     howto: 'Tippe erst ein Kärtchen oben an und dann eine hellblaue Stelle, oder ziehe das Kärtchen dorthin. Tippe auf ein gelegtes Kärtchen, um es wieder wegzunehmen. Mit „Roboter fahren lassen“ siehst du, wohin der Roboter fährt.',
     explanation: function () {
-      return '<p>Man probiert einen Weg aus und geht zurück, wenn er nicht zum Ziel führt. Der Roboter fährt zuerst nach rechts und zweimal hoch, dann braucht die freie Stelle rechts ein Kärtchen. ' +
-        'Ein „rechts“ dort würde ihn nach rechts, zweimal runter und wieder nach rechts bringen. Danach führt jede Möglichkeit mit den restlichen Kärtchen (rechts oder hoch und darüber rechts) unter das Ziel. Also muss dort das Kärtchen „hoch“ liegen.</p>' +
-        '<p>Dann bleibt als zweites Kärtchen nur noch „rechts“, und das letzte „rechts“ gehört oben in die rechte hellblaue Spalte, von der der Roboter nach rechts, zweimal runter und noch einmal rechts ins Ziel fährt. Es gibt nur diese eine richtige Lösung.</p>' +
+      return '<p>Man probiert einen Weg aus und geht zurück, wenn er nicht zum Ziel führt. Der Roboter fährt zuerst nach rechts und zweimal hoch. Die freie Stelle rechts davon braucht ein Kärtchen. ' +
+        'Läge dort „rechts“, führe er nach rechts, zweimal runter und wieder nach rechts. Mit den zwei übrigen Kärtchen (rechts oder hoch und darüber rechts) käme er danach aber nur unter das Ziel. Also muss dort „hoch“ liegen.</p>' +
+        '<p>Dann bleibt für die Stelle über dem „hoch“ nur noch „rechts“, und das letzte „rechts“ gehört ganz oben in die rechte hellblaue Spalte. Von dort fährt der Roboter nach rechts, zweimal runter und noch einmal rechts ins Ziel. Es gibt nur diese eine richtige Lösung.</p>' +
         '<p>Diese Art zu suchen heißt in der Informatik <i>Tiefensuche</i>: Man verfolgt einen Weg vollständig und probiert erst dann einen anderen. Muss man dazu Schritte zurückgehen, nennt man das <i>Backtracking</i>. ' +
         'Hier geht es auch rückwärts schnell: Ins Ziel kommt man nur von oben rechts, dorthin nur von den obersten Kärtchen der Mitte.</p>';
     },

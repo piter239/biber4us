@@ -100,7 +100,7 @@
       g.setAttribute('role', 'radio');
       g.setAttribute('data-n', n);
       g.setAttribute('transform', 'translate(' + POS[n][0] + ' ' + POS[n][1] + ')');
-      g.innerHTML = '<circle r="44" class="' + P + 'hit"/><circle r="38" class="' + P + 'disc"/><text class="' + P + 'let">' + n + '</text>' ;
+      g.innerHTML = '<circle r="46" class="' + P + 'hit"/><circle r="42" class="' + P + 'disc"/><text class="' + P + 'let">' + n + '</text>' ;
       g.querySelector('.' + P + 'hit').setAttribute('style', 'fill:transparent;stroke:none');
       g.addEventListener('click', function () { choose(n, false); });
       g.addEventListener('keydown', onKey);

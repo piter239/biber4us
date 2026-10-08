@@ -17,10 +17,10 @@
 .t-bonbon22-board h3 {
   font: 700 0.8rem var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: #556d76; margin: 0 0 0.5rem; text-align: center;
 }
-.t-bonbon22-poolbox { flex: 1 1 11rem; max-width: 15rem; }
+.t-bonbon22-poolbox { flex: 1 1 8.5rem; max-width: 15rem; }
 .t-bonbon22-pool {
   display: flex; flex-wrap: wrap; gap: 0.7rem 0.6rem; justify-content: center; align-content: flex-start; min-height: 11rem;
-  padding: 0.6rem 0.4rem; border: 3px dashed transparent; border-radius: 12px;
+  padding: 0.6rem 0.2rem; border: 3px dashed transparent; border-radius: 12px;
 }
 .t-bonbon22-pool.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
 .t-bonbon22-candy {

@@ -36,7 +36,7 @@
     if (locked || pool.indexOf(id) < 0) return;
     pool.splice(pool.indexOf(id), 1);
     stack.push(id);
-    note = 'Das ' + CANDY[id].name + ' liegt jetzt oben im Spender.';
+    note = 'Bonbon ' + id + ' (' + CANDY[id].short + ') liegt jetzt oben im Spender.';
     render('top');
     api.changed(status());
   }
@@ -47,7 +47,7 @@
     var at = 0;
     START.forEach(function (c, i) { if (pool.indexOf(c) >= 0 && i < START.indexOf(id)) at = pool.indexOf(c) + 1; });
     pool.splice(at, 0, id);
-    note = 'Das ' + CANDY[id].name + ' liegt wieder im Haufen.';
+    note = 'Bonbon ' + id + ' (' + CANDY[id].short + ') liegt wieder im Haufen.';
     render('pool' + id);
     api.changed(status());
   }
@@ -198,7 +198,7 @@
     },
     lock: function (on) {
       locked = on;
-      if (on) mode = mode || 'check'; else { mode = null; note = ''; }
+      if (on) { mode = mode || 'check'; note = ''; } else { mode = null; note = ''; }
       render();
     },
     reset: function () { reset(); render(); },

@@ -12,7 +12,7 @@
 .t-nachrichtennetz20-node.right .t-nachrichtennetz20-disc { stroke: var(--ok); }
 .t-nachrichtennetz20-node.wrong .t-nachrichtennetz20-disc { stroke: var(--bad); }
 .t-nachrichtennetz20-node:focus-visible .t-nachrichtennetz20-disc { stroke: var(--focus); stroke-width: 10; stroke-dasharray: 14 8; }
-.t-nachrichtennetz20-let { fill: var(--ink); font: 700 44px var(--font-display); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.t-nachrichtennetz20-let { fill: var(--ink); font: 700 54px var(--font-display); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
 .t-nachrichtennetz20-node.got .t-nachrichtennetz20-let { fill: #14222a; }
 .t-nachrichtennetz20-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; margin: 0; font-size: 0.85rem; color: var(--muted); }
 .t-nachrichtennetz20-legend i { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 50%; border: 2px solid var(--ink); margin-right: 0.3rem; vertical-align: -0.1rem; }
