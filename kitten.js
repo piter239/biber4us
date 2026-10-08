@@ -68,6 +68,11 @@
     var raw = localStorage.getItem(KEY);
     if (raw) mem = Object.assign(mem, JSON.parse(raw));
   } catch (e) { /* ohne Speicher */ }
+  if (!mem.stickers) {
+    mem.stickers = {};
+    Object.keys(mem.seen || {}).forEach(function (k) { mem.stickers['a:' + k] = true; });
+    if (mem.secrets && mem.secrets.zoomies) mem.stickers['s:zoomies'] = true;
+  }
   if (!CFG.start && !mem.touched) mem.off = true;
   function persist() { mem.touched = true; try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) { /* ignorieren */ } }
 
@@ -175,7 +180,42 @@
     /* Sprechblase */
     '.bk-bubble{position:fixed;z-index:2147483001;max-width:min(260px,calc(100vw - 24px));padding:.55rem .8rem;border-radius:14px;background:var(--surface,#fff);color:var(--ink,#1b2b31);border:2px solid var(--accent,#0a86a6);font:600 15px/1.35 var(--font-body,system-ui,sans-serif);box-shadow:0 4px 14px rgba(0,0,0,.18);pointer-events:none;opacity:0;transform:scale(.85);transition:opacity .25s,transform .25s;visibility:hidden}',
     '.bk-bubble.bk-show{opacity:1;transform:scale(1);visibility:visible}',
-    '@media (max-width:520px){.bk-bubble{font-size:14px}}'
+    '@media (max-width:520px){.bk-bubble{font-size:14px}}',
+    /* Zubehör */
+    '.bk-acc{display:none}',
+    '[data-acc="xmas"] .bk-acc-xmas,[data-acc="halloween"] .bk-acc-halloween,[data-acc="ostern"] .bk-acc-ostern,[data-acc="sommer"] .bk-acc-sommer,[data-acc="silvester"] .bk-acc-silvester{display:inline}',
+    /* Geschenk */
+    '.bk-gift{position:absolute;left:24%;top:58%;width:52%;animation:bk-giftin .9s cubic-bezier(.3,1.5,.5,1) 1 forwards,bk-giftwig .5s ease-in-out 1s 4}',
+    '@keyframes bk-giftin{0%{opacity:0;transform:translate(90%,60%) rotate(50deg) scale(.4)}100%{opacity:1;transform:none}}',
+    '@keyframes bk-giftwig{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg)}}',
+    /* Toast und Album */
+    '.bk-toast{position:fixed;left:12px;bottom:12px;z-index:2147483002;display:flex;gap:.5rem;align-items:center;padding:.5rem .8rem;border-radius:999px;border:2px solid var(--accent,#0a86a6);background:var(--surface,#fff);color:var(--ink,#1b2b31);font:700 14px/1.2 var(--font-body,system-ui,sans-serif);box-shadow:0 4px 14px rgba(0,0,0,.2);cursor:pointer;opacity:0;transform:translateY(12px);transition:opacity .25s,transform .25s;visibility:hidden}',
+    '.bk-toast.bk-show{opacity:1;transform:none;visibility:visible}',
+    '.bk-toast svg{width:22px;height:22px;color:#f2c230}',
+    '.bk-album-back{position:fixed;inset:0;z-index:2147483100;background:rgba(10,20,25,.55);display:grid;place-items:center;padding:12px}',
+    '.bk-album{width:min(720px,100%);max-height:calc(100vh - 24px);overflow:auto;background:var(--surface,#fff);color:var(--ink,#1b2b31);border:2px solid var(--accent,#0a86a6);border-radius:16px;padding:1rem 1.1rem;font:400 16px/1.4 var(--font-body,system-ui,sans-serif)}',
+    '.bk-album h2{margin:0;font:700 1.4rem/1.2 var(--font-display,system-ui,sans-serif)}',
+    '.bk-album-head{display:flex;gap:1rem;justify-content:space-between;align-items:flex-start}',
+    '.bk-album p{margin:.3rem 0 .8rem;color:var(--muted,#5a6b72);font-size:.92rem}',
+    '.bk-album-close{appearance:none;border:2px solid var(--accent,#0a86a6);background:transparent;color:var(--accent,#0a86a6);border-radius:10px;font:700 .95rem system-ui,sans-serif;padding:.35rem .8rem;cursor:pointer}',
+    '.bk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:.7rem;list-style:none;margin:0;padding:0}',
+    '.bk-st{display:grid;gap:.25rem;justify-items:center;text-align:center;padding:.5rem .3rem;border-radius:12px;background:var(--surface2,#e8f0f2);border:2px dashed transparent;min-width:0}',
+    '.bk-st svg{width:84px;height:80px;display:block;border-radius:10px;background:var(--paper,#fdf9f1)}',
+    '.bk-st b{font-size:.85rem;line-height:1.2}',
+    '.bk-st small{font-size:.74rem;color:var(--muted,#5a6b72);line-height:1.2}',
+    '.bk-st.bk-locked{border-color:var(--line,#c9d6db);background:transparent}',
+    '.bk-st.bk-locked svg{filter:grayscale(1) brightness(.5);opacity:.4}',
+    '.bk-st-open .bk-mouthopen{opacity:1;transform:scaleY(1.2)}',
+    /* Versteckte Katze */
+    '.bk-hid{position:absolute;z-index:4;width:30px;height:17px;overflow:hidden;cursor:pointer;padding:0;border:0;background:none;-webkit-tap-highlight-color:transparent}',
+    '.bk-hid::before{content:"";position:absolute;inset:-10px -8px -6px}',
+    '.bk-hid svg{position:absolute;left:0;top:0;width:30px;height:30px;display:block}',
+    '.bk-hid:focus-visible{outline:2px solid var(--focus,#0a86a6);outline-offset:3px}',
+    '.bk-hid .bk-hidblink{transform-box:fill-box;transform-origin:50% 50%;animation:bk-hblink 5s ease-in-out infinite}',
+    '@keyframes bk-hblink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}',
+    '.bk-hid.bk-found{animation:bk-hfound .9s ease-out 1 forwards}',
+    '@keyframes bk-hfound{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-14px) scale(1.5)}100%{transform:translateY(-30px) scale(1.2);opacity:0}}',
+    '.bk-reduced .bk-gift{animation:none}'
   ].join('\n');
 
   /* ---------- Kätzchen als SVG ---------- */
@@ -188,7 +228,26 @@
   var SPARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6z"/></svg>';
   var BUTTERFLY = '<svg viewBox="0 0 40 40" aria-hidden="true"><g class="bk-wing"><path d="M20 20C8 4 2 14 8 22c3 4 9 2 12-2z" fill="#7cc4f0" stroke="#2c6a96" stroke-width="1.6"/><path d="M20 20C32 4 38 14 32 22c-3 4-9 2-12-2z" fill="#f09ad0" stroke="#9a2c6a" stroke-width="1.6"/></g><path d="M20 12v16" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg>';
   var YARN = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#e8607a" stroke="#8a2a40" stroke-width="2"/><path d="M6 14c10 4 18 2 28-4M4 22c12 4 22 2 32-4M8 31c10 2 18 0 26-6M14 5c4 10 2 20-2 30" fill="none" stroke="#f9b0c0" stroke-width="2"/></svg>';
+  var FISH = '<svg viewBox="0 0 60 36" aria-hidden="true"><path d="M4 18C16 4 36 4 46 18C36 32 16 32 4 18Z" fill="#6fb3d9" stroke="#2c5f80" stroke-width="2.4"/><path d="M46 18l12-12v24z" fill="#4a95c4" stroke="#2c5f80" stroke-width="2.4" stroke-linejoin="round"/><circle cx="14" cy="15" r="2.4" fill="#123"/><path d="M24 10q4 8 0 16" fill="none" stroke="#2c5f80" stroke-width="2"/></svg>';
   var MOUSE = '<svg viewBox="0 0 60 36" aria-hidden="true"><ellipse cx="28" cy="22" rx="22" ry="12" fill="#b8c0c8" stroke="#4a5560" stroke-width="2.4"/><circle cx="46" cy="12" r="6.5" fill="#b8c0c8" stroke="#4a5560" stroke-width="2.4"/><circle cx="52" cy="22" r="2.4" fill="#f4a3b4"/><circle cx="41" cy="19" r="1.8" fill="#222"/><path d="M6 22c-6 0-8 6-2 8" fill="none" stroke="#4a5560" stroke-width="2.4" stroke-linecap="round"/></svg>';
+
+  /* Zubehör (nur eines ist sichtbar, gesteuert über data-acc) */
+  var ACC =
+    '<g class="bk-acc bk-acc-xmas"><path d="M62 54C70 30 100 12 124 8C122 24 134 40 140 54Z" fill="#d93a3a" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/>' +
+    '<ellipse cx="101" cy="54" rx="45" ry="8" fill="#fff" stroke="' + LINE + '" stroke-width="3"/><circle cx="126" cy="8" r="8" fill="#fff" stroke="' + LINE + '" stroke-width="3"/></g>' +
+    '<g class="bk-acc bk-acc-halloween"><ellipse cx="100" cy="40" rx="34" ry="24" fill="#f08a1c" stroke="' + LINE + '" stroke-width="3"/>' +
+    '<path d="M100 17q-12 24 0 46M80 21q-14 20-2 36M120 21q14 20 2 36" fill="none" stroke="#c4650a" stroke-width="2.5"/>' +
+    '<path d="M98 17q0-12 10-14" fill="none" stroke="#4a7a2a" stroke-width="5" stroke-linecap="round"/>' +
+    '<path d="M86 40l6-8 6 8zM104 40l6-8 6 8z" fill="#2b1a10"/><path d="M88 51l6-5 6 5 6-5 6 5" fill="none" stroke="#2b1a10" stroke-width="3" stroke-linejoin="round"/></g>' +
+    '<g class="bk-acc bk-acc-ostern"><path d="M62 58Q100 40 138 58" fill="none" stroke="#4a8a3a" stroke-width="4"/>' +
+    [[60,60,'#f48fb1'],[72,53,'#fff176'],[86,48,'#ffffff'],[100,46,'#ce93d8'],[114,48,'#f48fb1'],[128,53,'#fff176'],[140,60,'#ffffff']].map(function (f) {
+      return '<circle cx="' + f[0] + '" cy="' + f[1] + '" r="7" fill="' + f[2] + '" stroke="' + LINE + '" stroke-width="2"/><circle cx="' + f[0] + '" cy="' + f[1] + '" r="2.4" fill="#f2b705"/>';
+    }).join('') + '</g>' +
+    '<g class="bk-acc bk-acc-sommer"><rect x="54" y="82" width="42" height="28" rx="12" fill="#1b2b33" stroke="' + LINE + '" stroke-width="2.5"/>' +
+    '<rect x="104" y="82" width="42" height="28" rx="12" fill="#1b2b33" stroke="' + LINE + '" stroke-width="2.5"/><path d="M96 92h8" stroke="' + LINE + '" stroke-width="3"/>' +
+    '<path d="M62 90l9-2M112 90l9-2" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/></g>' +
+    '<g class="bk-acc bk-acc-silvester" transform="rotate(10 100 50)"><path d="M78 54L106 -8L128 54Z" fill="#7b5cff" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/>' +
+    '<path d="M88 36h32M95 20h19" stroke="#ffd23f" stroke-width="5" stroke-linecap="round"/><circle cx="106" cy="-8" r="7" fill="#ffd23f" stroke="' + LINE + '" stroke-width="2.5"/></g>';
 
   function kittenSvg() {
     return '<svg class="bk-svg" viewBox="0 0 200 200" aria-hidden="true" focusable="false">' +
@@ -214,6 +273,7 @@
       '<ellipse class="bk-mouthopen" cx="100" cy="122" rx="10" ry="9" fill="#7a2a3a" stroke="' + LINE + '" stroke-width="2"/>' +
       '<ellipse class="bk-tongue" cx="107" cy="124" rx="5" ry="6" fill="' + PINK + '" stroke="' + LINE + '" stroke-width="1.6"/>' +
       '<path d="M40 112l-24-6M40 118l-24 4M160 112l24-6M160 118l24 4" stroke="' + LINE + '" stroke-width="1.8" stroke-linecap="round" opacity=".75"/>' +
+      ACC +
       '</g></svg>';
   }
   function eye(cx) {
@@ -325,6 +385,7 @@
     wrap.style.transform = 'translate(-50%,-50%) rotate(' + SIDE_ROT[s] + 'deg)';
     wrap.style.setProperty('--bk-sneak', '50%');
     wrap.style.setProperty('--bk-up', '17%');
+    setAcc();
   }
 
   function sleep(ms, t) {
@@ -376,9 +437,7 @@
   }
   function hideBubble() { bubble.classList.remove('bk-show'); }
 
-  function note(name) {
-    if (!mem.seen[name]) { mem.seen[name] = true; persist(); announce(); }
-  }
+  function note(name) { unlock('a:' + name); }
   function announce() { document.dispatchEvent(new CustomEvent('bk:update', { detail: api.stats() })); }
 
   /* ---------- Aktionen ---------- */
@@ -416,10 +475,67 @@
   var NAMES = Object.keys(ACTIONS);
   var REDUCED_OK = ['kiss', 'tilt', 'ear', 'wave', 'tail'];
 
+  /* Tageszeit: abends gähnt und schläft das Kätzchen öfter, morgens streckt es sich. */
+  function dayPart() {
+    var h = new Date().getHours();
+    return h >= 5 && h < 10 ? 'morgen' : h < 13 ? (h >= 10 ? 'mittag' : 'nacht') : h < 18 ? 'nachmittag' : h < 22 ? 'abend' : 'nacht';
+  }
+  var TIMEPH = {
+    morgen: ['Guten Morgen! Ein neuer Tag voller Rätsel.', 'Guten Morgen! Schon wach?'],
+    mittag: ['Mahlzeit! Schon etwas gegessen?', 'Mittagszeit! Auch ein Kätzchen braucht Pause.'],
+    nachmittag: ['Na, wie läuft der Nachmittag?', 'Zeit für einen Schluck Wasser?'],
+    abend: ['Zeit für eine Pause? Du hast schon viel geschafft.', 'Schon Abend! Du bist fleißig.', 'Gähn… Gleich ist Schlafenszeit.'],
+    nacht: ['Es ist schon spät. Gönn Dir bald eine Pause!', 'Gähn… Ich bin auch müde. Morgen geht es weiter!']
+  };
+  var TIMEW = {
+    morgen: { stretch: 4, wash: 2, wave: 2 },
+    mittag: {},
+    nachmittag: {},
+    abend: { yawn: 5, sleep: 3, stretch: 1 },
+    nacht: { yawn: 6, sleep: 5 }
+  };
+  function pickAction(list) {
+    var w = TIMEW[dayPart()] || {}, total = 0, i;
+    var ws = list.map(function (n) { var x = w[n] || 1; total += x; return x; });
+    var r = Math.random() * total;
+    for (i = 0; i < list.length; i++) { r -= ws[i]; if (r <= 0) return list[i]; }
+    return list[0];
+  }
+
+  /* Zubehör nach Jahreszeit; manchmal bewusst zur falschen Zeit. */
+  var SEASON = {
+    xmas: function (m, d) { return m === 12 || (m === 1 && d <= 6); },
+    silvester: function (m, d) { return (m === 12 && d >= 27) || (m === 1 && d <= 2); },
+    halloween: function (m, d) { return (m === 10 && d >= 18) || (m === 11 && d <= 2); },
+    ostern: function (m, d) { return (m === 3 && d >= 15) || (m === 4 && d <= 25); },
+    sommer: function (m) { return m >= 6 && m <= 8; }
+  };
+  var ACC_NAME = { xmas: 'Weihnachtsmütze', silvester: 'Partyhut', halloween: 'Kürbishut', ostern: 'Blumenkranz', sommer: 'Sonnenbrille' };
+  var ACC_LATE = {
+    xmas: ['Ho ho ho! Für eine Mütze ist es nie zu früh.', 'Ja, ich weiß: Weihnachten ist noch weit. Die Mütze steht mir trotzdem.'],
+    silvester: ['Prosit! Ich feiere einfach schon mal.', 'Jeder Tag ist ein guter Tag für einen Partyhut!'],
+    halloween: ['Buh! Nur ein Kürbis auf meinem Kopf.', 'Kürbis-Saison? Bei mir immer!'],
+    ostern: ['Blumen im Haar. Irgendwo ist immer Frühling!', 'Frühlingsgefühle, mitten im Jahr.'],
+    sommer: ['Coole Brille, oder? Irgendwo scheint immer die Sonne.', 'Bereit für den Sommer, auch wenn es draußen anders aussieht.']
+  };
+  var curAcc = null, accLate = false;
+  function setAcc() {
+    var d = new Date(), m = d.getMonth() + 1, day = d.getDate(), keys = Object.keys(SEASON);
+    var inS = keys.filter(function (k) { return SEASON[k](m, day); });
+    var out = keys.filter(function (k) { return inS.indexOf(k) < 0; });
+    curAcc = null; accLate = false;
+    if (inS.length && Math.random() < 0.8) curAcc = pick(inS);
+    else if (Math.random() < 0.2) { curAcc = pick(out); accLate = true; }
+    if (curAcc) wrap.setAttribute('data-acc', curAcc); else wrap.removeAttribute('data-acc');
+    if (curAcc) unlock('h:' + curAcc);
+  }
+
   function textFor(name, kind) {
     var a = ACTIONS[name], r = Math.random();
     if (kind === 'hard') return pick(HARD);
+    if (curAcc && accLate && r < 0.7) return pick(ACC_LATE[curAcc]);
     if (r < 0.3) return null;
+    if (r < 0.45) return pick(TIMEPH[dayPart()]);
     if (r < 0.55 && a && a.phrases) return pick(a.phrases);
     return pick(r < 0.9 ? ENCOURAGE : FUN);
   }
@@ -432,7 +548,7 @@
     busy = true; visible = true;
     clearTimeout(timer);
     var s = o.side || pick(['bottom', 'bottom', 'left', 'right', 'top']);
-    var name = o.action && ACTIONS[o.action] ? o.action : pick(reduced ? REDUCED_OK : NAMES);
+    var name = o.action && ACTIONS[o.action] ? o.action : pickAction(reduced ? REDUCED_OK : NAMES);
     var a = ACTIONS[name];
     hideBubble(); clearActions();
     stage(null); peek.classList.add('bk-out'); peek.style.transition = 'none'; void peek.offsetWidth; peek.style.transition = '';
@@ -489,9 +605,10 @@
     if (petCount >= 5) { zoomies(t); return; }
     if (r < 0.5) { meow(rnd(0.9, 1.15)); } else { purr(2.6); }
     var text;
-    var total = Object.keys(mem.seen).length;
+    var total = Object.keys(mem.stickers || {}).length;
     if (mem.pets === 10) text = 'Wir sind jetzt beste Freunde!';
-    else if (mem.pets % 7 === 0 && total < NAMES.length) text = 'Du hast schon ' + total + ' von ' + NAMES.length + ' Überraschungen entdeckt. Es gibt noch mehr!';
+    else if (mem.pets % 7 === 0 && total < STICKERS.length) text = 'Du hast schon ' + total + ' von ' + STICKERS.length + ' Stickern gesammelt. Es gibt noch mehr!';
+    else if (!(mem.stickers && mem.stickers['s:hidden']) && mem.pets >= 3 && Math.random() < 0.25) text = 'Psst… Hier versteckt sich noch jemand. Schau genau hin!';
     else text = pick(PET);
     showBubble(text);
     (async function () {
@@ -503,7 +620,8 @@
   /* Geheimnis: fünfmal schnell streicheln gibt Zoomies. */
   async function zoomies(t) {
     clearActions();
-    if (!mem.secrets.zoomies) { mem.secrets.zoomies = true; persist(); announce(); }
+    if (!mem.secrets.zoomies) { mem.secrets.zoomies = true; persist(); }
+    unlock('s:zoomies');
     meow(1.3); showBubble('Zoomies!', 1400);
     stage('out');
     if (!await sleep(500, t)) return;
@@ -552,6 +670,169 @@
     peek.querySelectorAll('.bk-look').forEach(function (g) { g.style.transform = 'translate(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px)'; });
   }
 
+
+  /* ---------- Sammelalbum ---------- */
+  var HEADG = (function () { var k = kittenSvg(); return k.slice(k.indexOf('<g class="bk-head">'), k.lastIndexOf('</svg>')); })();
+  var STICKERS = [
+    ['a:wave', 'Winken', 'Das Kätzchen winkt Dir zu.'], ['a:tail', 'Schwanzwedeln', 'Wedelt Dir Glück zu.'], ['a:kiss', 'Katzenkuss', 'Langsames Blinzeln heißt: ich mag Dich.'],
+    ['a:yawn', 'Gähnen', 'Auch Kätzchen werden müde.'], ['a:ear', 'Ohrenzucken', 'Es hört Dich nachdenken.'], ['a:wash', 'Pfötchen putzen', 'Gründliche Katzenwäsche.'],
+    ['a:tilt', 'Kopf neigen', 'Neugierig und verwundert.'], ['a:butterfly', 'Schmetterling', 'Ein flatterndes Ziel.'], ['a:yarn', 'Wollknäuel', 'Rollt und rollt.'],
+    ['a:sleep', 'Einnicken', 'Huch, kurz weggedöst!'], ['a:mouse', 'Spielzeugmaus', 'Anschleichen und zupacken.'], ['a:knock', 'Anklopfen', 'Hallo, ist da jemand?'],
+    ['a:peekaboo', 'Kuckuck', 'Weg und wieder da.'], ['a:sneeze', 'Niesen', 'Hatschi!'], ['a:stretch', 'Strecken', 'Aaah, das tut gut.'],
+    ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
+    ['h:xmas', 'Weihnachtsmütze', 'Ho ho ho!'], ['h:silvester', 'Partyhut', 'Prosit Neujahr!'], ['h:halloween', 'Kürbishut', 'Buh!'], ['h:ostern', 'Blumenkranz', 'Frühlingsgefühle.'], ['h:sommer', 'Sonnenbrille', 'Cool bleiben.'],
+    ['g:fish', 'Fisch', 'Geschenk für 10 richtige Antworten.'], ['g:mouse', 'Mäuschen', 'Geschenk für 20 richtige Antworten.']
+  ];
+  /* Zusatzzeichnungen je Sticker, im Koordinatensystem des Kopfes (viewBox 30 0 140 150) */
+  var PROPS = {
+    'a:wave': { svg: '<ellipse cx="162" cy="72" rx="9" ry="14" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3" transform="rotate(20 162 72)"/><path d="M174 52q8 6 6 16M176 44q12 8 10 24" fill="none" stroke="' + LINE + '" stroke-width="3" stroke-linecap="round"/>' },
+    'a:tail': { svg: '<path d="M150 140C176 134 180 100 160 86" fill="none" stroke="' + LINE + '" stroke-width="15" stroke-linecap="round"/><path d="M150 140C176 134 180 100 160 86" fill="none" stroke="' + FUR + '" stroke-width="9" stroke-linecap="round"/>' },
+    'a:kiss': { cls: 'bk-happy', svg: '<g transform="translate(120 4) scale(2.2)">' + HEART.replace('<svg viewBox="0 0 24 24" aria-hidden="true">', '<g color="#ef5d7a">').replace('</svg>', '</g>') + '</g>' },
+    'a:yawn': { cls: 'bk-happy bk-st-open', svg: '' },
+    'a:ear': { svg: '<path d="M30 44q-10 10 0 22M22 36q-16 18 0 38" fill="none" stroke="' + LINE + '" stroke-width="3.5" stroke-linecap="round"/>' },
+    'a:wash': { svg: '<ellipse cx="108" cy="134" rx="17" ry="14" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/><path d="M103 140v-8M113 140v-8" stroke="' + LINE + '" stroke-width="2.4" stroke-linecap="round"/>' },
+    'a:tilt': { rot: -14, svg: '<text x="146" y="42" font-family="system-ui,sans-serif" font-weight="800" font-size="40" fill="#0a86a6">?</text>' },
+    'a:butterfly': { svg: '<g transform="translate(120 6) scale(1.2)">' + BUTTERFLY.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:yarn': { svg: '<g transform="translate(110 100) scale(1.4)">' + YARN.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:sleep': { cls: 'bk-happy', svg: '<text x="132" y="34" font-family="system-ui,sans-serif" font-weight="800" font-size="30" fill="#6a7b82">Z</text><text x="152" y="16" font-family="system-ui,sans-serif" font-weight="800" font-size="20" fill="#6a7b82">z</text>' },
+    'a:mouse': { svg: '<g transform="translate(100 112) scale(1.1)">' + MOUSE.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:knock': { svg: '<circle cx="156" cy="120" r="12" fill="none" stroke="#0a86a6" stroke-width="4"/><circle cx="156" cy="120" r="24" fill="none" stroke="#0a86a6" stroke-width="3" opacity=".6"/>' },
+    'a:peekaboo': { svg: '<rect x="20" y="104" width="170" height="60" fill="#8a9ca4"/>' },
+    'a:sneeze': { cls: 'bk-happy', svg: '<circle cx="156" cy="100" r="5" fill="#8aa0a8"/><circle cx="170" cy="86" r="4" fill="#8aa0a8"/><circle cx="166" cy="112" r="3.5" fill="#8aa0a8"/>' },
+    'a:stretch': { svg: '<ellipse cx="48" cy="26" rx="12" ry="17" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/><ellipse cx="152" cy="26" rx="12" ry="17" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/>' },
+    's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
+    'g:fish': { svg: '<g transform="translate(96 112) scale(1.2)">' + FISH.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'g:mouse': { svg: '<g transform="translate(96 112) scale(1.1)">' + MOUSE.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' }
+  };
+  function stickerSvg(id) {
+    var kind = id.split(':')[0], key = id.split(':')[1], pr = PROPS[id] || {};
+    if (id === 's:hidden') return hidSvg(90);
+    var acc = kind === 'h' ? ' data-acc="' + key + '"' : '';
+    var head = HEADG;
+    return '<svg viewBox="10 -8 190 168" aria-hidden="true" class="' + (pr.cls || '') + '"' + acc + '><g transform="rotate(' + (pr.rot || 0) + ' 100 100)">' + head + '</g>' + (pr.svg || '') + '</svg>';
+  }
+  function stickerName(id) { for (var i = 0; i < STICKERS.length; i++) if (STICKERS[i][0] === id) return STICKERS[i][1]; return id; }
+
+  var toast = null, toastT = 0;
+  function showToast(text) {
+    if (!toast) {
+      toast = document.createElement('button'); toast.type = 'button'; toast.className = 'bk-toast';
+      toast.setAttribute('aria-live', 'polite');
+      toast.addEventListener('click', function () { openAlbum(); });
+      document.body.appendChild(toast);
+    }
+    toast.innerHTML = SPARK + '<span></span>';
+    toast.querySelector('span').textContent = text;
+    toast.classList.add('bk-show');
+    clearTimeout(toastT); toastT = setTimeout(function () { toast.classList.remove('bk-show'); }, 3800);
+  }
+  function unlock(id) {
+    if (!mem.stickers) mem.stickers = {};
+    if (mem.stickers[id]) return false;
+    mem.stickers[id] = true; persist();
+    var first = Object.keys(mem.stickers).length === 1;
+    setTimeout(function () { showToast('Neuer Sticker: ' + stickerName(id) + (first ? ' (Dein Sammelalbum ist im Seitenfuß)' : '')); }, 900);
+    announce();
+    return true;
+  }
+
+  var albumEl = null, albumFrom = null;
+  function openAlbum() {
+    if (albumEl) return;
+    albumFrom = document.activeElement;
+    var have = mem.stickers || {};
+    var n = Object.keys(have).length;
+    albumEl = document.createElement('div'); albumEl.className = 'bk-album-back';
+    var items = STICKERS.map(function (s) {
+      var got = !!have[s[0]];
+      return '<li class="bk-st' + (got ? '' : ' bk-locked') + '">' + (got ? stickerSvg(s[0]) : stickerSvg(s[0] === 's:hidden' ? 'a:wave' : s[0])) +
+        '<b>' + (got ? s[1] : '???') + '</b><small>' + (got ? s[2] : 'Noch nicht entdeckt') + '</small></li>';
+    }).join('');
+    albumEl.innerHTML = '<div class="bk-album" role="dialog" aria-modal="true" aria-label="Kätzchen-Sammelalbum">' +
+      '<div class="bk-album-head"><div><h2>Sammelalbum</h2><p>' + n + ' von ' + STICKERS.length + ' Stickern gesammelt. Das Kätzchen hat noch mehr Überraschungen auf Lager.</p></div>' +
+      '<button type="button" class="bk-album-close">Schließen</button></div><ul class="bk-grid">' + items + '</ul></div>';
+    document.body.appendChild(albumEl);
+    var close = albumEl.querySelector('.bk-album-close');
+    close.focus();
+    function closeAlbum() {
+      if (!albumEl) return;
+      albumEl.remove(); albumEl = null; document.removeEventListener('keydown', onKey, true);
+      if (albumFrom && albumFrom.focus) try { albumFrom.focus(); } catch (e) { /* ignorieren */ }
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') { e.preventDefault(); closeAlbum(); }
+      else if (e.key === 'Tab') { e.preventDefault(); close.focus(); }
+    }
+    document.addEventListener('keydown', onKey, true);
+    close.addEventListener('click', closeAlbum);
+    albumEl.addEventListener('click', function (e) { if (e.target === albumEl) closeAlbum(); });
+  }
+
+  /* ---------- Geschenke ---------- */
+  function gift(n) {
+    var fish = (n / 10) % 2 === 1;
+    var t = ++tok; busy = true; visible = true; clearTimeout(timer);
+    (async function () {
+      place(pick(['bottom', 'left', 'right'])); clearActions();
+      wrap.classList.add('bk-on', 'bk-live'); wrap.tabIndex = 0;
+      stage('up'); wrap.classList.add('bk-happy'); peek.classList.add('bk-a-happy');
+      if (!await sleep(550, t)) return;
+      addFx(fish ? FISH : MOUSE, 'bk-gift', '', 5200);
+      trill(); hearts(3); sparks(5);
+      showBubble(n + ' richtige Antworten! Das ist für Dich: ' + (fish ? 'ein Fisch!' : 'ein Mäuschen!'), 4200);
+      unlock(fish ? 'g:fish' : 'g:mouse');
+      if (!await sleep(4600, t)) return;
+      await leave(t);
+    })();
+  }
+
+  /* ---------- Versteckte Katze ---------- */
+  var hidEl = null, hidTarget = null, hidDX = 0;
+  function hidSvg(px) {
+    return '<svg viewBox="0 0 30 30" width="' + px + '" height="' + px + '" aria-hidden="true"><path d="M3 12L5 2l7 5z" fill="#8c8f94" stroke="#3d3f44" stroke-width="1.4" stroke-linejoin="round"/><path d="M27 12L25 2l-7 5z" fill="#8c8f94" stroke="#3d3f44" stroke-width="1.4" stroke-linejoin="round"/>' +
+      '<ellipse cx="15" cy="17" rx="12.5" ry="11.5" fill="#a7abb1" stroke="#3d3f44" stroke-width="1.4"/><g class="bk-hidblink"><ellipse cx="10" cy="15" rx="2" ry="2.6" fill="#1d1f22"/><ellipse cx="20" cy="15" rx="2" ry="2.6" fill="#1d1f22"/></g>' +
+      '<path d="M13.4 19.4h3.2l-1.6 2z" fill="#f4a3b4"/><path d="M5 18l-5-1M5 21l-5 1.5M25 18l5-1M25 21l5 1.5" stroke="#3d3f44" stroke-width=".9" stroke-linecap="round"/></svg>';
+  }
+  function removeHidden() { if (hidEl) { hidEl.remove(); hidEl = null; hidTarget = null; } }
+  function positionHidden() {
+    if (!hidEl || !hidTarget || !document.body.contains(hidTarget)) return removeHidden();
+    var r = hidTarget.getBoundingClientRect();
+    if (r.width < 60) return removeHidden();
+    hidEl.style.left = (r.left + window.scrollX + Math.min(Math.max(8, hidDX), r.width - 38)) + 'px';
+    hidEl.style.top = (r.top + window.scrollY - 15) + 'px';
+  }
+  function placeHidden() {
+    removeHidden();
+    if (mem.off) return;
+    var chance = (mem.stickers && mem.stickers['s:hidden']) ? 0.2 : 0.5;
+    if (Math.random() > chance) return;
+    var sel = 'h1,h2,.task-row,.board-shell,.panel,.stat,.feedback,.intro,.progress,article,footer,.tasklist li';
+    var c = [].slice.call(document.querySelectorAll(sel)).filter(function (e) {
+      var r = e.getBoundingClientRect();
+      return r.width > 90 && r.height > 20 && r.top + window.scrollY > 90 && !e.closest('.bk-wrap,.bk-album-back,.site-head');
+    });
+    if (!c.length) return;
+    hidTarget = pick(c);
+    var w = hidTarget.getBoundingClientRect().width;
+    hidDX = rnd(10, Math.max(12, w - 40));
+    hidEl = document.createElement('button'); hidEl.type = 'button'; hidEl.className = 'bk-hid';
+    hidEl.setAttribute('aria-label', 'Eine winzige Katze versteckt sich hier. Antippen!');
+    hidEl.innerHTML = hidSvg(30);
+    hidEl.addEventListener('click', foundHidden);
+    document.body.appendChild(hidEl);
+    positionHidden();
+  }
+  function foundHidden() {
+    if (!hidEl) return;
+    var el = hidEl; el.classList.add('bk-found');
+    setTimeout(function () { el.remove(); }, 900);
+    hidEl = null; hidTarget = null;
+    mem.hiddenFound = (mem.hiddenFound || 0) + 1; persist();
+    var isNew = unlock('s:hidden');
+    try { if (navigator.vibrate) navigator.vibrate(30); } catch (e) { /* ignorieren */ }
+    if (!busy && !mem.off) visit({ action: 'kiss', side: 'bottom', text: isNew ? 'Du hast Mimi gefunden! Das ist meine kleine Freundin.' : 'Mimi hat sich wieder versteckt. Gut gefunden!' });
+  }
+
   /* ---------- Öffentliche Schnittstelle ---------- */
   var api = {
     visit: visit,
@@ -589,7 +870,8 @@
       announce();
     },
     setMuted: function (m) { mem.mute = !!m; persist(); announce(); },
-    stats: function () { return { seen: Object.keys(mem.seen).length, total: NAMES.length, pets: mem.pets, enabled: !mem.off, muted: !!mem.mute, secrets: Object.keys(mem.secrets).length }; },
+    album: openAlbum,
+    stats: function () { return { seen: Object.keys(mem.stickers || {}).length, total: STICKERS.length, pets: mem.pets, enabled: !mem.off, muted: !!mem.mute, secrets: Object.keys(mem.secrets).length }; },
     actions: NAMES.slice()
   };
   window.BiberKitten = api;
@@ -605,11 +887,18 @@
     document.addEventListener('biber:result', function (e) {
       var d = (e && e.detail) || {};
       if (mem.off) return;
-      if (d.correct) api.cheer(); else api.comfort();
+      if (d.correct) {
+        if (d.counted !== false) { mem.correct = (mem.correct || 0) + 1; persist(); }
+        if (d.counted !== false && mem.correct % 10 === 0) { gift(mem.correct); return; }
+        api.cheer();
+      } else api.comfort();
     });
     document.addEventListener('visibilitychange', function () { if (!document.hidden && !busy) schedule(); });
     schedule(CFG.first);
     announce();
+    setTimeout(placeHidden, 900);
+    document.addEventListener('biber:render', function () { removeHidden(); setTimeout(placeHidden, 450); });
+    var rz = 0; window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(positionHidden, 150); });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

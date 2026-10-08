@@ -326,6 +326,7 @@
     else if (h && byId(h)) renderTask(h);
     else renderOverview();
     window.scrollTo(0, 0);
+    document.dispatchEvent(new Event('biber:render'));
   }
   function afterViewChange() {
     save();
@@ -371,10 +372,11 @@
     bkToggle.setAttribute('aria-pressed', String(s.enabled));
     bkMute.textContent = 'Ton: ' + (s.muted ? 'aus' : 'an');
     bkMute.setAttribute('aria-pressed', String(!s.muted));
-    bkStat.textContent = s.seen + ' von ' + s.total + ' Überraschungen entdeckt';
+    bkStat.textContent = s.seen + ' von ' + s.total + ' Stickern gesammelt';
   }
   if (bkToggle) {
     bkToggle.addEventListener('click', function () { if (window.BiberKitten) { window.BiberKitten.setEnabled(!window.BiberKitten.stats().enabled); bkSync(); } });
+    document.getElementById('bkAlbum').addEventListener('click', function () { if (window.BiberKitten) window.BiberKitten.album(); });
     bkMute.addEventListener('click', function () { if (window.BiberKitten) { window.BiberKitten.setMuted(!window.BiberKitten.stats().muted); bkSync(); } });
     document.addEventListener('bk:update', bkSync);
     window.addEventListener('load', bkSync);
