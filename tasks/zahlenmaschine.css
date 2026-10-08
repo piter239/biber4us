@@ -1,1 +1,66 @@
-/* Stile fuer .t-zahlenmaschine */
+/* Aufgabe Zahlenmaschine */
+.zm-pill {
+  display: inline-block; min-width: 2.6rem; text-align: center; padding: 0 0.6rem; border: 2px solid var(--c2); border-radius: 999px;
+  font-weight: 700; line-height: 1.35; background: var(--surface);
+}
+.zm-rules { margin: 0; padding-left: 1.4rem; display: grid; gap: 0.1rem; }
+.zm-etwa { display: block; margin-top: 0.4rem; }
+.zm-mini { width: 11rem; max-width: 100%; height: auto; display: block; }
+.zm-board { display: grid; grid-template-columns: minmax(0, 26rem) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: center; justify-content: center; }
+.zm-machine { display: grid; gap: 0.6rem; min-width: 0; justify-items: center; }
+.zm-svg { width: 100%; height: auto; max-width: 26rem; display: block; overflow: visible; }
+
+.zm-wire { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.zm-wire.in { stroke: var(--ok); stroke-width: 2; }
+.zm-wire.small { stroke: var(--muted); stroke-width: 2; }
+.zm-wire.big { stroke: var(--accent); stroke-width: 5; }
+.zm-wire.head { stroke-width: 2.4; }
+.zm-wire.big.head { stroke-width: 4; }
+.zm-switch rect { fill: var(--surface); stroke: var(--c2); stroke-width: 3.5; }
+.zm-switch path { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.zm-in circle, .zm-out circle { fill: var(--surface); stroke-width: 2; }
+.zm-in .zm-ring, .zm-etwa .zm-in circle { stroke: var(--ok); stroke-dasharray: 4 3; }
+.zm-out circle { stroke: var(--ink); }
+.zm-in text, .zm-out text, .zm-badge text {
+  font-family: var(--font-display); font-weight: 700; font-size: 22px; text-anchor: middle; dominant-baseline: central; fill: var(--ink); pointer-events: none;
+}
+.zm-in text { fill: var(--ok); }
+.zm-etwa .zm-in text { font-size: 18px; }
+.zm-out text.s { font-size: 14px; }
+.zm-badge circle { fill: var(--surface2); stroke: var(--line); stroke-width: 1.5; }
+.zm-badge text { font-size: 13px; }
+.zm-in { cursor: pointer; }
+.zm-hit { fill: transparent; stroke: none; }
+.zm-in:hover .zm-ring { fill: color-mix(in srgb, var(--ok) 14%, var(--surface)); }
+.zm-in:focus { outline: none; }
+.zm-in:focus-visible .zm-ring { stroke: var(--focus); stroke-width: 4; stroke-dasharray: none; }
+.zm-cap { fill: var(--muted); font-size: 12px; font-family: var(--font-body); }
+.zm-line { font-weight: 600; font-variant-numeric: tabular-nums; text-align: center; }
+.zm-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+.zm-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+.zm-btn { min-height: 2.5rem; padding: 0.35rem 0.9rem; font-size: 0.95rem; }
+
+.zm-options { display: grid; gap: 0.6rem; min-width: 0; }
+.zm-opt {
+  position: relative; display: grid; grid-template-columns: 2.1rem minmax(0, 1fr); gap: 0.2rem 0.7rem; align-items: center;
+  padding: 0.7rem 0.9rem; border: 3px solid var(--line); border-radius: var(--radius); background: var(--surface2); cursor: pointer;
+}
+.zm-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: inherit; }
+.zm-opt:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.zm-opt:has(input:disabled) { cursor: default; }
+.zm-letter {
+  width: 2.1rem; height: 2.1rem; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700;
+  background: var(--surface); border: 2px solid var(--accent); color: var(--accent);
+}
+.zm-opt.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.zm-opt.on .zm-letter { background: var(--accent); color: var(--accent-ink); }
+.zm-opt.right { border-color: var(--ok); background: var(--ok-bg); }
+.zm-opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.zm-opt.right .zm-letter { background: var(--ok); border-color: var(--ok); color: var(--accent-ink); }
+.zm-opt.wrong .zm-letter { background: var(--bad); border-color: var(--bad); color: var(--accent-ink); }
+.zm-mark { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: var(--accent-ink); }
+.zm-opt.right .zm-mark { background: var(--ok); }
+.zm-opt.wrong .zm-mark { background: var(--bad); }
+@media (max-width: 48rem) {
+  .zm-board { grid-template-columns: minmax(0, 1fr); }
+}

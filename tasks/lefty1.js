@@ -88,8 +88,10 @@
     for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) s += rect(c, r, special[r + ',' + c] || 'lf1-g');
     return s;
   }
-  function svg(w, hgt, inner, label) {
-    return '<svg class="lf1-fig" viewBox="0 ' + (w === 92 ? -10 : 0) + ' ' + w + ' ' + (w === 92 ? hgt + 10 : hgt) + '" width="' + Math.round(w * 1.5) + '" height="' + Math.round((w === 92 ? hgt + 10 : hgt) * 1.5) + '" role="img" aria-label="' + label + '" focusable="false">' + inner + '</svg>';
+  function svg(w, hgt, inner, label, top) {
+    var t = top || 0, k = 1.5;       /* top: zusätzlicher Rand oben (für den Drehpfeil) */
+    return '<svg class="lf1-fig" viewBox="0 ' + (-t) + ' ' + w + ' ' + (hgt + t) + '" width="' + Math.round(w * k) + '" height="' + Math.round((hgt + t) * k) +
+      '" role="img" aria-label="' + label + '" focusable="false">' + inner + '</svg>';
   }
   function dash(d) { return '<path d="' + d + '" class="lf1-dash"/>'; }
 
@@ -100,7 +102,7 @@
   function figLeft() {
     return svg(92, 52, grid(2, 1, { '0,0': 'lf1-y', '0,1': 'lf1-b' }) + robot(66, 26, 0) + dash('M50 26 L30 26') + head(14, 26, 180) +
       '<path d="M80 6 Q66 -12 48 1" class="lf1-dash"/>' + head(44, 3, 145),
-      'Lefty dreht sich nach links und fährt sofort ein Feld nach links auf das gelbe Feld.');
+      'Lefty dreht sich nach links und fährt sofort ein Feld nach links auf das gelbe Feld.', 10);
   }
   function figNoRight() {
     return svg(132, 172, grid(3, 4, { '1,1': 'lf1-y', '1,2': 'lf1-y', '2,1': 'lf1-y', '3,1': 'lf1-b' }) + robot(66, 146, 0) +
@@ -210,7 +212,7 @@
     question: 'Über welche Felder muss Lefty fahren, um das Ziel zu erreichen?<span class="lf1-sub">Wähle so wenige Felder wie möglich aus.</span>',
     howto: 'Tippe die Felder an, über die Lefty fährt (Start und Ziel zählen nicht dazu). Noch einmal tippen nimmt ein Feld wieder weg. Lefty startet mit Blick nach oben.',
     explanation: function () {
-      return '<p>Lefty schaut am Start nach oben. Er fährt drei Felder geradeaus und biegt dann nach links ab. So geht es immer weiter: oben entlang bis zum linken Rand, links abbiegen nach unten, links abbiegen nach rechts bis unter das Ziel und mit einer letzten Linkskurve ins Ziel. ' +
+      return '<p>Lefty schaut am Start nach oben. Er fährt drei Felder geradeaus und biegt dann nach links ab. So geht es immer weiter: in der zweiten Reihe entlang bis zum linken Rand, links abbiegen nach unten, links abbiegen nach rechts bis unter das Ziel und mit einer letzten Linkskurve ins Ziel. ' +
         'Das Ziel hat auf drei Seiten Mauern, deshalb geht es nur von unten hinein. Kürzer als diese ' + BEST.cells.length + ' Felder geht es nicht.</p>' +
         '<p>Mit seinen zwei Befehlen kann Lefty also nur Linkskurven fahren. Eine Rechtskurve müsste er mit drei Linkskurven hintereinander bauen. Ein kleiner Befehlssatz reicht oft aus, nur werden die Wege manchmal länger.</p>';
     },

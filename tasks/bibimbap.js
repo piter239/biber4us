@@ -160,7 +160,7 @@
     el.replaceChildren(h('div', { class: 'bb-board' },
       h('section', { 'aria-label': 'Zutaten' }, h('h3', null, 'Zutaten'), h('div', { class: 'bb-pal', 'data-pal': '' }, palette)),
       h('section', { 'aria-label': 'Arbeitsplan' }, h('h3', null, 'Plan des Kochs'),
-        h('div', { class: 'bb-plan', 'data-pal': '' }, ruler, rows)),
+        h('div', { class: 'bb-plan' }, ruler, rows)),
       h('p', { class: 'bb-note' + (mark === 'check' ? ' result' : ''), role: 'status' }, note)));
   }
 
@@ -219,7 +219,6 @@
   function onDragEnd() { dragging = null; if (!locked) render(); }
 
   function explanation() {
-    function step(g, d) { return g.name + ' ' + DEV[d].verb + ' (' + DEV[d].name + ')'; }
     return '<p>Jede Zutat beginnt mit einem Schritt, für den ein anderes Gerät gebraucht wird. Darum können alle vier ersten Schritte zusammen in den ersten 5 Minuten laufen: ' +
       'Spinat kochen (Topf), Sprossen wässern (Schüssel), Karotten schneiden (Brett) und Ei braten (Pfanne).</p>' +
       '<p>In den nächsten 5 Minuten folgen gleichzeitig die zweiten Schritte: Spinat schneiden (Brett), Sprossen kochen (Topf) und Karotten braten (Pfanne). ' +

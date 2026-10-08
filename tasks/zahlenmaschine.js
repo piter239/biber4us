@@ -193,19 +193,6 @@
 
   function reset() { vals = START.slice(); choice = null; mode = null; }
 
-  /* kleine Zeichnung "Etwa so:" für den Aufgabentext */
-  function miniSwitch() {
-    return '<svg class="zm-mini" viewBox="0 0 140 110" role="img" aria-label="Ein Schalter bekommt 3 und 2. Die kleinere Zahl 2 geht nach links, die größere Zahl 3 nach rechts weiter.">' +
-      '<path class="zm-wire in" d="M40,98 L52,60"/><path class="zm-wire in head" d="M49,70 L52,60 L58,69"/>' +
-      '<path class="zm-wire in" d="M100,98 L88,60"/><path class="zm-wire in head" d="M82,69 L88,60 L91,71"/>' +
-      '<path class="zm-wire small" d="M54,36 L34,12"/><path class="zm-wire small head" d="M34,22 L34,12 L44,15"/>' +
-      '<path class="zm-wire big" d="M86,36 L106,12"/><path class="zm-wire big head" d="M96,13 L106,12 L104,22"/>' +
-      '<g class="zm-switch"><rect x="38" y="36" width="64" height="30" rx="15"/><path d="M75,43 L65,51 L75,59"/></g>' +
-      '<g class="zm-out small-out"><circle cx="30" cy="102" r="0"/></g>' +
-      '<g class="zm-in-mini"><circle cx="40" cy="98" r="0"/></g>' +
-      '</svg>';
-  }
-
   Biber.register({
     id: 'zahlenmaschine',
     story: '<p>Die Biber haben eine Zahlenmaschine.</p>' +
@@ -215,7 +202,7 @@
       '<ul class="zm-rules"><li>&hellip; die kleinere Zahl nach links und</li><li>&hellip; die größere Zahl nach rechts weiter.</li></ul>' +
       '<p>Etwa so: <span class="zm-etwa">' +
       '<svg class="zm-mini" viewBox="0 0 150 130" role="img" aria-label="Ein Schalter bekommt unten 3 und 2. Die kleinere Zahl 2 geht nach links oben, die größere Zahl 3 nach rechts oben weiter.">' +
-      '<path class="zm-wire in" d="M32,100 L56,70"/><path class="zm-wire in head" d="M51,70 L56,70 L54,77" style="display:none"/>' +
+      '<path class="zm-wire in" d="M32,100 L56,70"/>' +
       '<path class="zm-wire in" d="M118,100 L94,70"/>' +
       '<path class="zm-wire small" d="M56,42 L38,20"/><path class="zm-wire small head" d="M37,28 L38,19 L46,22"/>' +
       '<path class="zm-wire big" d="M94,42 L112,20"/><path class="zm-wire big head" d="M104,19 L112,19 L111,27"/>' +
