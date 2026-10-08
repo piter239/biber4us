@@ -400,10 +400,11 @@
             type: 'button', role: 'radio', class: P + 'rule', 'aria-checked': 'false',
             'aria-label': 'Boden ' + fl.label + ': Regel ' + n + ' (' + RULES[n - 1].short + ')',
             onclick: function () { setRule(f, n); }, onkeydown: function (e) { onRuleKey(f, e); }
-          }, h('span', { class: P + 'rn' }, 'Regel ' + n));
+          }, h('span', { class: P + 'rn' }, String(n)));
         });
         radios.push(btns);
         return h('div', { class: P + 'card' }, head, h('div', { class: P + 'cvwrap' }, cv),
+          h('span', { class: P + 'lbl', 'aria-hidden': 'true' }, 'Welche Regel?'),
           h('div', { class: P + 'rules', role: 'radiogroup', 'aria-label': 'Regel für Boden ' + fl.label }, btns));
       });
       probeBox = h('div', { class: P + 'probe', role: 'status', 'aria-live': 'polite' });

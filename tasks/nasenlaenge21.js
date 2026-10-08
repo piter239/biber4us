@@ -140,7 +140,6 @@
       return h('tr', null, h('td', null, faceSvg(p.value)), h('td', { class: P + 'val' }, fmt(p.value)), h('td', null, p.name));
     });
     var table = h('table', { class: P + 'table' },
-      h('caption', null, 'Kamera-Messung'),
       h('thead', null, h('tr', null, h('th', { scope: 'col' }, 'Kamera-Messung'), h('th', { scope: 'col' }, 'Wert Nasenlänge'), h('th', { scope: 'col' }, 'Kopfhaltung'))),
       h('tbody', null, poseRows));
     el.replaceChildren(h('div', { class: P + 'board' },

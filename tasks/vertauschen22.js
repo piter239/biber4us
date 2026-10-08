@@ -39,7 +39,7 @@
     if (from >= 0) slots[from] = existing === id ? null : existing;
     selected = null;
     render('slot' + idx);
-    api.changed(slots.every(Boolean) ? '' : 'Noch ' + slots.filter(function (s) { return !s; }).length + ' Ding(e) fehlen.');
+    api.changed(slots.every(Boolean) ? '' : (function (n) { return n === 1 ? 'Noch 1 Ding fehlt.' : 'Noch ' + n + ' Dinge fehlen.'; })(slots.filter(function (s) { return !s; }).length));
   }
   function release(id) {
     if (locked) return;

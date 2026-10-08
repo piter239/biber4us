@@ -1,0 +1,68 @@
+/* Stile für nasenlaenge21 (Präfix t-nasenlaenge21-) */
+.t-nasenlaenge21-board { display: grid; gap: 1.2rem; }
+.t-nasenlaenge21-board section { min-width: 0; }
+.t-nasenlaenge21-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-nasenlaenge21-table { border-collapse: collapse; width: 100%; max-width: 38rem; justify-self: center; }
+.t-nasenlaenge21-table th, .t-nasenlaenge21-table td { border: 1px solid var(--line); padding: 0.25rem 0.5rem; text-align: center; }
+.t-nasenlaenge21-table thead th { background: var(--surface2); font-size: 0.9rem; }
+.t-nasenlaenge21-table td svg { display: block; margin: 0 auto; }
+.t-nasenlaenge21-val { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; }
+.t-nasenlaenge21-face { width: 5.2rem; height: auto; }
+.t-nasenlaenge21-edit { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 1.2rem 1.6rem; align-items: start; }
+.t-nasenlaenge21-edit > section { min-width: 0; }
+
+.t-nasenlaenge21-code { display: grid; gap: 0.3rem; font-weight: 600; }
+.t-nasenlaenge21-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; padding: 0.35rem 0.55rem; border-radius: 8px; min-height: 2.6rem; }
+.t-nasenlaenge21-b-var, .t-nasenlaenge21-b-wait { background: color-mix(in srgb, var(--c2) 28%, var(--surface)); border: 1px solid color-mix(in srgb, var(--c2) 55%, var(--line)); }
+.t-nasenlaenge21-b-loop { background: transparent; }
+.t-nasenlaenge21-loop { background: color-mix(in srgb, var(--c4) 24%, var(--surface)); border: 1px solid color-mix(in srgb, var(--c4) 50%, var(--line)); border-radius: 10px; padding: 0.3rem 0.4rem 0.5rem; display: grid; gap: 0.3rem; }
+.t-nasenlaenge21-inner { display: grid; gap: 0.3rem; margin-left: 1.1rem; }
+.t-nasenlaenge21-code code, .t-nasenlaenge21-chip, .t-nasenlaenge21-slot { font-family: ui-monospace, Menlo, Consolas, monospace; }
+.t-nasenlaenge21-code code { color: var(--c1); font-weight: 700; }
+.t-nasenlaenge21-slot {
+  appearance: none; position: relative; flex: 1 1 11rem; min-width: 0; min-height: 2.3rem; padding: 0.15rem 0.7rem; font-size: 0.95rem; font-weight: 700; color: var(--ink);
+  background: var(--slot); border: 2px dashed var(--slot-line); border-radius: 999px; cursor: pointer; touch-action: manipulation; display: grid; place-items: center;
+}
+.t-nasenlaenge21-slot.filled { border-style: solid; background: color-mix(in srgb, var(--c6) 30%, var(--surface)); border-color: color-mix(in srgb, var(--c6) 70%, var(--line)); }
+.t-nasenlaenge21-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.t-nasenlaenge21-slot.right { border-color: var(--ok); border-style: solid; }
+.t-nasenlaenge21-slot.wrong { border-color: var(--bad); border-style: solid; }
+.t-nasenlaenge21-slot:disabled { cursor: default; }
+.t-nasenlaenge21-ph { color: var(--muted); font-weight: 400; font-family: var(--font-body); font-size: 0.85rem; }
+.t-nasenlaenge21-mark { position: absolute; top: -10px; right: -6px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.9rem; color: #fff; }
+.t-nasenlaenge21-slot.right .t-nasenlaenge21-mark { background: var(--ok); }
+.t-nasenlaenge21-slot.wrong .t-nasenlaenge21-mark { background: var(--bad); }
+.t-nasenlaenge21-pool { display: grid; gap: 0.5rem; }
+.t-nasenlaenge21-cell { min-height: 2.6rem; border-radius: 999px; background: var(--surface2); }
+.t-nasenlaenge21-chip {
+  appearance: none; min-height: 2.6rem; padding: 0.2rem 0.8rem; font-size: 0.95rem; font-weight: 700; color: #0b2b16; background: #3ac978;
+  border: 3px solid transparent; border-radius: 999px; cursor: grab; touch-action: manipulation; text-align: center; max-width: 100%;
+}
+.t-nasenlaenge21-chip:hover:not(:disabled) { filter: brightness(1.06); }
+.t-nasenlaenge21-chip.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-nasenlaenge21-chip:disabled { cursor: default; opacity: 0.8; }
+.t-nasenlaenge21-sim { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem 0.9rem 0.9rem; }
+.t-nasenlaenge21-simbody { display: grid; gap: 0.7rem; }
+.t-nasenlaenge21-simgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 0.8rem 1.4rem; align-items: start; }
+.t-nasenlaenge21-trace { margin: 0; padding: 0; list-style: none; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.85rem; display: grid; gap: 0.15rem; }
+.t-nasenlaenge21-trace li { padding: 0.15rem 0.5rem; border-left: 4px solid var(--line); border-radius: 3px; color: var(--muted); overflow-wrap: anywhere; }
+.t-nasenlaenge21-trace li.cur { border-left-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface2)); color: var(--ink); font-weight: 700; }
+.t-nasenlaenge21-poses { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.4rem; }
+.t-nasenlaenge21-pose {
+  appearance: none; display: grid; justify-items: center; gap: 0.1rem; padding: 0.3rem 0.2rem; background: var(--surface); color: var(--ink);
+  border: 2px solid var(--line); border-radius: 10px; font: inherit; font-size: 0.85rem; cursor: pointer; touch-action: manipulation; min-width: 0;
+}
+.t-nasenlaenge21-pose:not(:disabled):hover { border-color: var(--accent); }
+.t-nasenlaenge21-pose.now { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.t-nasenlaenge21-pose:disabled { opacity: 0.55; cursor: not-allowed; }
+.t-nasenlaenge21-pose .t-nasenlaenge21-face { width: 100%; max-width: 4.4rem; }
+.t-nasenlaenge21-poselbl { font-weight: 700; line-height: 1.15; }
+.t-nasenlaenge21-poseval { font-family: ui-monospace, Menlo, Consolas, monospace; color: var(--muted); }
+.t-nasenlaenge21-nums { margin: 0.5rem 0 0; }
+.t-nasenlaenge21-state { margin: 0; min-height: 2.9em; }
+.t-nasenlaenge21-again { justify-self: start; min-height: 2.4rem; padding-block: 0.3rem; }
+@media (max-width: 44rem) {
+  .t-nasenlaenge21-edit, .t-nasenlaenge21-simgrid { grid-template-columns: minmax(0, 1fr); }
+  .t-nasenlaenge21-pool { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-nasenlaenge21-chip { font-size: 0.85rem; padding-inline: 0.4rem; }
+}

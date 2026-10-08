@@ -7,6 +7,7 @@
 .t-boeden22-cv { display: block; width: 100%; aspect-ratio: 1; cursor: crosshair; touch-action: manipulation; }
 .t-boeden22-cv:focus-visible { outline-offset: -3px; }
 
+.t-boeden22-lbl { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
 .t-boeden22-rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.3rem; }
 .t-boeden22-rule {
   appearance: none; position: relative; min-height: 2.75rem; padding: 0.2rem 0.1rem; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
