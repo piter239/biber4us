@@ -1,0 +1,35 @@
+/* Aufgabe Wortketten */
+.t-wortketten24 { display: grid; gap: 1.2rem; min-width: 0; }
+.t-wortketten24 > section { min-width: 0; }
+.t-wortketten24 h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-wortketten24-ex { text-align: center; }
+.t-wortketten24-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+.t-wortketten24-opt { display: block; position: relative; min-width: 0; cursor: pointer; }
+.t-wortketten24-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-wortketten24-card { display: grid; gap: 0.15rem; padding: 0.5rem 0.5rem 0.55rem; border: 3px solid var(--line); border-radius: 10px; background: var(--surface); height: 100%; box-sizing: border-box; position: relative; }
+.t-wortketten24-letter { font-weight: 800; }
+.t-wortketten24-words { font-weight: 700; font-size: 0.95rem; line-height: 1.25; }
+.t-wortketten24-opt input:checked + .t-wortketten24-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-wortketten24-opt input:focus-visible + .t-wortketten24-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-wortketten24-opt input:disabled { cursor: default; }
+.t-wortketten24-opt.right .t-wortketten24-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-wortketten24-opt.wrong .t-wortketten24-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-wortketten24-mark { position: absolute; top: 0.35rem; right: 0.5rem; font-weight: 800; }
+.t-wortketten24-opt.right .t-wortketten24-mark { color: var(--ok); }
+.t-wortketten24-opt.wrong .t-wortketten24-mark { color: var(--bad); }
+
+.t-wortketten24-board { max-width: 26rem; background: var(--surface2); border-radius: 12px; padding: 0.4rem; }
+.t-wortketten24-svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.t-wortketten24-edge { stroke: var(--muted); stroke-width: 1.8; opacity: 0.7; }
+.t-wortketten24-link { stroke-width: 6; stroke-linecap: round; opacity: 0.9; }
+.t-wortketten24-node { cursor: pointer; outline: none; }
+.t-wortketten24-node rect { fill: var(--surface); stroke: var(--muted); stroke-width: 2; }
+.t-wortketten24-node text { fill: var(--ink); font-weight: 800; font-size: 14px; font-family: var(--font-body); pointer-events: none; }
+.t-wortketten24-node.used rect { stroke: var(--nc); stroke-width: 3.5; fill: color-mix(in srgb, var(--nc) 30%, var(--surface)); }
+.t-wortketten24-node.pend rect { stroke: var(--accent); stroke-width: 4; fill: color-mix(in srgb, var(--accent) 25%, var(--surface)); }
+.t-wortketten24-node:hover rect { stroke: var(--accent); }
+.t-wortketten24-node:focus-visible rect { stroke: var(--focus); stroke-width: 4; stroke-dasharray: 5 3; }
+.t-wortketten24-msg { margin: 0.6rem 0; min-height: 4.2em; font-size: 0.95rem; }
+@media (max-width: 40rem) {
+  .t-wortketten24-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

@@ -1,0 +1,66 @@
+/* Stile für digitalebaeume20 (Präfix t-digitalebaeume20-). Äste grün, Knoten orange: behalten ihre Farben in Hell und Dunkel (etwas heller im Dunkelmodus). */
+.t-digitalebaeume20-board, .t-digitalebaeume20-examples { --t-dig-green: #0b7a24; --t-dig-dot: #f5a30a; --t-dig-dart: #15303a; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .t-digitalebaeume20-board, :root:not([data-theme="light"]) .t-digitalebaeume20-examples { --t-dig-green: #43b45f; --t-dig-dart: #e5f0f2; }
+}
+:root[data-theme="dark"] .t-digitalebaeume20-board, :root[data-theme="dark"] .t-digitalebaeume20-examples { --t-dig-green: #43b45f; --t-dig-dart: #e5f0f2; }
+
+.t-digitalebaeume20-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.t-digitalebaeume20-lines { stroke: var(--t-dig-green); stroke-linecap: round; fill: none; }
+.t-digitalebaeume20-dots { fill: var(--t-dig-dot); }
+.t-digitalebaeume20-dart { fill: var(--t-dig-dart); }
+
+.t-digitalebaeume20-examples { display: grid; gap: 0.6rem; margin: 0.6rem 0 0.2rem; }
+.t-digitalebaeume20-exrow {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr) auto minmax(0, 1.5fr) auto minmax(0, 2.4fr); gap: 0.3rem; align-items: end;
+  background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.5rem 0.6rem; max-width: 36rem;
+}
+.t-digitalebaeume20-exrule { align-self: center; border-right: 1px solid var(--line); padding-right: 0.3rem; }
+.t-digitalebaeume20-exstep { min-width: 0; }
+.t-digitalebaeume20-exsvg { height: 8.5rem; width: 100%; }
+.t-digitalebaeume20-exrule .t-digitalebaeume20-rulesvg { height: 6.5rem; width: 100%; }
+.t-digitalebaeume20-arr { color: var(--muted); font-weight: 700; align-self: center; font-size: 0.95rem; }
+
+.t-digitalebaeume20-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: start; }
+.t-digitalebaeume20-sec { min-width: 0; }
+.t-digitalebaeume20-sec-try { grid-column: 1 / -1; }
+.t-digitalebaeume20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-digitalebaeume20-target, .t-digitalebaeume20-preview { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.6rem; }
+.t-digitalebaeume20-bigsvg { height: 19rem; width: 100%; }
+.t-digitalebaeume20-preview { display: grid; place-items: center; min-height: 19rem; }
+.t-digitalebaeume20-note, .t-digitalebaeume20-hint { margin: 0.5rem 0 0; font-size: 0.95rem; color: var(--muted); }
+.t-digitalebaeume20-hint { margin: 0; text-align: center; }
+
+.t-digitalebaeume20-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.t-digitalebaeume20-opt {
+  appearance: none; position: relative; display: grid; grid-template-rows: auto auto; gap: 0.15rem; justify-items: center; text-align: center;
+  padding: 0.4rem 0.4rem 0.5rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600; min-width: 0;
+}
+.t-digitalebaeume20-opt:hover { border-color: var(--accent); }
+.t-digitalebaeume20-opt:focus-visible, .t-digitalebaeume20-stepbtn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-digitalebaeume20-opt[aria-disabled="true"] { cursor: default; }
+.t-digitalebaeume20-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-digitalebaeume20-opt.selected, .t-digitalebaeume20-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-digitalebaeume20-opt.right, .t-digitalebaeume20-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-digitalebaeume20-opt.wrong, .t-digitalebaeume20-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-digitalebaeume20-opt .t-digitalebaeume20-rulesvg { width: 78%; max-width: 8.5rem; }
+.t-digitalebaeume20-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-digitalebaeume20-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-digitalebaeume20-opt.wrong .t-digitalebaeume20-mark { background: var(--bad); }
+
+.t-digitalebaeume20-steps { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.7rem; }
+.t-digitalebaeume20-stepbtn {
+  appearance: none; padding: 0.45rem 0.9rem; min-height: 44px; background: var(--surface2); color: var(--ink); border: 2px solid var(--line);
+  border-radius: 999px; cursor: pointer; font: inherit; font-weight: 600; touch-action: manipulation;
+}
+.t-digitalebaeume20-stepbtn:hover { border-color: var(--accent); }
+.t-digitalebaeume20-stepbtn.selected { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface2)); }
+
+@media (max-width: 620px) {
+  .t-digitalebaeume20-board { grid-template-columns: minmax(0, 1fr); }
+  .t-digitalebaeume20-exrow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1.6fr); font-size: 0.9rem; }
+}

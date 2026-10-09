@@ -82,7 +82,7 @@
   function svgTree(tree, box, sw, dot, label, cls) {
     var lay = layout(tree);
     var b = box || bounds(lay, 8);
-    return '<svg class="' + P + 'svg ' + (cls || '') + '" viewBox="' + r1(b.x) + ' ' + r1(b.y) + ' ' + r1(b.w) + ' ' + r1(b.h) + '" role="img" aria-label="' + label + '">' +
+    return '<svg class="' + P + 'svg ' + (cls || '') + '"' + (cls === P + 'exsvg' ? ' preserveAspectRatio="xMinYMax meet"' : '') + ' viewBox="' + r1(b.x) + ' ' + r1(b.y) + ' ' + r1(b.w) + ' ' + r1(b.h) + '" role="img" aria-label="' + label + '">' +
       treeShapes(lay, sw, dot) + '</svg>';
   }
   /* Regel als SVG: Struktur plus Pfeile (Start unten, Ende an der Spitze des Pfeil-Stücks) */

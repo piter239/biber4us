@@ -8,7 +8,7 @@
 .t-kartenquadrat22-board { position: relative; width: 100%; max-width: 19rem; margin: 0 auto; background: var(--surface2); border: 1px solid var(--line); border-radius: 14px; padding: 0.5rem; }
 .t-kartenquadrat22-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 .t-kartenquadrat22-slot { position: relative; aspect-ratio: 1; min-width: 0; }
-.t-kartenquadrat22-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.t-kartenquadrat22-svg { display: block; width: 100%; height: auto; overflow: hidden; }
 .t-kartenquadrat22-face { fill: var(--paper); stroke: #c3a88a; stroke-width: 1.5; }
 .t-kartenquadrat22-disc { fill: #c6a886; }
 .t-kartenquadrat22-let { fill: #fff; font: 700 15px var(--font-display); }

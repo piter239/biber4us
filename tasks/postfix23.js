@@ -109,7 +109,7 @@
     explanation: function () {
       return '<p>Der letzte Operator der Postfix-Notation ist der zentrale Operator, also die Wurzel des Baums. Das ist hier ein <b>+</b>, daher kommen nur die Bäume A und C in Frage. ' +
         'Direkt davor steht der Operator <b>:</b>, der zu den Operanden <i>25</i> und <i>c</i> gehört. Er bildet den rechten Operanden der Wurzel, und das passt nur zu <b>Baum C</b>.</p>' +
-        '<p>Zur Probe: Wandelt man Baum C von unten nach oben um, erhält man <code>a 1 +</code>, <code>b 2 +</code> und <code>25 c :</code>, und insgesamt <code>a 1 + b 2 + · 25 c : +</code>. ' +
+        '<p>Zur Probe: Wandelt man Baum C von unten nach oben um, erhält man <b>a 1 +</b>, <b>b 2 +</b> und <b>25 c :</b>, und insgesamt <b>a 1 + b 2 + · 25 c : +</b>. ' +
         'In gewohnter Schreibweise ist das (a + 1) · (b + 2) + 25 : c.</p>' +
         '<p><b>Informatik:</b> Die Postfix-Notation (umgekehrte polnische Notation) kommt ohne Klammern aus und ist eindeutig. ' +
         'Sie wurde in den ersten wissenschaftlichen Taschenrechnern genutzt, und beim Auswerten und Übersetzen von Programmausdrücken (Parsen) arbeiten Computer mit Strukturbäumen.</p>';

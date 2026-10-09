@@ -79,9 +79,10 @@
   function say(t) { noteEl.textContent = t || ''; }
 
   function chip(k, extra) {
-    return h('button', {
-      type: 'button', class: P + 'chip ' + P + TYPES[k].cls + (selected === k ? ' selected' : '') + (extra ? ' ' + extra : ''), 'data-type': k,
-      'aria-pressed': String(selected === k), 'aria-label': 'Typ ' + TYPES[k].name + (selected === k ? ', ausgewählt' : '') + ' (' + TYPES[k].hint + ')', disabled: locked ? 'disabled' : false
+    var inSlot = extra === P + 'inslot';
+    return h(inSlot ? 'span' : 'button', {
+      type: inSlot ? false : 'button', class: P + 'chip ' + P + TYPES[k].cls + (!inSlot && selected === k ? ' selected' : '') + (extra ? ' ' + extra : ''), 'data-type': k,
+      'aria-pressed': inSlot ? false : String(selected === k), 'aria-label': 'Typ ' + TYPES[k].name + (selected === k ? ', ausgewählt' : '') + ' (' + TYPES[k].hint + ')', disabled: !inSlot && locked ? 'disabled' : false
     }, TYPES[k].name);
   }
 
@@ -98,7 +99,7 @@
       s.replaceChildren.apply(s, kids);
       /* Chip im Feld soll kein eigener Tab-Stopp sein: das Feld ist der Button */
       var inner = s.querySelector('.' + P + 'inslot');
-      if (inner) { inner.setAttribute('tabindex', '-1'); inner.setAttribute('aria-hidden', 'true'); inner.removeAttribute('aria-label'); inner.disabled = false; inner.style.pointerEvents = 'none'; }
+      if (inner) { inner.setAttribute('aria-hidden', 'true'); inner.removeAttribute('aria-label'); inner.style.pointerEvents = 'none'; }
     });
     var l = left(), kids2 = [];
     ['j', 't', 'z'].forEach(function (k) { for (var n = 0; n < l[k]; n++) kids2.push(chip(k)); });

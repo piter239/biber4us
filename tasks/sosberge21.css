@@ -1,0 +1,44 @@
+/* Stile für sosberge21 (Präfix t-sosberge21-) */
+.t-sosberge21-board { display: grid; gap: 0.7rem; min-width: 0; }
+.t-sosberge21-rules { margin: 0.3rem 0 0.6rem 1.2rem; padding: 0; }
+.t-sosberge21-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: 0.95rem; }
+.t-sosberge21-legend li { display: inline-flex; align-items: center; gap: 0.4rem; }
+.t-sosberge21-lg { width: 1.6rem; height: 1.6rem; flex: none; }
+.t-sosberge21-svg { display: block; width: 100%; max-width: 52rem; height: auto; border-radius: 12px; border: 1px solid var(--line); }
+.t-sosberge21-land { fill: color-mix(in srgb, var(--c6) 55%, var(--surface)); }
+.t-sosberge21-mount { fill: color-mix(in srgb, var(--c5) 22%, var(--surface2)); stroke: var(--line); stroke-width: 1.5; }
+.t-sosberge21-river { fill: none; stroke: color-mix(in srgb, var(--c4) 70%, var(--surface)); stroke-width: 16; stroke-linecap: round; }
+.t-sosberge21-main { fill: none; stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 7; stroke-dasharray: 14 5; }
+.t-sosberge21-maintxt { fill: var(--ink); font: 700 12px var(--font-body); }
+.t-sosberge21-road { pointer-events: none; }
+.t-sosberge21-rout { fill: none; stroke: var(--ink); stroke-opacity: 0.55; stroke-width: 10; stroke-linecap: round; }
+.t-sosberge21-rin { fill: none; stroke: var(--surface2); stroke-width: 6; stroke-linecap: round; }
+.t-sosberge21-r-no .t-sosberge21-rin { stroke: var(--bad); stroke-dasharray: 12 7; }
+.t-sosberge21-r-yes .t-sosberge21-rin { stroke: var(--ok); }
+.t-sosberge21-r-unk .t-sosberge21-rin { stroke: var(--c2); }
+
+.t-sosberge21-vbase { fill: color-mix(in srgb, var(--muted) 45%, var(--c6)); stroke: var(--ink); stroke-opacity: 0.35; stroke-width: 1.5; }
+.t-sosberge21-hw0 { fill: color-mix(in srgb, var(--c2) 70%, var(--surface)); stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 1; }
+.t-sosberge21-hw1 { fill: color-mix(in srgb, var(--c1) 50%, var(--surface)); stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 1; }
+.t-sosberge21-hr { fill: color-mix(in srgb, var(--c1) 40%, var(--ink)); }
+.t-sosberge21-vbadge { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+.t-sosberge21-vl { fill: var(--ink); font: 800 17px var(--font-display); }
+.t-sosberge21-pole { stroke: var(--ink); stroke-width: 2; }
+.t-sosberge21-flag { fill: var(--c2); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
+.t-sosberge21-sos { fill: #1b1c21; font: 800 12px var(--font-body); }
+
+.t-sosberge21-btn { cursor: pointer; outline: none; }
+.t-sosberge21-hit { fill: transparent; }
+.t-sosberge21-btn:hover .t-sosberge21-hit { fill: color-mix(in srgb, var(--accent) 25%, transparent); }
+.t-sosberge21-btn:focus-visible .t-sosberge21-hit { fill: color-mix(in srgb, var(--focus) 25%, transparent); stroke: var(--focus); stroke-width: 3; }
+.t-sosberge21-svg.locked .t-sosberge21-btn { cursor: default; pointer-events: none; }
+.t-sosberge21-z-none { fill: var(--surface); stroke: var(--muted); stroke-width: 2.5; stroke-dasharray: 4 3; }
+.t-sosberge21-z-no { fill: var(--bad); stroke: #fff; stroke-width: 2; }
+.t-sosberge21-z-yes { fill: var(--ok); stroke: #fff; stroke-width: 2; }
+.t-sosberge21-z-unk { fill: #ffe600; stroke: #1b1c21; stroke-width: 2; }
+.t-sosberge21-bar { fill: #fff; }
+.t-sosberge21-tick { fill: none; stroke: #fff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
+.t-sosberge21-q { fill: #1b1c21; font: 800 20px var(--font-body); }
+.t-sosberge21-btn.t-sosberge21-wrong .t-sosberge21-hit { fill: color-mix(in srgb, var(--bad) 30%, transparent); stroke: var(--bad); stroke-width: 3; }
+.t-sosberge21-btn.t-sosberge21-right .t-sosberge21-hit { stroke: var(--ok); stroke-width: 3; }
+.t-sosberge21-count { margin: 0; font-size: 0.95rem; color: var(--muted); }

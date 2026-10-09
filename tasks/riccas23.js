@@ -41,7 +41,7 @@
       var tr = h('tr', { class: s.kind === 'all' && certainlyFalse(s) ? P + 'falserow' : '' }, h('th', { scope: 'row' }, s.key + ': ' + s.col));
       RICCAS.forEach(function (r, j) {
         var ok = s.test(r);
-        tr.appendChild(h('td', { class: P + 'tc ' + (ok ? 'y' : 'n'), 'aria-label': 'Ricca ' + (j + 1) + ': ' + (ok ? 'trifft zu' : 'trifft nicht zu') }, ok ? '✓' : '✗'));
+        tr.appendChild(h('td', { class: P + 'tc ' + (ok ? 'y' : (s.kind === 'all' ? 'n' : 'z')), 'aria-label': 'Ricca ' + (j + 1) + ': ' + (ok ? 'trifft zu' : 'trifft nicht zu') }, ok ? '✓' : '✗'));
       });
       return tr;
     });

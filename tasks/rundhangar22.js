@@ -155,7 +155,7 @@
       '<p>Morgens, wenn die Piloten ihre Flugzeuge abholen, ist die Parkposition 1 immer beim Hangartor, und das Flugzeug darauf kann herausrollen. Im besten Fall müssen die Pfeiltasten dann noch fünfmal gedrückt werden, damit auch alle weiteren Flugzeuge herausrollen können. Wenn zum Beispiel die Piloten in der Reihenfolge 1, 6, 5, 4, 3, 2 auf die Parkpositionen zugreifen wollen, genügt es, die Taste ◀ fünfmal zu drücken.</p>' +
       '<p>Aber was ist der schlechteste Fall? Bei welcher Reihenfolge müssen die Tasten am häufigsten gedrückt werden? Natürlich drücken die Piloten die Tasten nur so oft wie unbedingt nötig, damit ihr Flugzeug herausrollen kann.</p>',
     question: 'Gib ein Beispiel für eine solche Reihenfolge.',
-    howto: 'Tippe die Zahlen 1 bis 6 in der Reihenfolge an, in der die Flugzeuge herausrollen. Die Scheibe dreht sich jeweils auf dem kürzesten Weg zum Tor, und du siehst, wie oft die Tasten gedrückt werden. Mit „Zurück“ nimmst du die letzte Zahl wieder weg.',
+    howto: 'Tippe die Zahlen 1 bis 6 in der Reihenfolge an, in der die Flugzeuge herausrollen. Die Scheibe dreht sich jeweils auf dem kürzesten Weg zum Tor, und du siehst, wie oft die Tasten gedrückt werden. Mit „Letzte löschen“ nimmst du die letzte Zahl wieder weg.',
     explanation: function () {
       return '<p>Am meisten Tastendrücke braucht man, wenn jedes Mal das Flugzeug herausrollen soll, das von der Position am Tor am weitesten entfernt ist. Es gibt zwei solche Reihenfolgen: <strong>4, 1, 3, 6, 2, 5</strong> und <strong>4, 1, 5, 2, 6, 3</strong>. In beiden Fällen werden die Tasten <strong>16-mal</strong> gedrückt (zum Beispiel 3 + 3 + 2 + 3 + 2 + 3).</p>' +
         '<p>Mehr als 16 geht nicht: Nur beim ersten und beim zweiten Zugriff sind 3 Tastendrücke nötig (zuerst auf Position 4, dann auf Position 1). Bei den nächsten vier Zugriffen können sich höchstens 2 und 3 Tastendrücke abwechseln.</p>' +
@@ -171,7 +171,7 @@
       slotsEl = h('ol', { class: P + 'slots', 'aria-label': 'Gewählte Reihenfolge' });
       totalEl = h('p', { class: P + 'total' });
       liveEl = h('p', { class: P + 'sr', role: 'status', 'aria-live': 'polite' });
-      undoBtn = h('button', { type: 'button', class: 'btn ghost ' + P + 'tool', onclick: undo }, 'Zurück');
+      undoBtn = h('button', { type: 'button', class: 'btn ghost ' + P + 'tool', onclick: undo }, 'Letzte löschen');
       clearBtn = h('button', { type: 'button', class: 'btn ghost ' + P + 'tool', onclick: clearAll }, 'Alle löschen');
       el.replaceChildren(h('div', { class: P + 'wrap' },
         h('div', { class: P + 'stage' }, h('div', { class: P + 'discbox' }, disc, h('span', { class: P + 'gatelab', 'aria-hidden': 'true' }, 'Hangartor'))),

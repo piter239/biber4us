@@ -118,7 +118,7 @@
     howto: 'Vergleiche die Werte auf den Karten mit der Tabelle und tippe die passende Karte an.',
     explanation: function () {
       var rows = CARDS.map(function (c) {
-        function cell(k) { var ok = RULES[k](c[k]); return '<td class="' + P + (ok ? 'ok' : 'no') + '">' + c[k] + ' <span aria-hidden="true">' + (ok ? '✓' : '✗') + '</span><span class="' + P + 'sr">' + (ok ? ' erlaubt' : ' nicht erlaubt') + '</span></td>'; }
+        function cell(k) { var ok = RULES[k](c[k]); return '<td class="' + P + (ok ? 'ok' : 'no') + '"><span class="' + P + 'val">' + c[k] + '</span><small>' + (ok ? 'erlaubt' : 'nicht erlaubt') + '</small></td>'; }
         return '<tr><th scope="row">' + c.key + ')</th>' + cell('name') + cell('hoerner') + cell('augen') + '</tr>';
       }).join('');
       return '<p>Die Tabelle zeigt die Werte auf den vier Karten und ob sie erlaubt sind:</p>' +

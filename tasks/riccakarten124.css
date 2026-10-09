@@ -10,8 +10,12 @@
 .t-riccakarten124-sym { width: 5.5rem; text-align: center !important; }
 .t-riccakarten124-sym .t-riccakarten124-ico { height: 2.2rem; margin: 0; }
 .t-riccakarten124-res td, .t-riccakarten124-res th { text-align: center; }
-.t-riccakarten124-ok { color: var(--ok); font-weight: 700; }
-.t-riccakarten124-no { color: var(--bad); font-weight: 700; }
+.t-riccakarten124-ok small { color: var(--ok); }
+.t-riccakarten124-no small { color: var(--bad); }
+.t-riccakarten124-res small { display: block; font-size: 0.75rem; font-weight: 700; }
+.t-riccakarten124-val { font-size: 1.15rem; font-weight: 700; }
+.t-riccakarten124-res td.t-riccakarten124-ok { background: var(--ok-bg); }
+.t-riccakarten124-res td.t-riccakarten124-no { background: var(--bad-bg); }
 .t-riccakarten124-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .t-riccakarten124-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
 .t-riccakarten124-opt {

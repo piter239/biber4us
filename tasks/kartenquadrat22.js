@@ -131,7 +131,7 @@
         'aria-hidden': 'true'
       }, seams[i] ? '✓' : '✗');
     });
-    boardEl.replaceChildren(h('div', { class: P + 'grid' }, slots), seamEls);
+    boardEl.replaceChildren.apply(boardEl, [h('div', { class: P + 'grid' }, slots)].concat(seamEls.filter(Boolean)));
 
     /* Vorrat */
     poolEl.replaceChildren.apply(poolEl, KEYS.map(function (k) {
@@ -149,7 +149,7 @@
     var msg;
     if (n === 0) msg = 'Probiere es aus: Lege Karten ins Quadrat und drehe sie. Ein grünes Häkchen zeigt, dass zwei Ränder zusammenpassen.';
     else if (n === 4 && okN === 4) msg = 'Alle vier Ränder passen: Mit diesen vier Karten gibt es ein Quadrat. Die fünfte Karte ist die gesuchte.';
-    else msg = n + ' von 4 Karten liegen im Quadrat. ' + okN + ' Rand' + (okN === 1 ? '' : 'paare') + ' passen' + (badN ? ', ' + badN + ' nicht.' : '.');
+    else msg = n + ' von 4 Karten liegen im Quadrat. ' + (okN + badN === 0 ? 'Noch berühren sich keine zwei Karten.' : okN + ' von ' + (okN + badN) + ' berührenden Rändern passen.');
     statusEl.textContent = msg;
 
     /* Antwort */

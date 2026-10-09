@@ -1,0 +1,65 @@
+/* Stile für schichten21 (Präfix t-schichten21-). Die Flüssigkeiten behalten ihre Farben und Muster in Hell und Dunkel. */
+.t-schichten21-box { display: grid; gap: 1.1rem; max-width: 32rem; margin: 0 auto; min-width: 0; user-select: none; -webkit-user-select: none; }
+.t-schichten21-box h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.5rem; }
+.t-schichten21-box section { min-width: 0; }
+
+/* Flaschen */
+.t-schichten21-bottle { position: relative; width: 100%; aspect-ratio: 1 / 2; color: var(--muted); }
+.t-schichten21-glass { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.t-schichten21-glass path { fill: color-mix(in srgb, var(--surface) 70%, transparent); stroke: currentColor; stroke-width: 4; stroke-linejoin: round; }
+.t-schichten21-stack { position: absolute; left: 14.5%; right: 14.5%; top: 43.5%; bottom: 2%; display: flex; flex-direction: column; border-radius: 0 0 14px 14px; overflow: hidden; }
+.t-schichten21-smalls { display: flex; justify-content: center; gap: clamp(0.75rem, 6vw, 2rem); background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem 0.5rem 0.5rem; }
+.t-schichten21-small { margin: 0; width: clamp(3.4rem, 17vw, 5rem); text-align: center; }
+.t-schichten21-small figcaption { margin-top: 0.15rem; font-family: var(--font-display); font-weight: 700; color: var(--ink); }
+.t-schichten21-band { flex: 1 1 0; min-height: 0; }
+.t-schichten21-air { background: transparent; }
+
+.t-schichten21-work { display: grid; grid-template-columns: minmax(0, 1fr) clamp(8rem, 40vw, 11rem); gap: 1rem; align-items: start; justify-content: center; }
+.t-schichten21-main { width: 100%; }
+.t-schichten21-main .t-schichten21-stack { overflow: visible; border-radius: 0 0 14px 14px; }
+
+/* Becher */
+.t-schichten21-pool {
+  display: grid; gap: 0.45rem; padding: 0.5rem; background: var(--surface2); border: 2px dashed var(--line); border-radius: 12px; align-content: start;
+}
+.t-schichten21-pool.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface2)); }
+.t-schichten21-ghost { height: 2.7rem; border-radius: 10px; border: 2px dashed var(--line); }
+.t-schichten21-cup {
+  appearance: none; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.5rem; align-items: center; width: 100%; height: 2.7rem; margin: 0; padding: 0.2rem 0.5rem 0.2rem 0.25rem;
+  background: var(--surface); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: grab; touch-action: none; font: inherit; font-weight: 600; font-size: 0.9rem;
+  box-sizing: border-box; -webkit-tap-highlight-color: transparent; position: relative;
+}
+.t-schichten21-cup:hover:not(:disabled) { border-color: var(--accent); }
+.t-schichten21-cup:focus-visible, .t-schichten21-slot:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-schichten21-cup.sel { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.t-schichten21-cup:disabled { cursor: default; opacity: 1; }
+.t-schichten21-cup.drag, .t-schichten21-slot.drag { cursor: grabbing; z-index: 5; transition: none; filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.4)); }
+.t-schichten21-sw { display: block; height: 100%; border-radius: 6px; border: 2px solid rgb(0 0 0 / 0.45); box-sizing: border-box; pointer-events: none; }
+.t-schichten21-nm { pointer-events: none; font-size: 0.85rem; }
+
+/* Schichten der großen Flasche */
+.t-schichten21-slot {
+  appearance: none; position: relative; flex: 1 1 0; min-height: 0; width: 100%; margin: 0; padding: 0; display: grid; place-items: center;
+  border: 2px dashed var(--slot-line); background: color-mix(in srgb, var(--slot) 55%, transparent); color: var(--muted); cursor: pointer; touch-action: none; box-sizing: border-box;
+  font: inherit; -webkit-tap-highlight-color: transparent;
+}
+.t-schichten21-slot.filled { border: 2px solid rgb(0 0 0 / 0.35); cursor: grab; }
+.t-schichten21-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 25%, var(--slot)); }
+.t-schichten21-slot.filled.over { outline: 3px solid var(--accent); outline-offset: -3px; }
+.t-schichten21-slot.right { box-shadow: inset 0 0 0 3px var(--ok); }
+.t-schichten21-slot.wrong { box-shadow: inset 0 0 0 3px var(--bad); }
+.t-schichten21-slot:disabled { cursor: default; opacity: 1; }
+.t-schichten21-ph { font-weight: 700; font-size: 0.9rem; }
+.t-schichten21-mark {
+  position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.85rem; color: #fff; background: var(--ok); border: 2px solid #fff; box-sizing: border-box; line-height: 1;
+}
+.t-schichten21-slot.wrong .t-schichten21-mark { background: var(--bad); }
+
+/* Flüssigkeiten: Farbe und Muster (Muster helfen auch bei Farbschwäche) */
+.t-schichten21-l-gelb { background-color: #ffd51a; background-image: radial-gradient(#1b1b1b 1.7px, transparent 2.2px); background-size: 14px 12px; }
+.t-schichten21-l-rot { background-color: #e0361a; background-image: repeating-linear-gradient(176deg, #f59a2e 0 2px, transparent 2px 7px); }
+.t-schichten21-l-gruen { background-color: #62cf62; background-image: radial-gradient(circle, transparent 2.6px, #eaffea 2.6px 4px, transparent 4.2px); background-size: 17px 14px; }
+.t-schichten21-l-blau { background-color: #5a73ee; background-image: radial-gradient(#1c2a99 1.1px, transparent 1.7px), radial-gradient(#c1caff 1.1px, transparent 1.7px); background-size: 8px 7px, 12px 9px; background-position: 0 0, 4px 3px; }
+.t-schichten21-l-violett { background-color: #5b1f72; background-image: repeating-linear-gradient(176deg, #2b0a3a 0 2px, transparent 2px 6px); }
+.t-schichten21-chip { display: inline-block; width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 2px solid rgb(0 0 0 / 0.4); vertical-align: -0.2em; margin-right: 0.25rem; box-sizing: border-box; }

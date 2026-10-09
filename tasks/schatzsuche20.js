@@ -102,8 +102,8 @@
           g.appendChild(svg('circle', { class: P + 'badge', cx: x, cy: cy, r: 11 }));
           g.appendChild(symbol(it[1], x, cy, 1));
         } else {
-          g.appendChild(svg('ellipse', { class: P + 'rock', cx: x, cy: cy + 12, rx: 22, ry: 14 }));
-          g.appendChild(symbol(it[1], x, cy + 11, 0.95));
+          g.appendChild(svg('ellipse', { class: P + 'rock', cx: x, cy: cy + 4, rx: 22, ry: 14 }));
+          g.appendChild(symbol(it[1], x, cy + 3, 0.95));
         }
         stage.appendChild(g);
         return g;

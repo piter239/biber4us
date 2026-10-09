@@ -33,3 +33,4 @@
 .t-riccas23-tc.y { color: var(--ok); font-weight: 800; }
 .t-riccas23-tc.n { color: var(--bad); font-weight: 800; background: var(--bad-bg); }
 .t-riccas23-falserow th { color: var(--bad); }
+.t-riccas23-tc.z { color: var(--muted); }

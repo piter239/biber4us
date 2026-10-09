@@ -3,8 +3,8 @@
 .t-geschaefte20-mapbox { width: 100%; max-width: 25rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem; }
 .t-geschaefte20-map { display: block; width: 100%; height: auto; overflow: visible; touch-action: manipulation; }
 .t-geschaefte20-road { stroke: var(--muted); stroke-width: 2.5; stroke-linecap: round; }
-.t-geschaefte20-vill { fill: var(--c6); stroke: var(--ink); stroke-width: 1.5; opacity: 0.45; stroke-dasharray: 4 3; }
-.t-geschaefte20-vill.ok { opacity: 1; stroke-dasharray: none; stroke-width: 1; }
+.t-geschaefte20-vill { fill: color-mix(in srgb, var(--c6) 22%, var(--surface2)); stroke: var(--muted); stroke-width: 2; stroke-dasharray: 4 3; }
+.t-geschaefte20-vill.ok { fill: var(--c6); stroke: var(--ink); stroke-dasharray: none; stroke-width: 1.2; }
 .t-geschaefte20-plot { cursor: pointer; outline: none; }
 .t-geschaefte20-hit { fill: transparent; }
 .t-geschaefte20-sq { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }

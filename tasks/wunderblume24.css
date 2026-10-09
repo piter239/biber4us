@@ -1,0 +1,38 @@
+/* Aufgabe Wunderblume */
+.t-wunderblume24 { display: grid; gap: 1.2rem; min-width: 0; }
+.t-wunderblume24 > section { min-width: 0; }
+.t-wunderblume24 h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-wunderblume24-minis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; max-width: 30rem; }
+.t-wunderblume24-fig { margin: 0; background: var(--surface); border: 2px solid var(--line); border-radius: 10px; overflow: hidden; min-width: 0; }
+.t-wunderblume24-fig figcaption { font-size: 0.78rem; font-weight: 700; text-align: center; padding: 0.3rem 0.3rem 0.4rem; background: var(--surface2); line-height: 1.2; }
+.t-wunderblume24-mini { display: block; width: 100%; height: auto; }
+.t-wunderblume24-bigbox { max-width: 30rem; background: var(--surface); border: 2px solid var(--line); border-radius: 12px; padding: 0.3rem; }
+.t-wunderblume24-big { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.t-wunderblume24-stem { stroke: var(--ok); stroke-width: 2.6; stroke-linecap: round; }
+.t-wunderblume24-stem.on { stroke: var(--accent); stroke-width: 5; }
+.t-wunderblume24-bud { fill: var(--c1); stroke: var(--bad); stroke-width: 0.8; stroke-linejoin: round; }
+.t-wunderblume24-fork { cursor: pointer; outline: none; }
+.t-wunderblume24-hit { fill: transparent; stroke: none; }
+.t-wunderblume24-fork:hover .t-wunderblume24-hit { fill: color-mix(in srgb, var(--accent) 22%, transparent); }
+.t-wunderblume24-fork:focus-visible .t-wunderblume24-hit { fill: color-mix(in srgb, var(--accent) 22%, transparent); stroke: var(--focus); stroke-width: 3; stroke-dasharray: 5 3; }
+.t-wunderblume24-badge circle { fill: var(--accent); stroke: var(--surface); stroke-width: 1.5; }
+.t-wunderblume24-badge text { fill: var(--accent-ink); font-weight: 800; font-size: 11px; font-family: var(--font-body); }
+.t-wunderblume24-badges { pointer-events: none; }
+.t-wunderblume24-msg { margin: 0.5rem 0 0; min-height: 3.2em; font-size: 0.95rem; }
+.t-wunderblume24-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; max-width: 34rem; }
+.t-wunderblume24-opt { display: block; position: relative; min-width: 0; cursor: pointer; }
+.t-wunderblume24-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-wunderblume24-card { display: grid; gap: 0.1rem; padding: 0.5rem 0.5rem 0.6rem; border: 3px solid var(--line); border-radius: 10px; background: var(--surface); height: 100%; box-sizing: border-box; position: relative; }
+.t-wunderblume24-letter { font-weight: 800; }
+.t-wunderblume24-days { font-weight: 700; font-size: 1.05rem; }
+.t-wunderblume24-opt input:checked + .t-wunderblume24-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-wunderblume24-opt input:focus-visible + .t-wunderblume24-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-wunderblume24-opt input:disabled { cursor: default; }
+.t-wunderblume24-opt.right .t-wunderblume24-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-wunderblume24-opt.wrong .t-wunderblume24-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-wunderblume24-mark { position: absolute; top: 0.35rem; right: 0.5rem; font-weight: 800; }
+.t-wunderblume24-opt.right .t-wunderblume24-mark { color: var(--ok); }
+.t-wunderblume24-opt.wrong .t-wunderblume24-mark { color: var(--bad); }
+@media (max-width: 34rem) {
+  .t-wunderblume24-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

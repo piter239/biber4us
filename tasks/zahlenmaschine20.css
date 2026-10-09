@@ -1,0 +1,33 @@
+.t-zahlenmaschine20-rules { margin: 0.2rem 0 0.8rem; padding-left: 1.2rem; }
+.t-zahlenmaschine20-rules ul { margin: 0.2rem 0; padding-left: 1.2rem; }
+.t-zahlenmaschine20-board { display: grid; gap: 1.1rem; max-width: 46rem; }
+.t-zahlenmaschine20-ans { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; font-weight: 700; }
+.t-zahlenmaschine20-answer {
+  width: 7rem; font: 700 1.4rem/1.2 var(--font-body); padding: 0.4rem 0.7rem; text-align: center; color: var(--ink);
+  background: var(--surface); border: 3px solid var(--line); border-radius: 10px;
+}
+.t-zahlenmaschine20-answer:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-zahlenmaschine20-answer.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-zahlenmaschine20-answer.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-zahlenmaschine20-answer:disabled { opacity: 1; cursor: default; }
+.t-zahlenmaschine20-try { background: var(--surface2); border-radius: 12px; padding: 0.8rem 0.9rem; display: grid; gap: 0.7rem; min-width: 0; }
+.t-zahlenmaschine20-try h3 { margin: 0; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; }
+.t-zahlenmaschine20-pick { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; font-weight: 600; }
+.t-zahlenmaschine20-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.t-zahlenmaschine20-chip, .t-zahlenmaschine20-btn {
+  appearance: none; font: inherit; font-weight: 700; color: var(--ink); background: var(--surface); border: 2px solid var(--line);
+  border-radius: 999px; min-width: 2.4rem; min-height: 2.4rem; padding: 0.2rem 0.8rem; cursor: pointer; touch-action: manipulation;
+}
+.t-zahlenmaschine20-chip.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
+.t-zahlenmaschine20-btn:disabled { opacity: 0.45; cursor: default; }
+.t-zahlenmaschine20-hint { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.t-zahlenmaschine20-units { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.6rem; }
+.t-zahlenmaschine20-unit { background: var(--surface); border: 2px solid var(--accent); border-radius: 10px; padding: 0.5rem 0.7rem; display: grid; gap: 0.25rem; min-width: 0; }
+.t-zahlenmaschine20-unit.last { border-color: var(--ok); }
+.t-zahlenmaschine20-uh { font-weight: 800; color: var(--accent); }
+.t-zahlenmaschine20-unit.last .t-zahlenmaschine20-uh { color: var(--ok); }
+.t-zahlenmaschine20-unit code, .t-zahlenmaschine20-why code { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; }
+.t-zahlenmaschine20-rule, .t-zahlenmaschine20-in { margin: 0; font-size: 0.95rem; overflow-wrap: anywhere; }
+.t-zahlenmaschine20-out { margin: 0; min-height: 1.4em; font-weight: 800; color: var(--ok); }
+.t-zahlenmaschine20-ctrl { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-zahlenmaschine20-why { margin: 0 0 0.8rem; padding-left: 1.4rem; display: grid; gap: 0.3rem; }

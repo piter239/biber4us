@@ -44,7 +44,7 @@
   /* Mond: Sichel, Öffnung zeigt nach außen */
   function moonPath(i) {
     var a = -90 + 45 * i, c = pt(i, 66);
-    return '<path class="' + P + 'moon" d="M-16 -3 A 20 20 0 0 0 16 -3 A 26 26 0 0 1 -16 -3 Z" transform="translate(' + c[0].toFixed(1) + ' ' + c[1].toFixed(1) + ') rotate(' + (a + 90) + ') scale(1.05)"/>';
+    return '<path class="' + P + 'moon" d="M-20 -9 A 20.3 20.3 0 0 0 20 -9 A 29 29 0 0 1 -20 -9 Z" transform="translate(' + c[0].toFixed(1) + ' ' + c[1].toFixed(1) + ') rotate(' + (a + 90) + ') scale(1)"/>';
   }
   /* Armband als SVG-Text; groups: optional Zerlegung (Startindex r) */
   function ring(seq, label, split) {

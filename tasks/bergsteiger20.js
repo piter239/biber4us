@@ -67,7 +67,7 @@
     markers.forEach(function (b, i) {
       var on = sel.indexOf(i) >= 0, cls = P + 'mk';
       var txt = label(i) + (i === TOP ? ', höchster Gipfel, Ziel' : '');
-      if (i === TOP) cls += ' ' + P + 'top';
+      if (i === TOP) cls += ' top';
       if (on) cls += ' on';
       if (mode && i !== TOP) {
         if (on && ok(i)) cls += ' right';

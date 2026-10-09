@@ -80,6 +80,9 @@
 .t-gobots23-fig .t-gobots23-svg { max-width: 100%; border-width: 2px; }
 .t-gobots23-exarrow { font-size: 1.6rem; font-weight: 800; color: var(--muted); }
 @media (max-width: 30rem) {
-  .t-gobots23-slot { padding-right: 0.35rem; }
+  .t-gobots23-slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.3rem; }
+  .t-gobots23-slot { padding: 0.55rem 0.2rem 0.3rem; gap: 0.15rem; justify-content: center; }
+  .t-gobots23-n { left: 0.3rem; top: 0.05rem; }
+  .t-gobots23-slot .t-gobots23-chip, .t-gobots23-slot .t-gobots23-achip { width: 1.4rem; height: 1.4rem; font-size: 0.9rem; }
   .t-gobots23-fig { flex-basis: 9.5rem; }
 }
