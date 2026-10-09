@@ -89,7 +89,9 @@
     if (from >= 0 && !FIXED[from]) slots[from] = null;
     slots[i] = id;
     selected = null;
+    var kb = document.activeElement && el.contains(document.activeElement);
     draw();
+    if (kb) { var nx = trayEl.querySelector('[data-ball]') || ringEl.querySelector('[data-slot="' + i + '"]'); if (nx) nx.focus(); }
     say(id ? BALLS[id].name.replace(/^(\w)/, function (m) { return m.toUpperCase(); }) + ' liegt auf Platz ' + (i + 1) + '.' : '');
     api.changed();
   }

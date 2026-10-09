@@ -6,12 +6,12 @@
 .t-baumstaemme21-water { fill: color-mix(in srgb, var(--c4) 38%, var(--surface)); stroke: var(--line); stroke-width: 2; }
 .t-baumstaemme21-ripple { fill: none; stroke: color-mix(in srgb, var(--c4) 70%, var(--surface)); stroke-width: 2.5; stroke-linecap: round; }
 .t-baumstaemme21-log { transition: transform 0.45s ease; }
-.t-baumstaemme21-bark { fill: color-mix(in srgb, var(--c1) 30%, color-mix(in srgb, var(--c2) 55%, var(--ink) 45%)); stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 2; }
+.t-baumstaemme21-bark { fill: color-mix(in srgb, var(--c2) 60%, black); stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 2; }
 .t-baumstaemme21-grain { fill: none; stroke: var(--ink); stroke-opacity: 0.35; stroke-width: 2; stroke-linecap: round; }
 .t-baumstaemme21-top { fill: color-mix(in srgb, var(--c2) 60%, var(--surface)); stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 1.5; }
 .t-baumstaemme21-hamid { transition: transform 0.45s ease; }
-.t-baumstaemme21-head { fill: color-mix(in srgb, var(--c2) 50%, var(--ink) 50%); stroke: var(--ink); stroke-opacity: 0.6; stroke-width: 1.5; }
-.t-baumstaemme21-ear { fill: color-mix(in srgb, var(--c2) 40%, var(--ink) 60%); stroke: var(--ink); stroke-opacity: 0.6; stroke-width: 1.5; }
+.t-baumstaemme21-head { fill: color-mix(in srgb, var(--c2) 65%, black); stroke: var(--ink); stroke-opacity: 0.6; stroke-width: 1.5; }
+.t-baumstaemme21-ear { fill: color-mix(in srgb, var(--c2) 45%, black); stroke: var(--ink); stroke-opacity: 0.6; stroke-width: 1.5; }
 .t-baumstaemme21-snout { fill: color-mix(in srgb, var(--c2) 60%, var(--surface)); }
 .t-baumstaemme21-nose { fill: var(--ink); }
 .t-baumstaemme21-tooth { fill: var(--surface); stroke: var(--ink); stroke-opacity: 0.6; stroke-width: 1; }

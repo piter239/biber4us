@@ -33,7 +33,7 @@
     if (run([1, 2, 3, 4]) !== 3 || run([4, 3, 2, 1]) !== 9 || run(up) !== 39 || run(down) !== 1521) throw new Error('baumstaemme21: Simulation stimmt nicht');
   })();
 
-  var W = 560, GAP = 60, BASE = 205, UNIT = 17, MINH = 26;
+  var W = 560, GAP = 60, BASE = 215, UNIT = 17, MINH = 26;
   var EXAMPLE = [2, 4, 3, 1];
 
   var el, api, locked, selected, mark;
@@ -74,7 +74,7 @@
 
   function buildLogs() {
     var kids = [
-      S('rect', { class: P + 'water', x: 0, y: 0, width: W, height: 262, rx: 14 }),
+      S('rect', { class: P + 'water', x: 0, y: 0, width: W, height: 282, rx: 14 }),
       S('path', { class: P + 'ripple', d: 'M30 238q10-8 20 0t20 0M470 40q10-8 20 0t20 0M60 60q10-8 20 0t20 0M440 238q10-8 20 0t20 0' })
     ];
     logEls = logs.map(function (lg) {
@@ -98,7 +98,7 @@
       S('rect', { class: P + 'tooth', x: 0, y: 10, width: 4, height: 7, rx: 1 }),
       S('circle', { class: P + 'eye', cx: -8, cy: -2, r: 2.4 }),
       S('circle', { class: P + 'eye', cx: 8, cy: -2, r: 2.4 }),
-      S('text', { class: P + 'name', x: 0, y: 42, 'text-anchor': 'middle' }, 'Hamid')
+      S('text', { class: P + 'name', x: 0, y: 40, 'text-anchor': 'middle' }, 'Hamid')
     ]);
     kids.push(hamidEl);
     svg.replaceChildren.apply(svg, kids);
@@ -189,7 +189,7 @@
     },
     mount: function (root, a) {
       el = root; api = a; locked = false; selected = null; mark = null; n = 4; kind = 'example'; nextId = 0;
-      svg = S('svg', { class: P + 'svg', viewBox: '0 0 ' + W + ' 262', role: 'img', 'aria-label': 'Baumstämme' });
+      svg = S('svg', { class: P + 'svg', viewBox: '0 0 ' + W + ' 282', role: 'img', 'aria-label': 'Baumstämme' });
       statusEl = h('p', { class: P + 'status', role: 'status', 'aria-live': 'polite' });
       stepsEl = h('b', null, '0');
       stepBtn = h('button', { type: 'button', class: P + 'btn ' + P + 'primary', onclick: function () { stopAuto(); step(); } }, 'Schritt');

@@ -113,7 +113,9 @@
     if (from >= 0) slots[from] = cur;       /* Tausch zwischen zwei Feldern */
     slots[i] = k;
     selected = null;
+    var kb = document.activeElement && el.contains(document.activeElement);
     draw();
+    if (kb) { var nx = poolEl.querySelector('[data-type]') || slotEls[i]; if (nx) nx.focus(); }
     say(PROPS[i].label + ': ' + TYPES[k].name + '.');
     api.changed();
   }

@@ -72,7 +72,7 @@
   function examples() {
     return '<div class="' + P + 'examples">' +
       '<div class="' + P + 'ex"><div class="' + P + 'exfig">' + miniGrid(2, 2, [0, 3], 'var(--c3)', '2-Bomino: zwei Quadrate, die sich diagonal berühren') + '</div><p>Das einzig mögliche Bomino aus 2 Quadraten (2-Bomino).</p></div>' +
-      '<div class="' + P + 'ex"><div class="' + P + 'exfig">' + miniGrid(3, 2, [0, 1, 3, 4], 'var(--c5)', '4-Bomino: zwei Quadrate oben nebeneinander, darunter eins, links unten ein einzelnes diagonal angrenzendes') .replace('"></span>', '"></span>') + miniGrid(3, 2, [1, 3, 5, 4], 'var(--c1)', 'Kein Bomino: Bedingung 2 nicht erfüllt') + '</div><p>Links ein 4-Bomino, rechts kein Bomino: Bedingung 2 ist nicht erfüllt.</p></div>' +
+      '<div class="' + P + 'ex"><div class="' + P + 'exfig">' + miniGrid(3, 2, [0, 1, 3, 4], 'var(--c5)', '4-Bomino: zwei Quadrate oben nebeneinander, darunter rechts eins, links unten eins') + miniGrid(3, 2, [1, 3, 5, 4], 'var(--c1)', 'Kein Bomino: Bedingung 2 nicht erfüllt') + '</div><p>Links ein 4-Bomino, rechts kein Bomino: Bedingung 2 ist nicht erfüllt.</p></div>' +
       '</div>';
   }
 
