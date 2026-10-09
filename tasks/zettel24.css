@@ -34,7 +34,11 @@
 .t-zettel24-opt.wrong .t-zettel24-mark { background: var(--bad); }
 @media (max-width: 40rem) {
   .t-zettel24-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .t-zettel24-entry { flex-direction: column; align-items: center; gap: 0; padding: 0.3rem 0.1rem; font-size: 0.95rem; }
-  .t-zettel24-ar { flex-direction: row; align-items: flex-end; gap: 0.1rem; }
+  .t-zettel24-sheets { gap: 0.4rem; }
+  .t-zettel24-rows { padding: 0.4rem 0.15rem; }
+  .t-zettel24-entry { gap: 0.1rem; padding: 0.3rem 0.05rem 0.2rem; font-size: 0.88rem; }
   .t-zettel24-owner { font-size: 1.25rem; }
+}
+@media (max-width: 24rem) {
+  .t-zettel24-entry { font-size: 0.8rem; gap: 0.05rem; }
 }

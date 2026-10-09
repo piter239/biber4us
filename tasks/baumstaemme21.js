@@ -1,7 +1,13 @@
 /* Aufgabe Baumstämme (Biber 2021; Klasse 11-13 schwer): Gnome-Sort / Zwerg-Sortieren, Schrittzahl im besten und schlechtesten Fall */
 (function () {
   'use strict';
-  var h = Biber.h, S = Biber.svg;
+  var h = Biber.h;
+  function S(tag, attrs, kids) {   /* SVG-Element; kids: Array, Element oder Text */
+    var e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    Object.keys(attrs || {}).forEach(function (k) { if (attrs[k] !== null && attrs[k] !== undefined) e.setAttribute(k, attrs[k]); });
+    (Array.isArray(kids) ? kids : [kids]).forEach(function (c) { if (c !== null && c !== undefined && c !== false) e.appendChild(typeof c === 'object' ? c : document.createTextNode(String(c))); });
+    return e;
+  }
   var P = 't-baumstaemme21-';
 
   var OPTIONS = [

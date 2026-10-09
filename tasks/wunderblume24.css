@@ -4,7 +4,7 @@
 .t-wunderblume24 h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
 .t-wunderblume24-minis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; max-width: 30rem; }
 .t-wunderblume24-fig { margin: 0; background: var(--surface); border: 2px solid var(--line); border-radius: 10px; overflow: hidden; min-width: 0; }
-.t-wunderblume24-fig figcaption { font-size: 0.78rem; font-weight: 700; text-align: center; padding: 0.3rem 0.3rem 0.4rem; background: var(--surface2); line-height: 1.2; }
+.t-wunderblume24-fig figcaption { font-size: 0.78rem; font-weight: 700; text-align: center; padding: 0.3rem 0.2rem 0.4rem; background: var(--surface2); line-height: 1.2; overflow-wrap: anywhere; hyphens: auto; }
 .t-wunderblume24-mini { display: block; width: 100%; height: auto; }
 .t-wunderblume24-bigbox { max-width: 30rem; background: var(--surface); border: 2px solid var(--line); border-radius: 12px; padding: 0.3rem; }
 .t-wunderblume24-big { display: block; width: 100%; height: auto; touch-action: manipulation; }
@@ -34,5 +34,6 @@
 .t-wunderblume24-opt.right .t-wunderblume24-mark { color: var(--ok); }
 .t-wunderblume24-opt.wrong .t-wunderblume24-mark { color: var(--bad); }
 @media (max-width: 34rem) {
+  .t-wunderblume24-fig figcaption { font-size: 0.68rem; }
   .t-wunderblume24-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

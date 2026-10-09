@@ -95,8 +95,8 @@
     ];
     var wrap = h('div', { class: P + 'minis' });
     items.forEach(function (it) {
-      var s = svg('svg', { viewBox: '0 0 120 130', class: P + 'mini', role: 'img', 'aria-label': it.cap + ': ' + (it.d === 0 ? 'eine einzelne Knospe' : it.d === 1 ? 'eine Knospe, ein Stiel, darüber zwei Knospen' : 'ein Stiel mit zwei Knospen, aus jeder wächst ein Stiel mit zwei neuen Knospen') });
-      var t = drawTree(it.d, 120, 130, { pad: 10, scale: 1.0, bud: 0.8 });
+      var s = svg('svg', { viewBox: '0 0 120 110', class: P + 'mini', role: 'img', 'aria-label': it.cap + ': ' + (it.d === 0 ? 'eine einzelne Knospe' : it.d === 1 ? 'eine Knospe, ein Stiel, darüber zwei Knospen' : 'ein Stiel mit zwei Knospen, aus jeder wächst ein Stiel mit zwei neuen Knospen') });
+      var t = drawTree(it.d, 120, 110, { pad: 10, scale: 1.0, bud: 0.8 });
       s.appendChild(t.g);
       wrap.appendChild(h('figure', { class: P + 'fig' }, s, h('figcaption', null, it.cap)));
     });
@@ -107,7 +107,7 @@
 
   function buildBig() {
     var W = 440, H = 340;
-    tree = drawTree(DAYS, W, H, { pad: 8, bud: 1.0 });
+    tree = drawTree(DAYS, W, H, { pad: 8, bud: 0.78 });
     badgeG = svg('g', { class: P + 'badges' });
     var hit = svg('g', {});
     var idx = 0;

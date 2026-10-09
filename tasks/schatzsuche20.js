@@ -77,7 +77,7 @@
     } else g.appendChild(svg('path', { d: 'M0 -8.5 L8 6 L-8 6 Z' }));
     return g;
   }
-  var X0 = 100, DX = 62, LANE_H = 70, GAP = 8;
+  var X0 = 70, DX = 54, LANE_H = 70, GAP = 8;
   function ix(k) { return X0 + k * DX; }
   function laneY(i) { return 6 + i * (LANE_H + GAP); }
 
@@ -87,12 +87,12 @@
   function reset() { selected = null; mark = null; st = fresh(); }
 
   function build() {
-    stage = svg('svg', { class: P + 'cave', viewBox: '0 0 460 ' + (laneY(3) - GAP + 6), role: 'img',
+    stage = svg('svg', { class: P + 'cave', viewBox: '0 0 388 ' + (laneY(3) - GAP + 6), role: 'img',
       'aria-label': 'Drei Gänge mit Toren und Steinen, rechts der Schatz. Ada: Tore mit rotem Kreis, weißem Quadrat, grünem Karo, weißem Quadrat. Belle: Stein mit rotem Kreis, Tor mit gelbem Stern, Stein mit blauem Dreieck, Tor mit rotem Kreis, Tor mit weißem Quadrat. Cody: Tor mit rotem Kreis, Steine mit grünem Karo und weißem Quadrat, Tor mit blauem Dreieck.' });
     itemEls = []; tokenEls = [];
     WHO.forEach(function (w, i) {
       var top = laneY(i), cy = top + 30;
-      stage.appendChild(svg('rect', { class: P + 'lane', x: 4, y: top, width: 394, height: LANE_H, rx: 10 }));
+      stage.appendChild(svg('rect', { class: P + 'lane', x: 4, y: top, width: 330, height: LANE_H, rx: 10 }));
       var t = svg('text', { class: P + 'lname', x: 12, y: top + 15 }); t.textContent = w.name; stage.appendChild(t);
       itemEls[i] = w.items.map(function (it, k) {
         var x = ix(k), g = svg('g', { class: P + (it[0] === 'G' ? 'gate' : 'stone') });
@@ -116,19 +116,19 @@
     });
     /* Schatzkammer rechts: alle drei Gänge münden hier */
     var top0 = laneY(0), hall = laneY(3) - GAP - top0;
-    stage.appendChild(svg('rect', { class: P + 'lane ' + P + 'hall', x: 388, y: top0, width: 68, height: hall, rx: 10 }));
+    stage.appendChild(svg('rect', { class: P + 'lane ' + P + 'hall', x: 322, y: top0, width: 62, height: hall, rx: 10 }));
     var tr = svg('g', { class: P + 'treasure' });
     var coins = [[-14, 6], [0, 10], [14, 6], [-7, -4], [7, -4], [0, -14], [-21, 14], [21, 14], [-10, 16], [10, 17]];
-    coins.forEach(function (c) { tr.appendChild(svg('circle', { cx: 424 + c[0], cy: top0 + hall / 2 + c[1] - 4, r: 7 })); });
-    var tl = svg('text', { class: P + 'tlabel', x: 424, y: top0 + 15, 'text-anchor': 'middle' }); tl.textContent = 'Schatz';
+    coins.forEach(function (c) { tr.appendChild(svg('circle', { cx: 353 + c[0], cy: top0 + hall / 2 + c[1] - 4, r: 7 })); });
+    var tl = svg('text', { class: P + 'tlabel', x: 353, y: top0 + 15, 'text-anchor': 'middle' }); tl.textContent = 'Schatz';
     stage.appendChild(tr); stage.appendChild(tl);
     tokenEls.forEach(function (t) { stage.appendChild(t); });
   }
 
   function tokenX(i) {
     var w = WHO[i], p = st.pos[i], n = w.items.length;
-    if (p === 0) return 44;
-    if (p >= n) return 424;
+    if (p === 0) return 36;
+    if (p >= n) return 353;
     if (w.items[p - 1][0] === 'S') return ix(p - 1);
     return ix(p - 1) + DX / 2;
   }

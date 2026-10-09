@@ -162,8 +162,7 @@
           h('td', { class: P + 'rarrow', 'aria-hidden': 'true' }, '→'),
           h('td', { class: P + 'rto' }, seqIcons(r.to, 30)));
       });
-      var table = h('table', { class: P + 'rules' },
-        h('caption', null, 'Verwandlungen'),
+      var table = h('table', { class: P + 'rules', 'aria-label': 'Verwandlungen' },
         h('thead', null, h('tr', null, h('th', { scope: 'col' }, 'Nr.'), h('th', { scope: 'col' }, 'Aus'), h('th', { scope: 'col', 'aria-hidden': 'true' }, ''), h('th', { scope: 'col' }, 'entsteht'))),
         h('tbody', null, rows));
       radios = OPTIONS.map(function (o, i) {
@@ -188,7 +187,7 @@
         h('div', { class: P + 'wsbar' }, wsUndo,
           h('button', { type: 'button', class: 'btn ghost ' + P + 'small', onclick: function () { wsReset(); wsDraw(); } }, 'Neu mit einem Zauberhut')));
       el.replaceChildren(h('div', { class: P + 'board' },
-        legend, table,
+        legend, h('div', { class: P + 'rulebox' }, h('h3', { class: P + 'h' }, 'Verwandlungen'), table),
         h('div', { class: P + 'answers', role: 'radiogroup', 'aria-label': 'Antworten' }, radios),
         box));
       wsDraw();

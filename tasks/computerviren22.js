@@ -146,6 +146,7 @@
       });
       NODES.forEach(function (p, i) {
         var g = S('g', { role: 'button', tabindex: 0 });
+        g.appendChild(S('circle', { cx: p[0], cy: p[1], r: R + 12, fill: 'transparent', stroke: 'none' }));
         if (i === START_BLUE || i === START_RED) g.appendChild(S('circle', { cx: p[0], cy: p[1], r: R + 7, class: P + 'startring' }));
         g.appendChild(S('circle', { cx: p[0], cy: p[1], r: R, class: P + 'disc' }));
         g.addEventListener('click', function () { apply(i); });
@@ -154,7 +155,7 @@
         });
         nodeEls.push(g); svgEl.appendChild(g);
       });
-      /* Startring liegt hinter der Scheibe: Disc muss nach dem Ring kommen (siehe drawNode: entfernt alles hinter der Disc) */
+      /* Reihenfolge je Knoten: Trefferfläche, Startring, Scheibe, Symbol (drawNode ersetzt alles hinter der Scheibe) */
       brushEls = BRUSHES.map(function (b) {
         var ic = S('svg', { viewBox: '-22 -22 44 44', width: 30, height: 30, class: P + 'bico', 'aria-hidden': 'true', focusable: 'false' });
         var disc = S('circle', { cx: 0, cy: 0, r: 20, class: P + 'disc ' + P + 'b' + b.v });

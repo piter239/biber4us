@@ -1,7 +1,13 @@
 /* Aufgabe S.O.S. aus den Bergen (Biber 2021; Klasse 7-8 schwer, 9-10 mittel, 11-13 leicht): Netzwerke, Erreichbarkeit, Redundanz */
 (function () {
   'use strict';
-  var h = Biber.h, S = Biber.svg;
+  var h = Biber.h;
+  function S(tag, attrs, kids) {   /* SVG-Element; kids: Array, Element oder Text */
+    var e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    Object.keys(attrs || {}).forEach(function (k) { if (attrs[k] !== null && attrs[k] !== undefined) e.setAttribute(k, attrs[k]); });
+    (Array.isArray(kids) ? kids : [kids]).forEach(function (c) { if (c !== null && c !== undefined && c !== false) e.appendChild(typeof c === 'object' ? c : document.createTextNode(String(c))); });
+    return e;
+  }
   var P = 't-sosberge21-';
 
   /* Dörfer (viewBox 0 0 810 345), C und E melden S.O.S. */

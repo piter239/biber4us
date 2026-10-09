@@ -8,8 +8,8 @@
   position: absolute; top: 4px; right: 4px; z-index: 1; min-width: 20px; height: 20px; border-radius: 5px; display: grid; place-items: center;
   background: #111; color: #fff; font-weight: 700; font-size: 0.8rem;
 }
-.t-riccakarten224-pic { display: grid; place-items: center; aspect-ratio: 1; border-radius: 7px; background: #fff; padding: 6px; }
-.t-riccakarten224-pic img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+.t-riccakarten224-pic { position: relative; display: block; aspect-ratio: 1; border-radius: 7px; background: #fff; overflow: hidden; }
+.t-riccakarten224-pic img { position: absolute; left: 6px; top: 6px; width: calc(100% - 12px); height: calc(100% - 12px); object-fit: contain; -webkit-user-drag: none; }
 .t-riccakarten224-vals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.15rem 0.2rem; font-weight: 700; font-size: 0.95rem; }
 .t-riccakarten224-val { display: flex; align-items: center; gap: 0.2rem; min-width: 0; }
 .t-riccakarten224-full { grid-column: 1 / -1; }
@@ -41,8 +41,8 @@
 .t-riccakarten224-cols { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.4rem; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); }
 .t-riccakarten224-col { display: grid; gap: 0.5rem; justify-items: center; padding: 0.55rem 0.3rem; min-width: 0; }
 .t-riccakarten224-col + .t-riccakarten224-col { border-left: 1px solid var(--line); }
-.t-riccakarten224-head { display: grid; gap: 0.2rem; justify-items: center; text-align: center; min-height: 3.6rem; align-content: center; }
-.t-riccakarten224-head .t-riccakarten224-ico { background: var(--slot); border-radius: 6px; padding: 3px 5px; box-sizing: content-box; }
+.t-riccakarten224-head { min-width: 0; max-width: 100%; display: grid; gap: 0.2rem; justify-items: center; text-align: center; min-height: 3.6rem; align-content: center; }
+.t-riccakarten224-head .t-riccakarten224-ico { background: var(--slot); border-radius: 6px; padding: 3px 5px; box-sizing: border-box; max-width: 100%; height: 34px; width: auto; object-fit: contain; }
 .t-riccakarten224-lbl { font-size: 0.78rem; color: var(--muted); line-height: 1.1; overflow-wrap: anywhere; }
 .t-riccakarten224-slot {
   appearance: none; position: relative; width: 100%; min-height: 48px; margin: 0; padding: 0.2rem; border: 3px dashed var(--slot-line); border-radius: 10px;
@@ -70,7 +70,7 @@
   .t-riccakarten224-col { padding: 0.45rem 0.15rem; }
   .t-riccakarten224-slot { padding: 0.1rem; min-height: 44px; border-width: 2px; }
   .t-riccakarten224-slot .t-riccakarten224-chip { font-size: 0.7rem; padding: 0.3rem 0; border-width: 0; min-height: 36px; }
-  .t-riccakarten224-big { height: 28px; }
+  .t-riccakarten224-head .t-riccakarten224-ico { height: 28px; padding: 2px 3px; }
   .t-riccakarten224-lbl { font-size: 0.68rem; }
   .t-riccakarten224-tbl th, .t-riccakarten224-tbl td { padding: 0.15rem 0.3rem; }
 }

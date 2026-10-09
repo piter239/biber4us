@@ -1,7 +1,13 @@
 /* Aufgabe Gruppenarbeit (Biber 2021; Klasse 11-13 schwer): Graph, Zwei-Färbbarkeit, einen Blitz (Kante) entfernen */
 (function () {
   'use strict';
-  var h = Biber.h, S = Biber.svg;
+  var h = Biber.h;
+  function S(tag, attrs, kids) {   /* SVG-Element; kids: Array, Element oder Text */
+    var e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    Object.keys(attrs || {}).forEach(function (k) { if (attrs[k] !== null && attrs[k] !== undefined) e.setAttribute(k, attrs[k]); });
+    (Array.isArray(kids) ? kids : [kids]).forEach(function (c) { if (c !== null && c !== undefined && c !== false) e.appendChild(typeof c === 'object' ? c : document.createTextNode(String(c))); });
+    return e;
+  }
   var P = 't-gruppenarbeit21-';
 
   /* Personen: Mitte im Bild (viewBox 10 8 620 352), Farbe in der Ausgangslage (1 rot, 2 blau, 3 violett) */
@@ -172,7 +178,7 @@
     story:
       '<p>Für ein Projekt sollst du acht Personen in Gruppen aufteilen. Ein Blitz zwischen zwei Personen zeigt: Diese beiden wollen nicht zusammenarbeiten. ' +
       'Zwischen zwei Personen derselben Gruppe darf also kein Blitz sein.</p>' +
-      '<p>Damit ist eine Aufteilung in drei Gruppen möglich: rot, blau und violett (oben). Nun willst du die Personen in <strong>zwei</strong> Gruppen aufteilen. ' +
+      '<p>Damit ist eine Aufteilung in drei Gruppen möglich: rot, blau und violett (siehe Bild). Nun willst du die Personen in <strong>zwei</strong> Gruppen aufteilen. ' +
       'Das ist möglich, wenn du die richtigen beiden Personen zur Zusammenarbeit überzeugst, also den richtigen Blitz entfernst.</p>',
     question: 'Entferne den richtigen Blitz!',
     howto: 'Tippe unten auf einen Blitz, um ihn zu entfernen (noch einmal tippen bringt ihn zurück). Zum Ausprobieren kannst du auf „Personen einfärben“ wechseln und die Personen in zwei Gruppen einteilen.',

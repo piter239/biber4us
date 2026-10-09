@@ -13,7 +13,7 @@
 .t-zauberland22-leg { display: inline-flex; align-items: center; gap: 0.4rem; }
 
 .t-zauberland22-rules { border-collapse: separate; border-spacing: 0; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; width: max-content; max-width: 100%; }
-.t-zauberland22-rules caption { text-align: left; caption-side: top; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; padding: 0 0 0.4rem; }
+.t-zauberland22-h { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.4rem; }
 .t-zauberland22-rules th { font-size: 0.8rem; color: var(--muted); font-weight: 700; padding: 0.35rem 0.7rem; border-bottom: 1px solid var(--line); text-align: center; }
 .t-zauberland22-rules td { padding: 0.3rem 0.7rem; border-bottom: 1px solid var(--line); vertical-align: middle; }
 .t-zauberland22-rules tr:last-child td { border-bottom: 0; }

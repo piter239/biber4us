@@ -14,7 +14,7 @@
 .t-schichten21-band { flex: 1 1 0; min-height: 0; }
 .t-schichten21-air { background: transparent; }
 
-.t-schichten21-work { display: grid; grid-template-columns: minmax(0, 1fr) clamp(8rem, 40vw, 11rem); gap: 1rem; align-items: start; justify-content: center; }
+.t-schichten21-work { display: grid; grid-template-columns: minmax(0, 12rem) clamp(7.5rem, 40vw, 11rem); gap: 1rem; align-items: start; justify-content: center; }
 .t-schichten21-main { width: 100%; }
 .t-schichten21-main .t-schichten21-stack { overflow: visible; border-radius: 0 0 14px 14px; }
 

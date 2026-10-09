@@ -107,8 +107,9 @@
     id: 'roehre24',
     story:
       '<p>In eine durchsichtige Röhre passen genau drei Kugeln. Die Röhre ist an beiden Seiten offen.</p>' +
-      '<p>Wenn in die volle Röhre von einer Seite eine Kugel hineingeschoben wird, fällt auf der anderen Seite eine Kugel heraus. Hier sind zwei Beispiele:</p>',
-    question: 'Nun werden nacheinander vier Kugeln in die volle Röhre geschoben: zuerst eine schwarze und dann eine weiße Kugel von rechts, danach eine schwarze und dann eine weiße Kugel von links. Welche drei Kugeln sind am Ende in der Röhre?',
+      '<p>Wenn in die volle Röhre von einer Seite eine Kugel hineingeschoben wird, fällt auf der anderen Seite eine Kugel heraus. Hier sind zwei Beispiele:</p>' +
+      '<p>Die Röhre ist mal wieder voll (schwarz, weiß, schwarz). Nun werden nacheinander vier Kugeln in die Röhre geschoben: zuerst eine schwarze und dann eine weiße Kugel von rechts, danach eine schwarze und dann eine weiße Kugel von links.</p>',
+    question: 'Welche drei Kugeln sind am Ende in der Röhre?',
     howto: 'Tippe in der Antwort-Röhre auf die drei Plätze, bis die Farben stimmen. Unten kannst du alles mit der Probier-Röhre ausprobieren.',
     explanation: function () {
       return '<p>Zuerst werden von rechts eine schwarze und eine weiße Kugel hineingeschoben. Links fallen dabei zwei Kugeln heraus: erst die schwarze, dann die weiße. Danach werden von links eine schwarze und eine weiße Kugel hineingeschoben, und rechts fallen zwei Kugeln heraus: erst die weiße, dann die schwarze.</p>' +
