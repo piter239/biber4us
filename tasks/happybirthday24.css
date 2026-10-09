@@ -1,0 +1,78 @@
+/* Aufgabe Happy Birthday */
+.t-happybirthday24 { display: grid; gap: 1.2rem; min-width: 0; justify-items: start; }
+.t-happybirthday24 h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-happybirthday24-planhost { max-width: 100%; }
+
+.t-happybirthday24-plan { --col3: 10rem; --col2: 3.6rem; display: grid; gap: 0.1rem; max-width: 100%; }
+.t-happybirthday24-start, .t-happybirthday24-rowA, .t-happybirthday24-row {
+  display: grid; grid-template-columns: minmax(7.4rem, 9.2rem) var(--col2) var(--col3); align-items: center;
+}
+.t-happybirthday24-start > *, .t-happybirthday24-rowA > * { grid-column: 3; justify-self: center; }
+.t-happybirthday24-pill { background: var(--c1); color: var(--accent-ink); font-weight: 800; padding: 0.3rem 1.1rem; border-radius: 999px; }
+.t-happybirthday24-row.last .t-happybirthday24-slotcell { grid-column: 3; justify-self: center; width: 100%; max-width: 9.2rem; }
+.t-happybirthday24-row.last { grid-template-columns: minmax(7.4rem, 9.2rem) var(--col2) var(--col3); }
+
+.t-happybirthday24-diamond { position: relative; display: grid; place-items: center; text-align: center; min-height: 6.2rem; padding: 0 2.3rem; font-size: 0.82rem; line-height: 1.2; }
+.t-happybirthday24-diamond::before, .t-happybirthday24-diamond::after { content: ''; position: absolute; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.t-happybirthday24-diamond::before { inset: 0; background: var(--muted); }
+.t-happybirthday24-diamond::after { inset: 3px 5px; background: var(--surface2); }
+.t-happybirthday24-diamond > span { position: relative; z-index: 1; }
+.t-happybirthday24-diamond.visited::before { background: var(--accent); }
+.t-happybirthday24-diamond.visited::after { background: color-mix(in srgb, var(--accent) 22%, var(--surface2)); }
+
+.t-happybirthday24-arrow { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+.t-happybirthday24-arrow i { display: block; background: var(--ink); position: relative; }
+.t-happybirthday24-arrow.left { flex-direction: column; gap: 0; padding: 0 0.15rem; }
+.t-happybirthday24-arrow.left i { width: 100%; height: 2px; }
+.t-happybirthday24-arrow.left i::before { content: ''; position: absolute; left: -1px; top: -4px; border: 5px solid transparent; border-right: 9px solid var(--ink); border-left: 0; }
+.t-happybirthday24-arrow.down { gap: 0.4rem; height: 2.3rem; }
+.t-happybirthday24-arrow.down i { width: 2px; height: 100%; }
+.t-happybirthday24-arrow.down i::after { content: ''; position: absolute; bottom: -1px; left: -4px; border: 5px solid transparent; border-top: 9px solid var(--ink); border-bottom: 0; }
+.t-happybirthday24-arrow.down span:empty { display: none; }
+
+.t-happybirthday24-fixed {
+  display: grid; justify-items: center; gap: 0.1rem; padding: 0.3rem; text-align: center; font-size: 0.78rem; font-weight: 600;
+  border: 3px solid var(--line); border-radius: 10px; background: var(--surface);
+}
+.t-happybirthday24-fixed.reached { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+
+.t-happybirthday24-slotwrap { position: relative; }
+.t-happybirthday24-slotwrap.reached > .t-happybirthday24-slot { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-happybirthday24-slot { display: grid; gap: 0.25rem; padding: 0.3rem; border: 3px dashed var(--slot-line); background: var(--slot); border-radius: 10px; }
+.t-happybirthday24-slot.right { border: 3px solid var(--ok); }
+.t-happybirthday24-slot.wrong { border: 3px solid var(--bad); }
+.t-happybirthday24-tick { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok); }
+.t-happybirthday24-slot.wrong + .t-happybirthday24-tick { background: var(--bad); }
+
+.t-happybirthday24-opt { position: relative; display: block; cursor: pointer; }
+.t-happybirthday24-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-happybirthday24-optface {
+  display: flex; align-items: center; gap: 0.25rem; padding: 0.1rem 0.35rem 0.1rem 0.15rem; border: 2px solid transparent; border-radius: 8px;
+  background: var(--surface); min-height: 2.6rem; font-size: 0.74rem; font-weight: 700; line-height: 1.1; text-align: left;
+}
+.t-happybirthday24-opt:hover .t-happybirthday24-optface { border-color: var(--accent); }
+.t-happybirthday24-opt input:checked + .t-happybirthday24-optface { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-happybirthday24-opt input:focus-visible + .t-happybirthday24-optface { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-happybirthday24-opt input:disabled, .t-happybirthday24-opt input:disabled ~ * { cursor: default; }
+.t-happybirthday24-optname { min-width: 0; overflow-wrap: anywhere; }
+
+.t-happybirthday24-iconbox { display: block; flex: none; line-height: 0; }
+.t-happybirthday24-icon { width: 2.3rem; height: 2.3rem; display: block; }
+.t-happybirthday24-icon.big { width: 3.2rem; height: 3.2rem; }
+.t-happybirthday24-cal { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+.t-happybirthday24-calTop { fill: var(--c1); stroke: var(--ink); stroke-width: 2; }
+.t-happybirthday24-calNum { fill: var(--ink); font-weight: 800; font-size: 17px; font-family: var(--font-body); }
+.t-happybirthday24-hat { fill: var(--c1); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
+.t-happybirthday24-hatDot { fill: var(--c2); stroke: var(--ink); stroke-width: 1; }
+.t-happybirthday24-cross { stroke: var(--c4); stroke-width: 4; stroke-linecap: round; fill: none; }
+
+.t-happybirthday24-test { max-width: 34rem; background: var(--surface2); border-radius: 12px; padding: 0.7rem 0.9rem; width: 100%; box-sizing: border-box; }
+.t-happybirthday24-testrow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.t-happybirthday24-yl { font-weight: 700; display: flex; align-items: center; gap: 0.4rem; }
+.t-happybirthday24-year { width: 6rem; font: inherit; padding: 0.35rem 0.5rem; border-radius: 8px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); }
+.t-happybirthday24-result { margin: 0.6rem 0 0; min-height: 2.8em; font-size: 0.95rem; }
+
+@media (max-width: 24rem) {
+  .t-happybirthday24-plan { --col3: 8.8rem; --col2: 2.8rem; }
+  .t-happybirthday24-diamond { padding: 0 1.9rem; font-size: 0.76rem; }
+}

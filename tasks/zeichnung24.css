@@ -1,0 +1,24 @@
+/* Aufgabe Zeichnung (Biber 2024): Bilder liegen auf hellem Papier und behalten ihre Farben */
+.t-zeichnung24-board { display: grid; gap: 1rem; max-width: 40rem; margin: 0 auto; }
+.t-zeichnung24-fig { margin: 0; display: grid; justify-items: center; gap: 0.4rem; }
+.t-zeichnung24-box { display: block; width: 100%; max-width: 30rem; height: auto; background: var(--paper); border-radius: 10px; padding: 0.4rem; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); -webkit-user-drag: none; }
+.t-zeichnung24-fig figcaption { color: var(--muted); font-size: 0.9rem; text-align: center; }
+.t-zeichnung24-solfig img { display: block; width: 100%; max-width: 30rem; height: auto; background: var(--paper); border-radius: 10px; padding: 0.3rem; }
+.t-zeichnung24-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+.t-zeichnung24-opt {
+  appearance: none; position: relative; display: grid; justify-items: center; align-content: center; gap: 0.3rem; min-width: 0;
+  padding: 0.5rem 0.25rem 0.6rem; border: 3px solid var(--line); border-radius: 12px; background: var(--paper); color: #15303a;
+  font: 700 1.1rem/1 var(--font-body); cursor: pointer; touch-action: manipulation;
+}
+.t-zeichnung24-opt img { width: 100%; max-width: 6.5rem; height: auto; pointer-events: none; -webkit-user-drag: none; }
+.t-zeichnung24-opt:hover:not(:disabled) { border-color: var(--accent); }
+.t-zeichnung24-opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-zeichnung24-opt.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-zeichnung24-opt.right { border-color: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 35%, transparent); }
+.t-zeichnung24-opt.wrong { border-color: var(--bad); box-shadow: 0 0 0 3px color-mix(in srgb, var(--bad) 35%, transparent); }
+.t-zeichnung24-opt:disabled { cursor: default; }
+.t-zeichnung24-badge { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 800 0.95rem/1 var(--font-body); color: #fff; background: var(--ok); }
+.t-zeichnung24-opt.wrong .t-zeichnung24-badge { background: var(--bad); }
+@media (max-width: 26rem) {
+  .t-zeichnung24-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

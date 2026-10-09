@@ -1,0 +1,34 @@
+/* Aufgabe Ricca-Karten 1 (Biber 2024): Kartenbilder behalten ihre Farben, Hintergrund hell */
+.t-riccakarten124-board { display: grid; gap: 1rem; max-width: 40rem; margin: 0 auto; }
+.t-riccakarten124-fig { margin: 0; display: grid; justify-items: center; }
+.t-riccakarten124-ex { display: block; width: 100%; max-width: 26rem; height: auto; background: var(--paper); border-radius: 10px; padding: 0.5rem; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); -webkit-user-drag: none; }
+.t-riccakarten124-ico { height: 1.7rem; width: auto; vertical-align: middle; margin: 0 0.1rem; background: var(--paper); border-radius: 6px; padding: 0.1rem 0.25rem; box-shadow: 0 1px 2px rgb(0 0 0 / 0.2); }
+.t-riccakarten124-tablewrap { overflow-x: auto; }
+.t-riccakarten124-table { border-collapse: collapse; width: 100%; background: var(--surface); border: 1px solid var(--line); }
+.t-riccakarten124-table th, .t-riccakarten124-table td { border: 1px solid var(--line); padding: 0.35rem 0.6rem; text-align: left; vertical-align: middle; }
+.t-riccakarten124-table thead th { background: var(--surface2); font-size: 0.9rem; }
+.t-riccakarten124-sym { width: 5.5rem; text-align: center !important; }
+.t-riccakarten124-sym .t-riccakarten124-ico { height: 2.2rem; margin: 0; }
+.t-riccakarten124-res td, .t-riccakarten124-res th { text-align: center; }
+.t-riccakarten124-ok { color: var(--ok); font-weight: 700; }
+.t-riccakarten124-no { color: var(--bad); font-weight: 700; }
+.t-riccakarten124-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.t-riccakarten124-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+.t-riccakarten124-opt {
+  appearance: none; position: relative; display: grid; justify-items: center; align-content: start; gap: 0.3rem; min-width: 0;
+  padding: 0.4rem 0.25rem 0.5rem; border: 3px solid var(--line); border-radius: 12px; background: var(--paper); color: #15303a;
+  font: 700 1.1rem/1 var(--font-body); cursor: pointer; touch-action: manipulation;
+}
+.t-riccakarten124-opt img { width: 100%; max-width: 8rem; height: auto; pointer-events: none; -webkit-user-drag: none; }
+.t-riccakarten124-opt:hover:not(:disabled) { border-color: var(--accent); }
+.t-riccakarten124-opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-riccakarten124-opt.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-riccakarten124-opt.right { border-color: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 35%, transparent); }
+.t-riccakarten124-opt.wrong { border-color: var(--bad); box-shadow: 0 0 0 3px color-mix(in srgb, var(--bad) 35%, transparent); }
+.t-riccakarten124-opt:disabled { cursor: default; }
+.t-riccakarten124-badge { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 800 0.95rem/1 var(--font-body); color: #fff; background: var(--ok); }
+.t-riccakarten124-opt.wrong .t-riccakarten124-badge { background: var(--bad); }
+@media (max-width: 30rem) {
+  .t-riccakarten124-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-riccakarten124-opt img { max-width: 7rem; }
+}

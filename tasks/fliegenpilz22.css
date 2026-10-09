@@ -1,0 +1,31 @@
+/* Aufgabe Achtung Fliegenpilz (Heft 2022): Pilze und Zahlenfelder behalten ihre Farben in Hell und Dunkel */
+.t-fliegenpilz22-wrap { display: grid; gap: 0.8rem; justify-items: center; }
+.t-fliegenpilz22-grid { display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: 6px; width: 100%; max-width: 20rem; margin: 0.4rem auto; }
+.t-fliegenpilz22-static { max-width: 14rem; margin: 0.6rem 0; }
+.t-fliegenpilz22-cell {
+  position: relative; aspect-ratio: 1; min-width: 0; display: grid; place-items: center; border-radius: 6px; box-sizing: border-box; padding: 0; margin: 0;
+}
+.t-fliegenpilz22-num { background: #fff; color: #111; border: 3px solid #e0242c; font: 700 clamp(1.4rem, 7vw, 2.3rem)/1 var(--font-display); }
+.t-fliegenpilz22-static .t-fliegenpilz22-num { font-size: clamp(1.1rem, 5vw, 1.7rem); }
+.t-fliegenpilz22-num.t-fliegenpilz22-new { background: #fff7c7; }
+.t-fliegenpilz22-mush { background: #6dba2e; border: 3px solid #4f9420; }
+.t-fliegenpilz22-mushwrap { display: block; width: 78%; height: 78%; }
+.t-fliegenpilz22-pilz { display: block; width: 100%; height: 100%; }
+.t-fliegenpilz22-cov {
+  appearance: none; cursor: pointer; background: #b6dc92; border: 3px solid #f1dc8c; color: #2d5a12; touch-action: manipulation; font: inherit;
+}
+.t-fliegenpilz22-cov:hover:not(:disabled) { border-color: var(--accent); }
+.t-fliegenpilz22-cov:disabled { cursor: default; }
+.t-fliegenpilz22-letter { font: 700 clamp(1.1rem, 5vw, 1.6rem)/1 var(--font-display); color: #2d5a12; }
+.t-fliegenpilz22-reveal .t-fliegenpilz22-letter { position: absolute; left: 4px; top: 2px; font-size: 0.95rem; color: #fff; text-shadow: 0 0 3px #1c3d08; }
+.t-fliegenpilz22-cov.t-fliegenpilz22-on { background: color-mix(in srgb, var(--accent) 40%, #b6dc92); border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-fliegenpilz22-cov.right { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 40%, #b6dc92); box-shadow: none; }
+.t-fliegenpilz22-cov.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 40%, #b6dc92); box-shadow: none; }
+.t-fliegenpilz22-cov.missed { border: 3px dashed var(--bad); }
+.t-fliegenpilz22-tick {
+  position: absolute; top: -9px; right: -9px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 0.85rem; font-weight: 800; color: #fff; background: var(--accent); pointer-events: none;
+}
+.t-fliegenpilz22-cov.right .t-fliegenpilz22-tick { background: var(--ok); }
+.t-fliegenpilz22-cov.wrong .t-fliegenpilz22-tick { background: var(--bad); }
+.t-fliegenpilz22-note { margin: 0; font-size: 0.95rem; color: var(--muted); text-align: center; min-height: 1.5em; }

@@ -1,0 +1,57 @@
+.t-oliversrassel24-board { display: grid; gap: 0.9rem; justify-items: center; }
+.t-oliversrassel24-history { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 0.9rem; }
+.t-oliversrassel24-fig { margin: 0; text-align: center; width: 150px; }
+.t-oliversrassel24-fig figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 0.2rem; }
+.t-oliversrassel24-shake { font-size: 1.8rem; color: var(--accent); font-weight: 700; line-height: 1; }
+.t-oliversrassel24-lead { margin: 0.2rem 0 0; font-weight: 700; }
+.t-oliversrassel24-work { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem 1.5rem; width: 100%; }
+.t-oliversrassel24-ring { position: relative; width: 100%; aspect-ratio: 320 / 295; }
+.t-oliversrassel24-big { max-width: 320px; flex: 0 1 320px; }
+.t-oliversrassel24-small { width: 150px; }
+.t-oliversrassel24-ringsvg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+.t-oliversrassel24-pos, .t-oliversrassel24-slot { position: absolute; width: 12.5%; aspect-ratio: 1; transform: translate(-50%, -50%); margin: 0; padding: 0; }
+.t-oliversrassel24-pos .t-oliversrassel24-ball, .t-oliversrassel24-slot .t-oliversrassel24-ball { width: 100%; height: 100%; }
+.t-oliversrassel24-ball { display: block; pointer-events: none; }
+.t-oliversrassel24-ballsvg { display: block; width: 100%; height: 100%; }
+.t-oliversrassel24-slot {
+  appearance: none; border: 2px dashed var(--slot-line); background: color-mix(in srgb, var(--slot) 70%, transparent); border-radius: 50%;
+  cursor: pointer; touch-action: manipulation; min-width: 36px; min-height: 36px;
+}
+.t-oliversrassel24-slot.filled { border-color: transparent; background: transparent; touch-action: none; }
+.t-oliversrassel24-slot.fixed { cursor: default; touch-action: manipulation; }
+.t-oliversrassel24-slot.target { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.t-oliversrassel24-slot.over { border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-oliversrassel24-slot.right { box-shadow: 0 0 0 3px var(--ok); }
+.t-oliversrassel24-slot.wrong { box-shadow: 0 0 0 3px var(--bad); }
+.t-oliversrassel24-slot:disabled { cursor: default; }
+.t-oliversrassel24-slot:focus-visible, .t-oliversrassel24-chip:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-oliversrassel24-mark {
+  position: absolute; top: -9px; right: -9px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.8rem; color: #fff; background: var(--ok);
+}
+.t-oliversrassel24-slot.wrong .t-oliversrassel24-mark { background: var(--bad); }
+.t-oliversrassel24-side { display: grid; gap: 0.5rem; justify-items: center; }
+.t-oliversrassel24-lab { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.t-oliversrassel24-tray {
+  display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; align-items: center; min-height: 64px; min-width: 190px;
+  padding: 0.5rem 0.7rem; border-radius: 12px; background: var(--surface2);
+}
+.t-oliversrassel24-chip {
+  appearance: none; width: 52px; height: 52px; padding: 0; margin: 0; border: 3px solid transparent; border-radius: 50%; background: none;
+  cursor: grab; touch-action: none; display: block;
+}
+.t-oliversrassel24-chip .t-oliversrassel24-ball { width: 100%; height: 100%; }
+.t-oliversrassel24-chip.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-oliversrassel24-chip:disabled { cursor: default; }
+.t-oliversrassel24-empty { color: var(--muted); font-size: 0.9rem; text-align: center; }
+.t-oliversrassel24-note { min-height: 1.4em; margin: 0; color: var(--muted); font-size: 0.95rem; text-align: center; }
+.t-oliversrassel24-ghost { position: fixed; z-index: 1000; width: 56px; height: 56px; transform: translate(-50%, -50%); pointer-events: none; filter: drop-shadow(0 3px 6px rgb(0 0 0 / 0.4)); }
+.t-oliversrassel24-ghost .t-oliversrassel24-ball { width: 100%; height: 100%; }
+.t-oliversrassel24-chainrow { overflow-x: auto; }
+.t-oliversrassel24-chain { display: inline-flex; align-items: center; gap: 0.3rem; flex-wrap: wrap; }
+.t-oliversrassel24-chain .t-oliversrassel24-ballsvg { width: 30px; height: 30px; }
+.t-oliversrassel24-arr { color: var(--accent); font-weight: 700; }
+@media (max-width: 26rem) {
+  .t-oliversrassel24-fig, .t-oliversrassel24-small { width: 130px; }
+  .t-oliversrassel24-tray { min-width: 0; width: 100%; }
+}

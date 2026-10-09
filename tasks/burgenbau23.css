@@ -1,0 +1,76 @@
+/* Stile für burgenbau23 (Präfix t-burgenbau23-). Die vier Bauteile behalten ihre Farben (wie im Heft) in Hell und Dunkel. */
+.t-burgenbau23-board { --t-burgenbau23-wu: 14px; --t-burgenbau23-ml: 1.5rem; display: grid; gap: 1.1rem; min-width: 0; max-width: 46rem; }
+.t-burgenbau23-board > section { min-width: 0; }
+.t-burgenbau23-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.5rem; }
+.t-burgenbau23-board h4 { margin: 0.7rem 0 0.25rem; font-size: 0.95rem; }
+.t-burgenbau23-tip { margin: 0 0 0.6rem; color: var(--muted); font-size: 0.95rem; }
+@media (min-width: 40rem) { .t-burgenbau23-board { --t-burgenbau23-wu: 17px; } }
+
+.t-burgenbau23-gantt { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.6rem 0.7rem 0.8rem; min-width: 0; }
+.t-burgenbau23-axisrow { display: flex; align-items: flex-end; margin-bottom: 0.15rem; }
+.t-burgenbau23-axl { width: var(--t-burgenbau23-ml); flex: none; font-size: 0.7rem; color: var(--muted); }
+.t-burgenbau23-axis { flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(20, minmax(0, 1fr)); }
+.t-burgenbau23-tick { text-align: center; font-size: 0.7rem; color: var(--muted); }
+
+.t-burgenbau23-row { margin: 0.55rem 0 0.2rem; }
+.t-burgenbau23-rhead { display: flex; flex-wrap: wrap; align-items: center; gap: 0.15rem 0.5rem; margin-bottom: 0.25rem; }
+.t-burgenbau23-sw { width: 0.9rem; height: 0.9rem; border-radius: 3px; border: 1px solid rgb(0 0 0 / 0.3); flex: none; }
+.t-burgenbau23-need { color: var(--muted); font-size: 0.85rem; }
+.t-burgenbau23-ctl { margin-left: auto; display: inline-flex; align-items: center; gap: 0.3rem; }
+.t-burgenbau23-start { font-size: 0.85rem; min-width: 5.2rem; text-align: center; font-variant-numeric: tabular-nums; }
+.t-burgenbau23-step {
+  appearance: none; width: 2.4rem; height: 2.2rem; border-radius: 8px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent);
+  cursor: pointer; font: inherit; font-size: 0.8rem; touch-action: manipulation; padding: 0;
+}
+.t-burgenbau23-step:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-burgenbau23-step:disabled { opacity: 0.35; cursor: not-allowed; border-color: var(--line); }
+
+.t-burgenbau23-track {
+  position: relative; height: 2.5rem; margin-left: var(--t-burgenbau23-ml); border-radius: 6px; background-color: var(--surface);
+  background-image: repeating-linear-gradient(to right, var(--line) 0 1px, transparent 1px calc(100% / 20));
+  border: 1px solid var(--line); touch-action: pan-y;
+}
+.t-burgenbau23-bar {
+  position: absolute; top: 3px; bottom: 3px; box-sizing: border-box; border-radius: 5px; border: 2px solid rgb(0 0 0 / 0.35); display: grid; place-items: center;
+  cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; font-weight: 700; opacity: 0.95;
+}
+.t-burgenbau23-bar[aria-disabled="true"] { cursor: default; }
+.t-burgenbau23-bar:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-burgenbau23-bar.drag { cursor: grabbing; box-shadow: 0 3px 10px rgb(0 0 0 / 0.35); z-index: 2; }
+.t-burgenbau23-bar.bad { border-color: var(--bad); border-style: dashed; }
+.t-burgenbau23-total { margin: 0.9rem 0 0; }
+
+.t-burgenbau23-chart { position: relative; margin-left: var(--t-burgenbau23-ml); padding-top: 1.1rem; }
+.t-burgenbau23-plot {
+  position: relative; border-left: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
+  background-image: repeating-linear-gradient(to right, var(--line) 0 1px, transparent 1px calc(100% / 20));
+}
+.t-burgenbau23-clip { position: absolute; inset: 0; overflow: hidden; }
+.t-burgenbau23-seg { position: absolute; box-sizing: border-box; border: 1px solid rgb(0 0 0 / 0.45); }
+.t-burgenbau23-overday { position: absolute; top: 0; bottom: 0; background: color-mix(in srgb, var(--bad) 22%, transparent); }
+.t-burgenbau23-maxline { position: absolute; left: 0; right: 0; height: 0; border-top: 2px dashed var(--bad); pointer-events: none; }
+.t-burgenbau23-maxline span { position: absolute; right: 0; bottom: 2px; font-size: 0.75rem; font-weight: 700; color: var(--bad); background: var(--surface2); padding: 0 0.2rem; border-radius: 3px; }
+.t-burgenbau23-ytick { position: absolute; left: -1.4rem; width: 1rem; text-align: right; transform: translateY(50%); font-size: 0.75rem; color: var(--muted); }
+.t-burgenbau23-gantt > .t-burgenbau23-chart { margin-left: var(--t-burgenbau23-ml); }
+
+.t-burgenbau23-status { margin: 0; min-height: 2.9em; padding: 0.5rem 0.7rem; border-radius: 10px; border: 1px solid var(--line); background: var(--surface2); }
+.t-burgenbau23-status.okay { border-color: var(--ok); background: var(--ok-bg); }
+.t-burgenbau23-status.bad { border-color: var(--bad); background: var(--bad-bg); }
+
+.t-burgenbau23-answer { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-weight: 600; }
+.t-burgenbau23-inwrap { position: relative; display: inline-block; }
+.t-burgenbau23-input {
+  width: 4.2rem; min-height: 2.8rem; box-sizing: border-box; text-align: center; font: 700 1.3rem var(--font-display); color: var(--ink);
+  background: var(--surface); border: 3px solid var(--line); border-radius: 10px; padding: 0 0.3rem;
+}
+.t-burgenbau23-input:focus { outline: 3px solid var(--focus); outline-offset: 1px; border-color: var(--accent); }
+.t-burgenbau23-input:disabled { opacity: 1; }
+.t-burgenbau23-answer.right .t-burgenbau23-input { border-color: var(--ok); background: var(--ok-bg); }
+.t-burgenbau23-answer.wrong .t-burgenbau23-input { border-color: var(--bad); background: var(--bad-bg); }
+.t-burgenbau23-mark { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: none; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; }
+.t-burgenbau23-answer.right .t-burgenbau23-mark { display: grid; background: var(--ok); }
+.t-burgenbau23-answer.wrong .t-burgenbau23-mark { display: grid; background: var(--bad); }
+@media (max-width: 24rem) {
+  .t-burgenbau23-need { flex-basis: 100%; order: 3; }
+  .t-burgenbau23-start { min-width: 4.6rem; }
+}

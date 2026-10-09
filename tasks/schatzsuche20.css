@@ -1,0 +1,64 @@
+/* Stile für schatzsuche20 (Präfix t-schatzsuche20-). Tore, Steine und Zeichen behalten ihre Farben in Hell und Dunkel. */
+.t-schatzsuche20-board { display: grid; gap: 0.9rem; max-width: 40rem; margin: 0 auto; }
+.t-schatzsuche20-board section { min-width: 0; }
+.t-schatzsuche20-board h3 { font: 700 0.8rem var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.5rem; }
+.t-schatzsuche20-cavebox { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem; }
+.t-schatzsuche20-cave { display: block; width: 100%; height: auto; }
+.t-schatzsuche20-lane { fill: #7c6a58; stroke: #4f4033; stroke-width: 2; }
+.t-schatzsuche20-lname { fill: #fff; font: 700 11px var(--font-body); }
+.t-schatzsuche20-bar { fill: #8b5a2b; stroke: #3c2410; stroke-width: 1.5; }
+.t-schatzsuche20-slats { stroke: #3c2410; stroke-width: 1.2; opacity: 0.7; }
+.t-schatzsuche20-badge { fill: #f3ead8; stroke: #3c2410; stroke-width: 1; }
+.t-schatzsuche20-gate.open .t-schatzsuche20-bar { fill: none; stroke: #f3ead8; stroke-dasharray: 4 3; opacity: 0.8; }
+.t-schatzsuche20-gate.open .t-schatzsuche20-slats { display: none; }
+.t-schatzsuche20-gate.open .t-schatzsuche20-badge { opacity: 0.6; }
+.t-schatzsuche20-rock { fill: #b3a899; stroke: #3b352d; stroke-width: 1.8; }
+.t-schatzsuche20-stone.used .t-schatzsuche20-rock { fill: #cfc5b3; stroke: #fff; stroke-dasharray: 4 2; }
+.t-schatzsuche20-sym { stroke: #222; stroke-width: 1.3; stroke-linejoin: round; }
+.t-schatzsuche20-s-r { fill: #e0261c; }
+.t-schatzsuche20-s-w { fill: #ffffff; }
+.t-schatzsuche20-s-g { fill: #19b035; }
+.t-schatzsuche20-s-y { fill: #f7c800; }
+.t-schatzsuche20-s-b { fill: #2d9be0; }
+.t-schatzsuche20-token { transition: transform 0.35s; }
+.t-schatzsuche20-token circle { stroke: #fff; stroke-width: 2; }
+.t-schatzsuche20-token text { fill: #fff; font: 800 12px var(--font-body); stroke: none; }
+.t-schatzsuche20-treasure circle { fill: #f7c800; stroke: #a07600; stroke-width: 1.5; }
+.t-schatzsuche20-tlabel { fill: #fff; font: 700 11px var(--font-body); }
+.t-schatzsuche20-ctl { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: stretch; }
+.t-schatzsuche20-who {
+  appearance: none; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 0.45rem; align-items: center; text-align: left;
+  min-height: 3rem; padding: 0.3rem 0.9rem 0.3rem 0.4rem; border-radius: 999px; font: inherit; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--pc);
+}
+.t-schatzsuche20-who:not(:disabled):hover { background: color-mix(in srgb, var(--pc) 16%, var(--surface)); }
+.t-schatzsuche20-who:disabled { opacity: 0.55; cursor: default; }
+.t-schatzsuche20-dot { grid-row: 1 / 3; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: #fff; background: var(--pc); }
+.t-schatzsuche20-wn { font-weight: 700; line-height: 1.1; }
+.t-schatzsuche20-stat { font-size: 0.75rem; color: var(--muted); line-height: 1.1; }
+.t-schatzsuche20-stat.wait { color: var(--bad); }
+.t-schatzsuche20-stat.done { color: var(--ok); font-weight: 700; }
+.t-schatzsuche20-again {
+  appearance: none; min-height: 3rem; padding: 0.3rem 1rem; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; touch-action: manipulation;
+  background: transparent; color: var(--muted); border: 2px solid var(--line);
+}
+.t-schatzsuche20-again:hover { border-color: var(--accent); color: var(--ink); }
+.t-schatzsuche20-note { margin: 0; min-height: 3.3em; font-size: 0.95rem; color: var(--muted); }
+.t-schatzsuche20-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+.t-schatzsuche20-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.4rem; align-items: start; text-align: left;
+  padding: 0.65rem 0.8rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600; min-width: 0;
+}
+.t-schatzsuche20-opt:hover { border-color: var(--accent); }
+.t-schatzsuche20-opt[aria-disabled="true"] { cursor: default; }
+.t-schatzsuche20-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-schatzsuche20-opt.selected, .t-schatzsuche20-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-schatzsuche20-opt.right, .t-schatzsuche20-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-schatzsuche20-opt.wrong, .t-schatzsuche20-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-schatzsuche20-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-schatzsuche20-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-schatzsuche20-opt.wrong .t-schatzsuche20-mark { background: var(--bad); }

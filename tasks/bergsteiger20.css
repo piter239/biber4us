@@ -1,0 +1,35 @@
+.t-bergsteiger20-board { display: grid; gap: 0.6rem; max-width: 56rem; }
+.t-bergsteiger20-swipe { display: none; margin: 0; font-size: 0.85rem; color: var(--muted); }
+.t-bergsteiger20-scroll { overflow-x: auto; overflow-y: hidden; border-radius: 12px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+.t-bergsteiger20-stage { position: relative; min-width: 700px; }
+.t-bergsteiger20-img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+.t-bergsteiger20-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.t-bergsteiger20-curve { fill: none; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 2 0; }
+.t-bergsteiger20-head { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.t-bergsteiger20-trail .t-bergsteiger20-curve, .t-bergsteiger20-trail .t-bergsteiger20-head { stroke: #12306b; }
+.t-bergsteiger20-good .t-bergsteiger20-curve, .t-bergsteiger20-good .t-bergsteiger20-head { stroke: #0b5d2f; }
+.t-bergsteiger20-stuck .t-bergsteiger20-curve, .t-bergsteiger20-stuck .t-bergsteiger20-head { stroke: #12306b; opacity: 0.75; }
+.t-bergsteiger20-stuck .t-bergsteiger20-curve { stroke-dasharray: 9 8; }
+
+.t-bergsteiger20-mk {
+  appearance: none; position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; padding: 0;
+  display: grid; place-items: center; border-radius: 50%; cursor: pointer; touch-action: manipulation;
+  border: 3px solid #ff6a00; background: rgb(255 255 255 / 0.55); color: #fff; font: 800 0.8rem/1 var(--font-body);
+}
+.t-bergsteiger20-mk:not(:disabled):hover { background: rgb(255 255 255 / 0.85); }
+.t-bergsteiger20-mk:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-bergsteiger20-mk.on { background: var(--accent); border-color: #fff; box-shadow: 0 0 0 3px var(--accent); color: var(--accent-ink); }
+.t-bergsteiger20-mk.right { background: var(--ok); border-color: #fff; box-shadow: 0 0 0 3px var(--ok); color: #fff; }
+.t-bergsteiger20-mk.wrong { background: var(--bad); border-color: #fff; box-shadow: 0 0 0 3px var(--bad); color: #fff; }
+.t-bergsteiger20-mk.missing { border-color: var(--ok); border-style: dashed; background: rgb(255 255 255 / 0.85); }
+.t-bergsteiger20-mk.top { border-color: #12306b; background: #ffe45c; color: #12306b; font-size: 0.95rem; }
+.t-bergsteiger20-mk:disabled { cursor: default; }
+.t-bergsteiger20-bar { display: grid; gap: 0.5rem; justify-items: start; }
+.t-bergsteiger20-try {
+  appearance: none; font: inherit; font-weight: 600; color: var(--ink); background: var(--surface); border: 2px solid var(--line);
+  border-radius: 999px; padding: 0.4rem 1rem; cursor: pointer; touch-action: manipulation;
+}
+.t-bergsteiger20-try.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, var(--surface)); }
+.t-bergsteiger20-try:disabled { opacity: 0.5; cursor: default; }
+.t-bergsteiger20-msg { margin: 0; min-height: 1.4em; color: var(--muted); font-size: 0.95rem; }
+@media (max-width: 760px) { .t-bergsteiger20-swipe { display: block; } }

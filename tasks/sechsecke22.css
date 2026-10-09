@@ -1,0 +1,36 @@
+/* Stile für sechsecke22 (Präfix t-sechsecke22-). Die drei Farben (Grün/Gelb/Blau) bleiben in Hell und Dunkel gleich, jede hat zusätzlich ein Zeichen. */
+.t-sechsecke22-board { display: grid; gap: 0.9rem; justify-items: center; }
+.t-sechsecke22-board > * { min-width: 0; max-width: 100%; }
+.t-sechsecke22-ruleline { display: flex; align-items: center; gap: 0.8rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.5rem 0.8rem; }
+.t-sechsecke22-ruleline p { margin: 0; font-size: 0.95rem; }
+.t-sechsecke22-rsvg { display: block; width: 4.6rem; height: auto; flex: none; }
+
+.t-sechsecke22-tw { display: flex; justify-content: center; }
+.t-sechsecke22-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+.t-sechsecke22-tool {
+  appearance: none; display: grid; place-items: center; min-width: 3.4rem; height: 3.4rem; padding: 0.15rem 0.5rem; font: inherit; font-weight: 700; color: var(--ink);
+  background: var(--surface2); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation;
+}
+.t-sechsecke22-tool:hover { border-color: var(--accent); }
+.t-sechsecke22-tool.on, .t-sechsecke22-tool.on:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface2)); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent); }
+.t-sechsecke22-tool[aria-disabled="true"] { cursor: default; opacity: 0.7; }
+.t-sechsecke22-tsvg { display: block; width: 2.4rem; height: 2.4rem; }
+
+.t-sechsecke22-pyr { width: 100%; max-width: 27rem; }
+.t-sechsecke22-svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.t-sechsecke22-cell polygon.t-sechsecke22-hex, polygon.t-sechsecke22-cell { stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.t-sechsecke22-w polygon.t-sechsecke22-hex, polygon.t-sechsecke22-w { fill: var(--surface); }
+.t-sechsecke22-g polygon.t-sechsecke22-hex, polygon.t-sechsecke22-g { fill: #1aa31a; }
+.t-sechsecke22-y polygon.t-sechsecke22-hex, polygon.t-sechsecke22-y { fill: #ffc20e; }
+.t-sechsecke22-b polygon.t-sechsecke22-hex, polygon.t-sechsecke22-b { fill: #14226b; }
+.t-sechsecke22-sym { fill: #fff; stroke: none; }
+.t-sechsecke22-y .t-sechsecke22-sym, .t-sechsecke22-y.t-sechsecke22-sym { fill: #fff; }
+g.t-sechsecke22-cell { outline: none; }
+g.t-sechsecke22-cell[role="button"] { cursor: pointer; }
+g.t-sechsecke22-cell[role="button"][aria-disabled="true"] { cursor: default; }
+g.t-sechsecke22-cell[role="button"]:hover polygon.t-sechsecke22-hex { stroke: var(--accent); stroke-width: 3.5; }
+g.t-sechsecke22-cell[role="button"]:focus-visible polygon.t-sechsecke22-hex { stroke: var(--focus); stroke-width: 4; stroke-dasharray: 5 3; }
+g.t-sechsecke22-cell.t-sechsecke22-w[role="button"] polygon.t-sechsecke22-hex { stroke-dasharray: 5 3; }
+g.t-sechsecke22-fixed polygon.t-sechsecke22-hex { stroke-width: 2.5; }
+g.t-sechsecke22-sol:not(.t-sechsecke22-fixed) polygon.t-sechsecke22-hex { stroke: var(--ok); stroke-width: 3.5; }
+.t-sechsecke22-note { margin: 0; font-size: 0.95rem; color: var(--muted); min-height: 1.4em; text-align: center; }

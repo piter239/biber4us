@@ -1,0 +1,46 @@
+.t-flaggenbilder20-board { display: grid; gap: 1.1rem; max-width: 46rem; }
+.t-flaggenbilder20-board > section { min-width: 0; }
+.t-flaggenbilder20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-flaggenbilder20-pool, .t-flaggenbilder20-slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+.t-flaggenbilder20-cell { aspect-ratio: 3 / 2; border-radius: 6px; background: var(--surface2); margin: 3px; }
+.t-flaggenbilder20-flag, .t-flaggenbilder20-mini { display: block; aspect-ratio: 3 / 2; border-radius: 3px; overflow: hidden; outline: 1px solid rgb(0 0 0 / 0.3); outline-offset: -1px; pointer-events: none; }
+.t-flaggenbilder20-flag svg, .t-flaggenbilder20-mini svg { display: block; width: 100%; height: 100%; }
+.t-flaggenbilder20-rowline { fill: var(--c1); opacity: 0.55; stroke: #000; stroke-width: 0.15; }
+.t-flaggenbilder20-card {
+  appearance: none; padding: 5px; border: 3px solid transparent; background: var(--paper); border-radius: 9px; cursor: grab; touch-action: manipulation;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); min-width: 0;
+}
+.t-flaggenbilder20-card.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-flaggenbilder20-card:disabled { cursor: default; }
+.t-flaggenbilder20-card.dragging { opacity: 0.4; }
+.t-flaggenbilder20-place { display: grid; gap: 0.25rem; min-width: 0; }
+.t-flaggenbilder20-cap { font-size: 0.78rem; font-weight: 700; color: var(--muted); text-align: center; min-height: 1.1em; }
+.t-flaggenbilder20-slot {
+  appearance: none; width: 100%; aspect-ratio: 3 / 2; padding: 0; border: 3px dashed var(--slot-line); background: var(--slot);
+  border-radius: 9px; display: grid; place-items: center; cursor: pointer; position: relative; touch-action: manipulation; color: var(--ink);
+}
+.t-flaggenbilder20-slot.filled { border-style: solid; padding: 4px; background: var(--paper); }
+.t-flaggenbilder20-slot.filled > .t-flaggenbilder20-flag { width: 100%; }
+.t-flaggenbilder20-ph { font-size: 1.4rem; font-weight: 800; opacity: 0.45; }
+.t-flaggenbilder20-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.t-flaggenbilder20-slot.right { border-color: var(--ok); border-style: solid; }
+.t-flaggenbilder20-slot.wrong { border-color: var(--bad); border-style: solid; }
+.t-flaggenbilder20-slot:disabled { cursor: default; }
+.t-flaggenbilder20-mark { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; }
+.t-flaggenbilder20-slot.right .t-flaggenbilder20-mark { background: var(--ok); }
+.t-flaggenbilder20-slot.wrong .t-flaggenbilder20-mark { background: var(--bad); }
+.t-flaggenbilder20-rows { background: var(--surface2); border-radius: 12px; padding: 0.8rem 0.9rem; }
+.t-flaggenbilder20-rowbar { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.8rem; align-items: center; margin-bottom: 0.7rem; }
+.t-flaggenbilder20-rowlabel { font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.t-flaggenbilder20-range { width: 100%; accent-color: var(--accent); min-height: 32px; }
+.t-flaggenbilder20-rownum { display: none; }
+.t-flaggenbilder20-rowlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.t-flaggenbilder20-rowitem { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0.7rem; align-items: center; }
+.t-flaggenbilder20-code { display: grid; gap: 0.05rem; min-width: 0; }
+.t-flaggenbilder20-code code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.88rem; overflow-wrap: anywhere; word-break: break-all; }
+.t-flaggenbilder20-n { color: var(--muted); font-size: 0.85rem; }
+.t-flaggenbilder20-why { margin: 0 0 0.8rem; padding-left: 1.2rem; display: grid; gap: 0.4rem; }
+@media (max-width: 30rem) {
+  .t-flaggenbilder20-pool, .t-flaggenbilder20-slots { gap: 0.4rem; }
+  .t-flaggenbilder20-rowbar { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+}

@@ -1,0 +1,25 @@
+/* Stile für geschaefte20 (Präfix t-geschaefte20-) */
+.t-geschaefte20-board { display: grid; gap: 0.7rem; justify-items: center; }
+.t-geschaefte20-mapbox { width: 100%; max-width: 25rem; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem; }
+.t-geschaefte20-map { display: block; width: 100%; height: auto; overflow: visible; touch-action: manipulation; }
+.t-geschaefte20-road { stroke: var(--muted); stroke-width: 2.5; stroke-linecap: round; }
+.t-geschaefte20-vill { fill: var(--c6); stroke: var(--ink); stroke-width: 1.5; opacity: 0.45; stroke-dasharray: 4 3; }
+.t-geschaefte20-vill.ok { opacity: 1; stroke-dasharray: none; stroke-width: 1; }
+.t-geschaefte20-plot { cursor: pointer; outline: none; }
+.t-geschaefte20-hit { fill: transparent; }
+.t-geschaefte20-sq { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+.t-geschaefte20-plot:hover .t-geschaefte20-sq { fill: color-mix(in srgb, var(--accent) 18%, var(--surface)); }
+.t-geschaefte20-plot:focus-visible .t-geschaefte20-hit { stroke: var(--focus); stroke-width: 3; }
+.t-geschaefte20-shop { display: none; }
+.t-geschaefte20-plot.on .t-geschaefte20-shop { display: block; }
+.t-geschaefte20-plot.on .t-geschaefte20-sq { fill: var(--c1); stroke: var(--ink); }
+.t-geschaefte20-plot.on.good .t-geschaefte20-sq { fill: var(--ok); }
+.t-geschaefte20-roof { fill: #fff; opacity: 0.95; }
+.t-geschaefte20-wall { fill: #fff; opacity: 0.8; }
+.t-geschaefte20-door { fill: var(--c1); }
+.t-geschaefte20-plot.on.good .t-geschaefte20-door { fill: var(--ok); }
+.t-geschaefte20-xmark { display: none; }
+.t-geschaefte20-info { margin: 0; text-align: center; font-weight: 600; min-height: 2.9em; padding: 0.35rem 0.8rem; border-radius: 10px; max-width: 25rem; }
+.t-geschaefte20-info.done { color: var(--ok); }
+.t-geschaefte20-info.right { background: var(--ok-bg); }
+.t-geschaefte20-info.wrong { background: var(--bad-bg); color: var(--bad); }

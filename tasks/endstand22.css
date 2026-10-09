@@ -1,0 +1,39 @@
+/* Stile für endstand22 (Präfix t-endstand22-). Der Zettel bleibt in Hell und Dunkel hell, damit die Zeichen lesbar sind. */
+.t-endstand22-board { display: grid; gap: 1.4rem; }
+.t-endstand22-board > section { min-width: 0; }
+.t-endstand22-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-endstand22-svg { display: block; width: 100%; height: auto; }
+.t-endstand22-paper { fill: #fdf5d8; stroke: #5b6a9a; stroke-width: 1; }
+.t-endstand22-grid { fill: none; stroke: #1b1b1f; stroke-width: 3; stroke-linecap: round; }
+.t-endstand22-x { fill: none; stroke: #1a237e; stroke-width: 4.5; stroke-linecap: round; }
+.t-endstand22-o { fill: none; stroke: #c62828; stroke-width: 4.5; }
+
+.t-endstand22-steps { display: flex; flex-wrap: wrap; gap: 0.6rem 0.8rem; }
+.t-endstand22-step { margin: 0; flex: 1 1 5.2rem; max-width: 7.5rem; min-width: 4.6rem; }
+.t-endstand22-stepbox { background: var(--surface2); border: 1px solid var(--line); border-radius: 8px; padding: 0.2rem; }
+.t-endstand22-last .t-endstand22-stepbox { border-color: var(--accent); border-width: 2px; }
+.t-endstand22-step figcaption { font-size: 0.8rem; color: var(--muted); text-align: center; margin-top: 0.25rem; line-height: 1.2; }
+
+.t-endstand22-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; max-width: 40rem; }
+.t-endstand22-opt {
+  appearance: none; position: relative; display: grid; gap: 0.3rem; justify-items: center; padding: 0.5rem 0.5rem 0.6rem; margin: 0;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px;
+  cursor: pointer; touch-action: manipulation; font: inherit; min-width: 0;
+}
+.t-endstand22-opt .t-endstand22-svg { max-width: 9.5rem; }
+.t-endstand22-opt:hover { border-color: var(--accent); }
+.t-endstand22-opt[aria-disabled="true"] { cursor: default; }
+.t-endstand22-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-endstand22-opt.selected, .t-endstand22-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-endstand22-opt.right, .t-endstand22-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-endstand22-opt.wrong, .t-endstand22-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-endstand22-key { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+.t-endstand22-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-endstand22-opt.wrong .t-endstand22-mark { background: var(--bad); }
+
+@media (max-width: 36rem) {
+  .t-endstand22-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 20rem; }
+}

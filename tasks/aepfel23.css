@@ -1,0 +1,27 @@
+/* Stile für aepfel23 (Präfix t-aepfel23-). Apfelfarben bleiben in Hell und Dunkel gleich. */
+.t-aepfel23-board { max-width: 26rem; margin: 0 auto; }
+.t-aepfel23-svg { display: block; width: 100%; height: auto; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; user-select: none; -webkit-user-select: none; }
+.t-aepfel23-cap { fill: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-family: var(--font-body); }
+.t-aepfel23-disc { fill: #fff18a; stroke: #a80000; stroke-width: 3.5; }
+.t-aepfel23-petal { fill: #fdc42b; }
+.t-aepfel23-seed { fill: #5a3a1b; stroke: #3b2410; stroke-width: 1; }
+.t-aepfel23-shine { fill: #a88566; }
+.t-aepfel23-rotg { transition: transform 0.3s ease; }
+@media (prefers-reduced-motion: reduce) { .t-aepfel23-rotg { transition: none; } }
+.t-aepfel23-half { cursor: pointer; outline: none; touch-action: manipulation; }
+.t-aepfel23-ring { stroke: transparent; stroke-width: 4; }
+.t-aepfel23-half:hover .t-aepfel23-ring { stroke: var(--line); }
+.t-aepfel23-half.t-aepfel23-linked .t-aepfel23-ring { stroke-width: 5; }
+.t-aepfel23-half.t-aepfel23-sel .t-aepfel23-ring { stroke: var(--accent); stroke-dasharray: 7 5; }
+.t-aepfel23-half:focus-visible .t-aepfel23-ring { stroke: var(--focus); stroke-width: 4; }
+.t-aepfel23-half[aria-disabled="true"] { cursor: default; }
+.t-aepfel23-link { fill: none; stroke-width: 5; stroke-linecap: round; opacity: 0.9; pointer-events: none; }
+.t-aepfel23-link.ok { stroke: var(--ok); }
+.t-aepfel23-link.bad { stroke: var(--bad); stroke-dasharray: 2 9; }
+.t-aepfel23-temp { stroke: var(--accent); stroke-dasharray: 7 6; }
+.t-aepfel23-rot { cursor: pointer; outline: none; touch-action: manipulation; }
+.t-aepfel23-rot circle { fill: var(--surface); stroke: var(--accent); stroke-width: 2; }
+.t-aepfel23-rot .t-aepfel23-arrow { stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.t-aepfel23-rot:hover circle { fill: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
+.t-aepfel23-rot:focus-visible circle { stroke: var(--focus); stroke-width: 4; }
+.t-aepfel23-status { margin: 0.6rem 0 0; font-size: 0.95rem; color: var(--muted); min-height: 1.5em; text-align: center; }

@@ -1,0 +1,35 @@
+/* Stile für riccas23 (Präfix t-riccas23-). Bilder liegen auf hellem Grund (var(--paper)). */
+.t-riccas23-board { display: grid; gap: 1.1rem; }
+.t-riccas23-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.5rem; }
+.t-riccas23-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.t-riccas23-fig { margin: 0; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem 0.4rem 0.3rem; display: grid; gap: 0.2rem; justify-items: center; text-align: center; color: #2b3a40; font-size: 0.85rem; font-weight: 600; }
+.t-riccas23-fig img { display: block; height: 6.2rem; width: auto; max-width: 100%; object-fit: contain; }
+.t-riccas23-opts { display: grid; gap: 0.6rem; }
+.t-riccas23-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.5rem; align-items: start; text-align: left;
+  padding: 0.65rem 0.8rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600;
+}
+.t-riccas23-opt:hover { border-color: var(--accent); }
+.t-riccas23-opt[aria-disabled="true"] { cursor: default; }
+.t-riccas23-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-riccas23-opt.selected, .t-riccas23-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-riccas23-opt.right, .t-riccas23-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-riccas23-opt.wrong, .t-riccas23-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-riccas23-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-riccas23-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-riccas23-opt.wrong .t-riccas23-mark { background: var(--bad); }
+.t-riccas23-tcap { margin: 0 0 0.4rem; font-weight: 700; }
+.t-riccas23-scroll { overflow-x: auto; }
+.t-riccas23-table { border-collapse: collapse; font-size: 0.9rem; width: 100%; }
+.t-riccas23-table th, .t-riccas23-table td { border: 1px solid var(--line); padding: 0.3rem 0.4rem; }
+.t-riccas23-table thead th { background: var(--surface2); }
+.t-riccas23-table tbody th { text-align: left; font-weight: 600; min-width: 8rem; }
+.t-riccas23-tc { text-align: center; }
+.t-riccas23-tc img { display: block; margin: 0 auto 2px; height: 1.8rem; width: auto; background: var(--paper); border-radius: 6px; }
+.t-riccas23-tc.y { color: var(--ok); font-weight: 800; }
+.t-riccas23-tc.n { color: var(--bad); font-weight: 800; background: var(--bad-bg); }
+.t-riccas23-falserow th { color: var(--bad); }

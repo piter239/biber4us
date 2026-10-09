@@ -1,0 +1,40 @@
+.t-zettel24-board { display: grid; gap: 0.9rem; }
+.t-zettel24-sheets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; max-width: 640px; margin: 0 auto; width: 100%; }
+.t-zettel24-sheet { min-width: 0; display: grid; gap: 0.3rem; align-content: start; }
+.t-zettel24-owner { text-align: center; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; line-height: 1.1; }
+.t-zettel24-rows { display: grid; gap: 0.25rem; padding: 0.5rem 0.35rem; border-radius: 4px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); color: var(--ink); }
+.t-zettel24-sheet-tim .t-zettel24-rows { background: var(--slot); }
+.t-zettel24-sheet-anna .t-zettel24-rows { background: color-mix(in srgb, var(--c1) 30%, var(--surface)); }
+.t-zettel24-sheet-ben .t-zettel24-rows { background: color-mix(in srgb, var(--c3) 30%, var(--surface)); }
+.t-zettel24-entry {
+  appearance: none; display: flex; align-items: flex-end; justify-content: center; gap: 0.15rem; width: 100%; margin: 0; padding: 0.35rem 0.15rem 0.2rem;
+  background: transparent; color: inherit; font: inherit; font-weight: 600; border: 2px solid transparent; border-radius: 8px; cursor: pointer; touch-action: manipulation;
+  min-height: 44px;
+}
+.t-zettel24-entry:hover { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.t-zettel24-entry.hl { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, transparent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent); }
+.t-zettel24-entry:focus-visible, .t-zettel24-opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-zettel24-nm { white-space: nowrap; }
+.t-zettel24-ar { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; }
+.t-zettel24-num { font-size: 0.85em; font-weight: 700; }
+.t-zettel24-sh { font-size: 1.1em; }
+.t-zettel24-note { margin: 0; text-align: center; color: var(--muted); font-size: 0.95rem; min-height: 1.4em; }
+.t-zettel24-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+.t-zettel24-opt {
+  appearance: none; position: relative; display: grid; gap: 0.15rem; align-content: center; justify-items: center; min-height: 64px; padding: 0.4rem 0.3rem; margin: 0;
+  background: var(--band); color: var(--ink); font: inherit; border: 3px solid transparent; border-radius: 10px; cursor: pointer; touch-action: manipulation;
+}
+.t-zettel24-key { color: var(--muted); font-size: 0.85rem; font-weight: 700; }
+.t-zettel24-txt { font-weight: 700; text-align: center; line-height: 1.2; overflow-wrap: anywhere; }
+.t-zettel24-opt.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-zettel24-opt.right, .t-zettel24-opt.answer { border-color: var(--ok); background: var(--ok-bg); }
+.t-zettel24-opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-zettel24-opt:disabled { cursor: default; color: var(--ink); }
+.t-zettel24-mark { position: absolute; top: -9px; right: -9px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.85rem; color: #fff; background: var(--ok); }
+.t-zettel24-opt.wrong .t-zettel24-mark { background: var(--bad); }
+@media (max-width: 40rem) {
+  .t-zettel24-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-zettel24-entry { flex-direction: column; align-items: center; gap: 0; padding: 0.3rem 0.1rem; font-size: 0.95rem; }
+  .t-zettel24-ar { flex-direction: row; align-items: flex-end; gap: 0.1rem; }
+  .t-zettel24-owner { font-size: 1.25rem; }
+}

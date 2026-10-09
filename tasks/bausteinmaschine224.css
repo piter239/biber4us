@@ -1,0 +1,59 @@
+/* Aufgabe Baustein-Maschine 2 */
+.t-bausteinmaschine224 { display: grid; gap: 1.2rem; min-width: 0; }
+.t-bausteinmaschine224 > section { min-width: 0; }
+.t-bausteinmaschine224 h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+
+.t-bausteinmaschine224-pick { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; font-weight: 700; }
+.t-bausteinmaschine224-tabs { display: inline-flex; gap: 0.35rem; }
+.t-bausteinmaschine224-tab {
+  appearance: none; min-width: 2.4rem; min-height: 2.4rem; border-radius: 8px; border: 2px solid var(--accent); background: transparent;
+  color: var(--accent); font: inherit; font-weight: 800; cursor: pointer; touch-action: manipulation;
+}
+.t-bausteinmaschine224-tab[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+
+.t-bausteinmaschine224-box { --u: 1.55rem; max-width: 26rem; background: var(--surface2); border-radius: 12px; padding: 0.8rem 1rem 0.4rem; }
+.t-bausteinmaschine224-stones { position: relative; height: calc(6 * var(--u) + 2.2rem); }
+.t-bausteinmaschine224-base { position: absolute; left: 0; right: 0; bottom: 1.5rem; height: 3px; background: var(--ink); border-radius: 2px; }
+.t-bausteinmaschine224-marker {
+  position: absolute; bottom: 0.1rem; width: 1.5rem; height: 1.3rem; background: var(--ink);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%); left: calc(var(--m, 1) * 100% / 6); transform: translateX(-50%);
+  transition: left 0.3s ease;
+}
+.t-bausteinmaschine224-stone {
+  display: block; position: absolute; bottom: 1.5rem; width: calc(100% / 6); box-sizing: border-box; padding: 0 0.2rem;
+  left: calc(var(--i, 0) * 100% / 6); height: calc(var(--h) * var(--u));
+  transition: left 0.3s ease;
+}
+.t-bausteinmaschine224-stone::before {
+  content: ''; position: absolute; inset: 0 0.2rem; background: var(--col); border-radius: 4px 4px 0 0;
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.18);
+}
+.t-bausteinmaschine224-num { position: absolute; left: 0; right: 0; bottom: 0.15rem; text-align: center; color: var(--accent-ink); font-weight: 800; font-size: 0.95rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.t-bausteinmaschine224-cnt { margin: 0.5rem 0 0; font-weight: 800; }
+.t-bausteinmaschine224-cap { margin: 0.2rem 0 0; min-height: 2.8em; font-size: 0.95rem; }
+.t-bausteinmaschine224-ctl { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
+
+.t-bausteinmaschine224-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+.t-bausteinmaschine224-opt { display: block; position: relative; min-width: 0; cursor: pointer; }
+.t-bausteinmaschine224-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-bausteinmaschine224-card { display: grid; gap: 0.3rem; padding: 0.45rem 0.4rem 0.4rem; border: 3px solid var(--line); border-radius: 10px; background: var(--surface); height: 100%; box-sizing: border-box; }
+.t-bausteinmaschine224-opt input:checked + .t-bausteinmaschine224-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-bausteinmaschine224-opt input:focus-visible + .t-bausteinmaschine224-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-bausteinmaschine224-opt input:disabled { cursor: default; }
+.t-bausteinmaschine224-opt.right .t-bausteinmaschine224-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-bausteinmaschine224-opt.wrong .t-bausteinmaschine224-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-bausteinmaschine224-opthead { font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
+.t-bausteinmaschine224-opt.right .t-bausteinmaschine224-mark { color: var(--ok); }
+.t-bausteinmaschine224-opt.wrong .t-bausteinmaschine224-mark { color: var(--bad); }
+.t-bausteinmaschine224-mini {
+  --u: 0.62rem; position: relative; display: flex; align-items: flex-end; gap: 0; padding-bottom: 0.1rem;
+  border-bottom: 2px solid var(--ink); margin-bottom: 0.7rem;
+}
+.t-bausteinmaschine224-mini .t-bausteinmaschine224-stone { position: relative; flex: 1 1 0; left: auto; bottom: auto; width: auto; min-width: 0; padding: 0; transition: none; }
+.t-bausteinmaschine224-mini .t-bausteinmaschine224-stone::before { inset: 0 1px; border-radius: 2px 2px 0 0; }
+.t-bausteinmaschine224-mini .t-bausteinmaschine224-num { font-size: 0.6rem; bottom: 0.05rem; }
+.t-bausteinmaschine224-minimark { position: absolute; left: calc(100% / 6); bottom: -0.65rem; margin-left: -0.35rem; width: 0.7rem; height: 0.6rem; background: var(--ink); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+@media (max-width: 34rem) {
+  .t-bausteinmaschine224-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-bausteinmaschine224-box { --u: 1.35rem; }
+}

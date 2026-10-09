@@ -1,0 +1,53 @@
+/* Aufgabe Rundhangar (Heft 2022): Drehscheibe mit Flugzeugen, Auswahl der Reihenfolge */
+.t-rundhangar22-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 1.25rem 2rem; align-items: start; }
+.t-rundhangar22-wrap > * { min-width: 0; }
+.t-rundhangar22-wrap h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-rundhangar22-stage { background: var(--surface2); border: 1px solid var(--line); border-radius: 14px; padding: 0.6rem; }
+.t-rundhangar22-discbox { position: relative; width: 100%; max-width: 20rem; margin: 0 auto; }
+.t-rundhangar22-svg { display: block; width: 100%; height: auto; }
+.t-rundhangar22-gatelab { position: absolute; right: 0; bottom: 0.2rem; font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+.t-rundhangar22-ring { fill: none; stroke: var(--muted); stroke-width: 12; }
+.t-rundhangar22-plate { fill: var(--surface); stroke: var(--line); stroke-width: 2; }
+.t-rundhangar22-disc { transform-origin: 150px 150px; transition: transform 0.6s ease-in-out; }
+.t-rundhangar22-sec { fill: var(--surface); stroke: var(--line); stroke-width: 2; transition: fill 0.3s; }
+.t-rundhangar22-sec.odd { fill: var(--surface2); }
+.t-rundhangar22-sec.atgate { fill: color-mix(in srgb, var(--accent) 24%, var(--surface)); }
+.t-rundhangar22-plane { fill: var(--muted); }
+.t-rundhangar22-planeg { transition: opacity 0.4s 0.4s; }
+.t-rundhangar22-planeg.gone { opacity: 0; }
+.t-rundhangar22-badge { transition: transform 0.6s ease-in-out, opacity 0.3s; }
+.t-rundhangar22-badge circle { fill: var(--c2); stroke: #1d1d1d; stroke-width: 2.5; }
+.t-rundhangar22-badge text { fill: #1d1d1d; font: 800 17px var(--font-display); }
+.t-rundhangar22-badge.gone { opacity: 0.4; }
+.t-rundhangar22-gate path { fill: var(--c2); stroke: #1d1d1d; stroke-width: 1.5; stroke-linejoin: round; }
+
+.t-rundhangar22-chips { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.4rem; }
+.t-rundhangar22-chip {
+  appearance: none; aspect-ratio: 1; min-height: 2.6rem; border-radius: 50%; border: 3px solid #1d1d1d; background: var(--c2); color: #1d1d1d;
+  font: 800 1.3rem var(--font-display); cursor: pointer; touch-action: manipulation; padding: 0;
+}
+.t-rundhangar22-chip:hover:not(:disabled) { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+.t-rundhangar22-chip:disabled { opacity: 0.3; cursor: default; }
+.t-rundhangar22-slots { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.4rem; }
+.t-rundhangar22-slot { display: grid; justify-items: center; gap: 0.2rem; min-width: 0; position: relative; }
+.t-rundhangar22-slot:not(:last-child)::after { content: "→"; position: absolute; right: -0.55rem; top: 0.35rem; font-size: 0.8rem; color: var(--muted); }
+.t-rundhangar22-cir {
+  display: grid; place-items: center; width: 100%; max-width: 2.8rem; aspect-ratio: 1; border-radius: 50%; background: var(--surface2); border: 2px dashed var(--line);
+  font: 800 1.15rem var(--font-display); color: #1d1d1d;
+}
+.t-rundhangar22-slot.filled .t-rundhangar22-cir { background: var(--c2); border: 3px solid #1d1d1d; }
+.t-rundhangar22-cnt { font-size: 0.78rem; font-weight: 700; min-height: 1.2em; white-space: nowrap; }
+.t-rundhangar22-cnt.r { color: var(--ok); }
+.t-rundhangar22-cnt.l { color: var(--bad); }
+.t-rundhangar22-cnt.z { color: var(--muted); }
+.t-rundhangar22-total { margin: 0.8rem 0 0; min-height: 3em; font-weight: 600; }
+.t-rundhangar22-total.check, .t-rundhangar22-total.solution { color: var(--ink); }
+.t-rundhangar22-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem; }
+.t-rundhangar22-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+@media (max-width: 40rem) {
+  .t-rundhangar22-wrap { grid-template-columns: minmax(0, 1fr); }
+  .t-rundhangar22-discbox { max-width: 16rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .t-rundhangar22-disc, .t-rundhangar22-badge, .t-rundhangar22-planeg { transition: none; }
+}

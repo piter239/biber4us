@@ -1,0 +1,44 @@
+/* Stile für computerviren22 (Präfix t-computerviren22-). Knotenfarben sind feste Markenfarben der Viren (BlueBug dunkelblau, RedRaptor rot). */
+.t-computerviren22-board { display: grid; gap: 0.8rem; max-width: 46rem; }
+.t-computerviren22-tb { color: #2a5fa8; }
+.t-computerviren22-tr { color: #d11a1a; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .t-computerviren22-tb { color: #7fb0f2; }
+  :root:not([data-theme="light"]) .t-computerviren22-tr { color: #ff7c7c; }
+}
+:root[data-theme="dark"] .t-computerviren22-tb { color: #7fb0f2; }
+:root[data-theme="dark"] .t-computerviren22-tr { color: #ff7c7c; }
+
+.t-computerviren22-brushes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-computerviren22-brush {
+  appearance: none; display: inline-flex; align-items: center; gap: 0.45rem; min-height: 2.9rem; padding: 0.2rem 0.8rem 0.2rem 0.4rem;
+  border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--line);
+}
+.t-computerviren22-brush:not(:disabled):hover { border-color: var(--accent); }
+.t-computerviren22-brush[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); box-shadow: 0 0 0 1px var(--accent); }
+.t-computerviren22-brush:disabled { opacity: 0.55; cursor: default; }
+.t-computerviren22-brush:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-computerviren22-bico { display: block; flex: none; }
+
+.t-computerviren22-netbox { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.4rem; }
+.t-computerviren22-net { display: block; width: 100%; height: auto; overflow: visible; }
+.t-computerviren22-edge { stroke: var(--muted); stroke-width: 6; stroke-linecap: round; }
+.t-computerviren22-node { cursor: pointer; outline: none; }
+.t-computerviren22-node.locked { cursor: default; }
+.t-computerviren22-node .t-computerviren22-disc { stroke: var(--ink); stroke-width: 4; fill: var(--surface); }
+.t-computerviren22-v0 .t-computerviren22-disc { fill: var(--surface); }
+.t-computerviren22-v1 .t-computerviren22-disc { fill: #0b1a55; }
+.t-computerviren22-v2 .t-computerviren22-disc { fill: #e11d1d; }
+.t-computerviren22-v3 .t-computerviren22-disc { fill: #aab2b8; }
+.t-computerviren22-node:not(.locked):hover .t-computerviren22-disc { stroke: var(--accent); stroke-width: 6; }
+.t-computerviren22-node:focus-visible .t-computerviren22-disc { stroke: var(--focus); stroke-width: 7; }
+.t-computerviren22-startring { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 7 6; pointer-events: none; }
+.t-computerviren22-node.wrong .t-computerviren22-disc { stroke: var(--bad); stroke-width: 8; stroke-dasharray: 10 6; }
+.t-computerviren22-ic { pointer-events: none; }
+
+.t-computerviren22-daybar { display: flex; align-items: center; gap: 0.7rem; }
+.t-computerviren22-daybar[hidden] { display: none; }
+.t-computerviren22-day { min-width: 6.5rem; text-align: center; font-family: var(--font-display); }
+.t-computerviren22-small { min-height: 2.6rem; min-width: 2.6rem; padding-block: 0.3rem; }
+.t-computerviren22-note { margin: 0; min-height: 1.5em; color: var(--ink); }

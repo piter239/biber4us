@@ -1,0 +1,26 @@
+/* Aufgabe Schatzkarte */
+.t-schatzkarte24 { display: grid; gap: 1.2rem; min-width: 0; }
+.t-schatzkarte24 h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-schatzkarte24-map { margin: 0; max-width: 28rem; }
+.t-schatzkarte24-map img { display: block; width: 100%; height: auto; user-select: none; }
+.t-schatzkarte24-map figcaption { font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: 0.2rem; }
+.t-schatzkarte24-opts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.6rem; }
+.t-schatzkarte24-opt { display: block; position: relative; min-width: 0; cursor: pointer; }
+.t-schatzkarte24-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-schatzkarte24-card { display: grid; gap: 0.3rem; padding: 0.4rem; border: 3px solid var(--line); border-radius: 10px; background: var(--surface); height: 100%; box-sizing: border-box; align-content: start; }
+.t-schatzkarte24-card img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.t-schatzkarte24-head { font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
+.t-schatzkarte24-opt input:checked + .t-schatzkarte24-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-schatzkarte24-opt input:focus-visible + .t-schatzkarte24-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-schatzkarte24-opt input:disabled { cursor: default; }
+.t-schatzkarte24-opt.right .t-schatzkarte24-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-schatzkarte24-opt.wrong .t-schatzkarte24-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-schatzkarte24-opt.right .t-schatzkarte24-mark { color: var(--ok); }
+.t-schatzkarte24-opt.wrong .t-schatzkarte24-mark { color: var(--bad); }
+.t-schatzkarte24-sol { display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: flex-start; margin: 0.6rem 0; }
+.t-schatzkarte24-sol img { height: auto; max-width: 100%; }
+.t-schatzkarte24-sol img:first-child { width: min(100%, 22rem); }
+.t-schatzkarte24-sol img:last-child { width: min(100%, 12rem); }
+@media (max-width: 40rem) {
+  .t-schatzkarte24-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

@@ -1,0 +1,71 @@
+/* Stile für bausteine23 (Präfix t-bausteine23-). Die Bausteine behalten ihr Blau in Hell und Dunkel. */
+.t-bausteine23-board, .t-bausteine23-example, .t-bausteine23-sol { --t-bausteine23-u: 26px; }
+.t-bausteine23-board { display: grid; gap: 1rem; min-width: 0; --t-bausteine23-u: 24px; }
+.t-bausteine23-board > section { min-width: 0; }
+.t-bausteine23-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+@media (min-width: 40rem) { .t-bausteine23-board { --t-bausteine23-u: 32px; } }
+
+.t-bausteine23-svg { display: block; height: auto; max-width: 100%; overflow: visible; }
+.t-bausteine23-body { fill: #0a6a94; stroke: #064563; stroke-width: 2; stroke-linejoin: round; }
+.t-bausteine23-slit { stroke: #5db4dd; stroke-width: 3; stroke-linecap: round; opacity: 0.9; }
+
+.t-bausteine23-props { margin: 0.2rem 0 0.8rem; padding-left: 1.4rem; }
+.t-bausteine23-example, .t-bausteine23-solrow { display: flex; align-items: center; justify-content: center; gap: 0.9rem; flex-wrap: wrap; }
+.t-bausteine23-example { background: var(--slot); border: 2px solid var(--slot-line); border-radius: 12px; padding: 0.9rem 1rem; margin: 0.3rem 0 0.8rem; width: fit-content; max-width: 100%; box-sizing: border-box; }
+
+.t-bausteine23-tray {
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 0.9rem 1rem; min-height: 5rem;
+  background: var(--surface2); border: 2px dashed var(--line); border-radius: 12px; padding: 0.9rem 0.6rem; transition: border-color 0.12s, background 0.12s;
+}
+.t-bausteine23-tray.over, .t-bausteine23-box.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--slot)); }
+.t-bausteine23-tray.over { background: color-mix(in srgb, var(--accent) 16%, var(--surface2)); }
+.t-bausteine23-empty { color: var(--muted); align-self: center; }
+.t-bausteine23-back { margin-top: 0.6rem; min-height: 2.4rem; padding-block: 0.3rem; }
+.t-bausteine23-back:disabled { opacity: 0.5; }
+
+.t-bausteine23-piece {
+  appearance: none; background: none; border: 3px solid transparent; border-radius: 10px; padding: 3px; cursor: grab; touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent; font: inherit; color: inherit;
+}
+.t-bausteine23-piece svg { pointer-events: none; }
+.t-bausteine23-piece:hover:not(:disabled) { border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+.t-bausteine23-piece:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-bausteine23-piece.selected { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.t-bausteine23-piece:disabled { cursor: default; }
+
+.t-bausteine23-boxes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+.t-bausteine23-box {
+  position: relative; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 0.4rem; min-width: 0;
+  background: var(--slot); border: 3px dashed var(--slot-line); border-radius: 12px; padding: 0.5rem 0.3rem 0.5rem; transition: border-color 0.12s, background 0.12s;
+}
+.t-bausteine23-box.right { border-style: solid; border-color: var(--ok); }
+.t-bausteine23-box.wrong { border-style: solid; border-color: var(--bad); }
+.t-bausteine23-bhead { display: flex; justify-content: space-between; align-items: baseline; gap: 0.3rem; flex-wrap: wrap; padding: 0 0.3rem; }
+.t-bausteine23-count { font-size: 0.8rem; color: var(--muted); }
+.t-bausteine23-list { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; min-height: calc(var(--t-bausteine23-u) * 6.5); padding: 0.4rem 0; }
+.t-bausteine23-put {
+  appearance: none; min-height: 2.4rem; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--accent); margin: 0 0.2rem;
+}
+.t-bausteine23-put:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-bausteine23-put:disabled { opacity: 0.4; cursor: not-allowed; border-color: var(--line); }
+.t-bausteine23-badge {
+  position: absolute; top: -12px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-bausteine23-box.wrong .t-bausteine23-badge { background: var(--bad); }
+.t-bausteine23-status { margin: 0; color: var(--muted); min-height: 2.9em; }
+
+.t-bausteine23-sol { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.3rem 0 0.8rem; --t-bausteine23-u: 14px; }
+.t-bausteine23-sol figure { margin: 0; background: var(--slot); border: 2px solid var(--slot-line); border-radius: 10px; padding: 0.6rem 0.7rem 0.4rem; text-align: center; }
+.t-bausteine23-sol figcaption { font-weight: 700; font-size: 0.9rem; margin-top: 0.3rem; }
+.t-bausteine23-solrow { flex-direction: column; gap: 0.3rem; }
+.t-bausteine23-tab { border-collapse: collapse; margin: 0.4rem 0 0.8rem; max-width: 100%; }
+.t-bausteine23-tab th, .t-bausteine23-tab td { border: 1px solid var(--line); padding: 0.25rem 0.7rem; text-align: left; }
+.t-bausteine23-tab thead th { background: var(--surface2); }
+
+@media (max-width: 24rem) {
+  .t-bausteine23-board { --t-bausteine23-u: 21px; }
+  .t-bausteine23-boxes { gap: 0.4rem; }
+  .t-bausteine23-put { font-size: 0.85rem; }
+}

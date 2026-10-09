@@ -1,0 +1,40 @@
+.pb20-flag { display: inline-block; vertical-align: -3px; margin: 0 0.1em; }
+.pb20-pole { stroke: #5c3f3f; stroke-width: 2; stroke-linecap: round; fill: none; }
+.pb20-flag-R .pb20-cloth { fill: #990000; }
+.pb20-flag-Y .pb20-cloth { fill: #fff07a; stroke: #c07a1c; stroke-width: 1; }
+.pb20-table { border-collapse: collapse; margin: 0.6rem 0 1rem; font-size: 0.95rem; max-width: 100%; width: min(100%, 22rem); }
+.pb20-table th, .pb20-table td { border: 1px solid var(--accent); padding: 0.3rem 0.7rem; text-align: left; }
+.pb20-table thead th { background: var(--band); font-weight: 700; }
+.pb20-table tbody td { text-align: center; }
+.pb20-checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.pb20-chk { padding: 0.5rem 0.75rem; border-radius: 8px; background: var(--surface); border-left: 5px solid var(--line); }
+.pb20-chk.pb20-ok { border-left-color: var(--ok); }
+.pb20-chk.pb20-bad { border-left-color: var(--bad); }
+.pb20-line { display: block; margin-top: 0.15rem; }
+.pb20-res { font-weight: 800; white-space: nowrap; }
+.pb20-ok .pb20-res { color: var(--ok); }
+.pb20-bad .pb20-res { color: var(--bad); }
+
+.pb20-board { display: grid; gap: 0.75rem; max-width: 46rem; }
+.pb20-row { position: relative; background: var(--paper); border-radius: 12px; padding: 0.5rem 0.4rem; box-shadow: 0 1px 4px rgb(0 0 0 / 0.2); }
+.pb20-img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+.pb20-pick {
+  appearance: none; position: absolute; top: 0.5rem; bottom: 0.5rem; padding: 0; margin: 0;
+  background: transparent; border: 3px solid transparent; border-radius: 12px; cursor: pointer; touch-action: manipulation;
+}
+.pb20-pick:not(:disabled):hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.pb20-pick.grp { border: 3px dashed var(--c2); background: color-mix(in srgb, var(--c2) 16%, transparent); }
+.pb20-pick.on { border: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+.pb20-pick:disabled { cursor: default; }
+.pb20-pick.right { border: 3px solid var(--ok); background: color-mix(in srgb, var(--ok) 18%, transparent); box-shadow: none; }
+.pb20-pick.wrong { border: 3px solid var(--bad); background: color-mix(in srgb, var(--bad) 18%, transparent); box-shadow: none; }
+.pb20-pick.missing { border: 3px dashed var(--ok); background: transparent; box-shadow: none; }
+.pb20-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.pb20-chip {
+  appearance: none; font: inherit; font-weight: 600; color: var(--ink); background: var(--surface); border: 2px solid var(--line);
+  border-radius: 999px; padding: 0.35rem 0.9rem; cursor: pointer; touch-action: manipulation;
+}
+.pb20-chip.on { border-color: var(--c2); background: color-mix(in srgb, var(--c2) 22%, var(--surface)); }
+.pb20-hint { margin: 0; color: var(--muted); font-size: 0.95rem; min-height: 1.4em; }
+.pb20-note { margin: 0; padding: 0.55rem 0.8rem; border-radius: 8px; background: var(--surface2); font-weight: 600; }
+.pb20-note[hidden] { display: none; }

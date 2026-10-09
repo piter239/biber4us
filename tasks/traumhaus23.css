@@ -1,0 +1,34 @@
+/* Aufgabe Karlas Traumhaus (2023) */
+.t-traumhaus23-box { display: grid; gap: 1rem; min-width: 0; }
+.t-traumhaus23-minis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; max-width: 36rem; margin: 0 auto; width: 100%; }
+.t-traumhaus23-fig { margin: 0; min-width: 0; text-align: center; font-size: 0.9rem; color: var(--muted); }
+.t-traumhaus23-fig figcaption { margin-top: 0.2rem; }
+.t-traumhaus23-map { display: block; width: 100%; height: auto; background: var(--surface); border: 2px solid var(--ink); border-radius: 4px; }
+.t-traumhaus23-forest path { fill: var(--c6); }
+.t-traumhaus23-river path { fill: var(--c4); stroke: var(--c4); stroke-width: 0.5; }
+.t-traumhaus23-sq { fill: var(--ink); stroke: var(--surface); stroke-width: 0.8; }
+.t-traumhaus23-compass path { stroke: var(--ink); stroke-width: 1; fill: none; }
+.t-traumhaus23-compass path.t-traumhaus23-tip { fill: var(--ink); stroke: none; }
+.t-traumhaus23-compass text { fill: var(--ink); font: 700 7px var(--font-body); }
+.t-traumhaus23-compass { opacity: 0.85; }
+.t-traumhaus23-work { display: grid; gap: 0.6rem; justify-items: center; min-width: 0; }
+.t-traumhaus23-togs { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+.t-traumhaus23-tog {
+  appearance: none; border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 0.45rem 1rem; font: inherit; font-weight: 600;
+  cursor: pointer; touch-action: manipulation;
+}
+.t-traumhaus23-tog:hover { border-color: var(--accent); }
+.t-traumhaus23-tog.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
+.t-traumhaus23-tog:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-traumhaus23-stackwrap { width: 100%; max-width: 26rem; }
+.t-traumhaus23-stack { border-width: 3px; }
+.t-traumhaus23-house { cursor: pointer; outline: none; }
+.t-traumhaus23-house.locked { cursor: default; }
+.t-traumhaus23-hit { fill: transparent; }
+.t-traumhaus23-ring { fill: none; stroke: transparent; stroke-width: 2.4; }
+.t-traumhaus23-ring.show { stroke: var(--accent); }
+.t-traumhaus23-ring.ok { stroke: var(--ok); fill: color-mix(in srgb, var(--ok) 25%, transparent); }
+.t-traumhaus23-ring.bad { stroke: var(--bad); fill: color-mix(in srgb, var(--bad) 25%, transparent); }
+.t-traumhaus23-house:hover:not(.locked) .t-traumhaus23-ring:not(.show) { stroke: var(--muted); }
+.t-traumhaus23-house:focus-visible .t-traumhaus23-ring { stroke: var(--focus); stroke-dasharray: 3 2; }
+.t-traumhaus23-status { margin: 0; color: var(--muted); font-size: 0.95rem; min-height: 1.5em; text-align: center; }

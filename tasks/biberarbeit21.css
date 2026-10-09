@@ -1,0 +1,69 @@
+/* Stile für biberarbeit21 (Präfix t-biberarbeit21-) */
+.t-biberarbeit21-board { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; min-width: 0; }
+.t-biberarbeit21-board > section { min-width: 0; }
+.t-biberarbeit21-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-biberarbeit21-h2 { margin-top: 1.1rem; }
+
+.t-biberarbeit21-graph { display: block; width: 100%; max-width: 32rem; height: auto; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; }
+.t-biberarbeit21-edge { stroke: var(--muted); stroke-width: 1.8; fill: none; }
+.t-biberarbeit21-ahp { fill: var(--muted); }
+.t-biberarbeit21-node { fill: color-mix(in srgb, var(--k) 38%, var(--surface)); stroke: var(--k); stroke-width: 2; }
+.t-biberarbeit21-node.t-biberarbeit21-term { fill: var(--surface); stroke: var(--muted); }
+.t-biberarbeit21-nt { fill: var(--ink); font: 600 13px var(--font-body); }
+.t-biberarbeit21-nl { font-weight: 800; font-size: 14px; }
+
+.t-biberarbeit21-poolwrap { border: 2px dashed var(--line); border-radius: 12px; padding: 0.55rem; background: var(--surface2); min-height: 4.3rem; }
+.t-biberarbeit21-poolwrap.over, .t-biberarbeit21-pool.target { border-color: var(--accent); }
+.t-biberarbeit21-poolwrap:has(.target), .t-biberarbeit21-poolwrap.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface2)); }
+.t-biberarbeit21-pool { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; min-height: 3.1rem; }
+.t-biberarbeit21-empty { color: var(--muted); font-size: 0.9rem; }
+
+.t-biberarbeit21-chip {
+  appearance: none; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; padding: 0; overflow: hidden;
+  font: inherit; color: var(--ink); background: color-mix(in srgb, var(--k) 38%, var(--surface)); border: 2px solid var(--k);
+  border-radius: 8px; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; line-height: 1.1;
+}
+.t-biberarbeit21-pool .t-biberarbeit21-chip { width: 3.3rem; height: 3.1rem; }
+.t-biberarbeit21-chip .t-biberarbeit21-l { font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; }
+.t-biberarbeit21-chip .t-biberarbeit21-d { font-size: 0.7rem; color: var(--muted); font-weight: 700; }
+.t-biberarbeit21-track .t-biberarbeit21-chip { position: absolute; top: 3px; bottom: 3px; min-width: 0; border-radius: 6px; }
+.t-biberarbeit21-track .t-biberarbeit21-chip .t-biberarbeit21-d { display: none; }
+.t-biberarbeit21-track .t-biberarbeit21-chip.wide .t-biberarbeit21-d { display: block; }
+.t-biberarbeit21-chip.sel { box-shadow: 0 0 0 3px var(--accent); }
+.t-biberarbeit21-chip.dragging { opacity: 0.35; }
+.t-biberarbeit21-chip.blocked { background: var(--line); border: 2px dashed var(--muted); color: var(--muted); cursor: not-allowed; }
+.t-biberarbeit21-chip.blocked .t-biberarbeit21-d { color: var(--muted); }
+.t-biberarbeit21-chip:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; z-index: 2; }
+.t-biberarbeit21-locked .t-biberarbeit21-chip { cursor: default; touch-action: manipulation; }
+.t-biberarbeit21-ghost {
+  position: fixed; z-index: 50; pointer-events: none; transform: translate(-50%, -50%); width: 3rem; height: 2.8rem; display: grid; place-items: center;
+  font: 800 1.2rem var(--font-display); color: var(--ink); background: color-mix(in srgb, var(--k) 55%, var(--surface)); border: 2px solid var(--k); border-radius: 8px; box-shadow: 0 4px 14px rgb(0 0 0 / 0.35);
+}
+
+.t-biberarbeit21-lanewrap { margin-bottom: 0.4rem; }
+.t-biberarbeit21-lane { display: grid; gap: 0.2rem; padding: 0.35rem 0.45rem 0.45rem; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); cursor: default; }
+.t-biberarbeit21-lane.target { border-color: var(--accent); cursor: pointer; }
+.t-biberarbeit21-lane.over { background: color-mix(in srgb, var(--accent) 12%, var(--surface)); border-color: var(--accent); }
+.t-biberarbeit21-ok .t-biberarbeit21-lane { border-color: var(--ok); }
+.t-biberarbeit21-bad .t-biberarbeit21-lane { border-color: var(--bad); }
+.t-biberarbeit21-lname { font-weight: 700; font-size: 0.9rem; color: var(--muted); }
+.t-biberarbeit21-track { position: relative; height: 3.4rem; border-radius: 6px; background: color-mix(in srgb, var(--line) 45%, var(--surface)); }
+.t-biberarbeit21-wait {
+  position: absolute; top: 3px; bottom: 3px; border-radius: 4px;
+  background: repeating-linear-gradient(135deg, var(--muted) 0 3px, transparent 3px 8px); opacity: 0.55;
+}
+.t-biberarbeit21-endline { position: absolute; top: -3px; bottom: -3px; width: 0; border-left: 3px solid var(--ink); pointer-events: none; opacity: 0.7; }
+.t-biberarbeit21-axis { position: relative; height: 1.1rem; margin: 0 calc(0.45rem + 2px); font-size: 0.72rem; color: var(--muted); }
+.t-biberarbeit21-tick { position: absolute; transform: translateX(-50%); top: 0; }
+.t-biberarbeit21-info { margin: 0.6rem 0 0; font-weight: 700; }
+.t-biberarbeit21-note { margin: 0.3rem 0 0; font-size: 0.95rem; color: var(--muted); min-height: 2.9em; }
+
+@media (min-width: 52rem) {
+  .t-biberarbeit21-board { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr); gap: 1.25rem 2rem; align-items: start; }
+}
+
+.t-biberarbeit21-lhead { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-height: 1.6rem; }
+.t-biberarbeit21-drop { appearance: none; min-height: 1.9rem; padding: 0.1rem 0.7rem; border-radius: 999px; border: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); color: var(--ink); font: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+.t-biberarbeit21-drop[hidden] { display: none; }
+.t-biberarbeit21-drop:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-biberarbeit21-poolwrap .t-biberarbeit21-drop { margin-top: 0.5rem; }

@@ -1,0 +1,27 @@
+/* Stile für foto23 (Präfix t-foto23-). Bilder liegen auf hellem Grund, damit die dunklen Konturen in Hell und Dunkel lesbar bleiben. */
+.t-foto23-board { display: grid; gap: 1.1rem; justify-items: center; }
+.t-foto23-scene { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 0.5rem; width: min(100%, 18rem); }
+.t-foto23-scene img { display: block; width: 100%; height: auto; }
+.t-foto23-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; width: 100%; max-width: 32rem; }
+.t-foto23-opt {
+  appearance: none; position: relative; display: grid; gap: 0.3rem; justify-items: center; padding: 0.45rem 0.45rem 0.6rem;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit;
+}
+.t-foto23-opt:hover { border-color: var(--accent); }
+.t-foto23-opt[aria-disabled="true"] { cursor: default; }
+.t-foto23-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-foto23-opt.selected, .t-foto23-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-foto23-opt.right, .t-foto23-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-foto23-opt.wrong, .t-foto23-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-foto23-key { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+.t-foto23-ph { display: grid; place-items: center; width: 100%; aspect-ratio: 1 / 1; background: var(--paper); border-radius: 8px; padding: 0.3rem; }
+.t-foto23-ph img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+.t-foto23-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-foto23-opt.wrong .t-foto23-mark { background: var(--bad); }
+.t-foto23-exp { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.6rem 0; }
+.t-foto23-exp figure { margin: 0; background: var(--paper); border-radius: 10px; padding: 0.4rem; flex: 1 1 10rem; max-width: 14rem; color: #333; font-size: 0.85rem; text-align: center; }
+.t-foto23-exp img { display: block; width: 100%; height: auto; }
+@media (min-width: 40rem) { .t-foto23-opts { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 44rem; } }

@@ -1,0 +1,34 @@
+/* Stile für armband20 (Präfix t-armband20-) */
+.t-armband20-board { display: grid; gap: 1rem; justify-items: center; }
+.t-armband20-wish { margin: 0; display: grid; justify-items: center; gap: 0.2rem; font-size: 0.9rem; color: var(--muted); }
+.t-armband20-wish .t-armband20-ring { width: 8.5rem; height: 8.5rem; }
+.t-armband20-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; width: 100%; max-width: 26rem; }
+.t-armband20-opt {
+  appearance: none; position: relative; display: grid; justify-items: center; padding: 0.4rem 0.4rem 0.5rem;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 14px; cursor: pointer; touch-action: manipulation; font: inherit; min-width: 0;
+}
+.t-armband20-opt:hover { border-color: var(--accent); }
+.t-armband20-opt[aria-disabled="true"] { cursor: default; }
+.t-armband20-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-armband20-opt.selected, .t-armband20-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-armband20-opt.right, .t-armband20-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-armband20-opt.wrong, .t-armband20-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-armband20-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; justify-self: start; }
+.t-armband20-opt .t-armband20-ring { width: 100%; max-width: 10rem; height: auto; pointer-events: none; }
+.t-armband20-ring { display: block; overflow: visible; }
+.t-armband20-star { fill: #ffd21f; stroke: #e08a00; stroke-width: 1.5; stroke-linejoin: round; }
+.t-armband20-moon { fill: #e4e7ea; stroke: #8b949b; stroke-width: 1.5; stroke-linejoin: round; }
+.t-armband20-dot { fill: #e0261c; stroke: #5a0d09; stroke-width: 1; }
+.t-armband20-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-armband20-opt.wrong .t-armband20-mark { background: var(--bad); }
+.t-armband20-figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: 0.6rem; margin: 0.6rem 0; }
+.t-armband20-fig { margin: 0; text-align: center; font-size: 0.9rem; }
+.t-armband20-fig .t-armband20-ring { width: 100%; max-width: 9rem; height: auto; margin: 0 auto; background: var(--surface2); border-radius: 12px; padding: 0.25rem; box-sizing: border-box; }
+.t-armband20-arc { fill: none; stroke-width: 5; stroke-linecap: round; }
+.t-armband20-p1 { stroke: var(--c3); }
+.t-armband20-p2 { stroke: var(--c5); }
+.t-armband20-p3 { stroke: var(--c1); }
+.t-armband20-ss { stroke: var(--c2); }

@@ -1,0 +1,30 @@
+/* Aufgabe Postfix-Notation (2023) */
+.t-postfix23-expr { font: 700 1.25rem/1.6 var(--font-body); margin: 0.4rem 0; padding: 0.4rem 0.8rem; background: var(--surface2); border: 2px solid var(--line); border-radius: 10px; overflow-wrap: anywhere; }
+.t-postfix23-o { color: var(--accent); }
+.t-postfix23-ex { border-collapse: collapse; margin: 0.5rem 0 0.8rem; max-width: 100%; font-size: 0.95rem; }
+.t-postfix23-ex th, .t-postfix23-ex td { border: 1px solid var(--line); padding: 0.3rem 0.6rem; text-align: left; vertical-align: top; }
+.t-postfix23-ex code { font-weight: 700; }
+.t-postfix23-box { display: grid; gap: 0.6rem; min-width: 0; }
+.t-postfix23-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.t-postfix23-card {
+  appearance: none; position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.2rem; padding: 0.5rem 0.4rem 0.6rem; min-width: 0;
+  background: var(--surface); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit;
+}
+.t-postfix23-card:hover:not(:disabled) { border-color: var(--accent); }
+.t-postfix23-card:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-postfix23-card:disabled { cursor: default; }
+.t-postfix23-card.sel { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); }
+.t-postfix23-card.right { border-color: var(--ok); background: var(--ok-bg); box-shadow: none; }
+.t-postfix23-card.wrong { border-color: var(--bad); background: var(--bad-bg); box-shadow: none; }
+.t-postfix23-letter { align-self: flex-start; font: 800 1.25rem var(--font-display); padding-left: 0.3rem; }
+.t-postfix23-tree { display: block; width: 100%; height: auto; }
+.t-postfix23-edge { stroke: var(--ink); stroke-width: 1.4; }
+.t-postfix23-head { fill: var(--ink); }
+.t-postfix23-node { fill: var(--surface); stroke: var(--ink); stroke-width: 1.6; }
+.t-postfix23-op { fill: var(--surface2); }
+.t-postfix23-txt { fill: var(--ink); font: 700 14px var(--font-body); }
+.t-postfix23-status { margin: 0; color: var(--muted); min-height: 1.5em; }
+.t-postfix23-etree { width: 9rem; }
+@media (max-width: 30rem) {
+  .t-postfix23-grid { grid-template-columns: minmax(0, 1fr); }
+}

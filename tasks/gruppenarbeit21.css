@@ -1,0 +1,60 @@
+/* Stile für gruppenarbeit21 (Präfix t-gruppenarbeit21-) */
+.t-gruppenarbeit21-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 1.25rem 2rem; align-items: start; }
+.t-gruppenarbeit21-board > section { min-width: 0; }
+.t-gruppenarbeit21-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-gruppenarbeit21-svg { display: block; width: 100%; height: auto; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; overflow: visible; }
+.t-gruppenarbeit21-svg.locked { cursor: default; }
+
+.t-gruppenarbeit21-boltout { fill: none; stroke: #5a4300; stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; }
+.t-gruppenarbeit21-boltin { fill: none; stroke: #ffc400; stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
+.t-gruppenarbeit21-hitline { fill: none; stroke: transparent; stroke-width: 38; stroke-linecap: round; stroke-linejoin: round; }
+.t-gruppenarbeit21-bolt { cursor: pointer; outline: none; }
+.t-gruppenarbeit21-bolt:not(.inert):hover .t-gruppenarbeit21-boltout { stroke: var(--accent); }
+.t-gruppenarbeit21-bolt:focus-visible .t-gruppenarbeit21-boltout { stroke: var(--focus); stroke-width: 12; }
+.t-gruppenarbeit21-bolt.inert, .t-gruppenarbeit21-svg.locked .t-gruppenarbeit21-bolt { cursor: default; pointer-events: none; }
+.t-gruppenarbeit21-start .t-gruppenarbeit21-bolt { pointer-events: none; }
+.t-gruppenarbeit21-bolt.gone .t-gruppenarbeit21-boltout { stroke: var(--muted); stroke-width: 3; stroke-dasharray: 3 9; opacity: 0.8; }
+.t-gruppenarbeit21-bolt.gone .t-gruppenarbeit21-boltin { stroke: var(--surface2); stroke-width: 0; }
+.t-gruppenarbeit21-bolt.conflict .t-gruppenarbeit21-boltout { stroke: var(--bad); stroke-width: 11; }
+
+.t-gruppenarbeit21-person .t-gruppenarbeit21-hit { fill: transparent; }
+.t-gruppenarbeit21-head, .t-gruppenarbeit21-body, .t-gruppenarbeit21-sw { fill: var(--muted); stroke: var(--ink); stroke-opacity: 0.35; stroke-width: 1.5; }
+.t-gruppenarbeit21-g1 .t-gruppenarbeit21-head, .t-gruppenarbeit21-g1 .t-gruppenarbeit21-body { fill: var(--c1); }
+.t-gruppenarbeit21-g2 .t-gruppenarbeit21-head, .t-gruppenarbeit21-g2 .t-gruppenarbeit21-body { fill: var(--c4); }
+.t-gruppenarbeit21-g3 .t-gruppenarbeit21-head, .t-gruppenarbeit21-g3 .t-gruppenarbeit21-body { fill: var(--c5); }
+.t-gruppenarbeit21-person { outline: none; }
+.t-gruppenarbeit21-person.inert { pointer-events: none; }
+.t-gruppenarbeit21-person.t-gruppenarbeit21-active { cursor: pointer; }
+.t-gruppenarbeit21-svg.locked .t-gruppenarbeit21-person { pointer-events: none; cursor: default; }
+.t-gruppenarbeit21-person.t-gruppenarbeit21-active:hover .t-gruppenarbeit21-hit { fill: color-mix(in srgb, var(--accent) 22%, transparent); }
+.t-gruppenarbeit21-person:focus-visible .t-gruppenarbeit21-hit { fill: color-mix(in srgb, var(--focus) 25%, transparent); stroke: var(--focus); stroke-width: 3; }
+.t-gruppenarbeit21-num { fill: var(--ink); font: 800 20px var(--font-body); }
+
+.t-gruppenarbeit21-badge { pointer-events: none; }
+.t-gruppenarbeit21-badge text { fill: #fff; font: 800 20px var(--font-body); }
+.t-gruppenarbeit21-m-sel circle { fill: var(--accent); }
+.t-gruppenarbeit21-m-sel text { fill: var(--accent-ink); }
+.t-gruppenarbeit21-m-ok circle { fill: var(--ok); }
+.t-gruppenarbeit21-m-bad circle { fill: var(--bad); }
+.t-gruppenarbeit21-m-conf circle { fill: var(--bad); }
+.t-gruppenarbeit21-m-ok text, .t-gruppenarbeit21-m-bad text, .t-gruppenarbeit21-m-conf text { fill: #fff; }
+
+.t-gruppenarbeit21-modes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.6rem; }
+.t-gruppenarbeit21-mode {
+  appearance: none; min-height: 2.6rem; padding: 0.35rem 0.9rem; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--line);
+}
+.t-gruppenarbeit21-mode.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
+.t-gruppenarbeit21-mode:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-gruppenarbeit21-note { margin: 0.6rem 0 0; font-size: 0.95rem; color: var(--muted); min-height: 2.9em; }
+.t-gruppenarbeit21-legend { margin: 0.6rem 0 0; font-size: 0.9rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; }
+.t-gruppenarbeit21-legend[hidden] { display: none; }
+.t-gruppenarbeit21-legend .t-gruppenarbeit21-sw { display: inline-grid; place-items: center; width: 1.3rem; height: 1.3rem; border-radius: 50%; font-size: 0.8rem; font-weight: 800; color: #fff; border: 0; }
+.t-gruppenarbeit21-legend .t-gruppenarbeit21-g1 { background: var(--c1); }
+.t-gruppenarbeit21-legend .t-gruppenarbeit21-g2 { background: var(--c4); }
+.t-gruppenarbeit21-legend .t-gruppenarbeit21-g0 { background: var(--muted); }
+
+@media (max-width: 44rem) {
+  .t-gruppenarbeit21-board { grid-template-columns: minmax(0, 1fr); }
+  .t-gruppenarbeit21-start .t-gruppenarbeit21-svg { max-width: 22rem; }
+}
