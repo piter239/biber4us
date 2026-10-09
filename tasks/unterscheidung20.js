@@ -71,7 +71,7 @@
 
   function refreshInspect() {
     ALL.forEach(function (k, i) {
-      five[i]._cells.forEach(function (c, p) { c.classList.toggle('hl', inspected === p); });
+      five[i]._cells.forEach(function (c, p) { c.classList.toggle(P + 'hl', inspected === p); });
     });
     if (inspected === null) { infoEl.textContent = 'Tippe ein Pixel an. Dann siehst du, in welchen Bildern es an dieser Position schwarz oder weiß ist.'; return; }
     var blk = ALL.filter(function (k) { return pix(k, inspected); }), wht = ALL.filter(function (k) { return !pix(k, inspected); });
@@ -127,7 +127,7 @@
     question: 'Welches Pixel-Bild hat die gezeigte Unterscheidungskarte?',
     howto: 'Tippe auf die Pixel der fünf Bilder, um dieselbe Position in allen Bildern zu vergleichen. Wähle dann unten eine Antwort.',
     explanation: function () {
-      return '<p>Die Karte zeigt in Reihe 2, Spalte 3 die Farbe <strong>Weiß</strong>. Das heißt: An dieser Position hat <em>keines</em> der anderen Bilder das gleiche Pixel. Das Bild unterscheidet sich dort von allen anderen. Bei <strong>B</strong> (dem Buchstaben O) ist dieses Pixel weiß, bei allen anderen Bildern schwarz. Nur B passt also. Die Karten der anderen Bilder sehen unter den Antworten anders aus.</p>' +
+      return '<p>Die Karte zeigt in Reihe 2, Spalte 3 die Farbe <strong>Weiß</strong>. Das heißt: An dieser Position hat <em>keines</em> der anderen Bilder das gleiche Pixel. Das Bild unterscheidet sich dort von allen anderen. Bei <strong>B</strong> (dem Buchstaben O) ist dieses Pixel schwarz, bei allen anderen Bildern weiß. Nur B passt also. Die Karten der anderen Bilder sehen unter den Antworten anders aus.</p>' +
         '<p>Solche Farbkarten heißen <strong>Heat Maps</strong>. Man kennt sie von Temperaturkarten der Wettervorhersage. Auch in künstlichen neuronalen Netzen zeigen Heat Maps, wie wichtig einzelne Einheiten für die Erkennung eines Objekts sind.</p>';
     },
     mount: function (root, a) {

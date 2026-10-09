@@ -1,0 +1,66 @@
+/* Stile für unterscheidung20 (Präfix t-unterscheidung20-). Pixel und Kartenfarben behalten ihre Farben in Hell und Dunkel. */
+.t-unterscheidung20-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: start; }
+.t-unterscheidung20-board > section { min-width: 0; }
+.t-unterscheidung20-answers { grid-column: 1 / -1; }
+.t-unterscheidung20-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+
+.t-unterscheidung20-grid { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; aspect-ratio: 1; border: 2px solid #7d8d92; background: #7d8d92; gap: 1px; }
+.t-unterscheidung20-cell { display: block; width: 100%; height: 100%; padding: 0; margin: 0; border: 0; border-radius: 0; min-width: 0; min-height: 0; }
+.t-unterscheidung20-blk { background: #000; }
+.t-unterscheidung20-wht { background: #fff; }
+.t-unterscheidung20-col0 { background: #fff; }
+.t-unterscheidung20-col1 { background: #fff35c; }
+.t-unterscheidung20-col2 { background: #00c46a; }
+.t-unterscheidung20-col3 { background: #2a4bd7; }
+.t-unterscheidung20-col4 { background: #000; }
+button.t-unterscheidung20-cell { cursor: pointer; touch-action: manipulation; }
+button.t-unterscheidung20-cell:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; position: relative; z-index: 1; }
+.t-unterscheidung20-cell.t-unterscheidung20-hl { box-shadow: inset 0 0 0 4px #ff3d81; }
+.t-unterscheidung20-blk.t-unterscheidung20-hl { box-shadow: inset 0 0 0 4px #ff9ec3; }
+
+.t-unterscheidung20-five { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.5rem; }
+.t-unterscheidung20-fig { margin: 0; text-align: center; }
+.t-unterscheidung20-fig figcaption { margin-top: 0.25rem; font-size: 0.9rem; font-weight: 700; color: var(--muted); }
+.t-unterscheidung20-note { margin: 0.6rem 0 0; font-size: 0.95rem; color: var(--muted); min-height: 2.9em; }
+
+.t-unterscheidung20-legend { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+.t-unterscheidung20-legend caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.t-unterscheidung20-legend th { text-align: left; font-weight: 700; padding: 0.25rem 0.4rem; background: var(--surface2); border-bottom: 1px solid var(--line); }
+.t-unterscheidung20-legend td { padding: 0.25rem 0.4rem; border-bottom: 1px solid var(--line); }
+.t-unterscheidung20-legend td:first-child { width: 3.2rem; }
+.t-unterscheidung20-sw { display: block; width: 1.5rem; height: 1.5rem; border: 2px solid #7d8d92; }
+
+.t-unterscheidung20-example { display: flex; align-items: center; gap: 0.6rem; }
+.t-unterscheidung20-example .t-unterscheidung20-fig { width: 5.5rem; }
+.t-unterscheidung20-arrow { font-size: 1.4rem; color: var(--muted); }
+.t-unterscheidung20-targetfig { width: 8rem; }
+
+.t-unterscheidung20-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; }
+.t-unterscheidung20-opt {
+  appearance: none; position: relative; display: grid; gap: 0.5rem; justify-items: center; align-content: start; text-align: center;
+  padding: 0.6rem 0.6rem 0.7rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600; min-width: 0;
+}
+.t-unterscheidung20-opt .t-unterscheidung20-grid { width: min(100%, 6rem); pointer-events: none; }
+.t-unterscheidung20-opt:hover { border-color: var(--accent); }
+.t-unterscheidung20-opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-unterscheidung20-opt[aria-disabled="true"] { cursor: default; }
+.t-unterscheidung20-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-unterscheidung20-opt.selected, .t-unterscheidung20-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-unterscheidung20-opt.right, .t-unterscheidung20-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-unterscheidung20-opt.wrong, .t-unterscheidung20-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-unterscheidung20-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-unterscheidung20-slot { display: grid; gap: 0.2rem; justify-items: center; width: 100%; }
+.t-unterscheidung20-slot[hidden] { display: none; }
+.t-unterscheidung20-slot .t-unterscheidung20-grid { width: min(70%, 4.2rem); }
+.t-unterscheidung20-slot small { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+.t-unterscheidung20-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-unterscheidung20-opt.wrong .t-unterscheidung20-mark { background: var(--bad); }
+
+@media (max-width: 640px) {
+  .t-unterscheidung20-board { grid-template-columns: minmax(0, 1fr); }
+  .t-unterscheidung20-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

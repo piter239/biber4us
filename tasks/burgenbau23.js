@@ -147,9 +147,9 @@
 
   /* ---------- Bedienung ---------- */
   function onDown(e) {
-    var bar = e.target.closest('[data-bar]');
+    var bar = e.target.closest('[data-bbar]');
     if (!bar || locked) return;
-    var i = +bar.dataset.bar;
+    var i = +bar.dataset.bbar;
     drag = { i: i, x0: e.clientX, s0: plan[i], w: trackBox.getBoundingClientRect().width / DAYS, moved: false };
     try { bar.setPointerCapture(e.pointerId); } catch (err) { /* egal */ }
     bar.classList.add('drag');
@@ -170,9 +170,9 @@
     if (moved) api.changed();
   }
   function onKey(e) {
-    var bar = e.target.closest('[data-bar]');
+    var bar = e.target.closest('[data-bbar]');
     if (!bar || locked) return;
-    var i = +bar.dataset.bar, d = 0;
+    var i = +bar.dataset.bbar, d = 0;
     if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') d = -1;
     else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') d = 1;
     else if (e.key === 'Home') d = -DAYS;
@@ -190,7 +190,7 @@
       var back = h('button', { type: 'button', class: P + 'step', 'aria-label': p.name + ' einen Tag früher', onclick: function () { setStart(i, plan[i] - 1); } }, '◀');
       var fwd = h('button', { type: 'button', class: P + 'step', 'aria-label': p.name + ' einen Tag später', onclick: function () { setStart(i, plan[i] + 1); } }, '▶');
       var bar = h('div', {
-        class: P + 'bar', 'data-bar': String(i), role: 'slider', tabindex: '0', style: 'background:' + p.color + ';color:' + p.ink,
+        class: P + 'bar', 'data-bbar': String(i), role: 'slider', tabindex: '0', style: 'background:' + p.color + ';color:' + p.ink,
         'aria-label': p.name + ' (' + p.dur + ' Tage). Mit den Pfeiltasten verschieben.', 'aria-valuemin': '1', 'aria-orientation': 'horizontal'
       }, h('span', { 'aria-hidden': 'true' }, '↔'));
       var track = h('div', { class: P + 'track' }, bar);

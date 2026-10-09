@@ -49,7 +49,7 @@
   }
   function buildTables() {
     var svg = svgEl('svg', { viewBox: '0 0 400 206', class: P + 'svg', role: 'img', 'aria-label': 'Vier Tische mit einstellbarer Höhe und eine gestrichelte Linie bei 60 Zentimetern' });
-    var gy = FLOOR - GOAL * SC;
+    var gy = FLOOR - 13 - GOAL * SC;
     svg.appendChild(svgEl('line', { x1: 4, x2: 396, y1: FLOOR, y2: FLOOR, class: P + 'floor' }));
     svg.appendChild(svgEl('line', { x1: 4, x2: 396, y1: gy, y2: gy, class: P + 'goal' }));
     var gl = svgEl('text', { x: 396, y: gy - 4, 'text-anchor': 'end', class: P + 'goaltx' });
@@ -79,7 +79,7 @@
     var hs = heights(n);
     hs.forEach(function (v, i) {
       var vis = Math.max(0, Math.min(VMAX, v));
-      var topY = FLOOR - 4 - vis * SC - 9 + 4;            /* Oberkante der Tischplatte */
+      var topY = FLOOR - 13 - vis * SC;                    /* Oberkante der Tischplatte (0 cm: Platte direkt über den Füßen) */
       var t = tableEls[i];
       t.top.style.y = topY + 'px';
       t.top.style.height = '9px';
