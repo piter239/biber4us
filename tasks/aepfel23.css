@@ -1,5 +1,5 @@
 /* Stile für aepfel23 (Präfix t-aepfel23-). Apfelfarben bleiben in Hell und Dunkel gleich. */
-.t-aepfel23-board { max-width: 26rem; margin: 0 auto; }
+.t-aepfel23-board { max-width: 22rem; margin: 0 auto; }
 .t-aepfel23-svg { display: block; width: 100%; height: auto; background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; user-select: none; -webkit-user-select: none; }
 .t-aepfel23-cap { fill: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-family: var(--font-body); }
 .t-aepfel23-disc { fill: #fff18a; stroke: #a80000; stroke-width: 3.5; }

@@ -50,7 +50,7 @@
     (kids || []).forEach(function (c) { if (c) n.appendChild(c); });
     return n;
   }
-  var DROP = 'M0 0 C-1 -4 -7 -9 -7 -14 A7 7 0 0 1 7 -14 C7 -9 1 -4 0 0 Z';   /* Knospe, Spitze zeigt zur Seite des Stiels */
+  var DROP = 'M0 -22 C3 -17 7 -13 7 -7 A7 7 0 0 1 -7 -7 C-7 -13 -3 -17 0 -22 Z';   /* Knospe: Fuß im Ursprung, Spitze nach oben */
   function bud(x, y, headDeg, off, scale) {
     return svg('path', { d: DROP, class: P + 'bud', transform: 'translate(' + x + ' ' + y + ') rotate(' + (headDeg + off) + ') scale(' + scale + ')' });
   }
@@ -171,7 +171,7 @@
     howto: 'Tippe auf ein Knospenpaar am Rand der Blume, um den Ast von der ersten Knospe dorthin zu sehen. Wähle dann die richtige Antwort.',
     explanation: function () {
       return '<p>Jeden Tag wird jeder Ast um genau einen Stiel länger. Man muss also nur einem Ast von der ersten Knospe bis zu einer äußeren Knospe folgen und die Stiele zählen: Es sind 5. Die Blume ist also <b>5 Tage</b> gewachsen (Antwort A).</p>' +
-        '<p>Die anderen Zahlen passen trotzdem zu dieser Blume: Jeder Ast hat 11 Knospen (6 Gabelungen mit je zwei Knospen, an der ersten Knospe beginnend, ergibt 1 + 5 + 5), ' +
+        '<p>Die anderen Zahlen passen trotzdem zu dieser Blume: Entlang jedes Astes sitzen 11 Knospen (die erste und an jeder der 5 Gabelungen zwei), ' +
         'die äußeren Knospen sind aus 16 Stielen herausgewachsen, und es gibt 32 äußere Knospen.</p>' +
         '<p><b>Informatik:</b> Nach 5 Tagen gibt es 2 × 2 × 2 × 2 × 2 = 32 äußere Knospen, nach 10 Tagen schon 1024 und nach 20 Tagen mehr als eine Million, aber die Äste sind erst 5, 10 oder 20 Stiele lang. ' +
         'Datenstrukturen, die so ausgewogen verzweigen, erlauben es, jedes von sehr vielen Daten in wenigen Schritten zu erreichen. Die Schrittzahl wächst „logarithmisch“, die Datenmenge „exponentiell“.</p>';
