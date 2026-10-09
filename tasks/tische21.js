@@ -41,14 +41,14 @@
   function reset() { selected = null; mark = null; resetSim(); }
 
   /* ---------- Tische zeichnen (Vorderansicht, 0 bis 120 cm) ---------- */
-  var FLOOR = 176, SC = 1.3, VMAX = 125;
+  var FLOOR = 176, SC = 1.3, VMAX = 110;
   function svgEl(name, attrs) {
     var e = document.createElementNS(NS, name);
     Object.keys(attrs || {}).forEach(function (a) { e.setAttribute(a, attrs[a]); });
     return e;
   }
   function buildTables() {
-    var svg = svgEl('svg', { viewBox: '0 0 400 206', class: P + 'svg', role: 'img', 'aria-label': 'Vier Tische mit einstellbarer Höhe und eine gestrichelte Linie bei 60 Zentimetern' });
+    var svg = svgEl('svg', { viewBox: '0 24 400 182', class: P + 'svg', role: 'img', 'aria-label': 'Vier Tische mit einstellbarer Höhe und eine gestrichelte Linie bei 60 Zentimetern' });
     var gy = FLOOR - 13 - GOAL * SC;
     svg.appendChild(svgEl('line', { x1: 4, x2: 396, y1: FLOOR, y2: FLOOR, class: P + 'floor' }));
     svg.appendChild(svgEl('line', { x1: 4, x2: 396, y1: gy, y2: gy, class: P + 'goal' }));

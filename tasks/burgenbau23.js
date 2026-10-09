@@ -242,7 +242,7 @@
     howto: 'Probiere Pläne aus, indem du die Balken verschiebst. Rot markierte Tage zeigen, dass zu viele Biber arbeiten. Trage dann die kürzeste Bauzeit in Tagen ein.',
     explanation: function () {
       return '<p>Die kürzeste Bauzeit sind <b>12 Tage</b>. Ein solcher Plan: Die Schlafhöhle (3 Tage) kommt zuerst. Sie braucht 5 Unterwasser-Arbeiter und kann deshalb nicht gleichzeitig mit dem Damm (4) oder dem Wohnraum (3) gebaut werden, und das Dach muss ohnehin warten. Danach können nicht alle drei übrigen Teile zugleich laufen, denn sie brauchen zusammen 3 + 2 + 4 = 9 Unterwasser-Arbeiter.</p>' +
-        '<p>Am besten baut man den Wohnraum (4 Tage) und das Dach (5 Tage) hintereinander und gleichzeitig dazu den Damm (8 Tage). Das ist nach 3 + 4 + 5 = 12 Tagen fertig. Weniger geht nicht: Hier reicht das Probieren aller Möglichkeiten (das hat auch ein Skript bestätigt).</p>' +
+        '<p>Am besten baut man den Wohnraum (4 Tage) und das Dach (5 Tage) hintereinander und gleichzeitig dazu den Damm (8 Tage). Das ist nach 3 + 4 + 5 = 12 Tagen fertig. Weniger geht nicht: Probiert man alle möglichen Reihenfolgen und Startzeiten durch, ist keine schneller.</p>' +
         '<p>Informatik: Solche Diagramme heißen Gantt-Diagramme. Sie zeigen, wie die Ressourcen (hier die Arbeiter) über die Zeit verteilt sind. Das Planen von Abläufen mit Abhängigkeiten und begrenzten Ressourcen nennt man Scheduling. Es kommt bei Projektplänen vor und auch im Computer, wenn Prozesse um Rechenzeit oder Speicher konkurrieren.</p>';
     },
     mount: function (root, a) {

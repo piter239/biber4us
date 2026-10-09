@@ -18,7 +18,7 @@
 .t-tische21-svg { display: block; width: 100%; height: auto; overflow: visible; }
 .t-tische21-floor { stroke: var(--muted); stroke-width: 3; stroke-linecap: round; }
 .t-tische21-goal { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 5; }
-.t-tische21-goaltx { fill: var(--accent); font: 700 11px var(--font-body); }
+.t-tische21-goaltx { fill: var(--accent); font: 700 12px var(--font-body); }
 .t-tische21-top { fill: #8fd0f2; stroke: #1f5f85; stroke-width: 2; transition: y 0.35s ease, height 0.35s ease; }
 .t-tische21-top.t-tische21-ok { fill: #8fe0ad; stroke: #1b7a49; }
 .t-tische21-leg { fill: #3b9bd6; stroke: #1f5f85; stroke-width: 1.5; transition: y 0.35s ease, height 0.35s ease; }

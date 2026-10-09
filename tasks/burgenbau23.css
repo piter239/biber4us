@@ -47,7 +47,7 @@
 }
 .t-burgenbau23-clip { position: absolute; inset: 0; overflow: hidden; }
 .t-burgenbau23-seg { position: absolute; box-sizing: border-box; border: 1px solid rgb(0 0 0 / 0.45); }
-.t-burgenbau23-overday { position: absolute; top: 0; bottom: 0; background: color-mix(in srgb, var(--bad) 22%, transparent); }
+.t-burgenbau23-overday { position: absolute; top: 0; bottom: 0; background: color-mix(in srgb, var(--bad) 38%, transparent); }
 .t-burgenbau23-maxline { position: absolute; left: 0; right: 0; height: 0; border-top: 2px dashed var(--bad); pointer-events: none; }
 .t-burgenbau23-maxline span { position: absolute; right: 0; bottom: 2px; font-size: 0.75rem; font-weight: 700; color: var(--bad); background: var(--surface2); padding: 0 0.2rem; border-radius: 3px; }
 .t-burgenbau23-ytick { position: absolute; left: -1.4rem; width: 1rem; text-align: right; transform: translateY(50%); font-size: 0.75rem; color: var(--muted); }
