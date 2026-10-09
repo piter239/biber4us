@@ -1,0 +1,66 @@
+/* Stile für tische21 (Präfix t-tische21-). Tasten behalten ihre Farben (gelb/rot/blau) in Hell und Dunkel. */
+.t-tische21-kc {
+  display: inline-grid; place-items: center; width: 1.45em; height: 1.45em; border-radius: 50%; font-weight: 800; font-size: 0.85em; line-height: 1;
+  border: 2px solid rgb(0 0 0 / 0.55); box-sizing: border-box; vertical-align: -0.2em; font-family: var(--font-display);
+}
+.t-tische21-k-T { background: #f6c915; color: #2b2400; }
+.t-tische21-k-O { background: #d9392b; color: #fff; }
+.t-tische21-k-M { background: #2f86d6; color: #fff; }
+.t-tische21-rules { list-style: none; padding: 0; margin: 0.4rem 0 0.8rem; display: grid; gap: 0.35rem; }
+.t-tische21-rules li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.6rem; align-items: center; }
+
+.t-tische21-board { display: grid; gap: 1.25rem; max-width: 34rem; margin: 0 auto; min-width: 0; }
+.t-tische21-board > section { min-width: 0; }
+.t-tische21-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-tische21-lab { background: var(--surface2); border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem 0.8rem 0.9rem; display: grid; gap: 0.5rem; }
+.t-tische21-lab h3 { margin-bottom: 0; }
+.t-tische21-stage { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.3rem; }
+.t-tische21-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.t-tische21-floor { stroke: var(--muted); stroke-width: 3; stroke-linecap: round; }
+.t-tische21-goal { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 5; }
+.t-tische21-goaltx { fill: var(--accent); font: 700 11px var(--font-body); }
+.t-tische21-top { fill: #8fd0f2; stroke: #1f5f85; stroke-width: 2; transition: y 0.35s ease, height 0.35s ease; }
+.t-tische21-top.t-tische21-ok { fill: #8fe0ad; stroke: #1b7a49; }
+.t-tische21-leg { fill: #3b9bd6; stroke: #1f5f85; stroke-width: 1.5; transition: y 0.35s ease, height 0.35s ease; }
+.t-tische21-foot { fill: #1f5f85; }
+.t-tische21-num { fill: #0d3550; font: 700 9px var(--font-body); text-anchor: middle; transition: transform 0.35s ease; }
+.t-tische21-val { fill: var(--ink); font: 700 14px var(--font-body); }
+.t-tische21-val.t-tische21-ok { fill: var(--ok); }
+.t-tische21-live { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.t-tische21-remote { display: grid; gap: 0.6rem; justify-items: center; }
+.t-tische21-keys { display: flex; gap: clamp(0.6rem, 4vw, 1.2rem); justify-content: center; }
+.t-tische21-key {
+  appearance: none; display: grid; justify-items: center; align-content: center; gap: 0.1rem; width: 4.4rem; height: 4.4rem; padding: 0; border-radius: 50%;
+  border: 3px solid rgb(0 0 0 / 0.55); cursor: pointer; font: inherit; touch-action: manipulation; box-shadow: 0 3px 0 rgb(0 0 0 / 0.35); -webkit-tap-highlight-color: transparent;
+}
+.t-tische21-key:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 rgb(0 0 0 / 0.35); }
+.t-tische21-key:disabled { cursor: default; opacity: 0.6; }
+.t-tische21-key:focus-visible, .t-tische21-opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.t-tische21-kl { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; line-height: 1; }
+.t-tische21-cnt { font-size: 0.85rem; font-weight: 700; opacity: 0.9; }
+.t-tische21-ctl { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.t-tische21-small { min-height: 2.4rem; padding-block: 0.3rem; }
+
+.t-tische21-opts { display: grid; gap: 0.6rem; }
+.t-tische21-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.5rem; align-items: center; text-align: left;
+  padding: 0.65rem 0.8rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line);
+  border-radius: 12px; cursor: pointer; touch-action: manipulation; font: inherit; font-weight: 600;
+}
+.t-tische21-opt:hover { border-color: var(--accent); }
+.t-tische21-opt[aria-disabled="true"] { cursor: default; }
+.t-tische21-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-tische21-opt.selected, .t-tische21-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-tische21-opt.right, .t-tische21-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-tische21-opt.wrong, .t-tische21-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-tische21-okey { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-tische21-otxt { line-height: 1.9; }
+.t-tische21-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-tische21-opt.wrong .t-tische21-mark { background: var(--bad); }
+.t-tische21-eq { margin: 0.4rem 0 0.8rem; padding-left: 1.2rem; display: grid; gap: 0.2rem; }
+@media (max-width: 24rem) {
+  .t-tische21-key { width: 3.8rem; height: 3.8rem; }
+}
