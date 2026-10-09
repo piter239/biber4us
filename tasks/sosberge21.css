@@ -42,3 +42,6 @@
 .t-sosberge21-btn.t-sosberge21-wrong .t-sosberge21-hit { fill: color-mix(in srgb, var(--bad) 30%, transparent); stroke: var(--bad); stroke-width: 3; }
 .t-sosberge21-btn.t-sosberge21-right .t-sosberge21-hit { stroke: var(--ok); stroke-width: 3; }
 .t-sosberge21-count { margin: 0; font-size: 0.95rem; color: var(--muted); }
+
+.t-sosberge21-scroll { overflow-x: auto; max-width: 100%; }
+@media (max-width: 40rem) { .t-sosberge21-svg { min-width: 36rem; } }

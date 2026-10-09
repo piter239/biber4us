@@ -158,7 +158,7 @@
       el.replaceChildren(h('div', { class: P + 'board' },
         h('ul', { class: P + 'legend', 'aria-label': 'Zeichen' },
           legendItem('no', 'nicht befahrbar'), legendItem('yes', 'befahrbar'), legendItem('unk', 'unklar'), legendItem(null, 'noch nicht angegeben')),
-        svg, countEl));
+        h('div', { class: P + 'scroll', tabindex: '-1' }, svg), countEl));
       draw();
     },
     isComplete: function () { return ROADS.every(function (r) { return state[key(r)]; }); },
