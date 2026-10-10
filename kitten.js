@@ -89,12 +89,15 @@
   }
   /* Vorstellungen im Album kosten Guthaben; Guthaben gibt es für gelöste Aufgaben (erster Versuch: richtig +3, falsch +1) */
   function credit() { if (mem.credit == null) mem.credit = 5; return mem.credit; }
-  /* Belohnung: Nach 8 gelösten Aufgaben (erster Versuch richtig) kündigt ein Sticker Besuch an, 7 weitere richtige Antworten später kommt Luna. */
+  /* Belohnung: Zählung ab jetzt (mem.fc = richtig gelöste Aufgaben im ersten Versuch). 1. Ankündigung nach 1, 2. Ankündigung nach 3, Luna kommt nach 5. */
   var pendingFriend = null;
-  function friendCheck() {
-    var c = mem.correct || 0, st = mem.stickers || {};
-    if (!st['s:ahnung'] && c >= 8) { mem.annAt = c; unlock('s:ahnung'); pendingFriend = 'ann'; schedule(9000); }
-    else if (st['s:ahnung'] && !st['s:luna'] && c >= (mem.annAt || c) + 7) { mem.friend = true; unlock('s:luna'); pendingFriend = 'arrive'; schedule(9000); }
+  function friendProgress() {
+    mem.fc = (mem.fc || 0) + 1; persist();
+    var c = mem.fc, st = mem.stickers || {};
+    if (!st['s:ahnung'] && c >= 1) { unlock('s:ahnung'); pendingFriend = 'ann'; }
+    else if (!st['s:ahnung2'] && c >= 3) { unlock('s:ahnung2'); pendingFriend = 'ann2'; }
+    else if (!st['s:luna'] && c >= 5) { mem.friend = true; unlock('s:luna'); pendingFriend = 'arrive'; }
+    if (pendingFriend) schedule(9000);
   }
   function earn(n) { if (!(n > 0)) return; mem.credit = credit() + n; persist(); if (window.__bkCredit) window.__bkCredit(); }
   function persist() { mem.touched = true; try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) { /* ignorieren */ } }
@@ -953,6 +956,7 @@
       if (pendingFriend) {
         var pf = pendingFriend; pendingFriend = null;
         if (pf === 'ann') visit({ action: 'wave', text: 'Psst… Bald bekomme ich Besuch von einer Freundin! Löse weiter Aufgaben, dann kommt sie.' });
+        else if (pf === 'ann2') visit({ action: 'tilt', text: 'Meine Freundin ist schon unterwegs! Noch ein paar gelöste Aufgaben, dann ist sie da.' });
         else visit({ action: 'kiss', friend: true, text: 'Das ist Luna, meine Freundin! Danke, dass Du so fleißig löst!' });
         return;
       }
@@ -1012,7 +1016,7 @@
     ['a:cuke', 'Gurke', 'Huch!'], ['a:soap', 'Seifenblasen', 'Plopp!'], ['a:knead', 'Milchtritt', 'Brot backen mit den Pfoten.'],
     ['a:wish', 'Sternschnuppe', 'Ein Wunsch für Dich.'], ['a:cup', 'Tasse', 'Ups.'], ['a:eat', 'Futterzeit', 'Nom nom nom.'],
     ['s:confetti', 'Konfetti', 'Fünf richtige Antworten in Folge.'], ['s:rufen', 'Gerufen', 'Man munkelt: Miau tippen.'],
-    ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:ahnung', 'Besuch angekündigt', 'Man munkelt: Das Kätzchen bekommt bald Besuch.'], ['s:luna', 'Luna', 'Die Freundin des Kätzchens. Sie kommt, wenn Du fleißig löst.'], ['s:treffer', 'Treffer', 'Ein Zoomies-Kätzchen im Flug getroffen.'], ['s:meister', 'Zoomies-Meister', 'Drei Zoomies-Kätzchen in einem Durchgang getroffen.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
+    ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:ahnung', 'Besuch angekündigt', 'Man munkelt: Das Kätzchen bekommt bald Besuch.'], ['s:ahnung2', 'Besuch unterwegs', 'Man munkelt: Jemand ist schon auf dem Weg zum Kätzchen.'], ['s:luna', 'Luna', 'Die Freundin des Kätzchens. Sie kommt, wenn Du fleißig löst.'], ['s:treffer', 'Treffer', 'Ein Zoomies-Kätzchen im Flug getroffen.'], ['s:meister', 'Zoomies-Meister', 'Drei Zoomies-Kätzchen in einem Durchgang getroffen.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
     ['h:xmas', 'Weihnachtsmütze', 'Ho ho ho!'], ['h:silvester', 'Partyhut', 'Prosit Neujahr!'], ['h:halloween', 'Kürbishut', 'Buh!'], ['h:ostern', 'Blumenkranz', 'Frühlingsgefühle.'], ['h:sommer', 'Sonnenbrille', 'Cool bleiben.'],
     ['x:end']
   ].filter(function (x) { return x[0] !== 'x:end'; }).concat(GIFTS.map(function (g, i) { return ['g:' + g.id, g.name, 'Geschenk Nr. ' + (i + 1) + ' vom Kätzchen.']; }));
@@ -1044,6 +1048,7 @@
     'a:cup': { svg: '<g transform="translate(120 96) scale(1.1)">' + CUP.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
     's:confetti': { svg: '<rect x="20" y="14" width="10" height="16" fill="#e05060" transform="rotate(20 25 22)"/><rect x="150" y="10" width="10" height="16" fill="#4a9ad9" transform="rotate(-30 155 18)"/><rect x="170" y="70" width="10" height="16" fill="#f2c230" transform="rotate(50 175 78)"/><rect x="10" y="80" width="10" height="16" fill="#4caf50" transform="rotate(-20 15 88)"/><rect x="100" y="4" width="10" height="16" fill="#b794f4" transform="rotate(35 105 12)"/>' },
     's:rufen': { svg: '<text x="116" y="30" font-family="system-ui,sans-serif" font-weight="800" font-size="28" fill="#0a86a6">Miau?</text>' },
+    's:ahnung2': { svg: '<path d="M126 70l8-6 8 6-8 6zM150 52l8-6 8 6-8 6zM172 32l8-6 8 6-8 6z" fill="#0a86a6"/><text x="120" y="108" font-family="system-ui,sans-serif" font-weight="800" font-size="26" fill="#0a86a6">gleich!</text>' },
     's:ahnung': { svg: '<text x="128" y="40" font-family="system-ui,sans-serif" font-weight="800" font-size="34" fill="#0a86a6">Psst…</text><path d="M168 78l8 0M172 74v8" stroke="#e05060" stroke-width="4" stroke-linecap="round"/>' },
     's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
     's:treffer': { cls: 'bk-happy', svg: '<g transform="translate(116 8)"><circle cx="30" cy="30" r="28" fill="#fff" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="17" fill="none" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="6" fill="#e05060"/></g>' },
@@ -1099,6 +1104,7 @@
     if (kind === 'a:' && ACTIONS[key]) { visit({ action: key, side: sd, text: ACTIONS[key].phrases ? pick(ACTIONS[key].phrases) : undefined }); return; }
     if (kind === 'h:') { forceAcc = key; visit({ action: pick(['wave', 'tilt', 'kiss']), side: sd, text: HAT_SAY[key] || 'Schau mal!' }); return; }
     if (id === 's:luna') { visit({ action: 'kiss', side: sd, friend: true, text: 'Das ist Luna, meine Freundin!' }); return; }
+    if (id === 's:ahnung2') { visit({ action: 'tilt', side: sd, text: 'Meine Freundin ist schon unterwegs!' }); return; }
     if (id === 's:ahnung') { visit({ action: 'wave', side: sd, text: 'Psst… Bald bekomme ich Besuch!' }); return; }
     if (id === 's:confetti') { visit({ action: 'wave', side: sd, text: 'Konfetti!' }); setTimeout(confetti, 1600); return; }
     if (id === 's:zoomies' || id === 's:treffer' || id === 's:meister') {
@@ -1466,13 +1472,13 @@
       if (mem.off) return;
       if (d.correct) {
         if (d.counted !== false) {
-          mem.correct = (mem.correct || 0) + 1; persist(); friendCheck();
+          mem.correct = (mem.correct || 0) + 1; persist(); friendProgress();
           if (mem.correct >= mem.giftNext) { streak++; gift(); return; }
         }
         api.cheer();
       } else api.comfort();
     });
-    document.addEventListener('biber:credit', function (e) { earn(((e && e.detail) || {}).n); });
+    document.addEventListener('biber:credit', function (e) { var d = (e && e.detail) || {}; earn(d.n); if (d.correct) friendProgress(); });
     document.addEventListener('visibilitychange', function () { if (!document.hidden && !busy) schedule(); });
     schedule(CFG.first);
     announce();
