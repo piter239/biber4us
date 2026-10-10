@@ -810,10 +810,11 @@
     clearActions();
     if (!mem.secrets.zoomies) { mem.secrets.zoomies = true; persist(); }
     unlock('s:zoomies');
-    /* Adaptives Tempo: Wer wenig trifft, bekommt längere Auftritte und ein größeres Ziel; wer viel trifft, wird schneller. */
-    var zms = Math.max(380, Math.min(1800, mem.zoomMs || 1200));
-    var gap = Math.max(260, Math.min(520, Math.round(zms * 0.45)));
-    var big = 1 + 0.35 * (zms - 380) / 1420;
+    /* Adaptives Tempo: Es geht schnell los (0,38 s sichtbar). Erst nach drei Durchgängen in Folge ohne Treffer wird es langsamer
+       (längere Auftritte, größeres Ziel); wer oft trifft, wird noch schneller. */
+    var zms = Math.max(300, Math.min(1800, mem.zoomSpeed || 380));
+    var gap = Math.max(240, Math.min(520, Math.round(zms * 0.45)));
+    var big = 1 + 0.35 * Math.max(0, zms - 380) / 1420;
     meow(1.3); showBubble(mem.zoomHitEver ? 'Zoomies!' : 'Zoomies! Fang mich!', 1400);
     stage('out');
     var sides = ['left', 'top', 'right', 'bottom', 'left', 'right'];
@@ -832,8 +833,9 @@
     if (zoomHits > (mem.zoomBest || 0)) mem.zoomBest = zoomHits;
     if (zoomHits > 0) mem.zoomHitEver = true;
     var rate = zoomHits / sides.length;
-    if (zoomHits === 0) zms *= 1.2; else if (rate < 0.2) zms *= 1.1; else if (rate > 0.55) zms *= 0.82;
-    mem.zoomMs = Math.max(380, Math.min(1800, Math.round(zms)));
+    if (zoomHits === 0) { mem.zoomMiss = (mem.zoomMiss || 0) + 1; if (mem.zoomMiss >= 3) { zms *= 1.2; mem.zoomMiss = 0; } }
+    else { mem.zoomMiss = 0; if (rate > 0.55) zms *= 0.85; }
+    mem.zoomSpeed = Math.max(300, Math.min(1800, Math.round(zms)));
     persist();
     place('bottom', true); stage('pop'); wrap.classList.add('bk-happy'); hearts(6); sparks(4);
     var msg = 'Puh! Das war schön. Danke!';
