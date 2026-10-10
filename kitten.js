@@ -87,6 +87,9 @@
     if (!who || Math.random() > 0.4 || text.indexOf(who) >= 0 || !/[!.]$/.test(text) || text.length > 70) return text;
     return text.slice(0, -1) + ', ' + who + text.slice(-1);
   }
+  /* Vorstellungen im Album kosten Guthaben; Guthaben gibt es für gelöste Aufgaben (erster Versuch: richtig +3, falsch +1) */
+  function credit() { if (mem.credit == null) mem.credit = 5; return mem.credit; }
+  function earn(n) { if (!(n > 0)) return; mem.credit = credit() + n; persist(); if (window.__bkCredit) window.__bkCredit(); }
   function persist() { mem.touched = true; try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) { /* ignorieren */ } }
 
   /* ---------- Stile ---------- */
@@ -1074,12 +1077,18 @@
       'Hihi, das kitzelt! Aber Aufgaben lösen sich nicht selbst.',
       'Ich freue mich über Besuch, aber die nächste Aufgabe wartet schon!'
     ];
-    function sayNow() {
+    var CREDIT_SAYINGS = [
+      'Mein Vorrat an Vorstellungen ist leer. Löse eine Aufgabe, dann zeige ich Dir wieder etwas!',
+      'Kein Zauber ohne Arbeit! Für jede gelöste Aufgabe gibt es neue Vorstellungen.',
+      'Jetzt bist Du dran: Löse eine Aufgabe, dann komme ich wieder!'
+    ];
+    function sayNow(kind) {
       var box = body.querySelector('.bk-say'); if (!box) return;
-      var i; do { i = Math.floor(Math.random() * SAYINGS.length); } while (i === lastSay && SAYINGS.length > 1);
+      var pool = kind === 'credit' ? CREDIT_SAYINGS : SAYINGS;
+      var i; do { i = Math.floor(Math.random() * pool.length); } while (i === lastSay && pool.length > 1);
       lastSay = i;
       box.classList.remove('bk-on'); void box.offsetWidth;
-      box.textContent = SAYINGS[i] + ' ';
+      box.textContent = pool[i] + ' ';
       var nx = null;
       try { nx = window.BiberApp && window.BiberApp.nextTask ? window.BiberApp.nextTask() : null; } catch (e) { nx = null; }
       var go = document.createElement('a'); go.className = 'bk-say-go'; go.textContent = 'Auf die Arbeit!';
@@ -1092,13 +1101,20 @@
     /* Höchstens 5 Auftritte innerhalb von 90 Sekunden, danach ein netter Spruch statt weiterer Auftritte */
     function popSticker(li) {
       var now = Date.now();
+      if (credit() <= 0) { sayNow('credit'); return; }
       pops = pops.filter(function (t) { return now - t < 90000; });
       if (pops.length >= 5) { sayNow(); return; }
       pops.push(now);
+      mem.credit = credit() - 1; persist(); renderSub();
       li.classList.remove('bk-pop'); void li.offsetWidth; li.classList.add('bk-pop');
       setTimeout(function () { li.classList.remove('bk-pop'); }, 600);
       playFromAlbum(li.getAttribute('data-st'));
     }
+    function renderSub() {
+      if (albumTab !== 'sticker') return;
+      sub.textContent = nSt + ' von ' + totSt + ' Stickern gesammelt. Tippe einen Sticker an, dann zeigt Dir das Kätzchen die Vorstellung. Vorstellungen übrig: ' + credit() + '. Für jede richtig gelöste Aufgabe (erster Versuch) gibt es 3 neue, für jede andere beantwortete 1.';
+    }
+    window.__bkCredit = renderSub;
     function show(t) {
       albumTab = t;
       albumEl.querySelectorAll('.bk-tab').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.tab === t ? 'true' : 'false'); });
@@ -1106,7 +1122,7 @@
         sub.textContent = 'Geschenke vom Kätzchen für richtige Antworten im ersten Versuch (bisher ' + (mem.correct || 0) + ').';
         body.innerHTML = giftsHtml(have);
       } else {
-        sub.textContent = nSt + ' von ' + totSt + ' Stickern gesammelt. Sticker findest Du, wenn Du das Kätzchen besuchst, streichelst oder Überraschungen erlebst.';
+        renderSub();
         body.innerHTML = stickersHtml(have);
       }
     }
@@ -1128,7 +1144,7 @@
     function closeAlbum() {
       if (!albumEl) return;
       albumEl.remove(); albumEl = null; lbox = null; document.removeEventListener('keydown', onKey, true);
-      document.body.classList.remove('bk-albumopen');
+      document.body.classList.remove('bk-albumopen'); window.__bkCredit = null;
       if (albumFrom && albumFrom.focus) try { albumFrom.focus(); } catch (e) { /* ignorieren */ }
     }
     function onKey(e) {
@@ -1313,7 +1329,7 @@
       removeHidden(); announce();
       if (!mem.off) schedule(4000);
     },
-    stats: function () { return { seen: Object.keys(mem.stickers || {}).length, total: STICKERS.length, pets: mem.pets, enabled: !mem.off, muted: !!mem.mute, secrets: Object.keys(mem.secrets).length }; },
+    stats: function () { return { credit: credit(), seen: Object.keys(mem.stickers || {}).length, total: STICKERS.length, pets: mem.pets, enabled: !mem.off, muted: !!mem.mute, secrets: Object.keys(mem.secrets).length }; },
     actions: NAMES.slice()
   };
   window.BiberKitten = api;
@@ -1341,6 +1357,7 @@
     }, { passive: true });
     document.addEventListener('biber:result', function (e) {
       var d = (e && e.detail) || {};
+      if (d.counted !== false) earn(d.correct ? 3 : 1);
       if (mem.off) return;
       if (d.correct) {
         if (d.counted !== false) {
@@ -1350,6 +1367,7 @@
         api.cheer();
       } else api.comfort();
     });
+    document.addEventListener('biber:credit', function (e) { earn(((e && e.detail) || {}).n); });
     document.addEventListener('visibilitychange', function () { if (!document.hidden && !busy) schedule(); });
     schedule(CFG.first);
     announce();

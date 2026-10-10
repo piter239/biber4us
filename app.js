@@ -742,6 +742,7 @@
     if (store.results[id]) return false;
     store.results[id] = { correct: !!correct, answer: answer, at: new Date().toISOString() };
     save();
+    document.dispatchEvent(new CustomEvent('biber:credit', { detail: { n: correct ? 3 : 1 } }));
     return true;
   }
   window.BiberApp = {
