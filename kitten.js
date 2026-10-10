@@ -89,6 +89,13 @@
   }
   /* Vorstellungen im Album kosten Guthaben; Guthaben gibt es für gelöste Aufgaben (erster Versuch: richtig +3, falsch +1) */
   function credit() { if (mem.credit == null) mem.credit = 5; return mem.credit; }
+  /* Belohnung: Nach 8 gelösten Aufgaben (erster Versuch richtig) kündigt ein Sticker Besuch an, 7 weitere richtige Antworten später kommt Luna. */
+  var pendingFriend = null;
+  function friendCheck() {
+    var c = mem.correct || 0, st = mem.stickers || {};
+    if (!st['s:ahnung'] && c >= 8) { mem.annAt = c; unlock('s:ahnung'); pendingFriend = 'ann'; schedule(9000); }
+    else if (st['s:ahnung'] && !st['s:luna'] && c >= (mem.annAt || c) + 7) { mem.friend = true; unlock('s:luna'); pendingFriend = 'arrive'; schedule(9000); }
+  }
   function earn(n) { if (!(n > 0)) return; mem.credit = credit() + n; persist(); if (window.__bkCredit) window.__bkCredit(); }
   function persist() { mem.touched = true; try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) { /* ignorieren */ } }
 
@@ -96,6 +103,7 @@
   var CSS = [
     '.bk-wrap{position:fixed;z-index:2147483000;margin:0;padding:0;border:0;background:none;visibility:hidden;pointer-events:none;-webkit-tap-highlight-color:transparent;overflow:visible;font:inherit}',
     '.bk-wrap.bk-on{visibility:visible}',
+    '[data-acc] .bk-bow{display:none}',
     '.bk-wrap.bk-live{pointer-events:auto;cursor:pointer}',
     '.bk-wrap:focus-visible{outline:3px solid var(--focus,#0a86a6);outline-offset:4px;border-radius:12px}',
     '.bk-peek{position:absolute;inset:0;transition:transform .55s cubic-bezier(.3,1.4,.5,1);transform:translateY(100%)}',
@@ -335,6 +343,15 @@
     '@keyframes bk-lookup{0%,50%{transform:translate(0,-5px)}70%,100%{transform:none}}',
     '@keyframes bk-doze2{0%,55%,100%{transform:scaleY(1)}65%,90%{transform:scaleY(.07)}}',
     /* Tasse */
+    '.bk-bowl{position:absolute;left:22%;top:66%;width:56%;animation:bk-boxin .5s ease-out 1 backwards}',
+    '.bk-bowl svg{display:block;width:100%;height:auto}',
+    '.bk-a-eat .bk-head{animation:bk-eathead .5s ease-in-out 8}',
+    '.bk-a-eat .bk-mouthopen{animation:bk-chew .5s ease-in-out 8}',
+    '.bk-a-eat .bk-eye{animation:bk-squint 4s ease-in-out 1}',
+    '@keyframes bk-eathead{0%,100%{transform:translateY(0)}45%{transform:translateY(11px) rotate(2deg)}}',
+    '@keyframes bk-chew{0%,100%{opacity:0;transform:scaleY(.1)}40%,60%{opacity:1;transform:scaleY(.7)}}',
+    '.bk-crumb{position:absolute;width:5%;aspect-ratio:1;border-radius:50%;background:#b9763a;pointer-events:none;animation:bk-crumb .8s ease-out 1 forwards}',
+    '@keyframes bk-crumb{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--dx),24px)}}',
     '.bk-cup{position:absolute;left:62%;top:56%;width:26%;animation:bk-cupfall 3.4s ease-in 1 forwards}',
     '@keyframes bk-cupfall{0%,34%{transform:none}46%{transform:translateX(34%)}54%{transform:translateX(52%) rotate(8deg)}100%{transform:translate(90%,300%) rotate(150deg);opacity:0}}',
     '.bk-a-cup .bk-pawR{animation:bk-push .5s ease-in 1.1s 1}',
@@ -363,8 +380,18 @@
   var SIGN = '<svg viewBox="0 0 60 44" aria-hidden="true"><rect x="3" y="3" width="54" height="24" rx="4" fill="#fff6dc" stroke="#7a4a22" stroke-width="2.4"/><text x="30" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="11" fill="#b3261e">BESETZT</text><path d="M30 27v15" stroke="#7a4a22" stroke-width="3" stroke-linecap="round"/></svg>';
   var CARTON = '<svg viewBox="0 0 120 60" aria-hidden="true"><path d="M6 20h108l-6 38H12Z" fill="#c89a5b" stroke="#6b4420" stroke-width="3" stroke-linejoin="round"/><path d="M40 32h40" stroke="#6b4420" stroke-width="3" stroke-linecap="round" opacity=".5"/><rect x="2" y="13" width="116" height="9" rx="3" fill="#d9ab6d" stroke="#6b4420" stroke-width="3"/></svg>';
   var CUKE = '<svg viewBox="0 0 70 24" aria-hidden="true"><ellipse cx="35" cy="12" rx="32" ry="9.5" fill="#4caf50" stroke="#1b5e20" stroke-width="2.4"/><path d="M12 8h5M26 15h5M42 8h5M54 15h5" stroke="#2e7d32" stroke-width="2" stroke-linecap="round"/><path d="M7 9q8-4 14-2" stroke="#a5d6a7" stroke-width="2" fill="none"/></svg>';
+  var BOWL = '<svg viewBox="0 0 100 56" aria-hidden="true"><path d="M8 20h84c0 20-14 34-42 34S8 40 8 20Z" fill="#e05060" stroke="#7a2a3a" stroke-width="3" stroke-linejoin="round"/><ellipse cx="50" cy="20" rx="42" ry="9" fill="#c43c4e" stroke="#7a2a3a" stroke-width="3"/><g fill="#b9763a" stroke="#6b4420" stroke-width="1.6"><circle cx="26" cy="17" r="5"/><circle cx="38" cy="14" r="5"/><circle cx="52" cy="15" r="5"/><circle cx="65" cy="13" r="5"/><circle cx="76" cy="17" r="5"/><circle cx="46" cy="19" r="4.5"/><circle cx="60" cy="19" r="4.5"/></g><path d="M20 34q6 4 14 0M66 36q6 4 12 0" fill="none" stroke="#f7c8ce" stroke-width="2.6" stroke-linecap="round"/></svg>';
   var CUP = '<svg viewBox="0 0 44 46" aria-hidden="true"><path d="M6 10h24v22c0 6-5 10-12 10S6 38 6 32Z" fill="#fff" stroke="#4a2e1a" stroke-width="2.6" stroke-linejoin="round"/><path d="M30 16q11 2 11 10t-11 8" fill="none" stroke="#4a2e1a" stroke-width="2.6"/><path d="M6 17h24" stroke="#d93a3a" stroke-width="3"/><path d="M13 6q2-4 0-6M21 6q2-4 0-6" stroke="#9aa5ab" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
   var MOUSE = '<svg viewBox="0 0 60 36" aria-hidden="true"><ellipse cx="28" cy="22" rx="22" ry="12" fill="#b8c0c8" stroke="#4a5560" stroke-width="2.4"/><circle cx="46" cy="12" r="6.5" fill="#b8c0c8" stroke="#4a5560" stroke-width="2.4"/><circle cx="52" cy="22" r="2.4" fill="#f4a3b4"/><circle cx="41" cy="19" r="1.8" fill="#222"/><path d="M6 22c-6 0-8 6-2 8" fill="none" stroke="#4a5560" stroke-width="2.4" stroke-linecap="round"/></svg>';
+
+  /* Die Freundin des Kätzchens: Luna (weißgrau, blaue Augen, rosa Schleife) */
+  var LUNA = { '#f2a65a': '#e8e4dd', '#d9822b': '#a8a095', '#ffecd2': '#ffffff', '#7ec850': '#6fb3e0' };
+  function recolorLuna(str) { Object.keys(LUNA).forEach(function (k) { str = str.split(k).join(LUNA[k]); }); return str; }
+  var BOW = '<g class="bk-bow"><path d="M100 52L76 38Q71 52 76 66Z" fill="#ff6fa5" stroke="' + LINE + '" stroke-width="2.6" stroke-linejoin="round"/><path d="M100 52L124 38Q129 52 124 66Z" fill="#ff6fa5" stroke="' + LINE + '" stroke-width="2.6" stroke-linejoin="round"/><circle cx="100" cy="52" r="6.5" fill="#ff93bd" stroke="' + LINE + '" stroke-width="2.4"/></g>';
+  function friendSvg() {
+    var k = recolorLuna(kittenSvg()), i = k.lastIndexOf('</g></svg>');
+    return k.slice(0, i) + BOW + k.slice(i);
+  }
 
   /* Zubehör (nur eines ist sichtbar, gesteuert über data-acc) */
   var ACC =
@@ -462,6 +489,15 @@
       o.connect(g); g.connect(c.destination); o.start(s); o.stop(s + 0.22);
     });
   }
+  function munch() {
+    var c = audio(); if (!c) return;
+    var t = c.currentTime, len = Math.floor(c.sampleRate * 0.06), buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0);
+    for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+    var n = c.createBufferSource(); n.buffer = buf;
+    var f = c.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 1800; f.Q.value = 0.8;
+    var g = c.createGain(); g.gain.value = 0.28;
+    n.connect(f); f.connect(g); g.connect(c.destination); n.start(t);
+  }
   function trill() {
     var c = audio(); if (!c) return;
     var t = c.currentTime;
@@ -512,10 +548,40 @@
     document.body.appendChild(bubble);
     wrap.addEventListener('click', onPet);
   }
+  var fwrap = null, fpeek = null, friendOn = false;
+  function ensureFriend() {
+    if (fwrap) return;
+    fwrap = document.createElement('div');
+    fwrap.className = 'bk-wrap bk-friend' + (reduced ? ' bk-reduced' : '');
+    fwrap.setAttribute('aria-hidden', 'true');
+    fpeek = document.createElement('div'); fpeek.className = 'bk-peek';
+    fpeek.innerHTML = friendSvg();
+    fwrap.appendChild(fpeek);
+    document.body.appendChild(fwrap);
+  }
+  function hideFriend() {
+    friendOn = false;
+    if (!fwrap) return;
+    fwrap.classList.remove('bk-on', 'bk-happy');
+    fpeek.className = 'bk-peek';
+  }
+  function placeFriend(s, x, y, W, vw, vh) {
+    ensureFriend();
+    var off = W * 0.92, fx0 = x, fy0 = y;
+    if (s === 'bottom' || s === 'top') fx0 = x + (x + off + W / 2 < vw - 12 ? off : -off);
+    else fy0 = y + (y + off + W / 2 < vh - 80 ? off : -off);
+    fwrap.style.width = W + 'px'; fwrap.style.height = W + 'px';
+    fwrap.style.left = fx0 + 'px'; fwrap.style.top = fy0 + 'px';
+    fwrap.style.transform = 'translate(-50%,-50%) rotate(' + SIDE_ROT[s] + 'deg)';
+    fwrap.style.setProperty('--bk-sneak', '50%'); fwrap.style.setProperty('--bk-up', '17%');
+    fpeek.className = 'bk-peek';
+    fwrap.classList.add('bk-on');
+    friendOn = true;
+  }
 
   function size() { return window.innerWidth <= 520 ? 108 : 138; }
 
-  function place(s, keepAcc) {
+  function place(s, keepAcc, withFriend) {
     side = s;
     var W = size(), vw = window.innerWidth, vh = window.innerHeight, m = 24;
     wrap.style.width = W + 'px'; wrap.style.height = W + 'px';
@@ -532,6 +598,10 @@
     wrap.style.setProperty('--bk-sneak', '50%');
     wrap.style.setProperty('--bk-up', '17%');
     if (!keepAcc) setAcc();
+    if (withFriend) {
+      placeFriend(s, x, y, W, vw, vh);
+      if (curAcc) fwrap.setAttribute('data-acc', curAcc); else fwrap.removeAttribute('data-acc');
+    } else hideFriend();
   }
 
   function sleep(ms, t) {
@@ -540,6 +610,13 @@
   function stage(name) {
     peek.classList.remove('bk-sneak', 'bk-up', 'bk-pop', 'bk-out');
     if (name) peek.classList.add('bk-' + name);
+    if (friendOn && fpeek) {
+      setTimeout(function () {
+        if (!friendOn) return;
+        fpeek.classList.remove('bk-sneak', 'bk-up', 'bk-pop', 'bk-out');
+        if (name) fpeek.classList.add('bk-' + name);
+      }, 180);
+    }
   }
   function clearActions() {
     peek.className = peek.className.replace(/\bbk-a-\S+/g, '').replace(/\s+/g, ' ');
@@ -636,14 +713,23 @@
     knead: { ms: 4000, phrases: ['Ich backe Brot. Mit den Pfoten.', 'Tret, tret… Gleich ist der Teig fertig.'], run: function (t) { setTimeout(function () { if (t === tok) hearts(3); }, 1200); } },
     wish: { ms: 3700, phrases: ['Eine Sternschnuppe! Ich wünsche mir, dass Du alles schaffst.'],
       run: function (t) { addFx('', 'bk-shoot', '', 1700); setTimeout(function () { if (t === tok) sparks(4); }, 1500); } },
+    eat: { ms: 4600, phrases: ['Mmmh, lecker! Nom nom nom.', 'Futterzeit! Ein bisschen Pause tut auch Dir gut.', 'Knusper, knusper. Gleich bin ich wieder fit!'],
+      run: function (t) {
+        addFx(BOWL, 'bk-bowl', '', 4600);
+        for (var i = 0; i < 8; i++) (function (i) {
+          setTimeout(function () { if (t === tok) { munch(); addFx('', 'bk-crumb', 'left:' + Math.round(rnd(34, 62)) + '%;top:' + Math.round(rnd(62, 74)) + '%;--dx:' + Math.round(rnd(-22, 22)) + 'px', 900); } }, 500 + i * 500);
+        })(i);
+        setTimeout(function () { if (t === tok) hearts(2); }, 4200);
+      } },
     cup: { ms: 4000, script: function (t) {
       addFx(CUP, 'bk-cup', '', 3500);
       setTimeout(function () { if (t === tok) showBubble('Ups.', 1500); }, 2100);
       setTimeout(function () { if (t === tok) showBubble('War ich nicht.', 1900); }, 3200);
     } }
   };
-  var BASEW = { cuke: 0.5, wish: 0.6, cup: 0.7, litter: 0.8 };
+  var BASEW = { eat: 0.9, cuke: 0.5, wish: 0.6, cup: 0.7, litter: 0.8 };
   var NAMES = Object.keys(ACTIONS);
+  var FRIEND_SAY = ['Das ist Luna, meine Freundin!', 'Luna passt heute mit auf. Zu zweit macht Lernen mehr Spaß!', 'Luna sagt: Du schaffst das!', 'Wir beide glauben an Dich!', 'Luna kommt gern zu Besuch, wenn Du fleißig bist.']; 
   var REDUCED_OK = ['kiss', 'tilt', 'ear', 'wave', 'tail'];
 
   /* Tageszeit: abends gähnt und schläft das Kätzchen öfter, morgens streckt es sich. */
@@ -721,12 +807,13 @@
     busy = true; visible = true;
     clearTimeout(timer);
     var s = o.side || pick(['bottom', 'bottom', 'left', 'right', 'top']);
+    var withFriend = !!(mem.friend && (o.friend || Math.random() < 0.3));
     var name = o.action && ACTIONS[o.action] ? o.action : pickAction(reduced ? REDUCED_OK : NAMES);
     var a = ACTIONS[name];
     hideBubble(); clearActions();
     stage(null); peek.classList.add('bk-out'); peek.style.transition = 'none'; void peek.offsetWidth; peek.style.transition = '';
     peek.classList.remove('bk-out');
-    place(s);
+    place(s, false, withFriend);
     wrap.classList.add('bk-on', 'bk-live');
     wrap.tabIndex = 0;
     await sleep(60, t); if (t !== tok) return;
@@ -745,7 +832,8 @@
       act(name); note(name);
       if (a.run) a.run(t);
       if (a.script) a.script(t);
-      var text = o.text || (a.script ? null : textFor(name, o.kind));
+      var text = o.text || (a.script ? null : (withFriend && Math.random() < 0.6 ? pick(FRIEND_SAY) : textFor(name, o.kind)));
+      if (withFriend && Math.random() < 0.5) setTimeout(function () { if (t === tok) hearts(2); }, 1500);
       if (text) setTimeout(function () { if (t === tok) showBubble(text); }, Math.min(700, a.ms / 3));
       if (!await sleep(a.ms + (text ? 700 : 0), t)) return;
     }
@@ -758,6 +846,7 @@
     stage('out');
     if (!await sleep(550, t)) return;
     wrap.classList.remove('bk-on'); wrap.tabIndex = -1;
+    hideFriend();
     busy = false; visible = false;
     schedule();
   }
@@ -861,9 +950,15 @@
     if (mem.off) return;
     timer = setTimeout(function tick() {
       if (!canVisit()) { timer = setTimeout(tick, 5000); return; }
+      if (pendingFriend) {
+        var pf = pendingFriend; pendingFriend = null;
+        if (pf === 'ann') visit({ action: 'wave', text: 'Psst… Bald bekomme ich Besuch von einer Freundin! Löse weiter Aufgaben, dann kommt sie.' });
+        else visit({ action: 'kiss', friend: true, text: 'Das ist Luna, meine Freundin! Danke, dass Du so fleißig löst!' });
+        return;
+      }
       var idle = Date.now() - lastActivity > 75000;
       visit(idle ? { kind: 'hard', action: pick(['tilt', 'wave', 'kiss', 'tail']) } : {});
-    }, delay != null ? delay : rnd(CFG.min, CFG.max));
+    }, delay != null ? delay : (pendingFriend ? 6000 : rnd(CFG.min, CFG.max)));
   }
 
   /* ---------- Blick folgt dem Mauszeiger ---------- */
@@ -915,9 +1010,9 @@
     ['a:peekaboo', 'Kuckuck', 'Weg und wieder da.'], ['a:sneeze', 'Niesen', 'Hatschi!'], ['a:stretch', 'Strecken', 'Aaah, das tut gut.'],
     ['a:litter', 'Katzenklo', 'Bitte nicht stören!'], ['a:carton', 'Karton', 'Wenn es passt, dann sitzt es.'], ['a:laser', 'Roter Punkt', 'Wo ist er hin?'],
     ['a:cuke', 'Gurke', 'Huch!'], ['a:soap', 'Seifenblasen', 'Plopp!'], ['a:knead', 'Milchtritt', 'Brot backen mit den Pfoten.'],
-    ['a:wish', 'Sternschnuppe', 'Ein Wunsch für Dich.'], ['a:cup', 'Tasse', 'Ups.'],
+    ['a:wish', 'Sternschnuppe', 'Ein Wunsch für Dich.'], ['a:cup', 'Tasse', 'Ups.'], ['a:eat', 'Futterzeit', 'Nom nom nom.'],
     ['s:confetti', 'Konfetti', 'Fünf richtige Antworten in Folge.'], ['s:rufen', 'Gerufen', 'Man munkelt: Miau tippen.'],
-    ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:treffer', 'Treffer', 'Ein Zoomies-Kätzchen im Flug getroffen.'], ['s:meister', 'Zoomies-Meister', 'Drei Zoomies-Kätzchen in einem Durchgang getroffen.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
+    ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:ahnung', 'Besuch angekündigt', 'Man munkelt: Das Kätzchen bekommt bald Besuch.'], ['s:luna', 'Luna', 'Die Freundin des Kätzchens. Sie kommt, wenn Du fleißig löst.'], ['s:treffer', 'Treffer', 'Ein Zoomies-Kätzchen im Flug getroffen.'], ['s:meister', 'Zoomies-Meister', 'Drei Zoomies-Kätzchen in einem Durchgang getroffen.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
     ['h:xmas', 'Weihnachtsmütze', 'Ho ho ho!'], ['h:silvester', 'Partyhut', 'Prosit Neujahr!'], ['h:halloween', 'Kürbishut', 'Buh!'], ['h:ostern', 'Blumenkranz', 'Frühlingsgefühle.'], ['h:sommer', 'Sonnenbrille', 'Cool bleiben.'],
     ['x:end']
   ].filter(function (x) { return x[0] !== 'x:end'; }).concat(GIFTS.map(function (g, i) { return ['g:' + g.id, g.name, 'Geschenk Nr. ' + (i + 1) + ' vom Kätzchen.']; }));
@@ -945,9 +1040,11 @@
     'a:soap': { svg: '<circle cx="150" cy="30" r="14" fill="none" stroke="#7cc4f0" stroke-width="3"/><circle cx="174" cy="66" r="9" fill="none" stroke="#7cc4f0" stroke-width="3"/><circle cx="30" cy="40" r="11" fill="none" stroke="#7cc4f0" stroke-width="3"/>' },
     'a:knead': { cls: 'bk-happy', svg: '<ellipse cx="64" cy="140" rx="18" ry="12" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/><ellipse cx="136" cy="140" rx="18" ry="12" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3"/>' },
     'a:wish': { svg: '<path d="M176 4l-52 34" stroke="#f2c230" stroke-width="6" stroke-linecap="round"/><polygon points="120,40 126,32 134,38 126,44" fill="#f2c230"/>' },
+    'a:eat': { cls: 'bk-happy', svg: '<g transform="translate(40 116) scale(1.1)">' + BOWL.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
     'a:cup': { svg: '<g transform="translate(120 96) scale(1.1)">' + CUP.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
     's:confetti': { svg: '<rect x="20" y="14" width="10" height="16" fill="#e05060" transform="rotate(20 25 22)"/><rect x="150" y="10" width="10" height="16" fill="#4a9ad9" transform="rotate(-30 155 18)"/><rect x="170" y="70" width="10" height="16" fill="#f2c230" transform="rotate(50 175 78)"/><rect x="10" y="80" width="10" height="16" fill="#4caf50" transform="rotate(-20 15 88)"/><rect x="100" y="4" width="10" height="16" fill="#b794f4" transform="rotate(35 105 12)"/>' },
     's:rufen': { svg: '<text x="116" y="30" font-family="system-ui,sans-serif" font-weight="800" font-size="28" fill="#0a86a6">Miau?</text>' },
+    's:ahnung': { svg: '<text x="128" y="40" font-family="system-ui,sans-serif" font-weight="800" font-size="34" fill="#0a86a6">Psst…</text><path d="M168 78l8 0M172 74v8" stroke="#e05060" stroke-width="4" stroke-linecap="round"/>' },
     's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
     's:treffer': { cls: 'bk-happy', svg: '<g transform="translate(116 8)"><circle cx="30" cy="30" r="28" fill="#fff" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="17" fill="none" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="6" fill="#e05060"/></g>' },
     's:meister': { cls: 'bk-happy', svg: '<g transform="translate(112 4) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g><path d="M4 60h36M0 84h44" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
@@ -956,6 +1053,10 @@
   function stickerSvg(id) {
     var kind = id.split(':')[0], key = id.split(':')[1], pr = PROPS[id] || {};
     if (id === 's:hidden') return hidSvg(90);
+    if (id === 's:luna') {
+      var lh = recolorLuna(HEADG), li = lh.lastIndexOf('</g>');
+      return '<svg viewBox="10 -8 190 168" aria-hidden="true" class="bk-happy"><g>' + lh + BOW + '</g><g transform="translate(150 6) scale(1.2)">' + HEART.replace(/^<svg[^>]*>/, '<g color="#ef5d7a">').replace('</svg>', '</g>') + '</g></svg>';
+    }
     if (kind === 'g') {
       var gg = GIFTS.filter(function (x) { return x.id === key; })[0];
       pr = { svg: '<g transform="translate(78 104) scale(1.45)">' + gg.svg.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' };
@@ -997,6 +1098,8 @@
     var kind = id.slice(0, 2), key = id.slice(2), sd = pick(['bottom', 'left', 'right']);
     if (kind === 'a:' && ACTIONS[key]) { visit({ action: key, side: sd, text: ACTIONS[key].phrases ? pick(ACTIONS[key].phrases) : undefined }); return; }
     if (kind === 'h:') { forceAcc = key; visit({ action: pick(['wave', 'tilt', 'kiss']), side: sd, text: HAT_SAY[key] || 'Schau mal!' }); return; }
+    if (id === 's:luna') { visit({ action: 'kiss', side: sd, friend: true, text: 'Das ist Luna, meine Freundin!' }); return; }
+    if (id === 's:ahnung') { visit({ action: 'wave', side: sd, text: 'Psst… Bald bekomme ich Besuch!' }); return; }
     if (id === 's:confetti') { visit({ action: 'wave', side: sd, text: 'Konfetti!' }); setTimeout(confetti, 1600); return; }
     if (id === 's:zoomies' || id === 's:treffer' || id === 's:meister') {
       var t = ++tok; busy = true; visible = true; clearTimeout(timer); hideBubble();
@@ -1306,7 +1409,7 @@
     },
     setEnabled: function (on) {
       mem.off = !on; persist();
-      if (!on) { tok++; clearTimeout(timer); hideBubble(); if (wrap) { wrap.classList.remove('bk-on', 'bk-live'); } busy = false; visible = false; }
+      if (!on) { tok++; clearTimeout(timer); hideBubble(); hideFriend(); if (wrap) { wrap.classList.remove('bk-on', 'bk-live'); } busy = false; visible = false; }
       else schedule(1500);
       announce();
     },
@@ -1317,7 +1420,7 @@
       on = !!on;
       if (on === paused) return;
       paused = on;
-      if (on) { tok++; clearTimeout(timer); hideBubble(); if (wrap) wrap.classList.remove('bk-on', 'bk-live'); busy = false; visible = false; }
+      if (on) { tok++; clearTimeout(timer); hideBubble(); hideFriend(); if (wrap) wrap.classList.remove('bk-on', 'bk-live'); busy = false; visible = false; }
       else if (!mem.off) schedule(4000);
     },
     reload: function () { mem = loadMem(); announce(); },
@@ -1363,7 +1466,7 @@
       if (mem.off) return;
       if (d.correct) {
         if (d.counted !== false) {
-          mem.correct = (mem.correct || 0) + 1; persist();
+          mem.correct = (mem.correct || 0) + 1; persist(); friendCheck();
           if (mem.correct >= mem.giftNext) { streak++; gift(); return; }
         }
         api.cheer();
