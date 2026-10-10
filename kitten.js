@@ -235,6 +235,9 @@
     '.bk-st{position:relative}',
     '.bk-say{margin:.2rem 0 .7rem;padding:.55rem .8rem;border-radius:12px;background:color-mix(in srgb,var(--accent,#0a86a6) 12%,var(--surface,#fff));border:2px solid var(--accent,#0a86a6);font-weight:700;display:none}',
     '.bk-say.bk-on{display:block;animation:bk-saypop .35s ease-out 1}',
+    '.bk-say-go{display:inline-block;margin-left:.3rem;padding:.2rem .8rem;border-radius:999px;background:var(--accent,#0a86a6);color:#fff;text-decoration:none;font-weight:800;white-space:nowrap}',
+    '.bk-say-go:hover{filter:brightness(1.1)}',
+    '.bk-say-go:focus-visible{outline:3px solid var(--focus,#0a86a6);outline-offset:2px}',
     '@keyframes bk-saypop{0%{opacity:0;transform:translateY(-6px)}100%{opacity:1;transform:none}}',
     '@media (prefers-reduced-motion:reduce){.bk-st.bk-pop svg,.bk-st .bk-spark,.bk-say.bk-on{animation:none}}',
     '.bk-tabs{display:flex;gap:.4rem;margin:0 0 .9rem;flex-wrap:wrap}',
@@ -804,21 +807,31 @@
     clearActions();
     if (!mem.secrets.zoomies) { mem.secrets.zoomies = true; persist(); }
     unlock('s:zoomies');
-    meow(1.3); showBubble('Zoomies!', 1400);
+    /* Adaptives Tempo: Wer wenig trifft, bekommt längere Auftritte und ein größeres Ziel; wer viel trifft, wird schneller. */
+    var zms = Math.max(380, Math.min(1800, mem.zoomMs || 1200));
+    var gap = Math.max(260, Math.min(520, Math.round(zms * 0.45)));
+    var big = 1 + 0.35 * (zms - 380) / 1420;
+    meow(1.3); showBubble(mem.zoomHitEver ? 'Zoomies!' : 'Zoomies! Fang mich!', 1400);
     stage('out');
-    if (!await sleep(500, t)) return;
     var sides = ['left', 'top', 'right', 'bottom', 'left', 'right'];
-    zoomOn = true; zoomHits = 0;
+    zoomOn = true; zoomCan = false; zoomHits = 0;   /* ab hier zählen Klicks nur noch als Treffer, sie starten die Zoomies nicht neu */
     try {
+      if (!await sleep(500, t)) return;
       for (var i = 0; i < sides.length; i++) {
         place(sides[i], true); clearActions(); zoomHitDone = false;
+        if (big > 1.02) { var wpx = parseFloat(wrap.style.width) * big; wrap.style.width = wpx + 'px'; wrap.style.height = wpx + 'px'; }
         wrap.classList.add('bk-happy'); stage('sneak'); void peek.offsetWidth; stage('pop'); zoomCan = true;
-        if (!await sleep(380, t)) return;
+        if (!await sleep(zms, t)) return;
         zoomCan = false; stage('out');
-        if (!await sleep(260, t)) return;
+        if (!await sleep(gap, t)) return;
       }
     } finally { zoomOn = false; zoomCan = false; }
-    if (zoomHits > (mem.zoomBest || 0)) { mem.zoomBest = zoomHits; persist(); }
+    if (zoomHits > (mem.zoomBest || 0)) mem.zoomBest = zoomHits;
+    if (zoomHits > 0) mem.zoomHitEver = true;
+    var rate = zoomHits / sides.length;
+    if (zoomHits === 0) zms *= 1.2; else if (rate < 0.2) zms *= 1.1; else if (rate > 0.55) zms *= 0.82;
+    mem.zoomMs = Math.max(380, Math.min(1800, Math.round(zms)));
+    persist();
     place('bottom', true); stage('pop'); wrap.classList.add('bk-happy'); hearts(6); sparks(4);
     var msg = 'Puh! Das war schön. Danke!';
     if (zoomHits >= 3) { hitSound(true); confetti(); msg = zoomHits === sides.length ? 'Alle ' + zoomHits + ' getroffen! Unglaublich schnell!' : zoomHits + ' von ' + sides.length + ' getroffen! Du bist ein Zoomies-Meister!'; }
@@ -1066,8 +1079,15 @@
       var i; do { i = Math.floor(Math.random() * SAYINGS.length); } while (i === lastSay && SAYINGS.length > 1);
       lastSay = i;
       box.classList.remove('bk-on'); void box.offsetWidth;
-      box.textContent = SAYINGS[i]; box.classList.add('bk-on');
-      clearTimeout(sayT); sayT = setTimeout(function () { box.classList.remove('bk-on'); }, 5200);
+      box.textContent = SAYINGS[i] + ' ';
+      var nx = null;
+      try { nx = window.BiberApp && window.BiberApp.nextTask ? window.BiberApp.nextTask() : null; } catch (e) { nx = null; }
+      var go = document.createElement('a'); go.className = 'bk-say-go'; go.textContent = 'Auf die Arbeit!';
+      go.href = nx ? '#' + nx.id : '#';
+      if (nx) go.title = 'Weiter mit: ' + nx.title;
+      go.addEventListener('click', function () { closeAlbum(); });
+      box.appendChild(go); box.classList.add('bk-on');
+      clearTimeout(sayT); sayT = setTimeout(function () { box.classList.remove('bk-on'); }, 9000);
     }
     /* Höchstens 5 Auftritte innerhalb von 90 Sekunden, danach ein netter Spruch statt weiterer Auftritte */
     function popSticker(li) {

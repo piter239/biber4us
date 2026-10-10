@@ -749,7 +749,8 @@
     profile: function () { return profile(); }, save: function () { save(); }, route: function () { route(); },
     abilityOf: function (p) { return abilityOf(p); }, taskD: function (t) { return taskD(t); }, areaOf: function (t) { return areaOf(t); },
     isReady: function (t) { return isReady(t); }, esc: esc, pts: pts, recordResult: recordResult,
-    registerPage: function (name, fn) { pages[name] = fn; }
+    registerPage: function (name, fn) { pages[name] = fn; },
+    nextTask: function () { var r = recommend(profile()).items[0]; return r ? { id: r.task.id, title: r.task.title } : null; }
   };
   function route() {
     var h = (location.hash || '').replace(/^#/, '');
