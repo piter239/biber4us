@@ -551,6 +551,8 @@
     bubble = document.createElement('div'); bubble.className = 'bk-bubble'; bubble.setAttribute('aria-hidden', 'true');
     document.body.appendChild(bubble);
     wrap.addEventListener('click', onPet);
+    /* Zoomies: schon beim Drücken zählen (ein Klick geht verloren, wenn das Kätzchen zwischen Drücken und Loslassen springt) */
+    wrap.addEventListener('pointerdown', function (e) { if (zoomOn) { e.stopPropagation(); zoomTap(); } });
   }
   var fwrap = null, fpeek = null, friendOn = false;
   function ensureFriend() {
@@ -857,7 +859,13 @@
   }
 
   /* ---------- Streicheln ---------- */
-  var zoomOn = false, zoomCan = false, zoomHitDone = false, zoomHits = 0;
+  var zoomOn = false, zoomCan = false, zoomHitDone = false, zoomHits = 0, zoomIdx = 0, zoomT0 = 0;
+  /* Jeder Tipp auf das Kätzchen während der Zoomies wird protokolliert: k.zc <Auftritt> <ms seit Erscheinen> <hit|again|intro|late> */
+  function zoomTap() {
+    var st = zoomHitDone ? 'again' : (zoomCan ? 'hit' : (zoomIdx ? 'late' : 'intro'));
+    T('k.zc', zoomIdx, zoomIdx ? Date.now() - zoomT0 : 0, st);
+    if (zoomCan) zoomHit();
+  }
   function zoomHit() {
     if (zoomHitDone) return;
     zoomHitDone = true; zoomHits++; T('k.zhit', zoomHits);
@@ -871,7 +879,7 @@
   }
   function onPet(e) {
     if (e) e.stopPropagation();
-    if (zoomOn) { if (zoomCan) zoomHit(); return; }
+    if (zoomOn) return;
     var t = ++tok;
     var now = Date.now();
     petCount = now - lastPet < 1600 ? petCount + 1 : 1; lastPet = now;
@@ -913,18 +921,20 @@
     meow(1.3); showBubble(mem.zoomHitEver ? 'Zoomies!' : 'Zoomies! Fang mich!', 1400);
     stage('out');
     var sides = ['left', 'top', 'right', 'bottom', 'left', 'right'];
-    zoomOn = true; zoomCan = false; zoomHits = 0;   /* ab hier zählen Klicks nur noch als Treffer, sie starten die Zoomies nicht neu */
+    zoomOn = true; zoomCan = false; zoomHits = 0; zoomIdx = 0;   /* ab hier zählen Klicks nur noch als Treffer, sie starten die Zoomies nicht neu */
     try {
       if (!await sleep(500, t)) return;
       for (var i = 0; i < sides.length; i++) {
         place(sides[i], true); clearActions(); zoomHitDone = false;
         if (big > 1.02) { var wpx = parseFloat(wrap.style.width) * big; wrap.style.width = wpx + 'px'; wrap.style.height = wpx + 'px'; }
+        peek.style.transitionDuration = '.2s';   /* schnell hinein und hinaus, damit man das Kätzchen rechtzeitig sieht */
         wrap.classList.add('bk-happy'); stage('sneak'); void peek.offsetWidth; stage('pop'); zoomCan = true;
+        zoomIdx = i + 1; zoomT0 = Date.now(); T('k.za', zoomIdx, sides[i]);
         if (!await sleep(zms, t)) return;
-        zoomCan = false; stage('out');
+        stage('out');                      /* zoomCan bleibt bis zum nächsten Auftritt an: das Kätzchen ist beim Abtauchen noch zu sehen */
         if (!await sleep(gap, t)) return;
       }
-    } finally { zoomOn = false; zoomCan = false; }
+    } finally { zoomOn = false; zoomCan = false; peek.style.transitionDuration = ''; }
     if (zoomHits > (mem.zoomBest || 0)) mem.zoomBest = zoomHits;
     if (zoomHits > 0) mem.zoomHitEver = true;
     var rate = zoomHits / sides.length;

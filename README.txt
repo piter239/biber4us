@@ -33,3 +33,6 @@ abschnittsweise (300 Zeilen) als Dokumente logs/<Konto-Id>/c/<Sitzung>_<Nr> an d
 logs/{self} lesen/schreiben = interact). Die Eltern (Owner/Editoren) lesen alles. Auswertung: tools/decode_log.py.
 Gespeichert werden Klicks (mit Position in Promille), Seitenwechsel, Aufgabenstart/-ende/-antworten, Probelauf, Katzen-Ereignisse,
 Leerlauf und Sichtbarkeit. Keine Mausbewegungen, keine getippten Texte. Codes siehe Kopf von track.js.
+
+protokoll.js zeigt das Protokoll auf der Seite "Familie" (nur Besitzer/Editoren): je Sitzung eine Zeile mit Zusammenfassung, aufklappbar der Ablauf.
+Zoomies: k.za = Auftritt, k.zc = jeder Tipp (Auftritt, ms seit Erscheinen, hit|again|late|intro), k.zhit = Treffer, k.zend = Ende.

@@ -2,9 +2,19 @@
 Aufruf:  python3 tools/decode_log.py <Ordner mit JSON-Dateien oder eine JSON-Datei> [> ausgabe.tsv]
 Die JSON-Dateien kommen z. B. aus  ArtifactData list/get ... out_dir=<Ordner>  (je Dokument eine Datei; das Feld "data"
 oder das Dokument selbst muss die Felder p, w, d, h, s, n, b, t enthalten).
-Ausgabe (tab-getrennt): Zeit (ISO, lokal UTC), Person (w), Gerät (d), Sitzung (s), Abschnitt, Code, Felder ...
+Ausgabe (tab-getrennt): Zeit (ISO, Europe/Berlin), Person (w), Gerät (d), Sitzung (s), Abschnitt, Code, Felder ...
 Mit --summary gibt es stattdessen eine kurze Zusammenfassung je Sitzung (Dauer, Aufgaben, Katzen-Ereignisse)."""
 import json, os, sys, datetime, collections, urllib.parse
+try:
+    from zoneinfo import ZoneInfo
+    TZ = ZoneInfo('Europe/Berlin')
+except Exception:
+    TZ = datetime.timezone.utc
+
+
+def lt(ms):
+    return datetime.datetime.fromtimestamp(ms / 1000, TZ)
+
 
 
 def docs(path):
@@ -44,7 +54,7 @@ def main():
     rows.sort(key=lambda r: (r[3], r[0]))
     if not summary:
         for t, w, dev, s, n, code, f in rows:
-            iso = datetime.datetime.utcfromtimestamp(t / 1000).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+            iso = lt(t).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
             print('\t'.join([iso, w, dev, s, str(n), code] + f))
         return
     by = collections.defaultdict(list)
@@ -57,7 +67,7 @@ def main():
         right = sum(1 for r in tasks if r[6][1] == '1')
         cat = sum(v for k, v in cnt.items() if k.startswith('k.'))
         print('%s  %s  %s  Dauer %d min  Ereignisse %d  Aufgaben geprüft %d (richtig %d)  Katzen-Ereignisse %d  Klicks %d' % (
-            datetime.datetime.utcfromtimestamp(t0 / 1000).strftime('%Y-%m-%d %H:%M'), rs[0][1], rs[0][2], round((t1 - t0) / 60000), len(rs), len(tasks), right, cat, cnt.get('c', 0)))
+            lt(t0).strftime('%Y-%m-%d %H:%M'), rs[0][1], rs[0][2], round((t1 - t0) / 60000), len(rs), len(tasks), right, cat, cnt.get('c', 0)))
 
 
 main()

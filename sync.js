@@ -91,6 +91,12 @@ window.BiberSync = (function () {
     var snap = await S.db.collection('progress').get();
     return snap.docs.map(function (d) { return { uid: d.id, data: d.data() || {} }; });
   }
+  /* Aktivitätsprotokoll eines Kontos (nur Besitzer und Editoren) */
+  async function listLogs(uid) {
+    if (!S.db) return [];
+    var snap = await S.db.collection('logs/' + uid + '/c').get();
+    return snap.docs.map(function (d) { var x = d.data() || {}; x.id = d.id; return x; });
+  }
   async function names(ids) {
     if (!S.user || !ids.length) return {};
     try { return await S.user.profiles(ids); } catch (e) { return {}; }
@@ -108,6 +114,7 @@ window.BiberSync = (function () {
     schedule: schedule,
     onStatus: onStatus,
     listAll: listAll,
+    listLogs: listLogs,
     names: names,
     state: function () { return S.state; },
     canAdmin: function () { return S.canAdmin; },

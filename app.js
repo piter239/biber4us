@@ -732,6 +732,11 @@
       body.innerHTML = cards.length ? '<div class="fam-grid">' + cards.join('') + '</div>' +
         '<p class="note">Die Ergebnisse stammen aus den Konten der Besucher, die die Seite mit Schreibrecht geöffnet haben.</p>'
         : '<p class="note">Noch keine gespeicherten Profile.</p>';
+      if (window.BiberProtokoll) {
+        var host = document.createElement('section'); host.className = 'log-sec'; body.appendChild(host);
+        var titles = {}; TASKS.forEach(function (t) { if (t.id) titles[t.id] = t.title; });
+        window.BiberProtokoll.render(host, r.docs.map(function (d) { return d.uid; }), r.nm, titles);
+      }
     }).catch(function () {
       var body = document.getElementById('famBody');
       if (body) body.innerHTML = '<p class="note">Die Übersicht konnte nicht geladen werden.</p>';

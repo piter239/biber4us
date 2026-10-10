@@ -333,3 +333,11 @@ table.res { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-widt
   .run-timer { font-size: 1.6rem; }
 }
 .log-note { margin: 0.4rem 0 0; font-size: 0.8rem; color: var(--muted); }
+
+/* Aktivitätsprotokoll (Familie) */
+.log-sec{margin-top:2rem}
+.log-ses{border:1px solid var(--line,#d7e0e3);border-radius:10px;margin:.5rem 0;padding:.5rem .8rem;background:var(--surface,#fff)}
+.log-ses summary{cursor:pointer;line-height:1.4}
+.log-tab{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:.5rem}
+.log-tab td{padding:.12rem .4rem;vertical-align:top;border-top:1px solid var(--line,#e6ecee)}
+.log-tab td:first-child{white-space:nowrap;color:var(--muted,#5b6b72);font-variant-numeric:tabular-nums}
