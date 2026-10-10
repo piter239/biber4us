@@ -371,3 +371,7 @@ table.res { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-widt
 @keyframes hf-pulse { 50% { transform: scale(1.08); } }
 @media (prefers-reduced-motion: reduce) { .hf-tafel.hf-in-anim, .hf-mic.on { animation: none; } }
 @media (max-width: 520px) { .hf-tafel { right: 8px; left: 8px; width: auto; bottom: 8px; } }
+
+.hf-voice { max-width: 9.5rem; background: transparent; color: inherit; border: 1px solid rgba(244, 241, 230, .45); border-radius: 8px; font: inherit; font-size: .78rem; padding: .2rem .3rem; }
+.hf-voice[hidden] { display: none; }
+.hf-voice option { color: #1d2b27; }

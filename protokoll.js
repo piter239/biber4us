@@ -51,6 +51,8 @@ window.BiberProtokoll = (function () {
       case 'h.cat': return 'Katze antwortet (' + (a[1] === 'ai' ? 'Claude' : 'feste Frage') + ', ' + esc(a[2]) + ' Zeichen, ' + esc(a[3]) + ' ms): <i>„' + esc(a[4] || '') + '“</i>';
       case 'h.close': return 'Tafel geschlossen: ' + esc(a[1]) + ' nach ' + esc(a[2]) + ' s';
       case 'h.mic': return 'Mikrofon: ' + esc(a.join(' '));
+      case 'h.voices': return 'Stimmen im Browser: ' + esc(a[0]) + ' insgesamt, deutsch: ' + esc(a[1] || 'keine');
+      case 'h.voice': return 'Stimme gewählt: ' + esc(a[0]);
       case 'h.read': return 'Aufgabe vorlesen lassen';
       case 'h.err': return 'Hilfe-Fehler: ' + esc(a[0]);
       case 'k.pet': return 'Kätzchen gestreichelt (' + esc(a[0]) + ')';

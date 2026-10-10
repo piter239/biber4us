@@ -20,6 +20,12 @@ window.BiberHelper = (function () {
   var el = null, logEl = null, inp = null, micBtn = null, ttsBtn = null, open = false, taskId = '', autoTimer = 0;
   var turns = [], busy = false, rung = 0, ttsOn = true, aiOff = false, sampleFn, rec = null, listening = false, openedAt = 0, replied = false;
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  /* In eingebetteten Seiten ist das Mikrofon oft per Richtlinie gesperrt (dann kommt "not-allowed"): Knopf gar nicht erst zeigen */
+  var micPolicy = true;
+  try { var pp = document.permissionsPolicy || document.featurePolicy; if (pp && pp.allowsFeature) micPolicy = pp.allowsFeature('microphone'); } catch (e) { micPolicy = true; }
+  var VOICE_KEY = 'biber.voice';
+  function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { window.localStorage.setItem(k, v); } catch (e) { /* ignorieren */ } }
 
   ['pointerdown', 'keydown', 'touchstart'].forEach(function (n) { document.addEventListener(n, function () { lastInput = Date.now(); }, true); });
   var mv = 0;
@@ -50,6 +56,7 @@ window.BiberHelper = (function () {
     el.className = 'hf-tafel'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Die Katze hilft'); el.hidden = true;
     el.innerHTML =
       '<div class="hf-head"><span class="hf-cat">' + HEAD + '</span><b>Kann ich mitmachen?</b>' +
+      '<select class="hf-voice" aria-label="Stimme zum Vorlesen" hidden></select>' +
       '<button type="button" class="hf-ic" data-hf="tts" aria-label="Vorlesen an oder aus" aria-pressed="true">' + SPK + '</button>' +
       '<button type="button" class="hf-ic" data-hf="x" aria-label="Schließen">×</button></div>' +
       '<div class="hf-log" aria-live="polite"></div>' +
@@ -59,8 +66,13 @@ window.BiberHelper = (function () {
       '<button type="button" class="hf-mic" data-hf="mic" aria-label="Sprechen">' + MIC + '</button><button type="submit" class="hf-send">Senden</button></form>';
     document.body.appendChild(el);
     logEl = el.querySelector('.hf-log'); inp = el.querySelector('input'); micBtn = el.querySelector('.hf-mic'); ttsBtn = el.querySelector('[data-hf=tts]');
-    if (!SR) micBtn.hidden = true;
-    if (!window.speechSynthesis) ttsBtn.hidden = true;
+    if (!SR || !micPolicy) micBtn.hidden = true;
+    T('h.mic', 'policy', micPolicy ? 1 : 0);
+    if (!window.speechSynthesis) ttsBtn.hidden = true; else { fillVoices(); try { window.speechSynthesis.addEventListener('voiceschanged', fillVoices); } catch (e) { /* ignorieren */ } }
+    el.querySelector('.hf-voice').addEventListener('change', function () {
+      lsSet(VOICE_KEY, this.value); T('h.voice', this.value || 'auto');
+      speak('Hallo, ich bin die Katze. So klinge ich jetzt.');
+    });
     el.addEventListener('click', function (e) {
       var b = e.target.closest('[data-hf]'); if (!b) return;
       var k = b.dataset.hf;
@@ -82,14 +94,32 @@ window.BiberHelper = (function () {
 
   /* ---------- Sprache ---------- */
   function stopSpeak() { try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) { /* ignorieren */ } }
+  /* Stimme: Der Browser wählt von selbst eine zur Sprache passende (lang = de-DE). Nur wenn jemand in der Liste eine bestimmte
+     deutsche Stimme wählt, wird sie benutzt. Früher wurde automatisch die erste deutsche Stimme genommen; auf manchen Rechnern
+     war das eine Stimme, die deutschen Text wie Englisch las. */
+  function germanVoices() {
+    try { return window.speechSynthesis.getVoices().filter(function (v) { return /^de([-_]|$)/i.test(v.lang); }); } catch (e) { return []; }
+  }
+  var voicesLogged = false;
+  function fillVoices() {
+    var sel = el && el.querySelector('.hf-voice'); if (!sel) return;
+    var vs = germanVoices(), saved = lsGet(VOICE_KEY) || '';
+    if (!voicesLogged && window.speechSynthesis.getVoices().length) {
+      voicesLogged = true;
+      T('h.voices', window.speechSynthesis.getVoices().length, vs.slice(0, 6).map(function (v) { return v.name + '/' + v.lang; }).join(','));
+    }
+    sel.innerHTML = '<option value="">Stimme: automatisch</option>' + vs.map(function (v) { return '<option value="' + esc(v.name) + '">' + esc(v.name) + '</option>'; }).join('');
+    sel.value = vs.some(function (v) { return v.name === saved; }) ? saved : '';
+    sel.hidden = vs.length < 2;
+  }
   function speak(text) {
     if (!ttsOn || !window.speechSynthesis) return;
     try {
       var K = window.BiberKitten; if (K && K.stats && K.stats().muted) return;
       stopSpeak();
-      var u = new SpeechSynthesisUtterance(text); u.lang = 'de-DE'; u.rate = 0.95; u.pitch = 1.25;
-      var vs = window.speechSynthesis.getVoices().filter(function (v) { return /^de/i.test(v.lang); });
-      if (vs.length) u.voice = vs[0];
+      var u = new SpeechSynthesisUtterance(text); u.lang = 'de-DE'; u.rate = 1; u.pitch = 1;
+      var want = lsGet(VOICE_KEY);
+      if (want) { var v = germanVoices().filter(function (x) { return x.name === want; })[0]; if (v) u.voice = v; }
       window.speechSynthesis.speak(u);
     } catch (e) { /* ignorieren */ }
   }
