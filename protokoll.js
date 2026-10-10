@@ -47,8 +47,8 @@ window.BiberProtokoll = (function () {
       case 'rs': return 'Fenstergröße ' + esc(a[0]);
       case 'k.v': return 'Kätzchen kommt (' + esc(a[0]) + ', von ' + esc(a[1]) + (a[2] === '1' ? ', mit Freundin' : '') + ')';
       case 'h.offer': return '<b>Katze bietet Hilfe an</b> (' + T(a[0]) + ', ' + (a[1] === 'ask' ? 'Irina hat gefragt' : 'automatisch') + ')';
-      case 'h.say': return 'Zur Katze gesagt (' + ({ mic: 'gesprochen', type: 'getippt', quick: 'Schnellknopf' }[a[1]] || esc(a[1])) + ', ' + esc(a[2]) + ' Zeichen)';
-      case 'h.cat': return 'Katze antwortet (' + (a[1] === 'ai' ? 'Claude' : 'feste Frage') + ', ' + esc(a[2]) + ' Zeichen, ' + esc(a[3]) + ' ms)';
+      case 'h.say': return 'Zur Katze gesagt (' + ({ mic: 'gesprochen', type: 'getippt', quick: 'Schnellknopf' }[a[1]] || esc(a[1])) + ', ' + esc(a[2]) + ' Zeichen): <i>„' + esc(a[3] || '') + '“</i>';
+      case 'h.cat': return 'Katze antwortet (' + (a[1] === 'ai' ? 'Claude' : 'feste Frage') + ', ' + esc(a[2]) + ' Zeichen, ' + esc(a[3]) + ' ms): <i>„' + esc(a[4] || '') + '“</i>';
       case 'h.close': return 'Tafel geschlossen: ' + esc(a[1]) + ' nach ' + esc(a[2]) + ' s';
       case 'h.mic': return 'Mikrofon: ' + esc(a.join(' '));
       case 'h.read': return 'Aufgabe vorlesen lassen';

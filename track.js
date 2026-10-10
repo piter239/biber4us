@@ -1,7 +1,7 @@
 /* Aktivitätsprotokoll (für die Eltern): hält kompakt fest, was in der Seite passiert, damit man später auswerten kann,
    was zum Aufgabenlösen motiviert. Eine Zeile pro Ereignis:   <ms seit letztem Ereignis> <Code> <Felder ...>
    Felder sind durch Leerzeichen getrennt (Leerzeichen und % in Werten als %20 und %25). Es werden nur Handlungen gespeichert,
-   keine Mausbewegungen und keine getippten Texte (außer den Antworten in Aufgaben beim Prüfen).
+   keine Mausbewegungen und keine getippten Texte (außer den Antworten in Aufgaben beim Prüfen und dem, was man der helfenden Katze sagt oder schreibt, samt ihrer Antwort).
 
    Aufbau auf dem Server (nur wenn die db-Funktion der Artifact-Umgebung verfügbar ist):
      logs/<Konto-Id>/c/<Sitzung>_<Nr>   ein Dokument je Abschnitt (höchstens 300 Zeilen, ca. 8 kB)
@@ -23,7 +23,7 @@ window.BiberTrack = (function () {
   var timer = 0, saveTimer = 0, busy = false, started = false, syncFns = null;
 
   function rid(n) { var s = ''; while (s.length < n) s += Math.floor(Math.random() * 36).toString(36); return s; }
-  function esc(x) { return String(x == null ? '' : x).replace(/%/g, '%25').replace(/\s/g, '%20').slice(0, 160); }
+  function esc(x) { return String(x == null ? '' : x).replace(/%/g, '%25').replace(/\s/g, '%20').slice(0, 300); }
   function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } }
   function lsSet(k, v) { try { window.localStorage.setItem(k, v); } catch (e) { /* ignorieren */ } }
 

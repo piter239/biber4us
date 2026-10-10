@@ -4,7 +4,8 @@
    - Antworten der Katze: mit Claude (Funktion "sample" der Artifact-Umgebung, auf dem Konto des Kindes, mit Zustimmung),
      sonst fest eingebaute Denkfragen.
    - Sprechen: Spracherkennung des Browsers (Web Speech API), Vorlesen mit der Sprachausgabe des Browsers; beides nur, wenn vorhanden.
-   - Protokoll (BiberTrack): h.offer, h.open, h.say (Art, Länge), h.cat (Art, Länge, ms), h.close, h.mic, h.err – ohne die Texte selbst. */
+   - Protokoll (BiberTrack): h.offer, h.say (Art, Länge, Text), h.cat (Art, Länge, ms, Text), h.close, h.mic, h.err. Die Eltern sehen die Texte
+   auf der Seite Familie; das Kind wird auf der Tafel und im Seitenfuß darauf hingewiesen. */
 window.BiberHelper = (function () {
   'use strict';
   var OFFER_AFTER = 180000;      /* so lange an einer Aufgabe, bevor die Katze fragt */
@@ -52,6 +53,7 @@ window.BiberHelper = (function () {
       '<button type="button" class="hf-ic" data-hf="tts" aria-label="Vorlesen an oder aus" aria-pressed="true">' + SPK + '</button>' +
       '<button type="button" class="hf-ic" data-hf="x" aria-label="Schließen">×</button></div>' +
       '<div class="hf-log" aria-live="polite"></div>' +
+      '<p class="hf-note">Was du hier sagst oder schreibst, können deine Eltern später lesen.</p>' +
       '<div class="hf-quick"><button type="button" data-hf="read">Lies die Aufgabe vor</button><button type="button" data-hf="tip">Ich brauche einen Tipp</button><button type="button" data-hf="no">Nein, danke</button></div>' +
       '<form class="hf-in"><input type="text" maxlength="400" autocomplete="off" placeholder="Erklär es der Katze …" aria-label="Deine Antwort an die Katze">' +
       '<button type="button" class="hf-mic" data-hf="mic" aria-label="Sprechen">' + MIC + '</button><button type="submit" class="hf-send">Senden</button></form>';
@@ -161,13 +163,13 @@ window.BiberHelper = (function () {
     busy = true; clearTimeout(autoTimer); stopSpeak();
     var info = taskInfo() || { title: '', story: '', question: '', howto: '', board: '' };
     addMsg('me', text);
-    T('h.say', taskId, mode, text.length);
+    T('h.say', taskId, mode, text.length, text);
     var wait = addMsg('cat', 'Moment …'); wait.classList.add('hf-wait');
     var t0 = Date.now(), reply = await aiReply(info, text), how = 'ai';
     if (!reply) { how = 'script'; reply = scripted(); }
     else { turns.push({ role: 'user', content: text }); turns.push({ role: 'assistant', content: reply }); }
     wait.classList.remove('hf-wait'); wait.textContent = reply;
-    T('h.cat', taskId, how, reply.length, Date.now() - t0);
+    T('h.cat', taskId, how, reply.length, Date.now() - t0, reply);
     speak(reply);
     replied = true; busy = false;
   }

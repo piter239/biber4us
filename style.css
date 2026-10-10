@@ -359,6 +359,7 @@ table.res { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-widt
 .hf-msg.hf-m-cat { background: rgba(255, 255, 255, .1); justify-self: start; }
 .hf-msg.hf-m-me { background: #f4f1e6; color: #1d2b27; justify-self: end; }
 .hf-msg.hf-wait { opacity: .6; font-style: italic; }
+.hf-note { margin: 0; padding: 0 .9rem .3rem; font-size: .78rem; opacity: .7; }
 .hf-quick { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0 .8rem .4rem; }
 .hf-quick button { background: transparent; color: #f4f1e6; border: 1.5px solid rgba(244, 241, 230, .55); border-radius: 999px; padding: .3rem .8rem; font: inherit; font-size: .9rem; cursor: pointer; min-height: 36px; }
 .hf-quick button:hover, .hf-quick button:focus-visible { background: rgba(255, 255, 255, .14); }
