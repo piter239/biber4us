@@ -46,6 +46,13 @@ window.BiberProtokoll = (function () {
       case 'rec': return 'Vorschläge angezeigt: ' + esc(a.join(' '));
       case 'rs': return 'Fenstergröße ' + esc(a[0]);
       case 'k.v': return 'Kätzchen kommt (' + esc(a[0]) + ', von ' + esc(a[1]) + (a[2] === '1' ? ', mit Freundin' : '') + ')';
+      case 'h.offer': return '<b>Katze bietet Hilfe an</b> (' + T(a[0]) + ', ' + (a[1] === 'ask' ? 'Irina hat gefragt' : 'automatisch') + ')';
+      case 'h.say': return 'Zur Katze gesagt (' + ({ mic: 'gesprochen', type: 'getippt', quick: 'Schnellknopf' }[a[1]] || esc(a[1])) + ', ' + esc(a[2]) + ' Zeichen)';
+      case 'h.cat': return 'Katze antwortet (' + (a[1] === 'ai' ? 'Claude' : 'feste Frage') + ', ' + esc(a[2]) + ' Zeichen, ' + esc(a[3]) + ' ms)';
+      case 'h.close': return 'Tafel geschlossen: ' + esc(a[1]) + ' nach ' + esc(a[2]) + ' s';
+      case 'h.mic': return 'Mikrofon: ' + esc(a.join(' '));
+      case 'h.read': return 'Aufgabe vorlesen lassen';
+      case 'h.err': return 'Hilfe-Fehler: ' + esc(a[0]);
       case 'k.pet': return 'Kätzchen gestreichelt (' + esc(a[0]) + ')';
       case 'k.zoom': return '<b>Zoomies</b> starten (Tempo ' + esc(a[0]) + ' ms)';
       case 'k.za': return 'Zoomies: Auftritt ' + esc(a[0]) + ' (' + esc(a[1]) + ')';

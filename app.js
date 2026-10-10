@@ -400,7 +400,8 @@
       '<h1>' + t.title + '</h1><p class="eyebrow">' + t.topic + '</p>' +
       (mod ? '<div class="story">' + (mod.story || '') + '</div>' +
         '<h2 class="question">' + (mod.question || '') + '</h2>' +
-        (mod.howto ? '<p class="howto">' + mod.howto + '</p>' : '') : '') +
+        (mod.howto ? '<p class="howto">' + mod.howto + '</p>' : '') +
+        '<p class="help-row"><button type="button" class="btn ghost" data-help="ask">Katze um Hilfe bitten</button></p>' : '') +
       '</header>' +
       (mod
         ? '<div class="board-shell"><div class="board-mount" data-mount></div>' +

@@ -132,7 +132,10 @@ window.BiberTrack = (function () {
       if (ds.st) { d = 'st.' + ds.st; break; }
       if (ds.gift) { d = 'gift.' + ds.gift; break; }
       if (ds.tab) { d = 'tab.' + ds.tab; break; }
+      if (ds.help) { d = 'help.' + ds.help; break; }
+      if (ds.hf) { d = 'hf.' + ds.hf; break; }
       if (node.id && node.id !== 'app' && node.id !== 'runTask') { d = '#' + node.id; break; }
+      if (node.classList && node.classList.contains('hf-tafel')) { d = 'hf.tafel'; break; }
       if (node.classList && node.classList.contains('bk-wrap')) { d = 'cat'; break; }
       if (node.classList && node.classList.contains('bk-hid')) { d = 'cat.hidden'; break; }
       if (node.classList && node.classList.contains('bk-toast')) { d = 'toast'; break; }

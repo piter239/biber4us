@@ -36,3 +36,8 @@ Leerlauf und Sichtbarkeit. Keine Mausbewegungen, keine getippten Texte. Codes si
 
 protokoll.js zeigt das Protokoll auf der Seite "Familie" (nur Besitzer/Editoren): je Sitzung eine Zeile mit Zusammenfassung, aufklappbar der Ablauf.
 Zoomies: k.za = Auftritt, k.zc = jeder Tipp (Auftritt, ms seit Erscheinen, hit|again|late|intro), k.zhit = Treffer, k.zend = Ende.
+
+helfer.js: "Die Katze hilft". Nach 3 Minuten an einer Aufgabe (und nur, wenn jemand am Rechner ist) oder per Knopf "Katze um Hilfe bitten"
+erscheint eine Tafel: Das Kind erklaert der Katze die Aufgabe (sprechen oder tippen), die Katze stellt Denkfragen und gibt kleine
+Tipps, nie die Loesung. Antworten kommen von Claude ueber die Funktion "sample" (Zustimmung und Verbrauch beim Konto des Kindes),
+sonst feste Fragen. Sprechen/Vorlesen nutzt die Web-Speech-Funktionen des Browsers, falls vorhanden. Protokoll: h.* (ohne Texte).
