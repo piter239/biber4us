@@ -77,7 +77,7 @@
         var r = p.results[id];
         res[id] = light ? { correct: r.correct, at: r.at } : r;
       });
-      return { id: p.id, name: p.name, legacy: !!p.legacy, created: p.created, upd: p.upd || '', adj: p.adj || 0, cleared: p.cleared || {}, results: res, kitten: readKitten(p) };
+      return { id: p.id, name: p.name, legacy: !!p.legacy, created: p.created, upd: p.upd || '', adj: p.adj || 0, cleared: p.cleared || {}, results: res, runs: p.runs || [], kitten: readKitten(p) };
     });
     if (!out.length && !Object.keys(store.gone || {}).length) return null;
     return { v: 1, at: new Date().toISOString(), gone: store.gone || {}, profiles: out };
@@ -106,6 +106,11 @@
         if (lp.name !== rp.name || (lp.adj || 0) !== (rp.adj || 0)) changed = true;
         lp.name = rp.name; lp.adj = rp.adj || 0; lp.upd = rp.upd;
       }
+      lp.runs = lp.runs || [];
+      (rp.runs || []).forEach(function (x) {
+        if (!lp.runs.some(function (y) { return y.at === x.at; })) { lp.runs.push(x); changed = true; }
+      });
+      lp.runs.sort(function (a, b) { return a.at < b.at ? 1 : -1; });
       lp.cleared = lp.cleared || {};
       Object.keys(rp.cleared || {}).forEach(function (id) { if ((rp.cleared[id] || '') > (lp.cleared[id] || '')) { lp.cleared[id] = rp.cleared[id]; changed = true; } });
       Object.keys(lp.results).forEach(function (id) {
@@ -731,15 +736,31 @@
     });
     document.getElementById('groupSeg').hidden = store.mode !== 'stufe';
   }
+  var pages = {};
+  /* Schnittstelle für eigenständige Seiten (probelauf.js) */
+  function recordResult(id, correct, answer) {
+    if (store.results[id]) return false;
+    store.results[id] = { correct: !!correct, answer: answer, at: new Date().toISOString() };
+    save();
+    return true;
+  }
+  window.BiberApp = {
+    tasks: TASKS, B: B, app: app, SCORING: SCORING, store: store,
+    profile: function () { return profile(); }, save: function () { save(); }, route: function () { route(); },
+    abilityOf: function (p) { return abilityOf(p); }, taskD: function (t) { return taskD(t); }, areaOf: function (t) { return areaOf(t); },
+    isReady: function (t) { return isReady(t); }, esc: esc, pts: pts, recordResult: recordResult,
+    registerPage: function (name, fn) { pages[name] = fn; }
+  };
   function route() {
     var h = (location.hash || '').replace(/^#/, '');
-    var page = h === 'bewertung' ? 'bewertung' : h === 'familie' ? 'familie' : 'aufgaben';
+    var page = h === 'bewertung' ? 'bewertung' : h === 'familie' ? 'familie' : h === 'probelauf' ? 'probelauf' : 'aufgaben';
     document.querySelectorAll('.nav a').forEach(function (a) {
       a.setAttribute('aria-current', a.dataset.nav === page ? 'page' : 'false');
     });
     syncControls();
     if (h === 'bewertung') { confirmReset = false; renderResults(); }
     else if (h === 'familie') renderFamily();
+    else if (h === 'probelauf' && pages.probelauf) pages.probelauf();
     else if (h && byId(h)) renderTask(h);
     else renderOverview();
     window.scrollTo(0, 0);

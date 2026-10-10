@@ -302,3 +302,33 @@ table.res { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-widt
 .fam-grid { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
 .fam-card h2 { font-size: 1.3rem; }
 #syncStat { white-space: normal; }
+
+/* Probelauf */
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.run-bar { position: sticky; top: 0; z-index: 30; display: grid; grid-template-columns: auto 1fr auto; gap: 0.6rem 1rem; align-items: center; padding: 0.55rem 0.8rem; margin: 0 0 1rem; border-radius: 14px; background: var(--surface); border: 2px solid var(--accent); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12); }
+.run-time { display: grid; line-height: 1.05; }
+.run-lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.run-timer { font-family: var(--font-display); font-weight: 700; font-size: 1.9rem; font-variant-numeric: tabular-nums; color: var(--accent); }
+.run-timer.warn { color: #b8860b; }
+.run-timer.alarm { color: var(--bad); animation: run-pulse 1s ease-in-out infinite; }
+@keyframes run-pulse { 50% { opacity: 0.55; } }
+.run-mid { display: grid; gap: 0.25rem; min-width: 0; }
+.run-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.run-chip { appearance: none; width: 2.1rem; height: 2.1rem; border-radius: 999px; border: 2px solid var(--line); background: var(--surface2); color: var(--ink); font: 700 0.85rem var(--font-body, system-ui); cursor: pointer; padding: 0; }
+.run-chip.mittel { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.run-chip.schwer { border-color: color-mix(in srgb, var(--bad) 55%, var(--line)); }
+.run-chip.done { background: var(--ok-bg); color: var(--ok); }
+.run-chip.cur { outline: 3px solid var(--accent); outline-offset: 1px; }
+.run-end { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.run-rules { margin: 0 0 1rem; padding-left: 1.2rem; display: grid; gap: 0.35rem; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0.7rem; }
+.run-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: space-between; }
+@media (max-width: 40rem) {
+  .run-bar { grid-template-columns: 1fr auto; grid-template-areas: "time end" "mid mid"; padding: 0.4rem 0.6rem; }
+  .run-time { grid-area: time; display: flex; align-items: baseline; gap: 0.5rem; }
+  .run-end { grid-area: end; justify-content: flex-end; }
+  .run-mid { grid-area: mid; }
+  .run-chips { flex-wrap: nowrap; overflow-x: auto; padding: 0.15rem 0.15rem 0.3rem; scrollbar-width: thin; }
+  .run-chip { flex: 0 0 auto; width: 1.9rem; height: 1.9rem; font-size: 0.8rem; }
+  .run-timer { font-size: 1.6rem; }
+}

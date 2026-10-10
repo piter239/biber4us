@@ -220,10 +220,15 @@
     '.bk-st.bk-locked svg{filter:grayscale(1) brightness(.5);opacity:.4}',
     '.bk-st-open .bk-mouthopen{opacity:1;transform:scaleY(1.2)}',
     '.bk-album.bk-wide{width:min(900px,100%)}',
+    '.bk-ring{position:absolute;left:30%;top:20%;width:40%;pointer-events:none;animation:bk-ring .7s ease-out 1 forwards}',
+    '@keyframes bk-ring{0%{opacity:0;transform:scale(.3)}25%{opacity:1}100%{opacity:0;transform:scale(1.7)}}',
+    '.bk-albumopen .bk-wrap{z-index:2147483150}',
+    '.bk-albumopen .bk-bubble{z-index:2147483151}',
+    '.bk-albumopen .bk-conf{z-index:2147483152}',
     '.bk-st:not(.bk-locked){cursor:pointer}',
     '.bk-st:not(.bk-locked):hover{border-color:var(--accent,#0a86a6)}',
     '.bk-st:focus-visible{outline:3px solid var(--focus,#0a86a6);outline-offset:2px}',
-    '.bk-st.bk-pop svg{animation:bk-stpop .95s cubic-bezier(.3,1.6,.5,1) 1}',
+    '.bk-st.bk-pop svg{animation:bk-stpop .6s cubic-bezier(.3,1.6,.5,1) 1}',
     '@keyframes bk-stpop{0%{transform:scale(1) rotate(0)}18%{transform:scale(1.28) rotate(-9deg)}38%{transform:scale(1.2) rotate(8deg)}58%{transform:scale(1.22) rotate(-5deg)}80%{transform:scale(1.06) rotate(2deg)}100%{transform:scale(1) rotate(0)}}',
     '.bk-st .bk-spark{position:absolute;pointer-events:none;width:16px;height:16px;color:#f2c230;animation:bk-stspark .9s ease-out 1 forwards}',
     '@keyframes bk-stspark{0%{opacity:0;transform:translate(0,0) scale(.3)}25%{opacity:1}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(1.2) rotate(120deg)}}',
@@ -439,6 +444,17 @@
     g.gain.exponentialRampToValueAtTime(0.0001, t + 0.68);
     o.connect(f); f.connect(f2); f2.connect(g); g.connect(c.destination);
     o.start(t); lfo.start(t); o.stop(t + 0.72); lfo.stop(t + 0.72);
+  }
+  /* Treffer beim Zoomies: helle Tonfolge, bei großem Treffer länger */
+  function hitSound(big) {
+    var c = audio(); if (!c) return;
+    var t = c.currentTime, notes = big ? [659, 784, 988, 1319, 1568] : [988, 1319];
+    notes.forEach(function (f, i) {
+      var o = c.createOscillator(), g = c.createGain(), s = t + i * (big ? 0.09 : 0.07);
+      o.type = 'square'; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, s); g.gain.linearRampToValueAtTime(0.07, s + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, s + (big ? 0.2 : 0.14));
+      o.connect(g); g.connect(c.destination); o.start(s); o.stop(s + 0.22);
+    });
   }
   function trill() {
     var c = audio(); if (!c) return;
@@ -667,12 +683,13 @@
     ostern: ['Blumen im Haar. Irgendwo ist immer Frühling!', 'Frühlingsgefühle, mitten im Jahr.'],
     sommer: ['Coole Brille, oder? Irgendwo scheint immer die Sonne.', 'Bereit für den Sommer, auch wenn es draußen anders aussieht.']
   };
-  var curAcc = null, accLate = false;
+  var curAcc = null, accLate = false, forceAcc = null;
   function setAcc() {
     var d = new Date(), m = d.getMonth() + 1, day = d.getDate(), keys = Object.keys(SEASON);
     var inS = keys.filter(function (k) { return SEASON[k](m, day); });
     var out = keys.filter(function (k) { return inS.indexOf(k) < 0; });
     curAcc = null; accLate = false;
+    if (forceAcc) { curAcc = forceAcc; forceAcc = null; wrap.setAttribute('data-acc', curAcc); return; }
     if (inS.length && Math.random() < 0.8) curAcc = pick(inS);
     else if (Math.random() < 0.2) { curAcc = pick(out); accLate = true; }
     if (curAcc) wrap.setAttribute('data-acc', curAcc); else wrap.removeAttribute('data-acc');
@@ -740,8 +757,21 @@
   }
 
   /* ---------- Streicheln ---------- */
+  var zoomOn = false, zoomCan = false, zoomHitDone = false, zoomHits = 0;
+  function zoomHit() {
+    if (zoomHitDone) return;
+    zoomHitDone = true; zoomHits++;
+    hitSound(false);
+    sparks(7);
+    addFx('<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="none" stroke="#e05060" stroke-width="5"/><circle cx="32" cy="32" r="17" fill="none" stroke="#fff" stroke-width="5"/><circle cx="32" cy="32" r="7" fill="#e05060"/></svg>', 'bk-ring', '', 700);
+    showBubble(pick(['Treffer!', 'Volltreffer!', 'Erwischt!', 'Boah, schnell!']) + (zoomHits > 1 ? ' (' + zoomHits + ')' : ''), 900);
+    try { if (navigator.vibrate) navigator.vibrate([20, 30, 20]); } catch (err) { /* ignorieren */ }
+    unlock('s:treffer');
+    if (zoomHits >= 3) unlock('s:meister');
+  }
   function onPet(e) {
     if (e) e.stopPropagation();
+    if (zoomOn) { if (zoomCan) zoomHit(); return; }
     var t = ++tok;
     var now = Date.now();
     petCount = now - lastPet < 1600 ? petCount + 1 : 1; lastPet = now;
@@ -778,23 +808,32 @@
     stage('out');
     if (!await sleep(500, t)) return;
     var sides = ['left', 'top', 'right', 'bottom', 'left', 'right'];
-    for (var i = 0; i < sides.length; i++) {
-      place(sides[i], true); clearActions();
-      wrap.classList.add('bk-happy'); stage('sneak'); void peek.offsetWidth; stage('pop');
-      if (!await sleep(380, t)) return;
-      stage('out');
-      if (!await sleep(260, t)) return;
-    }
-    place('bottom', true); stage('pop'); wrap.classList.add('bk-happy'); hearts(6); sparks(4); purr(2.2);
-    showBubble('Puh! Das war schön. Danke!');
+    zoomOn = true; zoomHits = 0;
+    try {
+      for (var i = 0; i < sides.length; i++) {
+        place(sides[i], true); clearActions(); zoomHitDone = false;
+        wrap.classList.add('bk-happy'); stage('sneak'); void peek.offsetWidth; stage('pop'); zoomCan = true;
+        if (!await sleep(380, t)) return;
+        zoomCan = false; stage('out');
+        if (!await sleep(260, t)) return;
+      }
+    } finally { zoomOn = false; zoomCan = false; }
+    if (zoomHits > (mem.zoomBest || 0)) { mem.zoomBest = zoomHits; persist(); }
+    place('bottom', true); stage('pop'); wrap.classList.add('bk-happy'); hearts(6); sparks(4);
+    var msg = 'Puh! Das war schön. Danke!';
+    if (zoomHits >= 3) { hitSound(true); confetti(); msg = zoomHits === sides.length ? 'Alle ' + zoomHits + ' getroffen! Unglaublich schnell!' : zoomHits + ' von ' + sides.length + ' getroffen! Du bist ein Zoomies-Meister!'; }
+    else if (zoomHits > 0) { msg = 'Puh! Du hast ' + zoomHits + ' von ' + sides.length + ' erwischt. Dann nochmal!'; purr(2.2); }
+    else purr(2.2);
+    showBubble(msg);
     if (!await sleep(2800, t)) return;
     petCount = 0;
     await leave(t);
   }
 
   /* ---------- Zeitplan ---------- */
+  var paused = false;
   function canVisit() {
-    if (mem.off || document.hidden || busy || userBusy) return false;
+    if (mem.off || paused || document.hidden || busy || userBusy) return false;
     var el = document.activeElement;
     if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) return false;
     return true;
@@ -860,7 +899,7 @@
     ['a:cuke', 'Gurke', 'Huch!'], ['a:soap', 'Seifenblasen', 'Plopp!'], ['a:knead', 'Milchtritt', 'Brot backen mit den Pfoten.'],
     ['a:wish', 'Sternschnuppe', 'Ein Wunsch für Dich.'], ['a:cup', 'Tasse', 'Ups.'],
     ['s:confetti', 'Konfetti', 'Fünf richtige Antworten in Folge.'], ['s:rufen', 'Gerufen', 'Man munkelt: Miau tippen.'],
-    ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
+    ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:treffer', 'Treffer', 'Ein Zoomies-Kätzchen im Flug getroffen.'], ['s:meister', 'Zoomies-Meister', 'Drei Zoomies-Kätzchen in einem Durchgang getroffen.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
     ['h:xmas', 'Weihnachtsmütze', 'Ho ho ho!'], ['h:silvester', 'Partyhut', 'Prosit Neujahr!'], ['h:halloween', 'Kürbishut', 'Buh!'], ['h:ostern', 'Blumenkranz', 'Frühlingsgefühle.'], ['h:sommer', 'Sonnenbrille', 'Cool bleiben.'],
     ['x:end']
   ].filter(function (x) { return x[0] !== 'x:end'; }).concat(GIFTS.map(function (g, i) { return ['g:' + g.id, g.name, 'Geschenk Nr. ' + (i + 1) + ' vom Kätzchen.']; }));
@@ -892,6 +931,8 @@
     's:confetti': { svg: '<rect x="20" y="14" width="10" height="16" fill="#e05060" transform="rotate(20 25 22)"/><rect x="150" y="10" width="10" height="16" fill="#4a9ad9" transform="rotate(-30 155 18)"/><rect x="170" y="70" width="10" height="16" fill="#f2c230" transform="rotate(50 175 78)"/><rect x="10" y="80" width="10" height="16" fill="#4caf50" transform="rotate(-20 15 88)"/><rect x="100" y="4" width="10" height="16" fill="#b794f4" transform="rotate(35 105 12)"/>' },
     's:rufen': { svg: '<text x="116" y="30" font-family="system-ui,sans-serif" font-weight="800" font-size="28" fill="#0a86a6">Miau?</text>' },
     's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
+    's:treffer': { cls: 'bk-happy', svg: '<g transform="translate(116 8)"><circle cx="30" cy="30" r="28" fill="#fff" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="17" fill="none" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="6" fill="#e05060"/></g>' },
+    's:meister': { cls: 'bk-happy', svg: '<g transform="translate(112 4) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g><path d="M4 60h36M0 84h44" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
     'x:end': { svg: '' }
   };
   function stickerSvg(id) {
@@ -929,6 +970,22 @@
     setTimeout(function () { showToast('Neuer Sticker: ' + stickerName(id) + (first ? ' (Dein Sammelalbum ist im Seitenfuß)' : '')); }, 900);
     announce();
     return true;
+  }
+
+  /* Klick auf einen Sticker im Album: das Kätzchen führt dieselbe Vorstellung vor wie im Spiel (es erscheint über dem Album) */
+  var HAT_SAY = { xmas: 'Ho ho ho!', silvester: 'Prosit Neujahr!', halloween: 'Buh!', ostern: 'Frohe Ostern!', sommer: 'Cool bleiben!' };
+  function playFromAlbum(id) {
+    if (!id || !wrap) return;
+    var kind = id.slice(0, 2), key = id.slice(2), sd = pick(['bottom', 'left', 'right']);
+    if (kind === 'a:' && ACTIONS[key]) { visit({ action: key, side: sd, text: ACTIONS[key].phrases ? pick(ACTIONS[key].phrases) : undefined }); return; }
+    if (kind === 'h:') { forceAcc = key; visit({ action: pick(['wave', 'tilt', 'kiss']), side: sd, text: HAT_SAY[key] || 'Schau mal!' }); return; }
+    if (id === 's:confetti') { visit({ action: 'wave', side: sd, text: 'Konfetti!' }); setTimeout(confetti, 1600); return; }
+    if (id === 's:zoomies' || id === 's:treffer' || id === 's:meister') {
+      var t = ++tok; busy = true; visible = true; clearTimeout(timer); hideBubble();
+      wrap.classList.add('bk-on', 'bk-live'); wrap.tabIndex = 0;
+      zoomies(t); return;
+    }
+    visit({ action: id === 's:rufen' ? 'tilt' : 'wave', side: sd, text: id === 's:rufen' ? 'Miau?' : id === 's:hidden' ? 'Mimi versteckt sich gern.' : undefined });
   }
 
   var albumEl = null, albumFrom = null, albumTab = 'sticker', lastKind = 'sticker';
@@ -971,7 +1028,7 @@
   function stickersHtml(have) {
     return '<div class="bk-say" role="status" aria-live="polite"></div><ul class="bk-grid">' + STICKERS.filter(function (s) { return s[0].slice(0, 2) !== 'g:'; }).map(function (s) {
       var got = !!have[s[0]];
-      return '<li class="bk-st' + (got ? '' : ' bk-locked') + '"' + (got ? ' tabindex="0" role="button" aria-label="' + s[1] + ' (antippen zum Ansehen)"' : '') + '>' + (got ? stickerSvg(s[0]) : stickerSvg(s[0] === 's:hidden' ? 'a:wave' : s[0])) +
+      return '<li class="bk-st' + (got ? '' : ' bk-locked') + '"' + (got ? ' tabindex="0" role="button" data-st="' + s[0] + '" aria-label="' + s[1] + ' (antippen: das Kätzchen zeigt es Dir)"' : '') + '>' + (got ? stickerSvg(s[0]) : stickerSvg(s[0] === 's:hidden' ? 'a:wave' : s[0])) +
         '<b>' + (got ? s[1] : '???') + '</b><small>' + (got ? s[2] : 'Noch nicht entdeckt') + '</small></li>';
     }).join('') + '</ul>';
   }
@@ -984,6 +1041,7 @@
     var nSt = Object.keys(have).filter(function (k) { return k.slice(0, 2) !== 'g:'; }).length;
     var totSt = STICKERS.length - GIFTS.length;
     albumEl = document.createElement('div'); albumEl.className = 'bk-album-back';
+    document.body.classList.add('bk-albumopen');
     albumEl.innerHTML = '<div class="bk-album bk-wide" role="dialog" aria-modal="true" aria-label="Kätzchen-Sammelalbum">' +
       '<div class="bk-album-head"><div><h2>Sammelalbum</h2><p class="bk-albumsub"></p></div>' +
       '<button type="button" class="bk-album-close">Schließen</button></div>' +
@@ -1011,23 +1069,15 @@
       box.textContent = SAYINGS[i]; box.classList.add('bk-on');
       clearTimeout(sayT); sayT = setTimeout(function () { box.classList.remove('bk-on'); }, 5200);
     }
-    /* Höchstens 5 Animationen innerhalb von 12 Sekunden, danach ein netter Spruch statt weiterer Animation */
+    /* Höchstens 5 Auftritte innerhalb von 90 Sekunden, danach ein netter Spruch statt weiterer Auftritte */
     function popSticker(li) {
       var now = Date.now();
-      pops = pops.filter(function (t) { return now - t < 12000; });
+      pops = pops.filter(function (t) { return now - t < 90000; });
       if (pops.length >= 5) { sayNow(); return; }
       pops.push(now);
       li.classList.remove('bk-pop'); void li.offsetWidth; li.classList.add('bk-pop');
-      for (var k = 0; k < 4; k++) {
-        var sp = document.createElement('span'); sp.className = 'bk-spark';
-        sp.innerHTML = SPARK;
-        sp.style.left = (30 + Math.random() * 40) + '%'; sp.style.top = (14 + Math.random() * 30) + '%';
-        sp.style.setProperty('--sx', Math.round(Math.random() * 90 - 45) + 'px'); sp.style.setProperty('--sy', Math.round(-20 - Math.random() * 40) + 'px');
-        li.appendChild(sp);
-        (function (el) { setTimeout(function () { el.remove(); }, 1000); })(sp);
-      }
-      setTimeout(function () { li.classList.remove('bk-pop'); }, 1000);
-      if (!mem.mute) { try { meow(); } catch (e) { /* ohne Ton */ } }
+      setTimeout(function () { li.classList.remove('bk-pop'); }, 600);
+      playFromAlbum(li.getAttribute('data-st'));
     }
     function show(t) {
       albumTab = t;
@@ -1058,6 +1108,7 @@
     function closeAlbum() {
       if (!albumEl) return;
       albumEl.remove(); albumEl = null; lbox = null; document.removeEventListener('keydown', onKey, true);
+      document.body.classList.remove('bk-albumopen');
       if (albumFrom && albumFrom.focus) try { albumFrom.focus(); } catch (e) { /* ignorieren */ }
     }
     function onKey(e) {
@@ -1223,6 +1274,14 @@
     },
     setMuted: function (m) { mem.mute = !!m; persist(); announce(); },
     album: function () { openAlbum(); },
+    /* Zeitweise ruhen lassen (z. B. beim Probelauf), ohne die Einstellung „aus“ zu ändern */
+    pause: function (on) {
+      on = !!on;
+      if (on === paused) return;
+      paused = on;
+      if (on) { tok++; clearTimeout(timer); hideBubble(); if (wrap) wrap.classList.remove('bk-on', 'bk-live'); busy = false; visible = false; }
+      else if (!mem.off) schedule(4000);
+    },
     reload: function () { mem = loadMem(); announce(); },
     setProfile: function (key, name) {
       if (key === KEY) { who = name || ''; return; }
