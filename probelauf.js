@@ -3,6 +3,8 @@
    Aufgaben frei anspringbar, Antworten änderbar bis zum Abgeben oder bis die Zeit um ist. Am Ende gibt es Punkte
    (+6/−2, +9/−3, +12/−4, keine Antwort 0) und die Lösungen zum Nachschauen.
    Die Aufgaben werden zum Niveau des Profils passend gewählt (bevorzugt solche, die es noch nicht bearbeitet hat).
+   Alternativ "wie im Wettbewerb": je 5 einfache, mittlere und schwere Aufgaben, die im Heft für die gewählte Klassenstufe so eingestuft sind
+   (z. B. Klasse 9–10); Dauer 35, 40 oder 45 Minuten.
    Antworten auf Aufgaben, die das Profil noch nicht kannte, zählen wie ein erster Versuch auch für Niveau und Bewertung. */
 (function () {
   'use strict';
@@ -42,11 +44,48 @@
     return ids;
   }
 
+  /* Wettbewerbs-Lauf: je PER_LEVEL Aufgaben pro Stufe, so wie das Heft sie für die Klassenstufe einordnet. Unbekannte Aufgaben zuerst,
+     gleichmäßig über die Schwierigkeit der Stufe verteilt, innerhalb der Stufe nach Schwierigkeit sortiert. */
+  function pickClassRun(p, g) {
+    var pool = A.tasks.filter(function (t) { return A.isReady(t) && t.groups && t.groups[g]; }), ids = [];
+    LEVELS.forEach(function (lv) {
+      var cand = pool.filter(function (t) { return t.groups[g] === lv; }).sort(function (a, b) { return A.taskD(a) - A.taskD(b); });
+      var fresh = cand.filter(function (t) { return !p.results[t.id]; }), seen = cand.filter(function (t) { return p.results[t.id]; });
+      var chosen = [];
+      if (fresh.length >= PER_LEVEL) {
+        var used = {};
+        for (var k = 0; k < PER_LEVEL; k++) {
+          var pos = Math.round((k + 0.5) * fresh.length / PER_LEVEL - 0.5 + (Math.random() - 0.5) * fresh.length / PER_LEVEL * 0.8);
+          pos = Math.max(0, Math.min(fresh.length - 1, pos));
+          while (used[pos]) pos = (pos + 1) % fresh.length;
+          used[pos] = true; chosen.push(fresh[pos]);
+        }
+      } else {
+        chosen = fresh.concat(seen.sort(function () { return Math.random() - 0.5; })).slice(0, PER_LEVEL);
+      }
+      chosen.sort(function (a, b) { return A.taskD(a) - A.taskD(b); });
+      chosen.forEach(function (t) { ids.push(t.id); });
+    });
+    return ids;
+  }
+
+  var GROUPS = ['3-4', '5-6', '7-8', '9-10', '11-13'];
+  function opts() {
+    var p = A.profile(), o = p.runOpt || {};
+    return { mode: o.mode === 'klasse' ? 'klasse' : 'niveau', group: GROUPS.indexOf(o.group) >= 0 ? o.group : (GROUPS.indexOf(A.store.group) >= 0 ? A.store.group : '5-6'), minutes: [35, 40, 45].indexOf(+o.minutes) >= 0 ? +o.minutes : MINUTES };
+  }
+  function readOpts() {
+    var p = A.profile(), m = document.querySelector('input[name="rmode"]:checked'), g = el('rGroup'), mi = el('rMin');
+    if (m || g || mi) { p.runOpt = { mode: m ? m.value : 'niveau', group: g ? g.value : opts().group, minutes: mi ? +mi.value : MINUTES }; }
+    return opts();
+  }
+
   function startRun() {
-    var p = A.profile(), now = Date.now();
-    p.run = { at: new Date(now).toISOString(), endAt: now + MINUTES * 60000, minutes: MINUTES, ids: pickRun(p), ans: {}, cur: 0, done: false };
+    var p = A.profile(), now = Date.now(), o = readOpts();
+    var ids = o.mode === 'klasse' ? pickClassRun(p, o.group) : pickRun(p);
+    p.run = { at: new Date(now).toISOString(), endAt: now + o.minutes * 60000, minutes: o.minutes, ids: ids, ans: {}, cur: 0, done: false, kind: o.mode, group: o.mode === 'klasse' ? o.group : '' };
     A.save();
-    A.track('r.start', p.run.ids.join(','), MINUTES);
+    A.track('r.start', p.run.ids.join(','), o.minutes, o.mode, p.run.group);
     view = { kind: 'auto', rec: null };
     A.route();
   }
@@ -58,7 +97,7 @@
     leaveTask();
     r.done = true;
     var usedSec = Math.max(0, Math.min(r.minutes * 60, Math.round((Math.min(Date.now(), r.endAt) - new Date(r.at).getTime()) / 1000)));
-    var rec = { at: r.at, minutes: r.minutes, used: usedSec, n: r.ids.length, right: 0, wrong: 0, blank: 0, score: 0, max: maxScore(), tasks: [] };
+    var rec = { at: r.at, minutes: r.minutes, kind: r.kind || 'niveau', group: r.group || '', used: usedSec, n: r.ids.length, right: 0, wrong: 0, blank: 0, score: 0, max: maxScore(), tasks: [] };
     r.ids.forEach(function (id, i) {
       var lv = levelAt(i), a = r.ans[id], entry = { id: id, level: lv, correct: null, pts: 0 };
       if (a) {
@@ -189,16 +228,22 @@
         return '<tr><td>' + fmtDate(x.at) + '</td><td class="r num">' + x.score + ' / ' + x.max + '</td><td class="r num">' + x.right + ' von ' + x.n + '</td><td class="r num">' + mmss(x.used) + '</td>' +
           '<td><button class="linkbtn" type="button" data-run="view" data-i="' + i + '">Ansehen</button></td></tr>';
       }).join('') + '</tbody></table></div></section>' : '';
+    var o = opts();
+    var optHtml = '<fieldset class="run-opt"><legend>Welche Aufgaben?</legend>' +
+      '<label><input type="radio" name="rmode" value="niveau"' + (o.mode === 'niveau' ? ' checked' : '') + '> Passend zu meinem Niveau</label>' +
+      '<label><input type="radio" name="rmode" value="klasse"' + (o.mode === 'klasse' ? ' checked' : '') + '> Wie im Wettbewerb für Klasse <select id="rGroup" aria-label="Klassenstufe">' +
+      GROUPS.map(function (g) { return '<option value="' + g + '"' + (g === o.group ? ' selected' : '') + '>' + g.replace('-', '–') + '</option>'; }).join('') + '</select></label>' +
+      '<label>Zeit <select id="rMin" aria-label="Dauer in Minuten">' + [35, 40, 45].map(function (m) { return '<option value="' + m + '"' + (m === o.minutes ? ' selected' : '') + '>' + m + '</option>'; }).join('') + '</select> Minuten</label></fieldset>';
     app.innerHTML =
       '<section class="intro"><p class="eyebrow">Wie beim echten Wettbewerb</p><h1>Probelauf</h1>' +
-      '<p class="lead">' + MINUTES + ' Minuten, ' + N + ' Aufgaben: ' + PER_LEVEL + ' einfache, ' + PER_LEVEL + ' mittlere und ' + PER_LEVEL + ' schwere. Die Aufgaben passen zu deinem Niveau. Probier aus, wie weit du in der Zeit kommst.</p></section>' +
+      '<p class="lead">' + N + ' Aufgaben: ' + PER_LEVEL + ' einfache, ' + PER_LEVEL + ' mittlere und ' + PER_LEVEL + ' schwere. Entweder passend zu deinem Niveau oder genau so, wie das Heft sie für deine Klassenstufe einordnet. Probier aus, wie weit du in der Zeit kommst.</p></section>' +
       '<section class="panel"><h2>So läuft es</h2><ul class="run-rules">' +
       '<li>Die Uhr läuft ab dem Start weiter, auch wenn du die Seite wechselst oder neu lädst.</li>' +
       '<li>Du kannst die Aufgaben in beliebiger Reihenfolge lösen und eine Antwort jederzeit ändern. Fertige Antworten werden gleich gespeichert.</li>' +
       '<li>Während des Laufs gibt es keine Rückmeldung. Nach dem Abgeben (oder wenn die Zeit um ist) siehst du deine Punkte und die Lösungen.</li>' +
       '<li>Punkte: einfach +6 / −2, mittel +9 / −3, schwer +12 / −4. Falsche Antworten kosten Punkte, keine Antwort kostet nichts. Höchstens ' + max + ' Punkte.</li>' +
       '<li>Das Kätzchen bleibt während des Laufs im Körbchen.</li></ul>' +
-      '<div class="actions"><button class="btn" type="button" data-run="start">Probelauf starten</button><a class="btn ghost" href="#">Zurück zu den Aufgaben</a></div></section>' + hist;
+      optHtml + '<div class="actions"><button class="btn" type="button" data-run="start">Probelauf starten</button><a class="btn ghost" href="#">Zurück zu den Aufgaben</a></div></section>' + hist;
   }
 
   function renderResult(rec, fresh) {
@@ -218,7 +263,7 @@
     app.innerHTML =
       '<p class="crumbs"><a href="#probelauf">← Probelauf</a></p>' +
       '<section class="intro"><p class="eyebrow">Probelauf vom ' + fmtDate(rec.at) + '</p><h1>' + rec.score + ' von ' + rec.max + ' Punkten</h1>' +
-      '<p class="lead">' + rec.right + ' richtig, ' + rec.wrong + ' falsch, ' + rec.blank + ' ohne Antwort · Zeit: ' + mmss(rec.used) + ' von ' + mmss(rec.minutes * 60) + ' (' + pct + ' %). ' + msg + '</p>' +
+      '<p class="lead">' + (rec.kind === 'klasse' ? 'Wettbewerbs-Probelauf Klasse ' + esc(rec.group.replace('-', '–')) + '. ' : '') + rec.right + ' richtig, ' + rec.wrong + ' falsch, ' + rec.blank + ' ohne Antwort · Zeit: ' + mmss(rec.used) + ' von ' + mmss(rec.minutes * 60) + ' (' + pct + ' %). ' + msg + '</p>' +
       (prev ? '<p class="note">Letzter Lauf davor: ' + prev.score + ' Punkte.</p>' : '') + '</section>' +
       '<section class="panel"><div class="stats">' + by + '</div></section>' +
       '<section class="panel"><h2>Deine Aufgaben</h2><div class="tbl-wrap"><table class="res"><thead><tr><th>Nr.</th><th>Aufgabe</th><th>Stufe</th><th>Ergebnis</th><th class="r">Punkte</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
