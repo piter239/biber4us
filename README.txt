@@ -41,3 +41,7 @@ helfer.js: "Die Katze hilft". Nach 3 Minuten an einer Aufgabe (und nur, wenn jem
 erscheint eine Tafel: Das Kind erklaert der Katze die Aufgabe (sprechen oder tippen), die Katze stellt Denkfragen und gibt kleine
 Tipps, nie die Loesung. Antworten kommen von Claude ueber die Funktion "sample" (Zustimmung und Verbrauch beim Konto des Kindes),
 sonst feste Fragen. Sprechen/Vorlesen nutzt die Web-Speech-Funktionen des Browsers, falls vorhanden. Protokoll: h.* (ohne Texte).
+
+Kaetzchen und Luna: Luna kommt jeden Tag neu (mem.lunaDay). Am neuen Tag gruesst das Kaetzchen von ihr; nach 1 / 3 / 5 richtigen Aufgaben
+(erster Versuch) des Tages gibt es zwei Ankuendigungen und dann ihren Besuch mit einem neuen Doppel-Sticker (d:*, 12 Stueck der Reihe nach).
+Erfolgs-Sticker (m:*): 10/25/50/100 richtig, 3 in Folge, schwere Aufgabe, unter 20 s, zweiter Versuch, um Hilfe gebeten, Probelauf, 3/7 Tage.

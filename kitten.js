@@ -90,14 +90,36 @@
   /* Vorstellungen im Album kosten Guthaben; Guthaben gibt es für gelöste Aufgaben (erster Versuch: richtig +3, falsch +1) */
   function credit() { if (mem.credit == null) mem.credit = 5; return mem.credit; }
   /* Belohnung: Zählung ab jetzt (mem.fc = richtig gelöste Aufgaben im ersten Versuch). 1. Ankündigung nach 1, 2. Ankündigung nach 3, Luna kommt nach 5. */
-  var pendingFriend = null;
+  var pendingFriend = null, pendingGreet = false;
+  function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  /* Luna kommt jeden Tag neu: Am neuen Tag grüßt das Kätzchen von ihr, nach 1 richtigen Aufgabe kommt die erste Ankündigung, nach 3 die zweite,
+     nach 5 ist Luna da und bringt ein neues Doppel-Sticker mit (mem.lunaDay = Tag ihres Besuchs, mem.fd = Zählung des Tages). */
+  function lunaToday() { return !!(mem.friend && mem.lunaDay === today()); }
   function friendProgress() {
-    mem.fc = (mem.fc || 0) + 1; persist(); T('k.fc', mem.fc);
-    var c = mem.fc, st = mem.stickers || {};
+    mem.fc = (mem.fc || 0) + 1;
+    var day = today(); if (!mem.fd || mem.fd.d !== day) mem.fd = { d: day, n: 0 };
+    mem.fd.n++; persist(); T('k.fc', mem.fc, mem.fd.n);
+    var c = mem.fc, st = mem.stickers || {}, n = mem.fd.n;
     if (!st['s:ahnung'] && c >= 1) { unlock('s:ahnung'); pendingFriend = 'ann'; }
     else if (!st['s:ahnung2'] && c >= 3) { unlock('s:ahnung2'); pendingFriend = 'ann2'; }
-    else if (!st['s:luna'] && c >= 5) { mem.friend = true; unlock('s:luna'); pendingFriend = 'arrive'; }
+    else if (!st['s:luna'] && c >= 5) { mem.friend = true; mem.lunaDay = day; unlock('s:luna'); pendingFriend = 'arrive'; }
+    else if (mem.friend && mem.lunaDay !== day) {
+      if (n >= 5) { mem.lunaDay = day; persist(); pendingFriend = 'back'; }
+      else if (n === 3) pendingFriend = 'ann2d';
+      else if (n === 1) pendingFriend = 'annd';
+    }
     if (pendingFriend) schedule(9000);
+  }
+  /* Beim ersten Besuch eines neuen Tages grüßt das Kätzchen von Luna */
+  function checkGreeting() {
+    if (mem.off || !mem.friend || mem.greetDay === today() || mem.lunaDay === today()) return;
+    pendingGreet = true;
+  }
+  var DUOS = ['d:herz', 'd:nasen', 'd:kuscheln', 'd:selfie', 'd:regen', 'd:sterne', 'd:duett', 'd:tee', 'd:buch', 'd:wolle', 'd:geburtstag', 'd:regenbogen'];
+  function unlockNextDuo() {
+    var st = mem.stickers || {};
+    for (var i = 0; i < DUOS.length; i++) if (!st[DUOS[i]]) { setTimeout(function (id) { unlock(id); }.bind(null, DUOS[i]), 2500); return DUOS[i]; }
+    return null;
   }
   function earn(n) { if (!(n > 0)) return; mem.credit = credit() + n; persist(); T('k.cr', n, mem.credit); if (window.__bkCredit) window.__bkCredit(); }
   function T() { if (window.BiberTrack) window.BiberTrack.log.apply(null, arguments); }
@@ -229,6 +251,8 @@
     '.bk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:.7rem;list-style:none;margin:0;padding:0}',
     '.bk-st{display:grid;gap:.25rem;justify-items:center;text-align:center;padding:.5rem .3rem;border-radius:12px;background:var(--surface2,#e8f0f2);border:2px dashed transparent;min-width:0}',
     '.bk-st svg{width:84px;height:80px;display:block;border-radius:10px;background:var(--paper,#fdf9f1)}',
+    '.bk-st.bk-duo{grid-column:span 2}',
+    '.bk-st.bk-duo svg{width:176px;height:80px}',
     '.bk-st b{font-size:.85rem;line-height:1.2}',
     '.bk-st small{font-size:.74rem;color:var(--muted,#5a6b72);line-height:1.2}',
     '.bk-st.bk-locked{border-color:var(--line,#c9d6db);background:transparent}',
@@ -813,7 +837,7 @@
     busy = true; visible = true;
     clearTimeout(timer);
     var s = o.side || pick(['bottom', 'bottom', 'left', 'right', 'top']);
-    var withFriend = !!(mem.friend && (o.friend || Math.random() < 0.3));
+    var withFriend = !!(mem.friend && (o.friend || (lunaToday() && Math.random() < 0.3)));
     var name = o.action && ACTIONS[o.action] ? o.action : pickAction(reduced ? REDUCED_OK : NAMES);
     T('k.v', name, s, withFriend ? 1 : 0, o.kind || (o.text ? 'text' : ''));
     var a = ACTIONS[name];
@@ -972,7 +996,15 @@
         var pf = pendingFriend; pendingFriend = null;
         if (pf === 'ann') visit({ action: 'wave', text: 'Psst… Bald bekomme ich Besuch von einer Freundin! Löse weiter Aufgaben, dann kommt sie.' });
         else if (pf === 'ann2') visit({ action: 'tilt', text: 'Meine Freundin ist schon unterwegs! Noch ein paar gelöste Aufgaben, dann ist sie da.' });
+        else if (pf === 'annd') visit({ action: 'wave', text: 'Psst… Luna ist schon auf dem Weg zu mir! Löse weiter Aufgaben, dann kommt sie.' });
+        else if (pf === 'ann2d') visit({ action: 'tilt', text: 'Luna ist gleich da! Noch ein paar gelöste Aufgaben.' });
+        else if (pf === 'back') { unlockNextDuo(); visit({ action: 'kiss', friend: true, text: 'Luna ist wieder da! Danke, dass Du heute so fleißig löst!' }); }
         else visit({ action: 'kiss', friend: true, text: 'Das ist Luna, meine Freundin! Danke, dass Du so fleißig löst!' });
+        return;
+      }
+      if (pendingGreet) {
+        pendingGreet = false; mem.greetDay = today(); persist(); T('k.greet');
+        visit({ action: 'wave', text: 'Gruß von Luna! Bist Du heute fleißig, kommt sie wieder zu Besuch!' });
         return;
       }
       var idle = Date.now() - lastActivity > 75000;
@@ -1032,10 +1064,40 @@
     ['a:wish', 'Sternschnuppe', 'Ein Wunsch für Dich.'], ['a:cup', 'Tasse', 'Ups.'], ['a:eat', 'Futterzeit', 'Nom nom nom.'],
     ['s:confetti', 'Konfetti', 'Fünf richtige Antworten in Folge.'], ['s:rufen', 'Gerufen', 'Man munkelt: Miau tippen.'],
     ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:ahnung', 'Besuch angekündigt', 'Man munkelt: Das Kätzchen bekommt bald Besuch.'], ['s:ahnung2', 'Besuch unterwegs', 'Man munkelt: Jemand ist schon auf dem Weg zum Kätzchen.'], ['s:luna', 'Luna', 'Die Freundin des Kätzchens. Sie kommt, wenn Du fleißig löst.'], ['s:treffer', 'Treffer', 'Ein Zoomies-Kätzchen im Flug getroffen.'], ['s:meister', 'Zoomies-Meister', 'Drei Zoomies-Kätzchen in einem Durchgang getroffen.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
+    ['m:bienchen', 'Fleißbienchen', 'Zehn Aufgaben richtig gelöst.', 'Löse zehn Aufgaben richtig im ersten Versuch.'],
+    ['m:krone', 'Krönchen', 'Fünfundzwanzig Aufgaben richtig gelöst.', 'Löse 25 Aufgaben richtig im ersten Versuch.'],
+    ['m:medaille', 'Medaille', 'Fünfzig Aufgaben richtig gelöst.', 'Löse 50 Aufgaben richtig im ersten Versuch.'],
+    ['m:rakete', 'Rakete', 'Hundert Aufgaben richtig gelöst. Ab ins All!', 'Löse 100 Aufgaben richtig im ersten Versuch.'],
+    ['m:dreier', 'Dreierserie', 'Drei Aufgaben nacheinander richtig.', 'Löse drei Aufgaben nacheinander richtig.'],
+    ['m:knobler', 'Knobelprofi', 'Eine schwere Aufgabe gleich im ersten Versuch gelöst.', 'Löse eine schwere Aufgabe im ersten Versuch.'],
+    ['m:blitz', 'Blitzdenker', 'Eine Aufgabe in unter 20 Sekunden richtig.', 'Löse eine Aufgabe richtig in unter 20 Sekunden.'],
+    ['m:durchhalter', 'Durchhalter', 'Beim zweiten Versuch hat es geklappt.', 'Versuche eine Aufgabe nach einem Fehler noch einmal und löse sie.'],
+    ['m:klug', 'Klug gefragt', 'Du hast das Kätzchen um Hilfe gebeten.', 'Bitte das Kätzchen bei einer Aufgabe um Hilfe.'],
+    ['m:probelauf', 'Probelauf geschafft', 'Ein ganzer Probelauf abgegeben.', 'Mache einen Probelauf bis zum Schluss.'],
+    ['m:tage3', 'Dranbleiber', 'An drei verschiedenen Tagen Aufgaben gelöst.', 'Löse an drei verschiedenen Tagen Aufgaben.'],
+    ['m:tage7', 'Eine Woche dabei', 'An sieben verschiedenen Tagen Aufgaben gelöst.', 'Löse an sieben verschiedenen Tagen Aufgaben.'],
+    ['d:herz', 'Herzchen', 'Luna und das Kätzchen mögen sich.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:nasen', 'Nasenstups', 'Nase an Nase.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:kuscheln', 'Kuscheln', 'Zusammen ist es am gemütlichsten.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:selfie', 'Selfie', 'Bitte lächeln!', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:regen', 'Regenschirm', 'Zu zweit unter einem Schirm.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:sterne', 'Sternennacht', 'Zwei Katzen zählen Sterne.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:duett', 'Duett', 'Miau-miau-miau!', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:tee', 'Teatime', 'Eine Tasse für jede.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:buch', 'Vorlesestunde', 'Luna liest vor, das Kätzchen hört zu.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:wolle', 'Wollknäuel zu zweit', 'Wer zieht am längeren Faden?', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:geburtstag', 'Geburtstag', 'Zwei Partyhüte, ein Fest.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:regenbogen', 'Regenbogen', 'Nach dem Regen kommt der Regenbogen.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
     ['h:xmas', 'Weihnachtsmütze', 'Ho ho ho!'], ['h:silvester', 'Partyhut', 'Prosit Neujahr!'], ['h:halloween', 'Kürbishut', 'Buh!'], ['h:ostern', 'Blumenkranz', 'Frühlingsgefühle.'], ['h:sommer', 'Sonnenbrille', 'Cool bleiben.'],
     ['x:end']
   ].filter(function (x) { return x[0] !== 'x:end'; }).concat(GIFTS.map(function (g, i) { return ['g:' + g.id, g.name, 'Geschenk Nr. ' + (i + 1) + ' vom Kätzchen.']; }));
   /* Zusatzzeichnungen je Sticker, im Koordinatensystem des Kopfes (viewBox 30 0 140 150) */
+  function STAR(cx, cy, r, fill) {
+    var p = []; for (var i = 0; i < 10; i++) { var a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.45 : r; p.push((cx + Math.cos(a) * rr).toFixed(1) + ',' + (cy + Math.sin(a) * rr).toFixed(1)); }
+    return '<polygon points="' + p.join(' ') + '" fill="' + fill + '" stroke="' + LINE + '" stroke-width="1.8" stroke-linejoin="round"/>';
+  }
+  function NOTE(x, y) { return '<ellipse cx="' + x + '" cy="' + y + '" rx="8" ry="6" fill="#0a86a6" transform="rotate(-20 ' + x + ' ' + y + ')"/><path d="M' + (x + 7) + ' ' + (y - 2) + 'V' + (y - 28) + 'q9 2 11 12" fill="none" stroke="#0a86a6" stroke-width="3.2" stroke-linecap="round"/>'; }
+  function CAL(n) { return '<g transform="translate(132 84)"><rect x="0" y="0" width="52" height="56" rx="7" fill="#fff" stroke="' + LINE + '" stroke-width="3"/><rect x="0" y="0" width="52" height="15" rx="7" fill="#e05060" stroke="' + LINE + '" stroke-width="3"/><text x="26" y="47" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="30" fill="#0a86a6">' + n + '</text></g>'; }
   var PROPS = {
     'a:wave': { svg: '<ellipse cx="162" cy="72" rx="9" ry="14" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3" transform="rotate(20 162 72)"/><path d="M174 52q8 6 6 16M176 44q12 8 10 24" fill="none" stroke="' + LINE + '" stroke-width="3" stroke-linecap="round"/>' },
     'a:tail': { svg: '<path d="M150 140C176 134 180 100 160 86" fill="none" stroke="' + LINE + '" stroke-width="15" stroke-linecap="round"/><path d="M150 140C176 134 180 100 160 86" fill="none" stroke="' + FUR + '" stroke-width="9" stroke-linecap="round"/>' },
@@ -1068,11 +1130,53 @@
     's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
     's:treffer': { cls: 'bk-happy', svg: '<g transform="translate(116 8)"><circle cx="30" cy="30" r="28" fill="#fff" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="17" fill="none" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="6" fill="#e05060"/></g>' },
     's:meister': { cls: 'bk-happy', svg: '<g transform="translate(112 4) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g><path d="M4 60h36M0 84h44" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
+    'm:bienchen': { cls: 'bk-happy', svg: '<g transform="translate(140 18)"><ellipse cx="14" cy="16" rx="15" ry="11" fill="#f2c230" stroke="' + LINE + '" stroke-width="3"/><path d="M9 6v20M19 6v20" stroke="#2b1a10" stroke-width="3.5"/><ellipse cx="7" cy="2" rx="8" ry="6" fill="#e3f4ff" stroke="' + LINE + '" stroke-width="2.2"/><ellipse cx="21" cy="0" rx="8" ry="6" fill="#e3f4ff" stroke="' + LINE + '" stroke-width="2.2"/></g><path d="M170 62q-8 14-24 10" fill="none" stroke="#8a9ca4" stroke-width="2.5" stroke-dasharray="3 5" stroke-linecap="round"/>' },
+    'm:krone': { cls: 'bk-happy', svg: '<path d="M62 54L68 12L88 34L100 6L112 34L132 12L138 54Z" fill="#f2c230" stroke="' + LINE + '" stroke-width="3.2" stroke-linejoin="round"/><circle cx="68" cy="12" r="4.5" fill="#e05060"/><circle cx="100" cy="6" r="4.5" fill="#4a9ad9"/><circle cx="132" cy="12" r="4.5" fill="#e05060"/>' },
+    'm:medaille': { cls: 'bk-happy', svg: '<path d="M126 110l-8 38 16-8 14 12 2-40z" fill="#4a9ad9" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><circle cx="154" cy="128" r="21" fill="#f2c230" stroke="' + LINE + '" stroke-width="3.2"/><text x="154" y="137" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="26" fill="#8a5a00">1</text>' },
+    'm:rakete': { cls: 'bk-happy', svg: '<g transform="translate(160 56) rotate(35)"><path d="M0 -34C14 -18 14 10 0 28C-14 10 -14 -18 0 -34Z" fill="#e8eef1" stroke="' + LINE + '" stroke-width="3"/><circle cx="0" cy="-8" r="6" fill="#4a9ad9" stroke="' + LINE + '" stroke-width="2"/><path d="M-13 12L-24 30L-6 20ZM13 12L24 30L6 20Z" fill="#e05060" stroke="' + LINE + '" stroke-width="2.5" stroke-linejoin="round"/><path d="M-6 28Q0 48 6 28Z" fill="#f2a030"/></g><circle cx="30" cy="20" r="2.6" fill="#f2c230"/><circle cx="178" cy="120" r="2.6" fill="#f2c230"/>' },
+    'm:dreier': { cls: 'bk-happy', svg: STAR(66, 12, 11, '#f2c230') + STAR(100, 4, 12, '#f2c230') + STAR(134, 12, 11, '#f2c230') + '<text x="176" y="138" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="32" fill="#0a86a6">3×</text>' },
+    'm:knobler': { cls: 'bk-happy', svg: '<g transform="translate(138 6)"><circle cx="18" cy="18" r="16" fill="#fff3a8" stroke="' + LINE + '" stroke-width="3"/><rect x="11" y="33" width="14" height="9" rx="2" fill="#8a9ca4" stroke="' + LINE + '" stroke-width="2.5"/><path d="M18 -4v-7M-6 18h-7M42 18h7M2 2l-5-5M34 2l5-5" stroke="#f2a030" stroke-width="3" stroke-linecap="round"/></g>' },
+    'm:blitz': { cls: 'bk-happy', svg: '<path d="M164 14L134 62h20L142 112L184 52H162Z" fill="#f2c230" stroke="' + LINE + '" stroke-width="3.2" stroke-linejoin="round"/>' },
+    'm:durchhalter': { cls: 'bk-happy', svg: '<g transform="rotate(-25 124 70)"><rect x="98" y="62" width="52" height="17" rx="8.5" fill="#f4cfa0" stroke="' + LINE + '" stroke-width="2.8"/><rect x="115" y="62" width="18" height="17" fill="#e8b57e"/><circle cx="121" cy="70.5" r="1.7" fill="#b98a55"/><circle cx="127" cy="70.5" r="1.7" fill="#b98a55"/></g><g transform="translate(144 6) scale(1.4)">' + HEART.replace(/^<svg[^>]*>/, '<g color="#ef5d7a">').replace('</svg>', '</g>') + '</g>' },
+    'm:klug': { cls: 'bk-happy', svg: '<path d="M120 10h56a9 9 0 0 1 9 9v30a9 9 0 0 1-9 9h-32l-14 14 2-14h-12a9 9 0 0 1-9-9V19a9 9 0 0 1 9-9z" fill="#fff" stroke="#0a86a6" stroke-width="3.2" stroke-linejoin="round"/><text x="148" y="46" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="30" fill="#0a86a6">?!</text>' },
+    'm:probelauf': { cls: 'bk-happy', svg: '<g transform="translate(136 88)"><circle cx="24" cy="30" r="24" fill="#fff" stroke="' + LINE + '" stroke-width="3.2"/><rect x="17" y="0" width="14" height="7" rx="2.5" fill="#8a9ca4" stroke="' + LINE + '" stroke-width="2.6"/><path d="M24 30V13M24 30l11 7" stroke="#e05060" stroke-width="3.8" stroke-linecap="round"/><circle cx="24" cy="30" r="3" fill="' + LINE + '"/></g>' },
+    'm:tage3': { cls: 'bk-happy', svg: CAL(3) },
+    'm:tage7': { cls: 'bk-happy', svg: CAL(7) },
     'x:end': { svg: '' }
+  };
+  var DUOP = {
+    'd:herz': { cls: 'bk-happy', svg: '<g transform="translate(112 -2) scale(2.3)">' + HEART.replace(/^<svg[^>]*>/, '<g color="#ef5d7a">').replace('</svg>', '</g>') + '</g><g transform="translate(70 -6) scale(1)">' + HEART.replace(/^<svg[^>]*>/, '<g color="#f4a3b4">').replace('</svg>', '</g>') + '</g>' },
+    'd:nasen': { cls: 'bk-happy', ra: 7, rb: -7, svg: '<g transform="translate(120 70) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g>' },
+    'd:kuscheln': { cls: 'bk-happy', ra: 9, rb: -9, svg: '<text x="116" y="22" font-family="system-ui,sans-serif" font-weight="800" font-size="30" fill="#6a7b82">Z</text><text x="140" y="8" font-family="system-ui,sans-serif" font-weight="800" font-size="20" fill="#6a7b82">z</text><text x="156" y="-2" font-family="system-ui,sans-serif" font-weight="800" font-size="14" fill="#6a7b82">z</text>' },
+    'd:selfie': { cls: 'bk-happy', svg: '<rect x="-2" y="-6" width="264" height="162" rx="10" fill="none" stroke="#2b3a42" stroke-width="6"/><g transform="translate(222 8) scale(1.6)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#ffffff" style="filter:drop-shadow(0 0 2px #f2c230)">').replace('</svg>', '</g>') + '</g><text x="10" y="22" font-family="system-ui,sans-serif" font-weight="800" font-size="18" fill="#2b3a42">Klick!</text>' },
+    'd:regen': { cls: 'bk-happy', back: '<path d="M2 50Q142-60 282 50Z" fill="#e05060" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><path d="M142-4V24" stroke="' + LINE + '" stroke-width="3"/>', svg: '<path d="M10 70l-6 14M24 96l-6 14M250 66l-6 14M236 94l-6 14M120 16l-5 12M170 20l-5 12" stroke="#4a9ad9" stroke-width="3.5" stroke-linecap="round"/>' },
+    'd:sterne': { cls: 'bk-happy', back: '<rect x="-6" y="-10" width="274" height="170" rx="12" fill="#1d2b4d"/>', svg: STAR(20, 14, 9, '#f2c230') + STAR(142, 8, 11, '#fff3a8') + STAR(246, 20, 9, '#f2c230') + STAR(250, 120, 7, '#fff3a8') + STAR(10, 120, 7, '#fff3a8') },
+    'd:duett': { cls: 'bk-happy', svg: NOTE(130, 30) + NOTE(160, 14) + NOTE(188, 36) },
+    'd:tee': { cls: 'bk-happy', svg: '<g transform="translate(62 116) scale(1.05)">' + CUP.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(150 116) scale(1.05)">' + CUP.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'd:buch': { cls: 'bk-happy', svg: '<path d="M142 114Q116 104 90 112V150Q116 142 142 152Z" fill="#fff" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><path d="M142 114Q168 104 194 112V150Q168 142 142 152Z" fill="#fff" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><path d="M98 124q18-4 36 2M98 134q18-4 36 2M150 126q18-6 36-2M150 136q18-6 36-2" stroke="#8a9ca4" stroke-width="2" fill="none"/>' },
+    'd:wolle': { cls: 'bk-happy', svg: '<g transform="translate(118 96) scale(1.45)">' + YARN.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M118 130Q60 150 40 118M166 130Q220 150 232 112" fill="none" stroke="#e8607a" stroke-width="3.5" stroke-linecap="round"/>' },
+    'd:geburtstag': { cls: 'bk-happy', acc: 'silvester', svg: '<rect x="4" y="30" width="9" height="14" fill="#e05060" transform="rotate(20 8 36)"/><rect x="248" y="40" width="9" height="14" fill="#4a9ad9" transform="rotate(-30 252 46)"/><rect x="132" y="2" width="9" height="14" fill="#4caf50" transform="rotate(35 136 8)"/><rect x="6" y="110" width="9" height="14" fill="#f2c230" transform="rotate(-20 10 116)"/><rect x="246" y="112" width="9" height="14" fill="#b794f4" transform="rotate(25 250 118)"/>' },
+    'd:regenbogen': { cls: 'bk-happy', back: '<path d="M-2 140A144 140 0 0 1 286 140" fill="none" stroke="#e05060" stroke-width="10"/><path d="M8 140A134 130 0 0 1 276 140" fill="none" stroke="#f2c230" stroke-width="10"/><path d="M18 140A124 120 0 0 1 266 140" fill="none" stroke="#4caf50" stroke-width="10"/><path d="M28 140A114 110 0 0 1 256 140" fill="none" stroke="#4a9ad9" stroke-width="10"/>', svg: '' }
+  };
+  var DUO_SAY = {
+    'd:herz': ['Wir haben uns lieb!', 'Herzchen für Dich!'], 'd:nasen': ['Nasenstups!', 'Nase an Nase.'], 'd:kuscheln': ['Zusammen ist es gemütlich.', 'Pssst, wir kuscheln.'],
+    'd:selfie': ['Bitte lächeln!', 'Klick! Das wird ein tolles Foto.'], 'd:regen': ['Zu zweit unter einem Schirm.', 'Pfui, Regen!'], 'd:sterne': ['Schau, so viele Sterne!', 'Eins, zwei, drei …'],
+    'd:duett': ['Miau-miau-miau!', 'Wir singen ein Duett.'], 'd:tee': ['Eine Tasse für jede!', 'Prost, Luna!'], 'd:buch': ['Luna liest vor.', 'Es war einmal ein Biber …'],
+    'd:wolle': ['Wer zieht am längeren Faden?', 'Das Knäuel gehört uns beiden!'], 'd:geburtstag': ['Alles Gute!', 'Partyzeit!'], 'd:regenbogen': ['Ein Regenbogen für uns!', 'Nach dem Regen kommt Sonne.']
+  };
+  var M_SAY = {
+    'm:bienchen': 'Summ, summ! Du bist fleißig.', 'm:krone': 'Du bekommst eine Krone!', 'm:medaille': 'Eine Medaille für Dich!', 'm:rakete': 'Ab ins All! Hundert Aufgaben!',
+    'm:dreier': 'Drei in Folge! Weiter so!', 'm:knobler': 'Eine schwere Aufgabe, gleich richtig!', 'm:blitz': 'Blitzschnell gedacht!', 'm:durchhalter': 'Nicht aufgegeben, das ist stark!',
+    'm:klug': 'Fragen ist schlau!', 'm:probelauf': 'Ein ganzer Probelauf! Respekt!', 'm:tage3': 'Schon drei Tage dabei!', 'm:tage7': 'Eine ganze Woche! Wow!'
   };
   function stickerSvg(id) {
     var kind = id.split(':')[0], key = id.split(':')[1], pr = PROPS[id] || {};
     if (id === 's:hidden') return hidSvg(90);
+    if (kind === 'd') {
+      var dp = DUOP[id] || {}, da = HEADG, db = recolorLuna(HEADG) + BOW;
+      return '<svg viewBox="-6 -10 270 168" aria-hidden="true" class="' + (dp.cls || '') + '"' + (dp.acc ? ' data-acc="' + dp.acc + '"' : '') + '>' + (dp.back || '') +
+        '<g transform="translate(-22 0) rotate(' + (dp.ra || 0) + ' 100 100)">' + da + '</g><g transform="translate(106 0) rotate(' + (dp.rb || 0) + ' 100 100)">' + db + '</g>' + (dp.svg || '') + '</svg>';
+    }
     if (id === 's:luna') {
       var lh = recolorLuna(HEADG), li = lh.lastIndexOf('</g>');
       return '<svg viewBox="10 -8 190 168" aria-hidden="true" class="bk-happy"><g>' + lh + BOW + '</g><g transform="translate(150 6) scale(1.2)">' + HEART.replace(/^<svg[^>]*>/, '<g color="#ef5d7a">').replace('</svg>', '</g>') + '</g></svg>';
@@ -1118,6 +1222,8 @@
     var kind = id.slice(0, 2), key = id.slice(2), sd = pick(['bottom', 'left', 'right']);
     if (kind === 'a:' && ACTIONS[key]) { visit({ action: key, side: sd, text: ACTIONS[key].phrases ? pick(ACTIONS[key].phrases) : undefined }); return; }
     if (kind === 'h:') { forceAcc = key; visit({ action: pick(['wave', 'tilt', 'kiss']), side: sd, text: HAT_SAY[key] || 'Schau mal!' }); return; }
+    if (kind === 'd:') { visit({ action: pick(['kiss', 'wave', 'tilt']), side: sd, friend: true, text: pick(DUO_SAY[id] || ['Wir sind zu zweit!']) }); return; }
+    if (kind === 'm:') { visit({ action: pick(['wave', 'kiss', 'tilt']), side: sd, text: M_SAY[id] || 'Gut gemacht!' }); return; }
     if (id === 's:luna') { visit({ action: 'kiss', side: sd, friend: true, text: 'Das ist Luna, meine Freundin!' }); return; }
     if (id === 's:ahnung2') { visit({ action: 'tilt', side: sd, text: 'Meine Freundin ist schon unterwegs!' }); return; }
     if (id === 's:ahnung') { visit({ action: 'wave', side: sd, text: 'Psst… Bald bekomme ich Besuch!' }); return; }
@@ -1170,8 +1276,8 @@
   function stickersHtml(have) {
     return '<div class="bk-say" role="status" aria-live="polite"></div><ul class="bk-grid">' + STICKERS.filter(function (s) { return s[0].slice(0, 2) !== 'g:'; }).map(function (s) {
       var got = !!have[s[0]];
-      return '<li class="bk-st' + (got ? '' : ' bk-locked') + '"' + (got ? ' tabindex="0" role="button" data-st="' + s[0] + '" aria-label="' + s[1] + ' (antippen: das Kätzchen zeigt es Dir)"' : '') + '>' + (got ? stickerSvg(s[0]) : stickerSvg(s[0] === 's:hidden' ? 'a:wave' : s[0])) +
-        '<b>' + (got ? s[1] : '???') + '</b><small>' + (got ? s[2] : 'Noch nicht entdeckt') + '</small></li>';
+      return '<li class="bk-st' + (s[0].slice(0, 2) === 'd:' ? ' bk-duo' : '') + (got ? '' : ' bk-locked') + '"' + (got ? ' tabindex="0" role="button" data-st="' + s[0] + '" aria-label="' + s[1] + ' (antippen: das Kätzchen zeigt es Dir)"' : '') + '>' + (got ? stickerSvg(s[0]) : stickerSvg(s[0] === 's:hidden' ? 'a:wave' : s[0])) +
+        '<b>' + (got ? s[1] : '???') + '</b><small>' + (got ? s[2] : (s[3] || 'Noch nicht entdeckt')) + '</small></li>';
     }).join('') + '</ul>';
   }
   function openAlbum(tab) {
@@ -1456,6 +1562,8 @@
       if (wrap) wrap.classList.remove('bk-on', 'bk-live');
       busy = false; visible = false; petCount = 0; streak = 0;
       removeHidden(); announce();
+      if (mem.friend && mem.lunaDay == null) mem.lunaDay = today();
+      checkGreeting();
       if (!mem.off) schedule(4000);
     },
     stats: function () { return { credit: credit(), seen: Object.keys(mem.stickers || {}).length, total: STICKERS.length, pets: mem.pets, enabled: !mem.off, muted: !!mem.mute, secrets: Object.keys(mem.secrets).length }; },
@@ -1484,10 +1592,33 @@
         else if (visible) showBubble('Miau! Ich bin doch schon da.');
       }
     }, { passive: true });
+    /* Erfolgs-Sticker: werden nacheinander freigeschaltet, damit jede Meldung zu sehen ist */
+    function queueUnlock(ids) { ids = ids.filter(function (id) { return !(mem.stickers && mem.stickers[id]); }); ids.forEach(function (id, i) { setTimeout(function () { unlock(id); }, 3200 + i * 4200); }); }
+    function achieve(d) {
+      var ids = [];
+      if (d.counted !== false) {
+        mem.row = d.correct ? (mem.row || 0) + 1 : 0;
+        if (d.correct) {
+          var c = (mem.correct || 0) + 1;   /* wird danach hochgezählt */
+          [[10, 'm:bienchen'], [25, 'm:krone'], [50, 'm:medaille'], [100, 'm:rakete']].forEach(function (x) { if (c >= x[0]) ids.push(x[1]); });
+          if (mem.row >= 3) ids.push('m:dreier');
+          if (d.level === 'schwer') ids.push('m:knobler');
+          if (typeof d.secs === 'number' && d.secs <= 20) ids.push('m:blitz');
+          var day = today(); mem.days = (mem.days || []); if (mem.days.indexOf(day) < 0) mem.days.push(day); mem.days = mem.days.slice(-60);
+          if (mem.days.length >= 3) ids.push('m:tage3');
+          if (mem.days.length >= 7) ids.push('m:tage7');
+        }
+        persist();
+      } else if (d.correct && d.priorWrong) ids.push('m:durchhalter');
+      if (ids.length) queueUnlock(ids);
+    }
+    document.addEventListener('biber:run', function () { queueUnlock(['m:probelauf']); });
+    document.addEventListener('biber:help', function () { queueUnlock(['m:klug']); });
     document.addEventListener('biber:result', function (e) {
       var d = (e && e.detail) || {};
       if (d.counted !== false) earn(d.correct ? 3 : 1);
       if (mem.off) return;
+      achieve(d);
       if (d.correct) {
         if (d.counted !== false) {
           mem.correct = (mem.correct || 0) + 1; persist(); friendProgress();
@@ -1498,6 +1629,8 @@
     });
     document.addEventListener('biber:credit', function (e) { var d = (e && e.detail) || {}; earn(d.n); if (d.correct) friendProgress(); });
     document.addEventListener('visibilitychange', function () { if (!document.hidden && !busy) schedule(); });
+    if (mem.friend && mem.lunaDay == null) { mem.lunaDay = today(); persist(); }   /* bestehende Spielstände: heute zählt Luna noch als da */
+    checkGreeting();
     schedule(CFG.first);
     announce();
     setTimeout(placeHidden, 900);

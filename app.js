@@ -480,6 +480,7 @@
         if (!mod.isComplete()) return;
         var res = mod.evaluate();
         var counts = !resultOf(t);
+        var priorWrong = !counts && !resultOf(t).correct;
         var points = SCORING[level][res.correct ? 'right' : 'wrong'];
         track('ta', id, res.correct ? 1 : 0, counts ? 1 : 0, Math.round((Date.now() - taskT0) / 1000), JSON.stringify(res.answer));
         if (counts) {
@@ -494,7 +495,7 @@
         st.checked = true;
         refreshBar();
         showFeedback(res.correct, points, counts, false);
-        document.dispatchEvent(new CustomEvent('biber:result', { detail: { correct: !!res.correct, id: id, counted: counts } }));
+        document.dispatchEvent(new CustomEvent('biber:result', { detail: { correct: !!res.correct, id: id, counted: counts, level: level, secs: Math.round((Date.now() - taskT0) / 1000), priorWrong: priorWrong } }));
         fb.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       } else if (act === 'reset' || act === 'retry') {
         track('tr', id, act);

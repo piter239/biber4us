@@ -194,6 +194,7 @@ window.BiberHelper = (function () {
     var info = taskInfo() || { title: '', story: '', question: '', howto: '', board: '' };
     addMsg('me', text);
     T('h.say', taskId, mode, text.length, text);
+    try { document.dispatchEvent(new CustomEvent('biber:help', { detail: { id: taskId } })); } catch (e) { /* ignorieren */ }
     var wait = addMsg('cat', 'Moment …'); wait.classList.add('hf-wait');
     var t0 = Date.now(), reply = await aiReply(info, text), how = 'ai';
     if (!reply) { how = 'script'; reply = scripted(); }

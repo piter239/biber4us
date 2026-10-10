@@ -71,6 +71,7 @@
       rec.tasks.push(entry);
     });
     A.track('r.fin', rec.score, rec.right, rec.wrong, rec.blank, rec.used);
+    try { document.dispatchEvent(new CustomEvent('biber:run', { detail: { score: rec.score } })); } catch (e) { /* ignorieren */ }
     p.runs = [rec].concat(p.runs || []).slice(0, 30);
     p.run = null;
     p.upd = new Date().toISOString();
