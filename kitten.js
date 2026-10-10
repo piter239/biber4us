@@ -914,6 +914,7 @@
     unlock('s:zoomies');
     /* Adaptives Tempo: Es geht schnell los (0,38 s sichtbar). Erst nach drei Durchgängen in Folge ohne Treffer wird es langsamer
        (längere Auftritte, größeres Ziel); wer oft trifft, wird noch schneller. */
+    if (mem.zoomV !== 2) { mem.zoomV = 2; mem.zoomSpeed = 380; mem.zoomMiss = 0; persist(); }   /* neue Treffer-Regeln: Tempo neu einpegeln */
     var zms = Math.max(300, Math.min(1800, mem.zoomSpeed || 380));
     T('k.zoom', zms);
     var gap = Math.max(240, Math.min(520, Math.round(zms * 0.45)));
@@ -939,7 +940,7 @@
     if (zoomHits > 0) mem.zoomHitEver = true;
     var rate = zoomHits / sides.length;
     if (zoomHits === 0) { mem.zoomMiss = (mem.zoomMiss || 0) + 1; if (mem.zoomMiss >= 3) { zms *= 1.2; mem.zoomMiss = 0; } }
-    else { mem.zoomMiss = 0; if (rate > 0.55) zms *= 0.85; }
+    else { mem.zoomMiss = 0; if (rate >= 0.8) zms *= 0.78; else if (rate > 0.55) zms *= 0.88; }
     mem.zoomSpeed = Math.max(300, Math.min(1800, Math.round(zms)));
     T('k.zend', zoomHits, mem.zoomSpeed);
     persist();
