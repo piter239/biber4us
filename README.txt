@@ -25,3 +25,11 @@ Veroeffentlichung mit Dateianzahl-Limit
 python3 tools/bundle.py <Zielordner> fasst alle tasks/*.js und tasks/*.css zu tasks.bundle.js / tasks.bundle.css
 zusammen und schreibt einen index.html, der nur diese beiden Dateien laedt. Fuer den gehosteten Artifact wird diese
 gebuendelte Fassung verwendet (Limit: 511 Dateien je Version). Quellen in tasks/ bleiben unveraendert.
+
+Aktivitaetsprotokoll
+--------------------
+track.js protokolliert Handlungen kompakt (eine Zeile je Ereignis, Zeit als Abstand in ms zum vorigen Ereignis) und schickt sie
+abschnittsweise (300 Zeilen) als Dokumente logs/<Konto-Id>/c/<Sitzung>_<Nr> an die db der Artifact-Umgebung (Regeln: logs lesen = admin,
+logs/{self} lesen/schreiben = interact). Die Eltern (Owner/Editoren) lesen alles. Auswertung: tools/decode_log.py.
+Gespeichert werden Klicks (mit Position in Promille), Seitenwechsel, Aufgabenstart/-ende/-antworten, Probelauf, Katzen-Ereignisse,
+Leerlauf und Sichtbarkeit. Keine Mausbewegungen, keine getippten Texte. Codes siehe Kopf von track.js.

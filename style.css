@@ -332,3 +332,4 @@ table.res { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-widt
   .run-chip { flex: 0 0 auto; width: 1.9rem; height: 1.9rem; font-size: 0.8rem; }
   .run-timer { font-size: 1.6rem; }
 }
+.log-note { margin: 0.4rem 0 0; font-size: 0.8rem; color: var(--muted); }

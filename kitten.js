@@ -92,14 +92,15 @@
   /* Belohnung: Zählung ab jetzt (mem.fc = richtig gelöste Aufgaben im ersten Versuch). 1. Ankündigung nach 1, 2. Ankündigung nach 3, Luna kommt nach 5. */
   var pendingFriend = null;
   function friendProgress() {
-    mem.fc = (mem.fc || 0) + 1; persist();
+    mem.fc = (mem.fc || 0) + 1; persist(); T('k.fc', mem.fc);
     var c = mem.fc, st = mem.stickers || {};
     if (!st['s:ahnung'] && c >= 1) { unlock('s:ahnung'); pendingFriend = 'ann'; }
     else if (!st['s:ahnung2'] && c >= 3) { unlock('s:ahnung2'); pendingFriend = 'ann2'; }
     else if (!st['s:luna'] && c >= 5) { mem.friend = true; unlock('s:luna'); pendingFriend = 'arrive'; }
     if (pendingFriend) schedule(9000);
   }
-  function earn(n) { if (!(n > 0)) return; mem.credit = credit() + n; persist(); if (window.__bkCredit) window.__bkCredit(); }
+  function earn(n) { if (!(n > 0)) return; mem.credit = credit() + n; persist(); T('k.cr', n, mem.credit); if (window.__bkCredit) window.__bkCredit(); }
+  function T() { if (window.BiberTrack) window.BiberTrack.log.apply(null, arguments); }
   function persist() { mem.touched = true; try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) { /* ignorieren */ } }
 
   /* ---------- Stile ---------- */
@@ -812,6 +813,7 @@
     var s = o.side || pick(['bottom', 'bottom', 'left', 'right', 'top']);
     var withFriend = !!(mem.friend && (o.friend || Math.random() < 0.3));
     var name = o.action && ACTIONS[o.action] ? o.action : pickAction(reduced ? REDUCED_OK : NAMES);
+    T('k.v', name, s, withFriend ? 1 : 0, o.kind || (o.text ? 'text' : ''));
     var a = ACTIONS[name];
     hideBubble(); clearActions();
     stage(null); peek.classList.add('bk-out'); peek.style.transition = 'none'; void peek.offsetWidth; peek.style.transition = '';
@@ -858,7 +860,7 @@
   var zoomOn = false, zoomCan = false, zoomHitDone = false, zoomHits = 0;
   function zoomHit() {
     if (zoomHitDone) return;
-    zoomHitDone = true; zoomHits++;
+    zoomHitDone = true; zoomHits++; T('k.zhit', zoomHits);
     hitSound(false);
     sparks(7);
     addFx('<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="none" stroke="#e05060" stroke-width="5"/><circle cx="32" cy="32" r="17" fill="none" stroke="#fff" stroke-width="5"/><circle cx="32" cy="32" r="7" fill="#e05060"/></svg>', 'bk-ring', '', 700);
@@ -873,7 +875,7 @@
     var t = ++tok;
     var now = Date.now();
     petCount = now - lastPet < 1600 ? petCount + 1 : 1; lastPet = now;
-    mem.pets++; persist();
+    mem.pets++; persist(); T('k.pet', petCount);
     if (!mem.secrets.petted) { mem.secrets.petted = true; persist(); }
     hideBubble(); clearActions();
     wrap.classList.add('bk-happy');
@@ -905,6 +907,7 @@
     /* Adaptives Tempo: Es geht schnell los (0,38 s sichtbar). Erst nach drei Durchgängen in Folge ohne Treffer wird es langsamer
        (längere Auftritte, größeres Ziel); wer oft trifft, wird noch schneller. */
     var zms = Math.max(300, Math.min(1800, mem.zoomSpeed || 380));
+    T('k.zoom', zms);
     var gap = Math.max(240, Math.min(520, Math.round(zms * 0.45)));
     var big = 1 + 0.35 * Math.max(0, zms - 380) / 1420;
     meow(1.3); showBubble(mem.zoomHitEver ? 'Zoomies!' : 'Zoomies! Fang mich!', 1400);
@@ -928,6 +931,7 @@
     if (zoomHits === 0) { mem.zoomMiss = (mem.zoomMiss || 0) + 1; if (mem.zoomMiss >= 3) { zms *= 1.2; mem.zoomMiss = 0; } }
     else { mem.zoomMiss = 0; if (rate > 0.55) zms *= 0.85; }
     mem.zoomSpeed = Math.max(300, Math.min(1800, Math.round(zms)));
+    T('k.zend', zoomHits, mem.zoomSpeed);
     persist();
     place('bottom', true); stage('pop'); wrap.classList.add('bk-happy'); hearts(6); sparks(4);
     var msg = 'Puh! Das war schön. Danke!';
@@ -1088,7 +1092,7 @@
   function unlock(id) {
     if (!mem.stickers) mem.stickers = {};
     if (mem.stickers[id]) return false;
-    mem.stickers[id] = true; persist();
+    mem.stickers[id] = true; persist(); T('k.unl', id);
     lastKind = id.slice(0, 2) === 'g:' ? 'gifts' : 'sticker';
     var first = Object.keys(mem.stickers).length === 1;
     setTimeout(function () { showToast('Neuer Sticker: ' + stickerName(id) + (first ? ' (Dein Sammelalbum ist im Seitenfuß)' : '')); }, 900);
@@ -1162,6 +1166,7 @@
   function openAlbum(tab) {
     if (albumEl) return;
     albumFrom = document.activeElement;
+    T('k.alb', tab || albumTab);
     if (tab === 'sticker' || tab === 'gifts') albumTab = tab;
     var have = mem.stickers || {};
     var nGift = GIFTS.filter(function (g) { return have['g:' + g.id]; }).length;
@@ -1212,11 +1217,12 @@
     /* Höchstens 5 Auftritte innerhalb von 90 Sekunden, danach ein netter Spruch statt weiterer Auftritte */
     function popSticker(li) {
       var now = Date.now();
-      if (credit() <= 0) { sayNow('credit'); return; }
+      if (credit() <= 0) { T('k.st', li.getAttribute('data-st'), 'credit0'); sayNow('credit'); return; }
       pops = pops.filter(function (t) { return now - t < 90000; });
-      if (pops.length >= 5) { sayNow(); return; }
+      if (pops.length >= 5) { T('k.st', li.getAttribute('data-st'), 'limit'); sayNow(); return; }
       pops.push(now);
       mem.credit = credit() - 1; persist(); renderSub();
+      T('k.st', li.getAttribute('data-st'), 'play', mem.credit);
       li.classList.remove('bk-pop'); void li.offsetWidth; li.classList.add('bk-pop');
       setTimeout(function () { li.classList.remove('bk-pop'); }, 600);
       playFromAlbum(li.getAttribute('data-st'));
@@ -1227,7 +1233,7 @@
     }
     window.__bkCredit = renderSub;
     function show(t) {
-      albumTab = t;
+      albumTab = t; T('k.tab', t);
       albumEl.querySelectorAll('.bk-tab').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.tab === t ? 'true' : 'false'); });
       if (t === 'gifts') {
         sub.textContent = 'Geschenke vom Kätzchen für richtige Antworten im ersten Versuch (bisher ' + (mem.correct || 0) + ').';
@@ -1240,6 +1246,7 @@
     function openBig(id) {
       var g = GIFTS.filter(function (x) { return x.id === id; })[0];
       if (!g || lbox) return;
+      T('k.gbig', id);
       lbox = document.createElement('div'); lbox.className = 'bk-lbox';
       lbox.innerHTML = '<div class="bk-lbox-in" role="dialog" aria-modal="true" aria-label="' + g.name + '"><h3>' + g.name + '</h3><p>' + g.line + '</p>' + pairHtml(g, true) +
         '<div><button type="button" class="bk-album-close bk-lbox-close">Zurück</button></div></div>';
@@ -1254,7 +1261,7 @@
     }
     function closeAlbum() {
       if (!albumEl) return;
-      albumEl.remove(); albumEl = null; lbox = null; document.removeEventListener('keydown', onKey, true);
+      T('k.albx'); albumEl.remove(); albumEl = null; lbox = null; document.removeEventListener('keydown', onKey, true);
       document.body.classList.remove('bk-albumopen'); window.__bkCredit = null;
       if (albumFrom && albumFrom.focus) try { albumFrom.focus(); } catch (e) { /* ignorieren */ }
     }
@@ -1317,7 +1324,7 @@
     mem.giftN = (mem.giftN || 0) + 1;
     mem.giftNext = n + nextGap(mem.giftN);
     persist();
-    unlock('g:' + g.id);
+    unlock('g:' + g.id); T('k.gift', g.id);
     var t = ++tok; busy = true; visible = true; clearTimeout(timer);
     (async function () {
       place(pick(['bottom', 'left', 'right'])); clearActions();
@@ -1376,7 +1383,7 @@
     var el = hidEl; el.classList.add('bk-found');
     setTimeout(function () { el.remove(); }, 900);
     hidEl = null; hidTarget = null;
-    mem.hiddenFound = (mem.hiddenFound || 0) + 1; persist();
+    mem.hiddenFound = (mem.hiddenFound || 0) + 1; persist(); T('k.hid');
     var isNew = unlock('s:hidden');
     try { if (navigator.vibrate) navigator.vibrate(30); } catch (e) { /* ignorieren */ }
     if (!busy && !mem.off) visit({ action: 'kiss', side: 'bottom', text: isNew ? 'Du hast Mimi gefunden! Das ist meine kleine Freundin.' : 'Mimi hat sich wieder versteckt. Gut gefunden!' });
@@ -1419,7 +1426,7 @@
       else schedule(1500);
       announce();
     },
-    setMuted: function (m) { mem.mute = !!m; persist(); announce(); },
+    setMuted: function (m) { mem.mute = !!m; persist(); T('k.mute', m ? 1 : 0); announce(); },
     album: function () { openAlbum(); },
     /* Zeitweise ruhen lassen (z. B. beim Probelauf), ohne die Einstellung „aus“ zu ändern */
     pause: function (on) {
@@ -1461,7 +1468,7 @@
       typed = (typed + e.key.toLowerCase()).slice(-4);
       if (typed === 'miau' && !mem.off) {
         typed = '';
-        unlock('s:rufen'); trill();
+        unlock('s:rufen'); trill(); T('k.miau');
         if (!busy) visit({ action: 'wave', side: pick(['bottom', 'left', 'right', 'top']), text: 'Du hast mich gerufen? Miau!' });
         else if (visible) showBubble('Miau! Ich bin doch schon da.');
       }

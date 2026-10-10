@@ -96,7 +96,14 @@ window.BiberSync = (function () {
     try { return await S.user.profiles(ids); } catch (e) { return {}; }
   }
 
+  var api = {
+    ready: function () { return !!(S.db && S.uid && S.state === 'server'); },
+    doc: function (path) { return S.db.doc(path); },
+    uid: function () { return S.uid; }
+  };
+
   return {
+    api: api,
     start: start,
     schedule: schedule,
     onStatus: onStatus,

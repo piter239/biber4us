@@ -46,6 +46,7 @@
     var p = A.profile(), now = Date.now();
     p.run = { at: new Date(now).toISOString(), endAt: now + MINUTES * 60000, minutes: MINUTES, ids: pickRun(p), ans: {}, cur: 0, done: false };
     A.save();
+    A.track('r.start', p.run.ids.join(','), MINUTES);
     view = { kind: 'auto', rec: null };
     A.route();
   }
@@ -69,6 +70,7 @@
       rec.score += entry.pts;
       rec.tasks.push(entry);
     });
+    A.track('r.fin', rec.score, rec.right, rec.wrong, rec.blank, rec.used);
     p.runs = [rec].concat(p.runs || []).slice(0, 30);
     p.run = null;
     p.upd = new Date().toISOString();
@@ -116,6 +118,7 @@
     leaveTask();
     r.cur = i;
     A.save();
+    A.track('r.go', i + 1, r.ids[i]);
     var id = r.ids[i], t = taskOf(id), mod = A.B.modules[id], lv = levelAt(i);
     var box = el('runTask');
     box.innerHTML =
@@ -142,8 +145,8 @@
       changed: function () {
         if (mounted !== id || !ready) return;
         var run = runOf(); if (!run) return;
-        if (mod.isComplete()) { var res = mod.evaluate(); run.ans[id] = { answer: res.answer, correct: !!res.correct }; }
-        else delete run.ans[id];
+        if (mod.isComplete()) { var res = mod.evaluate(); run.ans[id] = { answer: res.answer, correct: !!res.correct }; A.track('r.ans', id, res.correct ? 1 : 0); }
+        else { delete run.ans[id]; A.track('r.ans', id, 'x'); }
         A.save(); chips(); status();
       }
     };

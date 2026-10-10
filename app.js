@@ -53,8 +53,10 @@
     if (window.BiberSync) window.BiberSync.schedule();
   }
   /* Das Kätzchen (kitten.js) merkt sich Sticker und Geschenke pro Profil. */
+  function track() { if (window.BiberTrack) window.BiberTrack.log.apply(null, arguments); }
   function syncKitten() {
     var p = profile();
+    if (window.BiberTrack) { window.BiberTrack.init({ pid: p.id, who: p.name }); window.BiberTrack.setProfile(p.id, p.name); }
     window.BIBER_PROFILE = { key: p.legacy ? 'bk.v1' : 'bk.v1.' + p.id, name: p.name };
     if (window.BiberKitten && window.BiberKitten.setProfile) window.BiberKitten.setProfile(window.BIBER_PROFILE.key, p.name);
   }
@@ -140,6 +142,7 @@
   }
   function afterMerge() {
     syncKitten(); updateProfileBtn();
+    if (window.BiberTrack && window.BiberSync) window.BiberTrack.useServer(window.BiberSync.api);
     if (dlg && dlg.dataset.forced && !profile().setup) closeDialog();
     if (mergeNeedsPick) { mergeNeedsPick = false; openProfiles(false); }
     if (!document.querySelector('.task')) route();
@@ -159,6 +162,7 @@
       if (!syncStat) return;
       syncStat.textContent = { server: 'Gespeichert auf dem Server', local: 'Nur auf diesem Gerät gespeichert', connecting: 'Verbinde mit dem Server …', readonly: 'Nur auf diesem Gerät gespeichert (kein Schreibrecht auf dem Server)' }[st] || '';
       syncNav();
+      track('sync', st);
     });
     document.addEventListener('bk:update', function () { window.BiberSync.schedule(); });
   }
@@ -326,6 +330,7 @@
     var playable = list.filter(isReady);
     var done = playable.filter(resultOf).length;
     var rec = recommend(profile());
+    track('rec', rec.items.map(function (i) { return i.task.id; }).join(','));
     var firstOpen = rec.items[0] ? rec.items[0].task : playable.filter(function (t) { return !resultOf(t); })[0];
     var alle = store.mode === 'alle';
     var rows = list.map(function (t, i) {
@@ -382,6 +387,8 @@
     function nextAdaptive() { var r = recommend(profile(), id).items[0]; return r ? r.task : next; }
     var saved = resultOf(t);
     var alle = store.mode === 'alle';
+    taskId = id; taskT0 = Date.now();
+    track('ts', id, level, saved ? 1 : 0, Math.round(taskD(t) * 10) / 10);
 
     app.innerHTML =
       '<p class="crumbs"><a href="#">← Alle Aufgaben</a></p>' +
@@ -427,7 +434,7 @@
       group: store.group,
       level: level,
       locked: function () { return st.locked; },
-      changed: function (text) { st.text = typeof text === 'string' ? text : ''; if (!st.checked) refreshBar(); }
+      changed: function (text) { track('i', id); st.text = typeof text === 'string' ? text : ''; if (!st.checked) refreshBar(); }
     };
     mod.mount(el, api);
 
@@ -473,12 +480,14 @@
         var res = mod.evaluate();
         var counts = !resultOf(t);
         var points = SCORING[level][res.correct ? 'right' : 'wrong'];
+        track('ta', id, res.correct ? 1 : 0, counts ? 1 : 0, Math.round((Date.now() - taskT0) / 1000), JSON.stringify(res.answer));
         if (counts) {
           var before = levelLabel(abilityOf(profile()));
           store.results[id] = { correct: !!res.correct, answer: res.answer, at: new Date().toISOString() };
           save();
           var after = levelLabel(abilityOf(profile()));
           st.note = after.name !== before.name ? 'Neue Stufe im Biber-Niveau: ' + after.name + '!' : '';
+          track('lvl', Math.round(abilityOf(profile()) * 10) / 10);
         }
         lock(true);
         st.checked = true;
@@ -487,6 +496,7 @@
         document.dispatchEvent(new CustomEvent('biber:result', { detail: { correct: !!res.correct, id: id, counted: counts } }));
         fb.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       } else if (act === 'reset' || act === 'retry') {
+        track('tr', id, act);
         mod.reset();
         lock(false);
         st.checked = false;
@@ -494,6 +504,7 @@
         fb.innerHTML = '';
         refreshBar();
       } else if (act === 'solution') {
+        track('tsol', id);
         mod.showSolution();
         lock(true);
         showFeedback(true, 0, true, true);
@@ -665,6 +676,7 @@
         if (!n2) return;
         var np = newProfile(n2, 6, false);
         store.profiles.push(np);
+        track('prof', 'new');
         switchProfile(np.id); closeDialog(); route();
       } else if (kind === 'edit') {
         var ep = store.profiles.filter(function (x) { return x.id === f.dataset.id; })[0];
@@ -737,6 +749,7 @@
     document.getElementById('groupSeg').hidden = store.mode !== 'stufe';
   }
   var pages = {};
+  var taskId = null, taskT0 = 0;
   /* Schnittstelle für eigenständige Seiten (probelauf.js) */
   function recordResult(id, correct, answer) {
     if (store.results[id]) return false;
@@ -751,9 +764,11 @@
     abilityOf: function (p) { return abilityOf(p); }, taskD: function (t) { return taskD(t); }, areaOf: function (t) { return areaOf(t); },
     isReady: function (t) { return isReady(t); }, esc: esc, pts: pts, recordResult: recordResult,
     registerPage: function (name, fn) { pages[name] = fn; },
+    track: track,
     nextTask: function () { var r = recommend(profile()).items[0]; return r ? { id: r.task.id, title: r.task.title } : null; }
   };
   function route() {
+    if (taskId) { track('tl', taskId, Math.round((Date.now() - taskT0) / 1000)); taskId = null; }
     var h = (location.hash || '').replace(/^#/, '');
     var page = h === 'bewertung' ? 'bewertung' : h === 'familie' ? 'familie' : h === 'probelauf' ? 'probelauf' : 'aufgaben';
     document.querySelectorAll('.nav a').forEach(function (a) {
@@ -779,18 +794,21 @@
     var b = e.target.closest('button[data-mode]');
     if (!b || b.dataset.mode === store.mode) return;
     store.mode = b.dataset.mode;
+    track('mode', store.mode);
     afterViewChange();
   });
   document.getElementById('groupSeg').addEventListener('click', function (e) {
     var b = e.target.closest('button[data-group]');
     if (!b || b.dataset.group === store.group) return;
     store.group = b.dataset.group;
+    track('grp', store.group);
     afterViewChange();
   });
   function adjustLevel(dir) {
     var p = profile();
     p.adj = Math.max(-15, Math.min(15, (p.adj || 0) + dir * 4));
     p.upd = new Date().toISOString();
+    track('adj', dir, p.adj);
     save();
   }
   app.addEventListener('click', function (e) {
