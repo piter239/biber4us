@@ -612,6 +612,7 @@
   function size() { return window.innerWidth <= 520 ? 108 : 138; }
 
   function place(s, keepAcc, withFriend) {
+    if (typeof setProp === 'function') setProp(null);
     side = s;
     var W = size(), vw = window.innerWidth, vh = window.innerHeight, m = 24;
     wrap.style.width = W + 'px'; wrap.style.height = W + 'px';
@@ -845,6 +846,7 @@
     stage(null); peek.classList.add('bk-out'); peek.style.transition = 'none'; void peek.offsetWidth; peek.style.transition = '';
     peek.classList.remove('bk-out');
     place(s, false, withFriend);
+    setProp(o.prop || null);
     wrap.classList.add('bk-on', 'bk-live');
     wrap.tabIndex = 0;
     await sleep(60, t); if (t !== tok) return;
@@ -877,7 +879,7 @@
     stage('out');
     if (!await sleep(550, t)) return;
     wrap.classList.remove('bk-on'); wrap.tabIndex = -1;
-    hideFriend();
+    hideFriend(); setProp(null);
     busy = false; visible = false;
     schedule();
   }
@@ -1158,6 +1160,32 @@
     'd:geburtstag': { cls: 'bk-happy', acc: 'silvester', svg: '<rect x="4" y="30" width="9" height="14" fill="#e05060" transform="rotate(20 8 36)"/><rect x="248" y="40" width="9" height="14" fill="#4a9ad9" transform="rotate(-30 252 46)"/><rect x="132" y="2" width="9" height="14" fill="#4caf50" transform="rotate(35 136 8)"/><rect x="6" y="110" width="9" height="14" fill="#f2c230" transform="rotate(-20 10 116)"/><rect x="246" y="112" width="9" height="14" fill="#b794f4" transform="rotate(25 250 118)"/>' },
     'd:regenbogen': { cls: 'bk-happy', back: '<path d="M-2 140A144 140 0 0 1 286 140" fill="none" stroke="#e05060" stroke-width="10"/><path d="M8 140A134 130 0 0 1 276 140" fill="none" stroke="#f2c230" stroke-width="10"/><path d="M18 140A124 120 0 0 1 266 140" fill="none" stroke="#4caf50" stroke-width="10"/><path d="M28 140A114 110 0 0 1 256 140" fill="none" stroke="#4a9ad9" stroke-width="10"/>', svg: '' }
   };
+  /* Beim Abspielen eines Stickers trägt das Kätzchen dasselbe Zubehör wie im Sticker (in Kopf-Koordinaten, wandert mit dem Kopf).
+     Einträge mit back: liegen hinter dem Kopf. */
+  function HRT(x, y, sc, c) { return '<g transform="translate(' + x + ' ' + y + ') scale(' + sc + ')">' + HEART.replace(/^<svg[^>]*>/, '<g color="' + c + '">').replace('</svg>', '</g>') + '</g>'; }
+  var VPROP = {
+    'd:herz': { svg: HRT(84, -10, 2.2, '#ef5d7a') + HRT(150, 8, 1.2, '#f4a3b4') },
+    'd:nasen': { svg: '<g transform="translate(140 40) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g>' },
+    'd:kuscheln': { svg: '<text x="132" y="30" font-family="system-ui,sans-serif" font-weight="800" font-size="30" fill="#6a7b82">Z</text><text x="158" y="14" font-family="system-ui,sans-serif" font-weight="800" font-size="20" fill="#6a7b82">z</text>' },
+    'd:selfie': { svg: '<g transform="translate(140 10) scale(1.6)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#ffffff" style="filter:drop-shadow(0 0 2px #f2c230)">').replace('</svg>', '</g>') + '</g><text x="20" y="28" font-family="system-ui,sans-serif" font-weight="800" font-size="20" fill="#2b3a42">Klick!</text>' },
+    'd:regen': { back: true, svg: '<path d="M10 56Q100-56 190 56Z" fill="#e05060" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><path d="M30 80l-5 12M170 84l-5 12M12 110l-5 12M188 108l-5 12" stroke="#4a9ad9" stroke-width="3.5" stroke-linecap="round"/>' },
+    'd:sterne': { svg: STAR(30, 20, 10, '#f2c230') + STAR(100, 0, 11, '#fff3a8') + STAR(172, 22, 10, '#f2c230') + STAR(186, 100, 8, '#fff3a8') + STAR(14, 100, 8, '#fff3a8') },
+    'd:duett': { svg: NOTE(144, 34) + NOTE(172, 18) + NOTE(34, 38) },
+    'd:tee': { svg: '<g transform="translate(116 100) scale(1.15)">' + CUP.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'd:buch': { svg: '<g transform="translate(-42 4)"><path d="M142 114Q116 104 90 112V150Q116 142 142 152Z" fill="#fff" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><path d="M142 114Q168 104 194 112V150Q168 142 142 152Z" fill="#fff" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><path d="M98 124q18-4 36 2M98 134q18-4 36 2M150 126q18-6 36-2M150 136q18-6 36-2" stroke="#8a9ca4" stroke-width="2" fill="none"/></g>' },
+    'd:wolle': { svg: '<g transform="translate(112 96) scale(1.4)">' + YARN.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M122 140Q70 156 40 126" fill="none" stroke="#e8607a" stroke-width="3.5" stroke-linecap="round"/>' },
+    'd:geburtstag': { acc: 'silvester', svg: '<rect x="14" y="30" width="9" height="14" fill="#e05060" transform="rotate(20 18 36)"/><rect x="176" y="40" width="9" height="14" fill="#4a9ad9" transform="rotate(-30 180 46)"/><rect x="96" y="0" width="9" height="14" fill="#4caf50" transform="rotate(35 100 6)"/>' },
+    'd:regenbogen': { back: true, svg: '<path d="M-14 130A114 120 0 0 1 214 130" fill="none" stroke="#e05060" stroke-width="10"/><path d="M-4 130A104 110 0 0 1 204 130" fill="none" stroke="#f2c230" stroke-width="10"/><path d="M6 130A94 100 0 0 1 194 130" fill="none" stroke="#4caf50" stroke-width="10"/><path d="M16 130A84 90 0 0 1 184 130" fill="none" stroke="#4a9ad9" stroke-width="10"/>' }
+  };
+  function setProp(id) {
+    var head = svgEl && svgEl.querySelector('.bk-head'); if (!head) return;
+    head.querySelectorAll('.bk-prop').forEach(function (n) { n.remove(); });
+    if (!id) return;
+    var p = VPROP[id] || (PROPS[id] && PROPS[id].svg ? { svg: PROPS[id].svg } : null); if (!p) return;
+    var g = '<g class="bk-prop" aria-hidden="true">' + p.svg + '</g>';
+    head.insertAdjacentHTML(p.back ? 'afterbegin' : 'beforeend', g);
+    if (p.acc) { curAcc = p.acc; wrap.setAttribute('data-acc', p.acc); }
+  }
   var DUO_SAY = {
     'd:herz': ['Wir haben uns lieb!', 'Herzchen für Dich!'], 'd:nasen': ['Nasenstups!', 'Nase an Nase.'], 'd:kuscheln': ['Zusammen ist es gemütlich.', 'Pssst, wir kuscheln.'],
     'd:selfie': ['Bitte lächeln!', 'Klick! Das wird ein tolles Foto.'], 'd:regen': ['Zu zweit unter einem Schirm.', 'Pfui, Regen!'], 'd:sterne': ['Schau, so viele Sterne!', 'Eins, zwei, drei …'],
@@ -1222,8 +1250,8 @@
     var kind = id.slice(0, 2), key = id.slice(2), sd = pick(['bottom', 'left', 'right']);
     if (kind === 'a:' && ACTIONS[key]) { visit({ action: key, side: sd, text: ACTIONS[key].phrases ? pick(ACTIONS[key].phrases) : undefined }); return; }
     if (kind === 'h:') { forceAcc = key; visit({ action: pick(['wave', 'tilt', 'kiss']), side: sd, text: HAT_SAY[key] || 'Schau mal!' }); return; }
-    if (kind === 'd:') { visit({ action: pick(['kiss', 'wave', 'tilt']), side: sd, friend: true, text: pick(DUO_SAY[id] || ['Wir sind zu zweit!']) }); return; }
-    if (kind === 'm:') { visit({ action: pick(['wave', 'kiss', 'tilt']), side: sd, text: M_SAY[id] || 'Gut gemacht!' }); return; }
+    if (kind === 'd:') { visit({ action: pick(['kiss', 'wave', 'tilt']), side: sd, friend: true, prop: id, text: pick(DUO_SAY[id] || ['Wir sind zu zweit!']) }); return; }
+    if (kind === 'm:') { visit({ action: pick(['wave', 'kiss', 'tilt']), side: sd, prop: id, text: M_SAY[id] || 'Gut gemacht!' }); return; }
     if (id === 's:luna') { visit({ action: 'kiss', side: sd, friend: true, text: 'Das ist Luna, meine Freundin!' }); return; }
     if (id === 's:ahnung2') { visit({ action: 'tilt', side: sd, text: 'Meine Freundin ist schon unterwegs!' }); return; }
     if (id === 's:ahnung') { visit({ action: 'wave', side: sd, text: 'Psst… Bald bekomme ich Besuch!' }); return; }
