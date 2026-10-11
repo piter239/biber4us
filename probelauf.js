@@ -1,5 +1,7 @@
 /* Probelauf: wie der echte Biber-Wettbewerb, mit Zeitlimit.
-   35 Minuten, 15 Aufgaben (5 einfach, 5 mittel, 5 schwer, aufsteigend sortiert), keine Rückmeldung während des Laufs,
+   Aufbau wie in den Heften (Seite "Der Wettbewerb"): Klasse 3-4: 9 Aufgaben in 30 Minuten, Klasse 5-6: 12 Aufgaben in 35 Minuten,
+   Klasse 7-13: 15 Aufgaben in 40 Minuten, jeweils gleich viele einfache, mittlere und schwere (aufsteigend sortiert),
+   keine Rückmeldung während des Laufs,
    Aufgaben frei anspringbar, Antworten änderbar bis zum Abgeben oder bis die Zeit um ist. Am Ende gibt es Punkte
    (+6/−2, +9/−3, +12/−4, keine Antwort 0) und die Lösungen zum Nachschauen.
    Die Aufgaben werden zum Niveau des Profils passend gewählt (bevorzugt solche, die es noch nicht bearbeitet hat).
@@ -11,12 +13,10 @@
   var A = window.BiberApp;
   if (!A) return;
 
-  var MINUTES = 35;
-  var N = 15;
-  var PER_LEVEL = N / 3;
+  var STRUCT = { '3-4': { n: 9, min: 30 }, '5-6': { n: 12, min: 35 }, '7-8': { n: 15, min: 40 }, '9-10': { n: 15, min: 40 }, '11-13': { n: 15, min: 40 } };
   var LEVELS = ['einfach', 'mittel', 'schwer'];
-  function levelAt(i) { return LEVELS[Math.floor(i / PER_LEVEL)]; }
-  function maxScore() { var m = 0; for (var i = 0; i < N; i++) m += A.SCORING[levelAt(i)].right; return m; }
+  function levelAt(i, n) { return LEVELS[Math.min(2, Math.floor(i / ((n || 15) / 3)))]; }
+  function maxScore(n) { var m = 0; for (var i = 0; i < n; i++) m += A.SCORING[levelAt(i, n)].right; return m; }
   var app = A.app, esc = A.esc, pts = A.pts;
   var timerId = 0, liveSaid = {}, view = { kind: 'auto', rec: null }, mounted = null;
 
@@ -27,7 +27,7 @@
   function taskOf(id) { return A.tasks.filter(function (t) { return t.id === id; })[0]; }
 
   /* ---------- Aufgabenauswahl ---------- */
-  function pickRun(p) {
+  function pickRun(p, N) {
     var A0 = A.abilityOf(p), lo = A0 - 7, hi = A0 + 6, MAXD = 37;
     if (hi > MAXD) { lo -= hi - MAXD; hi = MAXD; }
     if (lo < 1) { hi = Math.min(MAXD, hi + (1 - lo)); lo = 1; }
@@ -46,8 +46,8 @@
 
   /* Wettbewerbs-Lauf: je PER_LEVEL Aufgaben pro Stufe, so wie das Heft sie für die Klassenstufe einordnet. Unbekannte Aufgaben zuerst,
      gleichmäßig über die Schwierigkeit der Stufe verteilt, innerhalb der Stufe nach Schwierigkeit sortiert. */
-  function pickClassRun(p, g) {
-    var pool = A.tasks.filter(function (t) { return A.isReady(t) && t.groups && t.groups[g]; }), ids = [];
+  function pickClassRun(p, g, N) {
+    var PER_LEVEL = N / 3, pool = A.tasks.filter(function (t) { return A.isReady(t) && t.groups && t.groups[g]; }), ids = [];
     LEVELS.forEach(function (lv) {
       var cand = pool.filter(function (t) { return t.groups[g] === lv; }).sort(function (a, b) { return A.taskD(a) - A.taskD(b); });
       var fresh = cand.filter(function (t) { return !p.results[t.id]; }), seen = cand.filter(function (t) { return p.results[t.id]; });
@@ -70,22 +70,32 @@
   }
 
   var GROUPS = ['3-4', '5-6', '7-8', '9-10', '11-13'];
+  var EXTRA = [0, 5, 10];
   function opts() {
     var p = A.profile(), o = p.runOpt || {};
-    return { mode: o.mode === 'klasse' ? 'klasse' : 'niveau', group: GROUPS.indexOf(o.group) >= 0 ? o.group : (GROUPS.indexOf(A.store.group) >= 0 ? A.store.group : '5-6'), minutes: [35, 40, 45].indexOf(+o.minutes) >= 0 ? +o.minutes : MINUTES };
+    return { mode: o.mode === 'klasse' ? 'klasse' : 'niveau', group: GROUPS.indexOf(o.group) >= 0 ? o.group : (GROUPS.indexOf(A.store.group) >= 0 ? A.store.group : '5-6'), extra: EXTRA.indexOf(+o.extra) >= 0 ? +o.extra : 0 };
   }
   function readOpts() {
-    var p = A.profile(), m = document.querySelector('input[name="rmode"]:checked'), g = el('rGroup'), mi = el('rMin');
-    if (m || g || mi) { p.runOpt = { mode: m ? m.value : 'niveau', group: g ? g.value : opts().group, minutes: mi ? +mi.value : MINUTES }; }
+    var p = A.profile(), m = document.querySelector('input[name="rmode"]:checked'), g = el('rGroup'), x = el('rExtra');
+    if (m || g || x) { p.runOpt = { mode: m ? m.value : 'niveau', group: g ? g.value : opts().group, extra: x ? +x.value : 0 }; }
     return opts();
   }
+  /* Anzeige in der Auswahl: Aufgabenzahl, Zeit und Höchstpunktzahl der gewählten Klassenstufe */
+  function refreshOpt() {
+    var g = el('rGroup'), x = el('rExtra'); if (!g || !x) return;
+    var st = STRUCT[g.value], keep = +x.value;
+    x.innerHTML = EXTRA.map(function (e) { return '<option value="' + e + '"' + (e === keep ? ' selected' : '') + '>' + (st.min + e) + (e === 0 ? ' (wie im Wettbewerb)' : '') + '</option>'; }).join('');
+    var info = el('rInfo'); if (info) info.textContent = st.n + ' Aufgaben, je ' + (st.n / 3) + ' einfache, mittlere und schwere. Im Wettbewerb gibt es dafür ' + st.min + ' Minuten und höchstens ' + maxScore(st.n) + ' Punkte.';
+    var mx = el('rMax'); if (mx) mx.textContent = maxScore(st.n);
+  }
+  document.addEventListener('change', function (e) { if (e.target && e.target.id === 'rGroup') refreshOpt(); });
 
   function startRun() {
-    var p = A.profile(), now = Date.now(), o = readOpts();
-    var ids = o.mode === 'klasse' ? pickClassRun(p, o.group) : pickRun(p);
-    p.run = { at: new Date(now).toISOString(), endAt: now + o.minutes * 60000, minutes: o.minutes, ids: ids, ans: {}, cur: 0, done: false, kind: o.mode, group: o.mode === 'klasse' ? o.group : '' };
+    var p = A.profile(), now = Date.now(), o = readOpts(), st = STRUCT[o.group], minutes = st.min + o.extra;
+    var ids = o.mode === 'klasse' ? pickClassRun(p, o.group, st.n) : pickRun(p, st.n);
+    p.run = { at: new Date(now).toISOString(), endAt: now + minutes * 60000, minutes: minutes, ids: ids, ans: {}, cur: 0, done: false, kind: o.mode, group: o.group };
     A.save();
-    A.track('r.start', p.run.ids.join(','), o.minutes, o.mode, p.run.group);
+    A.track('r.start', p.run.ids.join(','), minutes, o.mode, o.group);
     view = { kind: 'auto', rec: null };
     A.route();
   }
@@ -97,9 +107,9 @@
     leaveTask();
     r.done = true;
     var usedSec = Math.max(0, Math.min(r.minutes * 60, Math.round((Math.min(Date.now(), r.endAt) - new Date(r.at).getTime()) / 1000)));
-    var rec = { at: r.at, minutes: r.minutes, kind: r.kind || 'niveau', group: r.group || '', used: usedSec, n: r.ids.length, right: 0, wrong: 0, blank: 0, score: 0, max: maxScore(), tasks: [] };
+    var rec = { at: r.at, minutes: r.minutes, kind: r.kind || 'niveau', group: r.group || '', used: usedSec, n: r.ids.length, right: 0, wrong: 0, blank: 0, score: 0, max: maxScore(r.ids.length), tasks: [] };
     r.ids.forEach(function (id, i) {
-      var lv = levelAt(i), a = r.ans[id], entry = { id: id, level: lv, correct: null, pts: 0 };
+      var lv = levelAt(i, r.ids.length), a = r.ans[id], entry = { id: id, level: lv, correct: null, pts: 0 };
       if (a) {
         entry.correct = !!a.correct;
         entry.pts = A.SCORING[lv][a.correct ? 'right' : 'wrong'];
@@ -159,7 +169,7 @@
     r.cur = i;
     A.save();
     A.track('r.go', i + 1, r.ids[i]);
-    var id = r.ids[i], t = taskOf(id), mod = A.B.modules[id], lv = levelAt(i);
+    var id = r.ids[i], t = taskOf(id), mod = A.B.modules[id], lv = levelAt(i, r.ids.length);
     var box = el('runTask');
     box.innerHTML =
       '<article class="task t-' + id + '" data-run-task>' +
@@ -202,7 +212,7 @@
     var r = runOf(), c = el('runChips');
     if (!r || !c) return;
     c.innerHTML = r.ids.map(function (id, i) {
-      var cls = 'run-chip ' + levelAt(i) + (r.ans[id] ? ' done' : '') + (i === r.cur ? ' cur' : '');
+      var cls = 'run-chip ' + levelAt(i, r.ids.length) + (r.ans[id] ? ' done' : '') + (i === r.cur ? ' cur' : '');
       return '<button type="button" class="' + cls + '" data-run="go" data-i="' + i + '" aria-label="Aufgabe ' + (i + 1) + (r.ans[id] ? ', beantwortet' : ', offen') + (i === r.cur ? ', aktuell' : '') + '"' + (i === r.cur ? ' aria-current="true"' : '') + '>' + (i + 1) + '</button>';
     }).join('');
     var n = Object.keys(r.ans).length, s = el('runCount');
@@ -222,28 +232,30 @@
 
   /* ---------- Startseite und Ergebnis ---------- */
   function renderIntro() {
-    var p = A.profile(), runs = p.runs || [], max = maxScore();
+    var p = A.profile(), runs = p.runs || [], o0 = opts(), max = maxScore(STRUCT[o0.group].n);
     var hist = runs.length ? '<section class="panel"><h2>Deine bisherigen Läufe</h2><div class="tbl-wrap"><table class="res"><thead><tr><th>Datum</th><th class="r">Punkte</th><th class="r">Richtig</th><th class="r">Zeit</th><th></th></tr></thead><tbody>' +
       runs.slice(0, 10).map(function (x, i) {
         return '<tr><td>' + fmtDate(x.at) + '</td><td class="r num">' + x.score + ' / ' + x.max + '</td><td class="r num">' + x.right + ' von ' + x.n + '</td><td class="r num">' + mmss(x.used) + '</td>' +
           '<td><button class="linkbtn" type="button" data-run="view" data-i="' + i + '">Ansehen</button></td></tr>';
       }).join('') + '</tbody></table></div></section>' : '';
-    var o = opts();
-    var optHtml = '<fieldset class="run-opt"><legend>Welche Aufgaben?</legend>' +
-      '<label><input type="radio" name="rmode" value="niveau"' + (o.mode === 'niveau' ? ' checked' : '') + '> Passend zu meinem Niveau</label>' +
-      '<label><input type="radio" name="rmode" value="klasse"' + (o.mode === 'klasse' ? ' checked' : '') + '> Wie im Wettbewerb für Klasse <select id="rGroup" aria-label="Klassenstufe">' +
-      GROUPS.map(function (g) { return '<option value="' + g + '"' + (g === o.group ? ' selected' : '') + '>' + g.replace('-', '–') + '</option>'; }).join('') + '</select></label>' +
-      '<label>Zeit <select id="rMin" aria-label="Dauer in Minuten">' + [35, 40, 45].map(function (m) { return '<option value="' + m + '"' + (m === o.minutes ? ' selected' : '') + '>' + m + '</option>'; }).join('') + '</select> Minuten</label></fieldset>';
+    var o = opts(), st0 = STRUCT[o.group];
+    var optHtml = '<fieldset class="run-opt"><legend>Dein Probelauf</legend>' +
+      '<label>Klassenstufe <select id="rGroup" aria-label="Klassenstufe">' + GROUPS.map(function (g) { return '<option value="' + g + '"' + (g === o.group ? ' selected' : '') + '>' + g.replace('-', '–') + '</option>'; }).join('') + '</select></label>' +
+      '<p class="note" id="rInfo"></p>' +
+      '<label><input type="radio" name="rmode" value="niveau"' + (o.mode === 'niveau' ? ' checked' : '') + '> Aufgaben passend zu meinem Niveau</label>' +
+      '<label><input type="radio" name="rmode" value="klasse"' + (o.mode === 'klasse' ? ' checked' : '') + '> Aufgaben so, wie das Heft sie für diese Klassenstufe einordnet</label>' +
+      '<label>Zeit <select id="rExtra" aria-label="Dauer in Minuten">' + EXTRA.map(function (e) { return '<option value="' + e + '"' + (e === o.extra ? ' selected' : '') + '>' + (st0.min + e) + (e === 0 ? ' (wie im Wettbewerb)' : '') + '</option>'; }).join('') + '</select> Minuten</label></fieldset>';
     app.innerHTML =
       '<section class="intro"><p class="eyebrow">Wie beim echten Wettbewerb</p><h1>Probelauf</h1>' +
-      '<p class="lead">' + N + ' Aufgaben: ' + PER_LEVEL + ' einfache, ' + PER_LEVEL + ' mittlere und ' + PER_LEVEL + ' schwere. Entweder passend zu deinem Niveau oder genau so, wie das Heft sie für deine Klassenstufe einordnet. Probier aus, wie weit du in der Zeit kommst.</p></section>' +
+      '<p class="lead">Wie im echten Wettbewerb: gleich viele einfache, mittlere und schwere Aufgaben, aufsteigend sortiert, mit Zeitlimit. Probier aus, wie weit du in der Zeit kommst.'+'</p></section>' +
       '<section class="panel"><h2>So läuft es</h2><ul class="run-rules">' +
       '<li>Die Uhr läuft ab dem Start weiter, auch wenn du die Seite wechselst oder neu lädst.</li>' +
       '<li>Du kannst die Aufgaben in beliebiger Reihenfolge lösen und eine Antwort jederzeit ändern. Fertige Antworten werden gleich gespeichert.</li>' +
       '<li>Während des Laufs gibt es keine Rückmeldung. Nach dem Abgeben (oder wenn die Zeit um ist) siehst du deine Punkte und die Lösungen.</li>' +
-      '<li>Punkte: einfach +6 / −2, mittel +9 / −3, schwer +12 / −4. Falsche Antworten kosten Punkte, keine Antwort kostet nichts. Höchstens ' + max + ' Punkte.</li>' +
+      '<li>Punkte: einfach +6 / −2, mittel +9 / −3, schwer +12 / −4. Falsche Antworten kosten Punkte, keine Antwort kostet nichts. Höchstens <span id="rMax">' + max + '</span> Punkte.</li>' +
       '<li>Das Kätzchen bleibt während des Laufs im Körbchen.</li></ul>' +
       optHtml + '<div class="actions"><button class="btn" type="button" data-run="start">Probelauf starten</button><a class="btn ghost" href="#">Zurück zu den Aufgaben</a></div></section>' + hist;
+    refreshOpt();
   }
 
   function renderResult(rec, fresh) {

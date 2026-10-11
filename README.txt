@@ -42,7 +42,7 @@ erscheint eine Tafel: Das Kind erklaert der Katze die Aufgabe (sprechen oder tip
 Tipps, nie die Loesung. Antworten kommen von Claude ueber die Funktion "sample" (Zustimmung und Verbrauch beim Konto des Kindes),
 sonst feste Fragen. Sprechen/Vorlesen nutzt die Web-Speech-Funktionen des Browsers, falls vorhanden. Protokoll: h.* (ohne Texte).
 
-Probelauf: Auswahl "Passend zu meinem Niveau" oder "Wie im Wettbewerb fuer Klasse X" (je 5 einfach/mittel/schwer laut Heft), Dauer 35/40/45 Min.
+Probelauf: Aufbau wie im Wettbewerb je Klassenstufe (3-4: 9 Aufgaben / 30 Min, 5-6: 12 / 35, 7-13: 15 / 40; gleich viele einfach, mittel, schwer; Quelle: Hefte 2020-2024, Teil "Wettbewerb"). Aufgaben "passend zum Niveau" oder "laut Heft fuer die Klasse"; Zeit wahlweise +5 oder +10 Min.
 
 Kaetzchen und Luna: Luna kommt jeden Tag neu (mem.lunaDay). Am neuen Tag gruesst das Kaetzchen von ihr; nach 1 / 3 / 5 richtigen Aufgaben
 (erster Versuch) des Tages gibt es zwei Ankuendigungen und dann ihren Besuch mit einem neuen Doppel-Sticker (d:*, 12 Stueck der Reihe nach).
