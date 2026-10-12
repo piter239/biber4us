@@ -394,6 +394,45 @@
     '@keyframes bk-balloon{0%{transform:translate(0,30%);opacity:0}10%{opacity:1}100%{transform:translate(24%,-190%) rotate(8deg);opacity:1}}',
     '.bk-flake{position:absolute;top:-8%;width:9%;opacity:0;animation:bk-flake 3.4s linear 1 forwards}',
     '@keyframes bk-flake{0%{opacity:0;transform:translate(0,0) rotate(0)}15%{opacity:1}100%{opacity:.9;transform:translate(var(--dx,10px),170px) rotate(180deg)}}',
+    /* Ruhige Szenen: Augen und Kopf folgen, kein Sprung, kein Ton */
+    '.bk-bird{position:absolute;left:36%;top:-34%;width:40%;animation:bk-birdfly 5s linear 1 forwards}',
+    '@keyframes bk-birdfly{0%{transform:translate(-46vw,26px)}25%{transform:translate(-23vw,-24px)}50%{transform:translate(0,-52px)}75%{transform:translate(23vw,-24px)}100%{transform:translate(46vw,10px)}}',
+    '.bk-bird svg{display:block;width:100%;height:auto}',
+    '.bk-bird .bk-wing2{transform-origin:22px 14px;animation:bk-wingflap .26s ease-in-out infinite alternate}',
+    '@keyframes bk-wingflap{0%{transform:scaleY(1)}100%{transform:scaleY(-.55)}}',
+    '.bk-fl{position:absolute;width:20%;opacity:0;animation:bk-flutter 6.2s ease-in-out 1 forwards}',
+    '.bk-fl svg{display:block;width:100%;height:auto}',
+    '.bk-fl .bk-wing{transform-origin:50% 50%;animation:bk-flap .22s ease-in-out infinite alternate}',
+    '@keyframes bk-flutter{0%{opacity:0;transform:translate(-30px,20px)}10%{opacity:1}30%{transform:translate(20px,-18px)}55%{transform:translate(-10px,-34px)}80%{transform:translate(36px,-10px)}95%{opacity:1}100%{opacity:0;transform:translate(60px,-40px)}}',
+    '.bk-leaf{position:absolute;top:-40%;width:11%;opacity:0;animation:bk-leaffall 5.4s ease-in-out 1 forwards}',
+    '.bk-leaf svg{display:block;width:100%;height:auto}',
+    '@keyframes bk-leaffall{0%{opacity:0;transform:translate(0,0) rotate(0)}12%{opacity:1}40%{transform:translate(calc(var(--dx,20px)*-1),90px) rotate(70deg)}70%{transform:translate(var(--dx,20px),170px) rotate(160deg)}100%{opacity:.95;transform:translate(0,250px) rotate(250deg)}}',
+    '.bk-bug{position:absolute;width:11%;opacity:0;animation:bk-bugwalk 6.4s linear 1 forwards}',
+    '.bk-bug svg{display:block;width:100%;height:auto}',
+    '@keyframes bk-bugwalk{0%{opacity:0;left:22%;top:34%;transform:rotate(-30deg)}8%{opacity:1}50%{left:46%;top:12%;transform:rotate(0)}92%{opacity:1}100%{opacity:0;left:72%;top:34%;transform:rotate(30deg)}}',
+    '.bk-ff{position:absolute;width:5%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#fffbd0 0,#ffe45c 45%,rgba(255,228,92,0) 72%);box-shadow:0 0 10px 4px rgba(255,228,92,.55);opacity:0;animation:bk-glow 3.6s ease-in-out 2 forwards}',
+    '@keyframes bk-glow{0%{opacity:0;transform:translate(0,0)}35%{opacity:1}65%{opacity:.35;transform:translate(var(--dx,12px),-14px)}100%{opacity:0;transform:translate(calc(var(--dx,12px)*1.6),-26px)}}',
+    '.bk-hot{position:absolute;left:36%;top:-62%;width:20%;animation:bk-hotfly 8s linear 1 forwards}',
+    '.bk-hot svg{display:block;width:100%;height:auto}',
+    '@keyframes bk-hotfly{0%{transform:translate(-44vw,16px)}50%{transform:translate(0,-8px)}100%{transform:translate(44vw,12px)}}',
+    '@keyframes bk-eyes-lr{0%{transform:translate(-5px,-4px)}100%{transform:translate(5px,-3px)}}',
+    '@keyframes bk-eyes-down{0%{transform:translate(-1px,-5px)}100%{transform:translate(2px,5px)}}',
+    '@keyframes bk-eyes-bug{0%{transform:translate(-5px,-3px)}50%{transform:translate(0,-5px)}100%{transform:translate(5px,-3px)}}',
+    '@keyframes bk-eyes-wander{0%{transform:translate(-4px,-3px)}25%{transform:translate(3px,-5px)}50%{transform:translate(-2px,0)}75%{transform:translate(4px,-4px)}100%{transform:translate(0,-2px)}}',
+    '@keyframes bk-watch{0%{transform:rotate(-3deg)}100%{transform:rotate(3deg)}}',
+    '@keyframes bk-watchdown{0%{transform:none}100%{transform:translateY(4px) rotate(-1.5deg)}}',
+    '@keyframes bk-watchsway{0%{transform:rotate(-2deg)}50%{transform:rotate(1.5deg)}100%{transform:rotate(-1deg)}}',
+    '.bk-a-vogel .bk-look{animation:bk-eyes-lr 5s ease-in-out 1 forwards}',
+    '.bk-a-vogel .bk-head{animation:bk-watch 5s ease-in-out 1 forwards}',
+    '.bk-a-falter .bk-look{animation:bk-eyes-wander 6.2s ease-in-out 1 forwards}',
+    '.bk-a-falter .bk-head{animation:bk-watchsway 6.2s ease-in-out 1 forwards}',
+    '.bk-a-blaetter .bk-look{animation:bk-eyes-down 5.4s ease-in-out 1 forwards}',
+    '.bk-a-blaetter .bk-head{animation:bk-watchdown 5.4s ease-in-out 1 forwards}',
+    '.bk-a-kaefer .bk-look{animation:bk-eyes-bug 6.4s ease-in-out 1 forwards}',
+    '.bk-a-gluehen .bk-look{animation:bk-eyes-wander 7s ease-in-out 1 forwards}',
+    '.bk-a-gluehen .bk-head{animation:bk-watchsway 7s ease-in-out 1 forwards}',
+    '.bk-a-ballonfern .bk-look{animation:bk-eyes-lr 8s ease-in-out 1 forwards}',
+    '.bk-a-ballonfern .bk-head{animation:bk-watch 8s ease-in-out 1 forwards}',
     '.bk-a-eat .bk-head{animation:bk-eathead .5s ease-in-out 19}',
     '.bk-a-eat .bk-mouthopen{animation:bk-chew .5s ease-in-out 19}',
     '.bk-a-eat .bk-eye{animation:bk-squint 4s ease-in-out 1}',
@@ -424,6 +463,11 @@
   var SPARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6z"/></svg>';
   var BUTTERFLY = '<svg viewBox="0 0 40 40" aria-hidden="true"><g class="bk-wing"><path d="M20 20C8 4 2 14 8 22c3 4 9 2 12-2z" fill="#7cc4f0" stroke="#2c6a96" stroke-width="1.6"/><path d="M20 20C32 4 38 14 32 22c-3 4-9 2-12-2z" fill="#f09ad0" stroke="#9a2c6a" stroke-width="1.6"/></g><path d="M20 12v16" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg>';
   var YARN = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#e8607a" stroke="#8a2a40" stroke-width="2"/><path d="M6 14c10 4 18 2 28-4M4 22c12 4 22 2 32-4M8 31c10 2 18 0 26-6M14 5c4 10 2 20-2 30" fill="none" stroke="#f9b0c0" stroke-width="2"/></svg>';
+  /* Ruhige Szenen: Dinge, die man nur anschauen muss */
+  var BIRD = '<svg viewBox="0 0 44 30" aria-hidden="true"><path d="M3 11L15 14L13 21Z" fill="#7a5a3a" stroke="#4a2e1a" stroke-width="1.6" stroke-linejoin="round"/><ellipse cx="22" cy="17" rx="13" ry="8" fill="#a9784a" stroke="#4a2e1a" stroke-width="2"/><ellipse cx="24" cy="20" rx="8" ry="4.500" fill="#f2dcc0"/><circle cx="34" cy="11" r="6.500" fill="#a9784a" stroke="#4a2e1a" stroke-width="2"/><path d="M39.500 9.500L44 11.500L39.500 13.500Z" fill="#f2a030" stroke="#4a2e1a" stroke-width="1.4" stroke-linejoin="round"/><circle cx="35.500" cy="9.500" r="1.400" fill="#1b1410"/><path class="bk-wing2" d="M15 15Q22-3 31 13Q23 12 15 15Z" fill="#6b4a2a" stroke="#4a2e1a" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  var LADYBUG = '<svg viewBox="0 0 24 20" aria-hidden="true"><path d="M5 5L2 2M8 4L7 0.500M5 15L2 18M8 16L7 19.500" stroke="#2b1a10" stroke-width="1.2" stroke-linecap="round"/><circle cx="13" cy="10" r="8.500" fill="#e0342b" stroke="#2b1a10" stroke-width="1.8"/><path d="M13 1.500V18.500" stroke="#2b1a10" stroke-width="1.6"/><circle cx="9.500" cy="6.500" r="1.700" fill="#2b1a10"/><circle cx="9.500" cy="13.500" r="1.700" fill="#2b1a10"/><circle cx="17" cy="7" r="1.700" fill="#2b1a10"/><circle cx="17" cy="13" r="1.700" fill="#2b1a10"/><circle cx="3.500" cy="10" r="3.200" fill="#2b1a10"/></svg>';
+  var HOTBALLOON = '<svg viewBox="0 0 40 60" aria-hidden="true"><path d="M20 2C34 2 38 16 34 26C32 32 26 38 24 41H16C14 38 8 32 6 26C2 16 6 2 20 2Z" fill="#f2c230" stroke="#4a2e1a" stroke-width="2.4" stroke-linejoin="round"/><path d="M14 3Q9 22 16 41M26 3Q31 22 24 41" fill="none" stroke="#e05060" stroke-width="3"/><path d="M16 41L17 49M24 41L23 49" stroke="#4a2e1a" stroke-width="1.600"/><rect x="15.500" y="49" width="9" height="7" rx="1.500" fill="#c89a5b" stroke="#4a2e1a" stroke-width="2"/></svg>';
+  function LEAF(c) { return '<svg viewBox="0 0 20 24" aria-hidden="true"><path d="M10 1C18 6 19 16 10 23C1 16 2 6 10 1Z" fill="' + c + '" stroke="#4a2e1a" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 4V22" stroke="#4a2e1a" stroke-width="1.200" opacity=".6"/></svg>'; }
   var FISH = '<svg viewBox="0 0 60 36" aria-hidden="true"><path d="M4 18C16 4 36 4 46 18C36 32 16 32 4 18Z" fill="#6fb3d9" stroke="#2c5f80" stroke-width="2.4"/><path d="M46 18l12-12v24z" fill="#4a95c4" stroke="#2c5f80" stroke-width="2.4" stroke-linejoin="round"/><circle cx="14" cy="15" r="2.4" fill="#123"/><path d="M24 10q4 8 0 16" fill="none" stroke="#2c5f80" stroke-width="2"/></svg>';
   var TRAY = '<svg viewBox="0 0 120 56" aria-hidden="true"><path d="M2 14h116l-10 40H12Z" fill="#8cb8d6" stroke="#2c5f80" stroke-width="3" stroke-linejoin="round"/><path d="M8 16h104l-3 9H11Z" fill="#d9c28a"/><rect x="2" y="8" width="116" height="9" rx="4.5" fill="#a9cde6" stroke="#2c5f80" stroke-width="3"/></svg>';
   var SIGN = '<svg viewBox="0 0 60 44" aria-hidden="true"><rect x="3" y="3" width="54" height="24" rx="4" fill="#fff6dc" stroke="#7a4a22" stroke-width="2.4"/><text x="30" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="11" fill="#b3261e">BESETZT</text><path d="M30 27v15" stroke="#7a4a22" stroke-width="3" stroke-linecap="round"/></svg>';
@@ -816,6 +860,12 @@
           if (++n < 17) setTimeout(next, rnd(360, 740)); else hearts(2);
         })();
       } },
+    vogel: { ms: 5400, quiet: true, run: function () { addFx(BIRD, 'bk-bird', '', 5200); } },
+    falter: { ms: 6400, quiet: true, run: function () { addFx(BUTTERFLY, 'bk-fl', 'left:14%;top:8%', 6300); addFx(BUTTERFLY, 'bk-fl', 'left:58%;top:-6%;animation-delay:.9s', 7200); } },
+    blaetter: { ms: 6000, quiet: true, run: function () { var cs = ['#e8742a', '#d93a3a', '#f2c230', '#c45a1a', '#e0a020', '#b83a1a']; for (var i = 0; i < 6; i++) addFx(LEAF(cs[i]), 'bk-leaf', 'left:' + Math.round(rnd(6, 80)) + '%;--dx:' + Math.round(rnd(14, 34)) + 'px;animation-delay:' + (i * 0.55).toFixed(2) + 's', 6200 + i * 550); } },
+    kaefer: { ms: 6600, quiet: true, run: function () { addFx(LADYBUG, 'bk-bug', '', 6400); } },
+    gluehen: { ms: 7000, quiet: true, run: function () { for (var i = 0; i < 7; i++) addFx('', 'bk-ff', 'left:' + Math.round(rnd(4, 86)) + '%;top:' + Math.round(rnd(0, 70)) + '%;--dx:' + Math.round(rnd(-18, 18)) + 'px;animation-delay:' + (i * 0.45).toFixed(2) + 's', 7600); } },
+    ballonfern: { ms: 8200, quiet: true, run: function () { addFx(HOTBALLOON, 'bk-hot', '', 8100); } },
     fish: { ms: 3800, phrases: ['Ein Fisch! Der ist für mich.', 'Platsch! Der Fisch will mir entwischen.'],
       run: function (t) { addFx(FISH, 'bk-fish', '', 3400); setTimeout(function () { if (t === tok) fxs('splash'); }, 350); setTimeout(function () { if (t === tok) fxs('splash'); }, 1500); setTimeout(function () { if (t === tok) EATS.mrrp(); }, 2900); } },
     music: { ms: 4200, phrases: ['La la laa! Ich singe für Dich.', 'Miau-miau-miau, ein Lied!'],
@@ -838,7 +888,8 @@
       setTimeout(function () { if (t === tok) showBubble('War ich nicht.', 1900); }, 3200);
     } }
   };
-  var BASEW = { eat: 0.9, cuke: 0.5, wish: 0.6, cup: 0.7, litter: 0.8 };
+  var SCENES = ['vogel', 'falter', 'blaetter', 'kaefer', 'gluehen', 'ballonfern'];
+  var BASEW = { vogel: 0.6, falter: 0.6, blaetter: 0.6, kaefer: 0.5, gluehen: 0.5, ballonfern: 0.5, eat: 0.9, cuke: 0.5, wish: 0.6, cup: 0.7, litter: 0.8 };
   var NAMES = Object.keys(ACTIONS);
   var FRIEND_SAY = ['Das ist Luna, meine Freundin!', 'Luna passt heute mit auf. Zu zweit macht Lernen mehr Spaß!', 'Luna sagt: Du schaffst das!', 'Wir beide glauben an Dich!', 'Luna kommt gern zu Besuch, wenn Du fleißig bist.']; 
   var REDUCED_OK = ['kiss', 'tilt', 'ear', 'wave', 'tail'];
@@ -917,9 +968,10 @@
     var t = ++tok;
     busy = true; visible = true;
     clearTimeout(timer);
-    var s = o.side || pick(['bottom', 'bottom', 'left', 'right', 'top']);
-    var withFriend = !!(mem.friend && (o.friend || (lunaToday() && Math.random() < 0.3)));
     var name = o.action && ACTIONS[o.action] ? o.action : pickAction(reduced ? REDUCED_OK : NAMES);
+    var quiet = !!ACTIONS[name].quiet;
+    var s = quiet ? 'bottom' : (o.side || pick(['bottom', 'bottom', 'left', 'right', 'top']));
+    var withFriend = !quiet && !!(mem.friend && (o.friend || (lunaToday() && Math.random() < 0.3)));
     T('k.v', name, s, withFriend ? 1 : 0, o.kind || (o.text ? 'text' : ''));
     var a = ACTIONS[name];
     hideBubble(); clearActions();
@@ -945,7 +997,7 @@
       act(name); note(name);
       if (a.run) a.run(t);
       if (a.script) a.script(t);
-      var text = o.text || (a.script ? null : (withFriend && Math.random() < 0.6 ? pick(FRIEND_SAY) : textFor(name, o.kind)));
+      var text = o.text || (a.script || a.quiet ? null : (withFriend && Math.random() < 0.6 ? pick(FRIEND_SAY) : textFor(name, o.kind)));
       if (withFriend && Math.random() < 0.5) setTimeout(function () { if (t === tok) hearts(2); }, 1500);
       if (text) setTimeout(function () { if (t === tok) showBubble(text); }, Math.min(700, a.ms / 3));
       if (!await sleep(a.ms + (text ? 700 : 0), t)) return;
@@ -1144,6 +1196,7 @@
     ['a:litter', 'Katzenklo', 'Bitte nicht stören!'], ['a:carton', 'Karton', 'Wenn es passt, dann sitzt es.'], ['a:laser', 'Roter Punkt', 'Wo ist er hin?'],
     ['a:cuke', 'Gurke', 'Huch!'], ['a:soap', 'Seifenblasen', 'Plopp!'], ['a:knead', 'Milchtritt', 'Brot backen mit den Pfoten.'],
     ['a:wish', 'Sternschnuppe', 'Ein Wunsch für Dich.'], ['a:cup', 'Tasse', 'Ups.'], ['a:eat', 'Futterzeit', 'Nom nom nom.'],
+    ['a:vogel', 'Vogel', 'Zuschauen reicht.'], ['a:falter', 'Falter', 'Zwei Falter tanzen.'], ['a:blaetter', 'Herbstlaub', 'Blätter im Wind.'], ['a:kaefer', 'Marienkäfer', 'Ein kleiner Spaziergang.'], ['a:gluehen', 'Glühwürmchen', 'Sie leuchten leise.'], ['a:ballonfern', 'Heißluftballon', 'Weit, weit weg.'],
     ['a:fish', 'Fischfang', 'Der springt davon!'], ['a:music', 'Singen', 'Miau-miau-miau, ein Lied!'], ['a:think', 'Geistesblitz', 'Ich habe eine Idee!'], ['a:photo', 'Fotoshooting', 'Bitte lächeln!'],
     ['a:cake', 'Kuchen', 'Wünsch Dir was!'], ['a:book', 'Leseratte', 'Lernen macht schlau.'], ['a:balloon', 'Luftballon', 'Hoch hinaus!'], ['a:snow', 'Schneeflocken', 'Brrr, kuschelig.'],
     ['s:confetti', 'Konfetti', 'Fünf richtige Antworten in Folge.'], ['s:rufen', 'Gerufen', 'Man munkelt: Miau tippen.'],
@@ -1223,6 +1276,12 @@
     's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
     's:treffer': { cls: 'bk-happy', svg: '<g transform="translate(116 8)"><circle cx="30" cy="30" r="28" fill="#fff" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="17" fill="none" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="6" fill="#e05060"/></g>' },
     's:meister': { cls: 'bk-happy', svg: '<g transform="translate(112 4) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g><path d="M4 60h36M0 84h44" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
+    'a:vogel': { svg: '<g transform="translate(118 2) scale(1.5)">' + BIRD.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M6 36q20-18 46-8" fill="none" stroke="#8a9ca4" stroke-width="2.500" stroke-dasharray="3 6" stroke-linecap="round"/>' },
+    'a:falter': { svg: '<g transform="translate(132 8) scale(1.1)">' + BUTTERFLY.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(14 28) scale(.8)">' + BUTTERFLY.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:blaetter': { svg: '<g transform="translate(130 6) rotate(30 10 12) scale(1.4)">' + LEAF('#e8742a').replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(20 20) rotate(-25 10 12) scale(1.2)">' + LEAF('#d93a3a').replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(160 90) rotate(60 10 12)">' + LEAF('#f2c230').replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:kaefer': { svg: '<g transform="translate(78 26) scale(1.5)">' + LADYBUG.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:gluehen': { svg: '<circle cx="150" cy="30" r="12" fill="#ffe45c" opacity=".45"/><circle cx="150" cy="30" r="4.500" fill="#ffd21a" stroke="#c4900a" stroke-width="1.5"/><circle cx="30" cy="50" r="10" fill="#ffe45c" opacity=".45"/><circle cx="30" cy="50" r="4" fill="#ffd21a" stroke="#c4900a" stroke-width="1.5"/><circle cx="172" cy="100" r="9" fill="#ffe45c" opacity=".45"/><circle cx="172" cy="100" r="3.500" fill="#ffd21a" stroke="#c4900a" stroke-width="1.5"/><circle cx="104" cy="6" r="9" fill="#ffe45c" opacity=".45"/><circle cx="104" cy="6" r="3.500" fill="#ffd21a" stroke="#c4900a" stroke-width="1.5"/>' },
+    'a:ballonfern': { svg: '<g transform="translate(140 -4) scale(.9)">' + HOTBALLOON.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
     'a:fish': { svg: '<g transform="translate(112 84) scale(1.35) rotate(-18 30 18)">' + FISH.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M104 150q16-10 34 0q16-10 34 0" fill="none" stroke="#4a9ad9" stroke-width="3.5" stroke-linecap="round"/>' },
     'a:music': { cls: 'bk-happy', svg: NOTE_G(150, 18, 1.5) + NOTE_G(176, 62, 1.2) + NOTE_G(22, 40, 1.3) },
     'a:think': { svg: '<g transform="translate(132 -4) scale(1.3)">' + BULB.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M142 -8v-4M118 8l-4-4M172 8l4-4" stroke="#f2a030" stroke-width="3" stroke-linecap="round"/>' },
@@ -1766,7 +1825,12 @@
           mem.correct = (mem.correct || 0) + 1; persist(); friendProgress();
           if (mem.correct >= mem.giftNext) { streak++; gift(); return; }
         }
-        api.cheer();
+        /* Manchmal passiert statt Lob etwas, worauf man nicht reagieren muss: das Kätzchen schaut still zu (Vogel, Falter, Blätter …) */
+        if (!pendingFriend && !busy && !paused && (streak + 1) !== 5 && (streak + 1) !== 10 && (streak + 1) !== 20 && Math.random() < 0.5) {
+          streak++;
+          var sc = pick(SCENES);
+          setTimeout(function () { if (!busy && !mem.off && !paused) { T('k.scene', sc); visit({ action: sc, kind: 'scene' }); } }, 2200);
+        } else api.cheer();
       } else api.comfort();
     });
     document.addEventListener('biber:credit', function (e) { var d = (e && e.detail) || {}; earn(d.n); if (d.correct) friendProgress(); });
