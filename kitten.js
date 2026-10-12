@@ -422,6 +422,20 @@
     '@keyframes bk-watch{0%{transform:rotate(-3deg)}100%{transform:rotate(3deg)}}',
     '@keyframes bk-watchdown{0%{transform:none}100%{transform:translateY(4px) rotate(-1.5deg)}}',
     '@keyframes bk-watchsway{0%{transform:rotate(-2deg)}50%{transform:rotate(1.5deg)}100%{transform:rotate(-1deg)}}',
+    '.bk-nose{position:absolute;left:41%;top:44%;width:18%;opacity:0;animation:bk-noselanding 6.2s ease-in-out 1 forwards}',
+    '.bk-nose svg{display:block;width:100%;height:auto}',
+    '.bk-nose .bk-wing{transform-origin:50% 50%;animation:bk-flap .2s ease-in-out infinite alternate}',
+    '@keyframes bk-noselanding{0%{opacity:0;left:92%;top:-46%}10%{opacity:1}30%{left:22%;top:6%}48%{left:60%;top:26%}62%{left:41%;top:44%}84%{left:41%;top:44%;opacity:1}100%{opacity:0;left:64%;top:-54%}}',
+    '.bk-sq{position:absolute;left:30%;top:46%;width:44%;animation:bk-sqrun 6s linear 1 forwards}',
+    '@keyframes bk-sqrun{0%{transform:translateX(-50vw)}100%{transform:translateX(50vw)}}',
+    '.bk-sq svg{display:block;width:100%;height:auto;animation:bk-sqhop .3s ease-in-out infinite alternate}',
+    '@keyframes bk-sqhop{0%{transform:translateY(0)}100%{transform:translateY(-8px)}}',
+    '@keyframes bk-eyes-nose{0%{transform:translate(4px,-4px)}30%{transform:translate(-3px,-3px)}48%{transform:translate(1px,-1px)}62%,84%{transform:translate(0,5px)}100%{transform:translate(3px,-4px)}}',
+    '@keyframes bk-eyes-run{0%{transform:translate(-5px,2px)}100%{transform:translate(5px,2px)}}',
+    '.bk-a-nase .bk-look{animation:bk-eyes-nose 6.2s ease-in-out 1 forwards}',
+    '.bk-a-nase .bk-head{animation:bk-watchsway 6.2s ease-in-out 1 forwards}',
+    '.bk-a-eichhoernchen .bk-look{animation:bk-eyes-run 6s linear 1 forwards}',
+    '.bk-a-eichhoernchen .bk-head{animation:bk-watch 6s linear 1 forwards}',
     '.bk-a-vogel .bk-look{animation:bk-eyes-lr 5s ease-in-out 1 forwards}',
     '.bk-a-vogel .bk-head{animation:bk-watch 5s ease-in-out 1 forwards}',
     '.bk-a-falter .bk-look{animation:bk-eyes-wander 6.2s ease-in-out 1 forwards}',
@@ -465,6 +479,7 @@
   var YARN = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#e8607a" stroke="#8a2a40" stroke-width="2"/><path d="M6 14c10 4 18 2 28-4M4 22c12 4 22 2 32-4M8 31c10 2 18 0 26-6M14 5c4 10 2 20-2 30" fill="none" stroke="#f9b0c0" stroke-width="2"/></svg>';
   /* Ruhige Szenen: Dinge, die man nur anschauen muss */
   var BIRD = '<svg viewBox="0 0 44 30" aria-hidden="true"><path d="M3 11L15 14L13 21Z" fill="#7a5a3a" stroke="#4a2e1a" stroke-width="1.6" stroke-linejoin="round"/><ellipse cx="22" cy="17" rx="13" ry="8" fill="#a9784a" stroke="#4a2e1a" stroke-width="2"/><ellipse cx="24" cy="20" rx="8" ry="4.500" fill="#f2dcc0"/><circle cx="34" cy="11" r="6.500" fill="#a9784a" stroke="#4a2e1a" stroke-width="2"/><path d="M39.500 9.500L44 11.500L39.500 13.500Z" fill="#f2a030" stroke="#4a2e1a" stroke-width="1.4" stroke-linejoin="round"/><circle cx="35.500" cy="9.500" r="1.400" fill="#1b1410"/><path class="bk-wing2" d="M15 15Q22-3 31 13Q23 12 15 15Z" fill="#6b4a2a" stroke="#4a2e1a" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  var SQUIRREL = '<svg viewBox="0 0 60 44" aria-hidden="true"><path d="M14 33C-3 31-5 6 11 3C7 12 12 20 23 25Z" fill="#b5651d" stroke="#4a2e1a" stroke-width="2" stroke-linejoin="round"/><path d="M9 8C6 15 9 22 15 26" fill="none" stroke="#e0a560" stroke-width="2.200" stroke-linecap="round"/><ellipse cx="28" cy="29" rx="14" ry="9" fill="#c4752a" stroke="#4a2e1a" stroke-width="2"/><ellipse cx="32" cy="32" rx="8" ry="4.500" fill="#f2dcc0"/><path d="M38 36L42 42M20 36L15 42" stroke="#4a2e1a" stroke-width="3" stroke-linecap="round"/><circle cx="46" cy="20" r="8" fill="#c4752a" stroke="#4a2e1a" stroke-width="2"/><path d="M43 14L45 5L50 13Z" fill="#c4752a" stroke="#4a2e1a" stroke-width="1.800" stroke-linejoin="round"/><circle cx="49" cy="18.500" r="1.700" fill="#1b1410"/><circle cx="54" cy="21.500" r="1.600" fill="#1b1410"/></svg>';
   var LADYBUG = '<svg viewBox="0 0 24 20" aria-hidden="true"><path d="M5 5L2 2M8 4L7 0.500M5 15L2 18M8 16L7 19.500" stroke="#2b1a10" stroke-width="1.2" stroke-linecap="round"/><circle cx="13" cy="10" r="8.500" fill="#e0342b" stroke="#2b1a10" stroke-width="1.8"/><path d="M13 1.500V18.500" stroke="#2b1a10" stroke-width="1.6"/><circle cx="9.500" cy="6.500" r="1.700" fill="#2b1a10"/><circle cx="9.500" cy="13.500" r="1.700" fill="#2b1a10"/><circle cx="17" cy="7" r="1.700" fill="#2b1a10"/><circle cx="17" cy="13" r="1.700" fill="#2b1a10"/><circle cx="3.500" cy="10" r="3.200" fill="#2b1a10"/></svg>';
   var HOTBALLOON = '<svg viewBox="0 0 40 60" aria-hidden="true"><path d="M20 2C34 2 38 16 34 26C32 32 26 38 24 41H16C14 38 8 32 6 26C2 16 6 2 20 2Z" fill="#f2c230" stroke="#4a2e1a" stroke-width="2.4" stroke-linejoin="round"/><path d="M14 3Q9 22 16 41M26 3Q31 22 24 41" fill="none" stroke="#e05060" stroke-width="3"/><path d="M16 41L17 49M24 41L23 49" stroke="#4a2e1a" stroke-width="1.600"/><rect x="15.500" y="49" width="9" height="7" rx="1.500" fill="#c89a5b" stroke="#4a2e1a" stroke-width="2"/></svg>';
   function LEAF(c) { return '<svg viewBox="0 0 20 24" aria-hidden="true"><path d="M10 1C18 6 19 16 10 23C1 16 2 6 10 1Z" fill="' + c + '" stroke="#4a2e1a" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 4V22" stroke="#4a2e1a" stroke-width="1.200" opacity=".6"/></svg>'; }
@@ -863,6 +878,8 @@
     vogel: { ms: 5400, quiet: true, run: function () { addFx(BIRD, 'bk-bird', '', 5200); } },
     falter: { ms: 6400, quiet: true, run: function () { addFx(BUTTERFLY, 'bk-fl', 'left:14%;top:8%', 6300); addFx(BUTTERFLY, 'bk-fl', 'left:58%;top:-6%;animation-delay:.9s', 7200); } },
     blaetter: { ms: 6000, quiet: true, run: function () { var cs = ['#e8742a', '#d93a3a', '#f2c230', '#c45a1a', '#e0a020', '#b83a1a']; for (var i = 0; i < 6; i++) addFx(LEAF(cs[i]), 'bk-leaf', 'left:' + Math.round(rnd(6, 80)) + '%;--dx:' + Math.round(rnd(14, 34)) + 'px;animation-delay:' + (i * 0.55).toFixed(2) + 's', 6200 + i * 550); } },
+    nase: { ms: 6600, quiet: true, run: function () { var d = addFx(BUTTERFLY, 'bk-nose', '', 6300); setTimeout(function () { var w = d.querySelector('.bk-wing'); if (w) w.style.animationDuration = '.85s'; }, 2800); setTimeout(function () { var w = d.querySelector('.bk-wing'); if (w) w.style.animationDuration = '.2s'; }, 5200); } },
+    eichhoernchen: { ms: 6400, quiet: true, run: function () { addFx(SQUIRREL, 'bk-sq', '', 6200); } },
     kaefer: { ms: 6600, quiet: true, run: function () { addFx(LADYBUG, 'bk-bug', '', 6400); } },
     gluehen: { ms: 7000, quiet: true, run: function () { for (var i = 0; i < 7; i++) addFx('', 'bk-ff', 'left:' + Math.round(rnd(4, 86)) + '%;top:' + Math.round(rnd(0, 70)) + '%;--dx:' + Math.round(rnd(-18, 18)) + 'px;animation-delay:' + (i * 0.45).toFixed(2) + 's', 7600); } },
     ballonfern: { ms: 8200, quiet: true, run: function () { addFx(HOTBALLOON, 'bk-hot', '', 8100); } },
@@ -888,8 +905,8 @@
       setTimeout(function () { if (t === tok) showBubble('War ich nicht.', 1900); }, 3200);
     } }
   };
-  var SCENES = ['vogel', 'falter', 'blaetter', 'kaefer', 'gluehen', 'ballonfern'];
-  var BASEW = { vogel: 0.6, falter: 0.6, blaetter: 0.6, kaefer: 0.5, gluehen: 0.5, ballonfern: 0.5, eat: 0.9, cuke: 0.5, wish: 0.6, cup: 0.7, litter: 0.8 };
+  var SCENES = ['vogel', 'falter', 'blaetter', 'kaefer', 'gluehen', 'ballonfern', 'nase', 'eichhoernchen'];
+  var BASEW = { nase: 0.5, eichhoernchen: 0.5, vogel: 0.6, falter: 0.6, blaetter: 0.6, kaefer: 0.5, gluehen: 0.5, ballonfern: 0.5, eat: 0.9, cuke: 0.5, wish: 0.6, cup: 0.7, litter: 0.8 };
   var NAMES = Object.keys(ACTIONS);
   var FRIEND_SAY = ['Das ist Luna, meine Freundin!', 'Luna passt heute mit auf. Zu zweit macht Lernen mehr Spaß!', 'Luna sagt: Du schaffst das!', 'Wir beide glauben an Dich!', 'Luna kommt gern zu Besuch, wenn Du fleißig bist.']; 
   var REDUCED_OK = ['kiss', 'tilt', 'ear', 'wave', 'tail'];
@@ -1017,6 +1034,10 @@
   }
 
   /* ---------- Streicheln ---------- */
+  /* Höchstens 5 Zoomies innerhalb von 5 Minuten (auch aus dem Album); danach gibt es nur noch Streicheln und einen Spruch. */
+  var ZOOM_MAX = 5, ZOOM_WINDOW = 5 * 60000;
+  var ZOOM_LIMIT_SAY = ['Puh, genug geflitzt! Jetzt sind erst mal die Aufgaben dran.', 'Fünf Zoomies reichen für den Moment. Aufgaben lösen sich nicht selbst!', 'Ich muss erst wieder zu Atem kommen. Bis gleich!'];
+  function zoomAllowed() { var now = Date.now(); mem.zt = (mem.zt || []).filter(function (x) { return now - x < ZOOM_WINDOW; }); return mem.zt.length < ZOOM_MAX; }
   var zoomOn = false, zoomCan = false, zoomHitDone = false, zoomHits = 0, zoomIdx = 0, zoomT0 = 0;
   /* Jeder Tipp auf das Kätzchen während der Zoomies wird protokolliert: k.zc <Auftritt> <ms seit Erscheinen> <hit|again|intro|late> */
   function zoomTap() {
@@ -1050,7 +1071,11 @@
     hearts(petCount > 2 ? 5 : 3);
     try { if (navigator.vibrate) navigator.vibrate([25, 40, 25]); } catch (err) { /* ignorieren */ }
     var r = Math.random();
-    if (petCount >= 5) { zoomies(t); return; }
+    var zlim = false;
+    if (petCount >= 5) {
+      if (zoomAllowed()) { zoomies(t); return; }
+      zlim = true; petCount = 0; T('k.zlimit');
+    }
     if (r < 0.5) { meow(rnd(0.9, 1.15)); } else { purr(2.6); }
     var text;
     var total = Object.keys(mem.stickers || {}).length;
@@ -1058,6 +1083,7 @@
     else if (mem.pets % 7 === 0 && total < STICKERS.length) text = 'Du hast schon ' + total + ' von ' + STICKERS.length + ' Stickern gesammelt. Es gibt noch mehr!';
     else if (!(mem.stickers && mem.stickers['s:hidden']) && mem.pets >= 3 && Math.random() < 0.25) text = 'Psst… Hier versteckt sich noch jemand. Schau genau hin!';
     else text = nm(pick(PET));
+    if (zlim) text = pick(ZOOM_LIMIT_SAY);
     showBubble(text);
     (async function () {
       if (!await sleep(3100, t)) return;
@@ -1067,6 +1093,7 @@
 
   /* Geheimnis: fünfmal schnell streicheln gibt Zoomies. */
   async function zoomies(t) {
+    mem.zt = (mem.zt || []).concat([Date.now()]).slice(-ZOOM_MAX); persist();
     clearActions();
     if (!mem.secrets.zoomies) { mem.secrets.zoomies = true; persist(); }
     unlock('s:zoomies');
@@ -1196,7 +1223,7 @@
     ['a:litter', 'Katzenklo', 'Bitte nicht stören!'], ['a:carton', 'Karton', 'Wenn es passt, dann sitzt es.'], ['a:laser', 'Roter Punkt', 'Wo ist er hin?'],
     ['a:cuke', 'Gurke', 'Huch!'], ['a:soap', 'Seifenblasen', 'Plopp!'], ['a:knead', 'Milchtritt', 'Brot backen mit den Pfoten.'],
     ['a:wish', 'Sternschnuppe', 'Ein Wunsch für Dich.'], ['a:cup', 'Tasse', 'Ups.'], ['a:eat', 'Futterzeit', 'Nom nom nom.'],
-    ['a:vogel', 'Vogel', 'Zuschauen reicht.'], ['a:falter', 'Falter', 'Zwei Falter tanzen.'], ['a:blaetter', 'Herbstlaub', 'Blätter im Wind.'], ['a:kaefer', 'Marienkäfer', 'Ein kleiner Spaziergang.'], ['a:gluehen', 'Glühwürmchen', 'Sie leuchten leise.'], ['a:ballonfern', 'Heißluftballon', 'Weit, weit weg.'],
+    ['a:vogel', 'Vogel', 'Zuschauen reicht.'], ['a:nase', 'Besuch auf der Nase', 'Ganz still halten!'], ['a:eichhoernchen', 'Eichhörnchen', 'Hui, ist das schnell!'], ['a:falter', 'Falter', 'Zwei Falter tanzen.'], ['a:blaetter', 'Herbstlaub', 'Blätter im Wind.'], ['a:kaefer', 'Marienkäfer', 'Ein kleiner Spaziergang.'], ['a:gluehen', 'Glühwürmchen', 'Sie leuchten leise.'], ['a:ballonfern', 'Heißluftballon', 'Weit, weit weg.'],
     ['a:fish', 'Fischfang', 'Der springt davon!'], ['a:music', 'Singen', 'Miau-miau-miau, ein Lied!'], ['a:think', 'Geistesblitz', 'Ich habe eine Idee!'], ['a:photo', 'Fotoshooting', 'Bitte lächeln!'],
     ['a:cake', 'Kuchen', 'Wünsch Dir was!'], ['a:book', 'Leseratte', 'Lernen macht schlau.'], ['a:balloon', 'Luftballon', 'Hoch hinaus!'], ['a:snow', 'Schneeflocken', 'Brrr, kuschelig.'],
     ['s:confetti', 'Konfetti', 'Fünf richtige Antworten in Folge.'], ['s:rufen', 'Gerufen', 'Man munkelt: Miau tippen.'],
@@ -1276,6 +1303,8 @@
     's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
     's:treffer': { cls: 'bk-happy', svg: '<g transform="translate(116 8)"><circle cx="30" cy="30" r="28" fill="#fff" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="17" fill="none" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="6" fill="#e05060"/></g>' },
     's:meister': { cls: 'bk-happy', svg: '<g transform="translate(112 4) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g><path d="M4 60h36M0 84h44" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
+    'a:nase': { svg: '<g transform="translate(86 90) scale(.75)">' + BUTTERFLY.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:eichhoernchen': { svg: '<g transform="translate(100 98) scale(1.25)">' + SQUIRREL.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M96 150h-30M92 142h-22" stroke="#8a9ca4" stroke-width="2.500" stroke-linecap="round"/>' },
     'a:vogel': { svg: '<g transform="translate(118 2) scale(1.5)">' + BIRD.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M6 36q20-18 46-8" fill="none" stroke="#8a9ca4" stroke-width="2.500" stroke-dasharray="3 6" stroke-linecap="round"/>' },
     'a:falter': { svg: '<g transform="translate(132 8) scale(1.1)">' + BUTTERFLY.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(14 28) scale(.8)">' + BUTTERFLY.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
     'a:blaetter': { svg: '<g transform="translate(130 6) rotate(30 10 12) scale(1.4)">' + LEAF('#e8742a').replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(20 20) rotate(-25 10 12) scale(1.2)">' + LEAF('#d93a3a').replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(160 90) rotate(60 10 12)">' + LEAF('#f2c230').replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
@@ -1518,7 +1547,7 @@
     ];
     function sayNow(kind) {
       var box = body.querySelector('.bk-say'); if (!box) return;
-      var pool = kind === 'credit' ? CREDIT_SAYINGS : SAYINGS;
+      var pool = kind === 'credit' ? CREDIT_SAYINGS : kind === 'zoom' ? ZOOM_LIMIT_SAY : SAYINGS;
       var i; do { i = Math.floor(Math.random() * pool.length); } while (i === lastSay && pool.length > 1);
       lastSay = i;
       box.classList.remove('bk-on'); void box.offsetWidth;
@@ -1534,7 +1563,8 @@
     }
     /* Höchstens 5 Auftritte innerhalb von 90 Sekunden, danach ein netter Spruch statt weiterer Auftritte */
     function popSticker(li) {
-      var now = Date.now();
+      var now = Date.now(), sid = li.getAttribute('data-st');
+      if ((sid === 's:zoomies' || sid === 's:treffer' || sid === 's:meister') && !zoomAllowed()) { T('k.st', sid, 'zlimit'); sayNow('zoom'); return; }
       if (credit() <= 0) { T('k.st', li.getAttribute('data-st'), 'credit0'); sayNow('credit'); return; }
       pops = pops.filter(function (t) { return now - t < 90000; });
       if (pops.length >= 5) { T('k.st', li.getAttribute('data-st'), 'limit'); sayNow(); return; }
