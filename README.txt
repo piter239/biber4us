@@ -44,6 +44,8 @@ sonst feste Fragen. Sprechen/Vorlesen nutzt die Web-Speech-Funktionen des Browse
 
 Probelauf: Aufbau wie im Wettbewerb je Klassenstufe (3-4: 9 Aufgaben / 30 Min, 5-6: 12 / 35, 7-13: 15 / 40; gleich viele einfach, mittel, schwer; Quelle: Hefte 2020-2024, Teil "Wettbewerb"). Aufgaben "passend zum Niveau" oder "laut Heft fuer die Klasse"; Zeit wahlweise +5 oder +10 Min.
 
+Kaetzchen: Fressen dauert ca. 9 s mit zufaelligen Geraeuschen (knuspern, lecken, schmatzen, schlucken, nom, mrrp, schluerfen, brummen); acht neue Vorstellungen (Fisch, Singen, Geistesblitz, Foto, Kuchen, Lesen, Ballon, Schnee) und sechs neue Doppel-Sticker.
+
 Kaetzchen und Luna: Luna kommt jeden Tag neu (mem.lunaDay). Am neuen Tag gruesst das Kaetzchen von ihr; nach 1 / 3 / 5 richtigen Aufgaben
 (erster Versuch) des Tages gibt es zwei Ankuendigungen und dann ihren Besuch mit einem neuen Doppel-Sticker (d:*, 12 Stueck der Reihe nach).
 Erfolgs-Sticker (m:*): 10/25/50/100 richtig, 3 in Folge, schwere Aufgabe, unter 20 s, zweiter Versuch, um Hilfe gebeten, Probelauf, 3/7 Tage.

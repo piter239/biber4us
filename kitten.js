@@ -115,7 +115,7 @@
     if (mem.off || !mem.friend || mem.greetDay === today() || mem.lunaDay === today()) return;
     pendingGreet = true;
   }
-  var DUOS = ['d:herz', 'd:nasen', 'd:kuscheln', 'd:selfie', 'd:regen', 'd:sterne', 'd:duett', 'd:tee', 'd:buch', 'd:wolle', 'd:geburtstag', 'd:regenbogen'];
+  var DUOS = ['d:herz', 'd:nasen', 'd:kuscheln', 'd:selfie', 'd:regen', 'd:sterne', 'd:duett', 'd:tee', 'd:buch', 'd:wolle', 'd:geburtstag', 'd:regenbogen', 'd:fisch', 'd:tanz', 'd:geheimnis', 'd:schnee', 'd:pizza', 'd:ballon'];
   function unlockNextDuo() {
     var st = mem.stickers || {};
     for (var i = 0; i < DUOS.length; i++) if (!st[DUOS[i]]) { setTimeout(function (id) { unlock(id); }.bind(null, DUOS[i]), 2500); return DUOS[i]; }
@@ -373,8 +373,29 @@
     /* Tasse */
     '.bk-bowl{position:absolute;left:22%;top:66%;width:56%;animation:bk-boxin .5s ease-out 1 backwards}',
     '.bk-bowl svg{display:block;width:100%;height:auto}',
-    '.bk-a-eat .bk-head{animation:bk-eathead .5s ease-in-out 8}',
-    '.bk-a-eat .bk-mouthopen{animation:bk-chew .5s ease-in-out 8}',
+    '.bk-fish{position:absolute;left:62%;top:60%;width:36%;opacity:0;animation:bk-fishhop 3.2s ease-in-out 1 forwards}',
+    '@keyframes bk-fishhop{0%{transform:translate(60%,40%) rotate(10deg);opacity:0}10%{opacity:1}35%{transform:translate(-20%,-70%) rotate(-30deg)}55%{transform:translate(-70%,-30%) rotate(20deg)}75%{transform:translate(-95%,10%) rotate(-10deg);opacity:1}100%{transform:translate(-95%,40%);opacity:0}}',
+    '.bk-note{position:absolute;width:12%;top:44%;opacity:0;animation:bk-notefloat 2.4s ease-out 1 forwards}',
+    '@keyframes bk-notefloat{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx,20px),-110px) rotate(var(--r,12deg))}}',
+    '.bk-a-music .bk-head{animation:bk-nuzzle .9s ease-in-out 5}',
+    '.bk-bulb{position:absolute;left:60%;top:-14%;width:24%;transform-origin:50% 100%;animation:bk-bulbpop 2.6s ease-out 1 forwards}',
+    '@keyframes bk-bulbpop{0%{transform:scale(0);opacity:0}15%{transform:scale(1.25);opacity:1}25%{transform:scale(1)}85%{opacity:1}100%{opacity:0}}',
+    '.bk-a-think .bk-pupil{animation:bk-lookup 3.4s ease-in-out 1}',
+    '.bk-vf{position:absolute;inset:-4%;border:5px solid rgba(255,255,255,.95);border-radius:12px;box-shadow:0 0 0 1px rgba(0,0,0,.25);opacity:0;animation:bk-vf 1.4s ease-in-out 1 forwards}',
+    '@keyframes bk-vf{0%{opacity:0;transform:scale(1.15)}30%,85%{opacity:1;transform:scale(1)}100%{opacity:0}}',
+    '.bk-flash{position:absolute;inset:-40%;background:radial-gradient(circle,#fff 0,rgba(255,255,255,.9) 32%,transparent 70%);opacity:0;pointer-events:none;animation:bk-flash .5s ease-out 1 forwards}',
+    '@keyframes bk-flash{0%{opacity:0}20%{opacity:.95}100%{opacity:0}}',
+    '.bk-a-photo .bk-svg{animation:bk-wiggle .16s ease-in-out 1 1.2s}',
+    '.bk-cake{position:absolute;left:-38%;top:36%;width:48%;animation:bk-cakein .7s ease-out 1 backwards}',
+    '@keyframes bk-cakein{0%{transform:translateY(120%)}100%{transform:none}}',
+    '.bk-book{position:absolute;left:62%;top:44%;width:54%;animation:bk-boxin .5s ease-out 1 backwards}',
+    '.bk-a-book .bk-pupil{animation:bk-lookaround 1.6s ease-in-out 3 alternate}',
+    '.bk-balloon{position:absolute;left:64%;top:62%;width:22%;opacity:0;animation:bk-balloon 4s ease-in-out 1 forwards}',
+    '@keyframes bk-balloon{0%{transform:translate(0,30%);opacity:0}10%{opacity:1}100%{transform:translate(24%,-190%) rotate(8deg);opacity:1}}',
+    '.bk-flake{position:absolute;top:-8%;width:9%;opacity:0;animation:bk-flake 3.4s linear 1 forwards}',
+    '@keyframes bk-flake{0%{opacity:0;transform:translate(0,0) rotate(0)}15%{opacity:1}100%{opacity:.9;transform:translate(var(--dx,10px),170px) rotate(180deg)}}',
+    '.bk-a-eat .bk-head{animation:bk-eathead .5s ease-in-out 19}',
+    '.bk-a-eat .bk-mouthopen{animation:bk-chew .5s ease-in-out 19}',
     '.bk-a-eat .bk-eye{animation:bk-squint 4s ease-in-out 1}',
     '@keyframes bk-eathead{0%,100%{transform:translateY(0)}45%{transform:translateY(11px) rotate(2deg)}}',
     '@keyframes bk-chew{0%,100%{opacity:0;transform:scaleY(.1)}40%,60%{opacity:1;transform:scaleY(.7)}}',
@@ -408,6 +429,13 @@
   var SIGN = '<svg viewBox="0 0 60 44" aria-hidden="true"><rect x="3" y="3" width="54" height="24" rx="4" fill="#fff6dc" stroke="#7a4a22" stroke-width="2.4"/><text x="30" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="11" fill="#b3261e">BESETZT</text><path d="M30 27v15" stroke="#7a4a22" stroke-width="3" stroke-linecap="round"/></svg>';
   var CARTON = '<svg viewBox="0 0 120 60" aria-hidden="true"><path d="M6 20h108l-6 38H12Z" fill="#c89a5b" stroke="#6b4420" stroke-width="3" stroke-linejoin="round"/><path d="M40 32h40" stroke="#6b4420" stroke-width="3" stroke-linecap="round" opacity=".5"/><rect x="2" y="13" width="116" height="9" rx="3" fill="#d9ab6d" stroke="#6b4420" stroke-width="3"/></svg>';
   var CUKE = '<svg viewBox="0 0 70 24" aria-hidden="true"><ellipse cx="35" cy="12" rx="32" ry="9.5" fill="#4caf50" stroke="#1b5e20" stroke-width="2.4"/><path d="M12 8h5M26 15h5M42 8h5M54 15h5" stroke="#2e7d32" stroke-width="2" stroke-linecap="round"/><path d="M7 9q8-4 14-2" stroke="#a5d6a7" stroke-width="2" fill="none"/></svg>';
+  var FISH = '<svg viewBox="0 0 60 36" aria-hidden="true"><path d="M4 18C14 4 34 4 46 18C34 32 14 32 4 18Z" fill="#6fb7e8" stroke="#2b5d8a" stroke-width="2.4"/><path d="M46 18L58 8V28Z" fill="#4a9ad9" stroke="#2b5d8a" stroke-width="2.4" stroke-linejoin="round"/><circle cx="14" cy="15" r="2.4" fill="#1b2b33"/><path d="M24 12q4 6 0 12" fill="none" stroke="#2b5d8a" stroke-width="2"/></svg>';
+  var NOTESVG = '<svg viewBox="0 0 24 32" aria-hidden="true"><ellipse cx="8" cy="25" rx="7" ry="5" fill="#0a86a6" transform="rotate(-20 8 25)"/><path d="M14 23V4q7 2 8 10" fill="none" stroke="#0a86a6" stroke-width="3" stroke-linecap="round"/></svg>';
+  var BULB = '<svg viewBox="0 0 40 52" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="#fff3a8" stroke="#4a2e1a" stroke-width="3"/><rect x="13" y="35" width="14" height="10" rx="2.5" fill="#8a9ca4" stroke="#4a2e1a" stroke-width="2.6"/><path d="M14 20q6 9 12 0" fill="none" stroke="#f2a030" stroke-width="2.6"/></svg>';
+  var CAKE = '<svg viewBox="0 0 80 70" aria-hidden="true"><rect x="8" y="34" width="64" height="30" rx="6" fill="#f4cfa0" stroke="#4a2e1a" stroke-width="3"/><path d="M8 44q8 8 16 0t16 0t16 0t16 0" fill="#fff" stroke="#4a2e1a" stroke-width="2.6"/><rect x="37.500" y="16" width="5" height="18" fill="#ef5d7a" stroke="#4a2e1a" stroke-width="2"/><path class="bk-flame" d="M40 3q6 8 0 12q-6-4 0-12Z" fill="#f2a030" stroke="#c4650a" stroke-width="1.6"/></svg>';
+  var BOOK = '<svg viewBox="0 0 100 50" aria-hidden="true"><path d="M50 8Q26-2 4 6V44Q26 36 50 46Z" fill="#fff" stroke="#4a2e1a" stroke-width="3" stroke-linejoin="round"/><path d="M50 8Q74-2 96 6V44Q74 36 50 46Z" fill="#fff" stroke="#4a2e1a" stroke-width="3" stroke-linejoin="round"/><path d="M12 16q18-4 32 2M12 26q18-4 32 2M12 36q18-4 32 2M58 18q16-6 32-2M58 28q16-6 32-2M58 38q16-6 32-2" stroke="#8a9ca4" stroke-width="2" fill="none"/></svg>';
+  var BALLOON = '<svg viewBox="0 0 40 70" aria-hidden="true"><ellipse cx="20" cy="22" rx="16" ry="20" fill="#e05060" stroke="#4a2e1a" stroke-width="3"/><path d="M20 42l-4 6h8z" fill="#c43c4e" stroke="#4a2e1a" stroke-width="2"/><path d="M20 48q-6 8 0 22" fill="none" stroke="#8a9ca4" stroke-width="2.4"/><path d="M12 14q3-6 9-6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".6"/></svg>';
+  var FLAKE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.300 7l17.400 10M3.300 17L20.700 7" stroke="#7cc4f0" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg>';
   var BOWL = '<svg viewBox="0 0 100 56" aria-hidden="true"><path d="M8 20h84c0 20-14 34-42 34S8 40 8 20Z" fill="#e05060" stroke="#7a2a3a" stroke-width="3" stroke-linejoin="round"/><ellipse cx="50" cy="20" rx="42" ry="9" fill="#c43c4e" stroke="#7a2a3a" stroke-width="3"/><g fill="#b9763a" stroke="#6b4420" stroke-width="1.6"><circle cx="26" cy="17" r="5"/><circle cx="38" cy="14" r="5"/><circle cx="52" cy="15" r="5"/><circle cx="65" cy="13" r="5"/><circle cx="76" cy="17" r="5"/><circle cx="46" cy="19" r="4.5"/><circle cx="60" cy="19" r="4.5"/></g><path d="M20 34q6 4 14 0M66 36q6 4 12 0" fill="none" stroke="#f7c8ce" stroke-width="2.6" stroke-linecap="round"/></svg>';
   var CUP = '<svg viewBox="0 0 44 46" aria-hidden="true"><path d="M6 10h24v22c0 6-5 10-12 10S6 38 6 32Z" fill="#fff" stroke="#4a2e1a" stroke-width="2.6" stroke-linejoin="round"/><path d="M30 16q11 2 11 10t-11 8" fill="none" stroke="#4a2e1a" stroke-width="2.6"/><path d="M6 17h24" stroke="#d93a3a" stroke-width="3"/><path d="M13 6q2-4 0-6M21 6q2-4 0-6" stroke="#9aa5ab" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
   var MOUSE = '<svg viewBox="0 0 60 36" aria-hidden="true"><ellipse cx="28" cy="22" rx="22" ry="12" fill="#b8c0c8" stroke="#4a5560" stroke-width="2.4"/><circle cx="46" cy="12" r="6.5" fill="#b8c0c8" stroke="#4a5560" stroke-width="2.4"/><circle cx="52" cy="22" r="2.4" fill="#f4a3b4"/><circle cx="41" cy="19" r="1.8" fill="#222"/><path d="M6 22c-6 0-8 6-2 8" fill="none" stroke="#4a5560" stroke-width="2.4" stroke-linecap="round"/></svg>';
@@ -517,15 +545,47 @@
       o.connect(g); g.connect(c.destination); o.start(s); o.stop(s + 0.22);
     });
   }
-  function munch() {
+  /* Bausteine für kleine Geräusche: tone = Ton mit Tonhöhenverlauf, noise = gefiltertes Rauschen */
+  function tone(f0, f1, dur, type, vol, delay) {
     var c = audio(); if (!c) return;
-    var t = c.currentTime, len = Math.floor(c.sampleRate * 0.06), buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0);
-    for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+    var t = c.currentTime + (delay || 0), o = c.createOscillator(), g = c.createGain();
+    o.type = type || 'sine'; o.frequency.setValueAtTime(f0, t); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol || 0.15, t + Math.min(0.02, dur / 3)); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur + 0.02);
+  }
+  function noise(dur, f0, f1, q, vol, delay, type) {
+    var c = audio(); if (!c) return;
+    var t = c.currentTime + (delay || 0), len = Math.max(1, Math.floor(c.sampleRate * dur)), buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0);
+    for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
     var n = c.createBufferSource(); n.buffer = buf;
-    var f = c.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 1800; f.Q.value = 0.8;
-    var g = c.createGain(); g.gain.value = 0.28;
+    var f = c.createBiquadFilter(); f.type = type || 'bandpass'; f.Q.value = q || 1; f.frequency.setValueAtTime(f0, t); if (f1 && f1 !== f0) f.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    var g = c.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol || 0.2, t + Math.min(0.01, dur / 4)); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
     n.connect(f); f.connect(g); g.connect(c.destination); n.start(t);
   }
+  /* Geräusche beim Fressen (werden in zufälliger Reihenfolge abgespielt) */
+  var EATS = {
+    crunch: function () { noise(0.03, 2600, 1400, 1.4, 0.3); noise(0.035, 1800, 900, 1.2, 0.24, 0.055); tone(150, 70, 0.05, 'sine', 0.18); if (Math.random() < 0.5) noise(0.03, 3000, 1600, 1.4, 0.2, 0.12); },
+    lap: function () { for (var i = 0; i < 3; i++) noise(0.07, 500, 2200, 2.5, 0.13, i * 0.1); },
+    smack: function () { tone(1000, 220, 0.06, 'sine', 0.2); noise(0.02, 3000, 3000, 1, 0.1); },
+    gulp: function () { tone(230, 90, 0.14, 'sine', 0.28); },
+    nom: function () { tone(190, 140, 0.1, 'triangle', 0.2); tone(210, 150, 0.1, 'triangle', 0.2, 0.15); },
+    mrrp: function () { tone(320, 480, 0.1, 'triangle', 0.14); tone(480, 380, 0.08, 'triangle', 0.12, 0.1); },
+    slurp: function () { noise(0.28, 350, 2600, 3, 0.12); noise(0.06, 900, 1800, 2, 0.1, 0.3); },
+    rumble: function () { noise(0.4, 140, 140, 0.7, 0.14, 0, 'lowpass'); }
+  };
+  var EAT_POOL = ['crunch', 'crunch', 'crunch', 'crunch', 'lap', 'smack', 'gulp', 'nom', 'mrrp', 'slurp', 'rumble'];
+  var FXS = {
+    splash: function () { noise(0.25, 600, 3200, 0.8, 0.22); tone(500, 900, 0.08, 'sine', 0.1, 0.12); tone(420, 800, 0.08, 'sine', 0.08, 0.24); },
+    ding: function () { tone(1320, 0, 0.5, 'sine', 0.14); tone(1760, 0, 0.45, 'sine', 0.08, 0.08); },
+    click: function () { noise(0.012, 3500, 3500, 1, 0.3); noise(0.02, 2200, 2200, 1, 0.3, 0.06); },
+    puff: function () { noise(0.4, 1100, 300, 0.8, 0.22); },
+    flip: function () { noise(0.1, 1200, 3000, 1.2, 0.16); },
+    squeak: function () { tone(500, 1200, 0.18, 'triangle', 0.12); tone(1200, 700, 0.12, 'triangle', 0.1, 0.2); },
+    wind: function () { noise(2.4, 300, 700, 0.6, 0.06); },
+    tinkle: function () { [1568, 2093, 1760, 2349].forEach(function (f, i) { tone(f, 0, 0.3, 'sine', 0.06, i * 0.45 + 0.1); }); },
+    song: function () { [523, 659, 784, 659, 880, 784].forEach(function (f, i) { tone(f, f * 1.015, 0.24, 'triangle', 0.13, i * 0.3); }); }
+  };
+  function fxs(n) { if (FXS[n]) FXS[n](); }
   function trill() {
     var c = audio(); if (!c) return;
     var t = c.currentTime;
@@ -744,14 +804,34 @@
     knead: { ms: 4000, phrases: ['Ich backe Brot. Mit den Pfoten.', 'Tret, tret… Gleich ist der Teig fertig.'], run: function (t) { setTimeout(function () { if (t === tok) hearts(3); }, 1200); } },
     wish: { ms: 3700, phrases: ['Eine Sternschnuppe! Ich wünsche mir, dass Du alles schaffst.'],
       run: function (t) { addFx('', 'bk-shoot', '', 1700); setTimeout(function () { if (t === tok) sparks(4); }, 1500); } },
-    eat: { ms: 4600, phrases: ['Mmmh, lecker! Nom nom nom.', 'Futterzeit! Ein bisschen Pause tut auch Dir gut.', 'Knusper, knusper. Gleich bin ich wieder fit!'],
+    eat: { ms: 9600, phrases: ['Mmmh, lecker! Nom nom nom.', 'Futterzeit! Ein bisschen Pause tut auch Dir gut.', 'Knusper, knusper. Gleich bin ich wieder fit!'],
       run: function (t) {
-        addFx(BOWL, 'bk-bowl', '', 4600);
-        for (var i = 0; i < 8; i++) (function (i) {
-          setTimeout(function () { if (t === tok) { munch(); addFx('', 'bk-crumb', 'left:' + Math.round(rnd(34, 62)) + '%;top:' + Math.round(rnd(62, 74)) + '%;--dx:' + Math.round(rnd(-22, 22)) + 'px', 900); } }, 500 + i * 500);
-        })(i);
-        setTimeout(function () { if (t === tok) hearts(2); }, 4200);
+        addFx(BOWL, 'bk-bowl', '', 9600);
+        var last = '', n = 0;
+        (function next() {
+          if (t !== tok) return;
+          var k; do { k = pick(EAT_POOL); } while (k === last);
+          last = k; EATS[k]();
+          if (k === 'crunch' || k === 'nom' || k === 'smack') addFx('', 'bk-crumb', 'left:' + Math.round(rnd(34, 62)) + '%;top:' + Math.round(rnd(62, 74)) + '%;--dx:' + Math.round(rnd(-22, 22)) + 'px', 900);
+          if (++n < 17) setTimeout(next, rnd(360, 740)); else hearts(2);
+        })();
       } },
+    fish: { ms: 3800, phrases: ['Ein Fisch! Der ist für mich.', 'Platsch! Der Fisch will mir entwischen.'],
+      run: function (t) { addFx(FISH, 'bk-fish', '', 3400); setTimeout(function () { if (t === tok) fxs('splash'); }, 350); setTimeout(function () { if (t === tok) fxs('splash'); }, 1500); setTimeout(function () { if (t === tok) EATS.mrrp(); }, 2900); } },
+    music: { ms: 4200, phrases: ['La la laa! Ich singe für Dich.', 'Miau-miau-miau, ein Lied!'],
+      run: function (t) { fxs('song'); for (var i = 0; i < 6; i++) (function (i) { setTimeout(function () { if (t === tok) addFx(NOTESVG, 'bk-note', 'left:' + Math.round(rnd(36, 60)) + '%;--dx:' + Math.round(rnd(-40, 40)) + 'px;--r:' + Math.round(rnd(-20, 20)) + 'deg', 2400); }, i * 300); })(i); } },
+    think: { ms: 3400, phrases: ['Ich glaube, ich habe eine Idee!', 'Manchmal hilft es, die Aufgabe noch einmal in Ruhe zu lesen.'],
+      run: function (t) { setTimeout(function () { if (t === tok) { addFx(BULB, 'bk-bulb', '', 2600); fxs('ding'); sparks(3); } }, 700); } },
+    photo: { ms: 3400, phrases: ['Klick! Bitte lächeln!', 'Fotoshooting! Wie sehe ich aus?'],
+      run: function (t) { addFx('', 'bk-vf', '', 1500); setTimeout(function () { if (t === tok) { addFx('', 'bk-flash', '', 700); fxs('click'); sparks(4); } }, 1200); } },
+    cake: { ms: 4800, phrases: ['Ein Kuchen! Wünsch Dir was und puste!', 'Alles Gute! Ich puste die Kerze aus.'],
+      run: function (t) { var d = addFx(CAKE, 'bk-cake', '', 4800); setTimeout(function () { if (t !== tok) return; var f = d.querySelector('.bk-flame'); if (f) f.remove(); fxs('puff'); sparks(3); }, 2500); } },
+    book: { ms: 4800, phrases: ['Ich lese gerade. Lernen macht schlau!', 'Schon wieder ein spannendes Kapitel.'],
+      run: function (t) { setProp('a:book'); addFx(BOOK, 'bk-book', '', 4800); [900, 2000, 3100].forEach(function (d) { setTimeout(function () { if (t === tok) fxs('flip'); }, d); }); } },
+    balloon: { ms: 4400, phrases: ['Ein Luftballon! Hoch hinaus!', 'Wohin fliegt der wohl?'],
+      run: function (t) { fxs('squeak'); addFx(BALLOON, 'bk-balloon', '', 4200); } },
+    snow: { ms: 4400, phrases: ['Es schneit! Brrr, ist das kuschelig.', 'Schneeflocken! Fang eine!'],
+      run: function (t) { fxs('wind'); fxs('tinkle'); for (var i = 0; i < 9; i++) addFx(FLAKE, 'bk-flake', 'left:' + Math.round(rnd(4, 84)) + '%;--dx:' + Math.round(rnd(-14, 14)) + 'px;animation-delay:' + (i * 0.3).toFixed(1) + 's', 4000); } },
     cup: { ms: 4000, script: function (t) {
       addFx(CUP, 'bk-cup', '', 3500);
       setTimeout(function () { if (t === tok) showBubble('Ups.', 1500); }, 2100);
@@ -1064,6 +1144,8 @@
     ['a:litter', 'Katzenklo', 'Bitte nicht stören!'], ['a:carton', 'Karton', 'Wenn es passt, dann sitzt es.'], ['a:laser', 'Roter Punkt', 'Wo ist er hin?'],
     ['a:cuke', 'Gurke', 'Huch!'], ['a:soap', 'Seifenblasen', 'Plopp!'], ['a:knead', 'Milchtritt', 'Brot backen mit den Pfoten.'],
     ['a:wish', 'Sternschnuppe', 'Ein Wunsch für Dich.'], ['a:cup', 'Tasse', 'Ups.'], ['a:eat', 'Futterzeit', 'Nom nom nom.'],
+    ['a:fish', 'Fischfang', 'Der springt davon!'], ['a:music', 'Singen', 'Miau-miau-miau, ein Lied!'], ['a:think', 'Geistesblitz', 'Ich habe eine Idee!'], ['a:photo', 'Fotoshooting', 'Bitte lächeln!'],
+    ['a:cake', 'Kuchen', 'Wünsch Dir was!'], ['a:book', 'Leseratte', 'Lernen macht schlau.'], ['a:balloon', 'Luftballon', 'Hoch hinaus!'], ['a:snow', 'Schneeflocken', 'Brrr, kuschelig.'],
     ['s:confetti', 'Konfetti', 'Fünf richtige Antworten in Folge.'], ['s:rufen', 'Gerufen', 'Man munkelt: Miau tippen.'],
     ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:ahnung', 'Besuch angekündigt', 'Man munkelt: Das Kätzchen bekommt bald Besuch.'], ['s:ahnung2', 'Besuch unterwegs', 'Man munkelt: Jemand ist schon auf dem Weg zum Kätzchen.'], ['s:luna', 'Luna', 'Die Freundin des Kätzchens. Sie kommt, wenn Du fleißig löst.'], ['s:treffer', 'Treffer', 'Ein Zoomies-Kätzchen im Flug getroffen.'], ['s:meister', 'Zoomies-Meister', 'Drei Zoomies-Kätzchen in einem Durchgang getroffen.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
     ['m:bienchen', 'Fleißbienchen', 'Zehn Aufgaben richtig gelöst.', 'Löse zehn Aufgaben richtig im ersten Versuch.'],
@@ -1078,6 +1160,12 @@
     ['m:probelauf', 'Probelauf geschafft', 'Ein ganzer Probelauf abgegeben.', 'Mache einen Probelauf bis zum Schluss.'],
     ['m:tage3', 'Dranbleiber', 'An drei verschiedenen Tagen Aufgaben gelöst.', 'Löse an drei verschiedenen Tagen Aufgaben.'],
     ['m:tage7', 'Eine Woche dabei', 'An sieben verschiedenen Tagen Aufgaben gelöst.', 'Löse an sieben verschiedenen Tagen Aufgaben.'],
+    ['d:fisch', 'Fisch teilen', 'Halbe-halbe.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:tanz', 'Tanzen', 'Links, rechts, Miau!', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:geheimnis', 'Geheimnis', 'Psst, nicht weitersagen.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:schnee', 'Schneetag', 'Zwei Katzen im Schnee.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:pizza', 'Pizza-Abend', 'Ein Stück für jede.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
+    ['d:ballon', 'Ballonfahrt', 'Zusammen hoch hinaus.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
     ['d:herz', 'Herzchen', 'Luna und das Kätzchen mögen sich.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
     ['d:nasen', 'Nasenstups', 'Nase an Nase.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
     ['d:kuscheln', 'Kuscheln', 'Zusammen ist es am gemütlichsten.', 'Luna bringt etwas mit, wenn sie wieder zu Besuch kommt.'],
@@ -1099,6 +1187,9 @@
     return '<polygon points="' + p.join(' ') + '" fill="' + fill + '" stroke="' + LINE + '" stroke-width="1.8" stroke-linejoin="round"/>';
   }
   function NOTE(x, y) { return '<ellipse cx="' + x + '" cy="' + y + '" rx="8" ry="6" fill="#0a86a6" transform="rotate(-20 ' + x + ' ' + y + ')"/><path d="M' + (x + 7) + ' ' + (y - 2) + 'V' + (y - 28) + 'q9 2 11 12" fill="none" stroke="#0a86a6" stroke-width="3.2" stroke-linecap="round"/>'; }
+  function NOTE_G(x, y, sc) { return '<g transform="translate(' + x + ' ' + y + ') scale(' + sc + ')">' + NOTESVG.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>'; }
+  function FL(x, y) { return '<g transform="translate(' + x + ' ' + y + ') scale(1.1)">' + FLAKE.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>'; }
+  var VGLASS = '<g fill="none" stroke="' + LINE + '" stroke-width="3.4"><circle cx="76" cy="97" r="19" fill="rgba(255,255,255,.25)"/><circle cx="124" cy="97" r="19" fill="rgba(255,255,255,.25)"/><path d="M95 95q5-5 10 0"/><path d="M57 92L42 86M143 92L158 86"/></g>';
   function CAL(n) { return '<g transform="translate(132 84)"><rect x="0" y="0" width="52" height="56" rx="7" fill="#fff" stroke="' + LINE + '" stroke-width="3"/><rect x="0" y="0" width="52" height="15" rx="7" fill="#e05060" stroke="' + LINE + '" stroke-width="3"/><text x="26" y="47" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="30" fill="#0a86a6">' + n + '</text></g>'; }
   var PROPS = {
     'a:wave': { svg: '<ellipse cx="162" cy="72" rx="9" ry="14" fill="' + FUR + '" stroke="' + LINE + '" stroke-width="3" transform="rotate(20 162 72)"/><path d="M174 52q8 6 6 16M176 44q12 8 10 24" fill="none" stroke="' + LINE + '" stroke-width="3" stroke-linecap="round"/>' },
@@ -1132,6 +1223,14 @@
     's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
     's:treffer': { cls: 'bk-happy', svg: '<g transform="translate(116 8)"><circle cx="30" cy="30" r="28" fill="#fff" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="17" fill="none" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="6" fill="#e05060"/></g>' },
     's:meister': { cls: 'bk-happy', svg: '<g transform="translate(112 4) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g><path d="M4 60h36M0 84h44" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
+    'a:fish': { svg: '<g transform="translate(112 84) scale(1.35) rotate(-18 30 18)">' + FISH.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M104 150q16-10 34 0q16-10 34 0" fill="none" stroke="#4a9ad9" stroke-width="3.5" stroke-linecap="round"/>' },
+    'a:music': { cls: 'bk-happy', svg: NOTE_G(150, 18, 1.5) + NOTE_G(176, 62, 1.2) + NOTE_G(22, 40, 1.3) },
+    'a:think': { svg: '<g transform="translate(132 -4) scale(1.3)">' + BULB.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M142 -8v-4M118 8l-4-4M172 8l4-4" stroke="#f2a030" stroke-width="3" stroke-linecap="round"/>' },
+    'a:photo': { cls: 'bk-happy', svg: '<path d="M16 14h28M16 14v28M184 14h-28M184 14v28M16 142h28M16 142v-28M184 142h-28M184 142v-28" stroke="#2b3a42" stroke-width="5" stroke-linecap="round" fill="none"/><g transform="translate(150 40) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g>' },
+    'a:cake': { cls: 'bk-happy', svg: '<g transform="translate(60 74) scale(1.1)">' + CAKE.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:book': { svg: VGLASS + '<g transform="translate(44 108) scale(1.1)">' + BOOK.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:balloon': { cls: 'bk-happy', svg: '<g transform="translate(138 6) scale(1.6)">' + BALLOON.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:snow': { svg: FL(30, 20) + FL(120, 6) + FL(168, 40) + FL(12, 100) + FL(176, 110) + FL(100, 130) },
     'm:bienchen': { cls: 'bk-happy', svg: '<g transform="translate(140 18)"><ellipse cx="14" cy="16" rx="15" ry="11" fill="#f2c230" stroke="' + LINE + '" stroke-width="3"/><path d="M9 6v20M19 6v20" stroke="#2b1a10" stroke-width="3.5"/><ellipse cx="7" cy="2" rx="8" ry="6" fill="#e3f4ff" stroke="' + LINE + '" stroke-width="2.2"/><ellipse cx="21" cy="0" rx="8" ry="6" fill="#e3f4ff" stroke="' + LINE + '" stroke-width="2.2"/></g><path d="M170 62q-8 14-24 10" fill="none" stroke="#8a9ca4" stroke-width="2.5" stroke-dasharray="3 5" stroke-linecap="round"/>' },
     'm:krone': { cls: 'bk-happy', svg: '<path d="M62 54L68 12L88 34L100 6L112 34L132 12L138 54Z" fill="#f2c230" stroke="' + LINE + '" stroke-width="3.2" stroke-linejoin="round"/><circle cx="68" cy="12" r="4.5" fill="#e05060"/><circle cx="100" cy="6" r="4.5" fill="#4a9ad9"/><circle cx="132" cy="12" r="4.5" fill="#e05060"/>' },
     'm:medaille': { cls: 'bk-happy', svg: '<path d="M126 110l-8 38 16-8 14 12 2-40z" fill="#4a9ad9" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><circle cx="154" cy="128" r="21" fill="#f2c230" stroke="' + LINE + '" stroke-width="3.2"/><text x="154" y="137" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="26" fill="#8a5a00">1</text>' },
@@ -1147,6 +1246,12 @@
     'x:end': { svg: '' }
   };
   var DUOP = {
+    'd:fisch': { cls: 'bk-happy', svg: '<g transform="translate(108 100) scale(1.3)">' + FISH.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'd:tanz': { cls: 'bk-happy', ra: -10, rb: 10, svg: NOTE_G(120, 0, 1.3) + NOTE_G(158, 8, 1.1) + NOTE_G(6, 20, 1.1) + NOTE_G(238, 22, 1.1) },
+    'd:geheimnis': { rb: -9, ra: 4, svg: '<path d="M118 6h50a8 8 0 0 1 8 8v22a8 8 0 0 1-8 8h-26l-12 10 2-10h-14a8 8 0 0 1-8-8V14a8 8 0 0 1 8-8z" fill="#fff" stroke="#0a86a6" stroke-width="3" stroke-linejoin="round"/><text x="142" y="34" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="20" fill="#0a86a6">psst</text>' },
+    'd:schnee': { cls: 'bk-happy', back: '<rect x="-6" y="-10" width="274" height="170" rx="12" fill="#e6f3fb"/>', svg: FL(10, 6) + FL(70, 0) + FL(130, 4) + FL(196, 0) + FL(244, 10) + FL(20, 118) + FL(236, 120) },
+    'd:pizza': { cls: 'bk-happy', svg: '<path d="M142 156L108 100Q142 84 176 100Z" fill="#f2c230" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><circle cx="132" cy="112" r="6" fill="#d93a3a"/><circle cx="152" cy="116" r="6" fill="#d93a3a"/><circle cx="142" cy="132" r="5.500" fill="#d93a3a"/><path d="M110 104Q142 88 174 104" fill="none" stroke="#c4650a" stroke-width="5" stroke-linecap="round"/>' },
+    'd:ballon': { cls: 'bk-happy', svg: '<g transform="translate(112 -8) scale(1.7)">' + BALLOON.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
     'd:herz': { cls: 'bk-happy', svg: '<g transform="translate(112 -2) scale(2.3)">' + HEART.replace(/^<svg[^>]*>/, '<g color="#ef5d7a">').replace('</svg>', '</g>') + '</g><g transform="translate(70 -6) scale(1)">' + HEART.replace(/^<svg[^>]*>/, '<g color="#f4a3b4">').replace('</svg>', '</g>') + '</g>' },
     'd:nasen': { cls: 'bk-happy', ra: 7, rb: -7, svg: '<g transform="translate(120 70) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g>' },
     'd:kuscheln': { cls: 'bk-happy', ra: 9, rb: -9, svg: '<text x="116" y="22" font-family="system-ui,sans-serif" font-weight="800" font-size="30" fill="#6a7b82">Z</text><text x="140" y="8" font-family="system-ui,sans-serif" font-weight="800" font-size="20" fill="#6a7b82">z</text><text x="156" y="-2" font-family="system-ui,sans-serif" font-weight="800" font-size="14" fill="#6a7b82">z</text>' },
@@ -1164,6 +1269,13 @@
      Einträge mit back: liegen hinter dem Kopf. */
   function HRT(x, y, sc, c) { return '<g transform="translate(' + x + ' ' + y + ') scale(' + sc + ')">' + HEART.replace(/^<svg[^>]*>/, '<g color="' + c + '">').replace('</svg>', '</g>') + '</g>'; }
   var VPROP = {
+    'a:book': { svg: VGLASS },
+    'd:fisch': { svg: '<g transform="translate(110 96) scale(1.1)">' + FISH.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'd:tanz': { svg: NOTE_G(140, 6, 1.3) + NOTE_G(10, 14, 1.1) },
+    'd:geheimnis': { svg: '<path d="M126 4h48a8 8 0 0 1 8 8v22a8 8 0 0 1-8 8h-26l-12 10 2-10h-12a8 8 0 0 1-8-8V12a8 8 0 0 1 8-8z" fill="#fff" stroke="#0a86a6" stroke-width="3"/><text x="148" y="31" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="18" fill="#0a86a6">psst</text>' },
+    'd:schnee': { svg: FL(14, 4) + FL(100, -2) + FL(172, 10) + FL(8, 100) + FL(180, 104) },
+    'd:pizza': { svg: '<g transform="translate(-20 4)"><path d="M142 156L108 100Q142 84 176 100Z" fill="#f2c230" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/><circle cx="132" cy="112" r="6" fill="#d93a3a"/><circle cx="152" cy="116" r="6" fill="#d93a3a"/></g>' },
+    'd:ballon': { svg: '<g transform="translate(130 -6) scale(1.5)">' + BALLOON.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
     'd:herz': { svg: HRT(84, -10, 2.2, '#ef5d7a') + HRT(150, 8, 1.2, '#f4a3b4') },
     'd:nasen': { svg: '<g transform="translate(140 40) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g>' },
     'd:kuscheln': { svg: '<text x="132" y="30" font-family="system-ui,sans-serif" font-weight="800" font-size="30" fill="#6a7b82">Z</text><text x="158" y="14" font-family="system-ui,sans-serif" font-weight="800" font-size="20" fill="#6a7b82">z</text>' },
@@ -1190,6 +1302,8 @@
     'd:herz': ['Wir haben uns lieb!', 'Herzchen für Dich!'], 'd:nasen': ['Nasenstups!', 'Nase an Nase.'], 'd:kuscheln': ['Zusammen ist es gemütlich.', 'Pssst, wir kuscheln.'],
     'd:selfie': ['Bitte lächeln!', 'Klick! Das wird ein tolles Foto.'], 'd:regen': ['Zu zweit unter einem Schirm.', 'Pfui, Regen!'], 'd:sterne': ['Schau, so viele Sterne!', 'Eins, zwei, drei …'],
     'd:duett': ['Miau-miau-miau!', 'Wir singen ein Duett.'], 'd:tee': ['Eine Tasse für jede!', 'Prost, Luna!'], 'd:buch': ['Luna liest vor.', 'Es war einmal ein Biber …'],
+    'd:fisch': ['Halbe-halbe!', 'Ein Fisch für zwei.'], 'd:tanz': ['Links, rechts, Miau!', 'Wir tanzen!'], 'd:geheimnis': ['Psst, ich verrate Dir was.', 'Nicht weitersagen!'],
+    'd:schnee': ['Schneetag! Brrr.', 'Fang eine Flocke!'], 'd:pizza': ['Ein Stück für jede!', 'Pizza-Abend!'], 'd:ballon': ['Zusammen hoch hinaus!', 'Wohin fliegt der Ballon?'],
     'd:wolle': ['Wer zieht am längeren Faden?', 'Das Knäuel gehört uns beiden!'], 'd:geburtstag': ['Alles Gute!', 'Partyzeit!'], 'd:regenbogen': ['Ein Regenbogen für uns!', 'Nach dem Regen kommt Sonne.']
   };
   var M_SAY = {
