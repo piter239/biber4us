@@ -436,6 +436,36 @@
     '.bk-a-nase .bk-head{animation:bk-watchsway 6.2s ease-in-out 1 forwards}',
     '.bk-a-eichhoernchen .bk-look{animation:bk-eyes-run 6s linear 1 forwards}',
     '.bk-a-eichhoernchen .bk-head{animation:bk-watch 6s linear 1 forwards}',
+    '.bk-cloud{position:absolute;opacity:0;animation:bk-cloudgo 8.5s linear 1 forwards}',
+    '.bk-cloud svg{display:block;width:100%;height:auto}',
+    '@keyframes bk-cloudgo{0%{opacity:0;transform:translateX(-38vw)}12%{opacity:.95}88%{opacity:.95}100%{opacity:0;transform:translateX(38vw)}}',
+    '.bk-ss{position:absolute;width:36%;height:3.4%;background:linear-gradient(90deg,transparent,#fff7c2 55%,#f2c230);border-radius:3px;box-shadow:0 0 9px #f2c230;opacity:0;transform:rotate(26deg);animation:bk-ssfly 1.3s ease-in 1 forwards}',
+    '@keyframes bk-ssfly{0%{opacity:0;left:var(--x0);top:var(--y0)}15%{opacity:1}100%{opacity:0;left:calc(var(--x0) - 62%);top:calc(var(--y0) + 32%)}}',
+    '.bk-rain{position:absolute;left:-26%;top:-88%;width:152%;opacity:0;animation:bk-rainfade 7s ease-in-out 1 forwards}',
+    '.bk-rain svg{display:block;width:100%;height:auto}',
+    '@keyframes bk-rainfade{0%{opacity:0;transform:scale(.94)}22%,78%{opacity:1;transform:none}100%{opacity:0}}',
+    '.bk-moon{position:absolute;left:60%;top:-62%;width:36%;opacity:0;animation:bk-moonrise 8s ease-in-out 1 forwards}',
+    '.bk-moon svg{display:block;width:100%;height:auto}',
+    '@keyframes bk-moonrise{0%{opacity:0;transform:translateY(34px)}20%,80%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-10px)}}',
+    '.bk-tw{position:absolute;width:7%;opacity:0;animation:bk-twinkle 2.2s ease-in-out 3 forwards}',
+    '.bk-tw svg{display:block;width:100%;height:auto;color:#f2c230}',
+    '@keyframes bk-twinkle{0%,100%{opacity:0;transform:scale(.5)}50%{opacity:1;transform:scale(1.1)}}',
+    '.bk-seed{position:absolute;top:52%;width:9%;opacity:0;animation:bk-seeddrift 6s ease-in-out 1 forwards}',
+    '.bk-seed svg{display:block;width:100%;height:auto;filter:drop-shadow(0 0 1.200px #6f8791)}',
+    '@keyframes bk-seeddrift{0%{opacity:0;transform:translate(0,0) rotate(-8deg)}15%{opacity:1}50%{transform:translate(calc(var(--dx,60px)*.5),-70px) rotate(10deg)}100%{opacity:0;transform:translate(var(--dx,60px),-150px) rotate(-6deg)}}',
+    '@keyframes bk-eyes-ss{0%{transform:translate(4px,-5px)}10%,30%{transform:translate(-4px,-1px)}38%{transform:translate(4px,-5px)}48%,68%{transform:translate(-4px,-1px)}76%{transform:translate(4px,-5px)}86%,100%{transform:translate(-3px,-2px)}}',
+    '@keyframes bk-eyes-up{0%{transform:translate(0,-1px)}20%,90%{transform:translate(1px,-5px)}100%{transform:translate(0,-2px)}}',
+    '@keyframes bk-watchup{0%{transform:none}25%,88%{transform:translateY(-2px) rotate(-2.5deg)}100%{transform:none}}',
+    '.bk-a-wolken .bk-look{animation:bk-eyes-lr 9s ease-in-out 1 forwards}',
+    '.bk-a-wolken .bk-head{animation:bk-watch 9s ease-in-out 1 forwards}',
+    '.bk-a-sternenhimmel .bk-look{animation:bk-eyes-ss 5.6s ease-in-out 1 forwards}',
+    '.bk-a-sternenhimmel .bk-head{animation:bk-watchsway 5.6s ease-in-out 1 forwards}',
+    '.bk-a-regenbogen .bk-look{animation:bk-eyes-up 7s ease-in-out 1 forwards}',
+    '.bk-a-regenbogen .bk-head{animation:bk-watchup 7s ease-in-out 1 forwards}',
+    '.bk-a-mond .bk-look{animation:bk-eyes-up 8s ease-in-out 1 forwards}',
+    '.bk-a-mond .bk-head{animation:bk-watchup 8s ease-in-out 1 forwards}',
+    '.bk-a-pusteblume .bk-look{animation:bk-eyes-wander 6.5s ease-in-out 1 forwards}',
+    '.bk-a-pusteblume .bk-head{animation:bk-watchsway 6.5s ease-in-out 1 forwards}',
     '.bk-a-vogel .bk-look{animation:bk-eyes-lr 5s ease-in-out 1 forwards}',
     '.bk-a-vogel .bk-head{animation:bk-watch 5s ease-in-out 1 forwards}',
     '.bk-a-falter .bk-look{animation:bk-eyes-wander 6.2s ease-in-out 1 forwards}',
@@ -479,6 +509,10 @@
   var YARN = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#e8607a" stroke="#8a2a40" stroke-width="2"/><path d="M6 14c10 4 18 2 28-4M4 22c12 4 22 2 32-4M8 31c10 2 18 0 26-6M14 5c4 10 2 20-2 30" fill="none" stroke="#f9b0c0" stroke-width="2"/></svg>';
   /* Ruhige Szenen: Dinge, die man nur anschauen muss */
   var BIRD = '<svg viewBox="0 0 44 30" aria-hidden="true"><path d="M3 11L15 14L13 21Z" fill="#7a5a3a" stroke="#4a2e1a" stroke-width="1.6" stroke-linejoin="round"/><ellipse cx="22" cy="17" rx="13" ry="8" fill="#a9784a" stroke="#4a2e1a" stroke-width="2"/><ellipse cx="24" cy="20" rx="8" ry="4.500" fill="#f2dcc0"/><circle cx="34" cy="11" r="6.500" fill="#a9784a" stroke="#4a2e1a" stroke-width="2"/><path d="M39.500 9.500L44 11.500L39.500 13.500Z" fill="#f2a030" stroke="#4a2e1a" stroke-width="1.4" stroke-linejoin="round"/><circle cx="35.500" cy="9.500" r="1.400" fill="#1b1410"/><path class="bk-wing2" d="M15 15Q22-3 31 13Q23 12 15 15Z" fill="#6b4a2a" stroke="#4a2e1a" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  var CLOUD = '<svg viewBox="0 0 60 32" aria-hidden="true"><path d="M12 29a9 9 0 0 1 1-18 11 11 0 0 1 21-3 10 10 0 0 1 16 8 8 8 0 0 1-2 13z" fill="#fff" stroke="#9ab4c2" stroke-width="2" stroke-linejoin="round"/><path d="M16 24q8 3 18 0" fill="none" stroke="#dbe7ee" stroke-width="2.400" stroke-linecap="round"/></svg>';
+  var MOON = '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M26 4A17 17 0 1 0 36 28A14 14 0 0 1 26 4Z" fill="#fff3a8" stroke="#c4a82a" stroke-width="2" stroke-linejoin="round"/></svg>';
+  var SEED = '<svg viewBox="0 0 20 24" aria-hidden="true"><path d="M10 12V22" stroke="#8a7a5a" stroke-width="1.500" stroke-linecap="round"/><path d="M10 12L3 4M10 12L6 2M10 12L10 1M10 12L14 2M10 12L17 4" stroke="#b9c6cc" stroke-width="1.100" stroke-linecap="round"/><g fill="#fff" stroke="#b9c6cc" stroke-width=".8"><circle cx="3" cy="4" r="1.700"/><circle cx="6" cy="2" r="1.700"/><circle cx="10" cy="1.200" r="1.700"/><circle cx="14" cy="2" r="1.700"/><circle cx="17" cy="4" r="1.700"/></g></svg>';
+  var RAINBOW = '<svg viewBox="0 0 140 72" aria-hidden="true"><g fill="none" stroke-width="6" opacity=".9"><path d="M6 70A64 64 0 0 1 134 70" stroke="#e05060"/><path d="M13 70A57 57 0 0 1 127 70" stroke="#f2a030"/><path d="M20 70A50 50 0 0 1 120 70" stroke="#f2d230"/><path d="M27 70A43 43 0 0 1 113 70" stroke="#4caf50"/><path d="M34 70A36 36 0 0 1 106 70" stroke="#4a9ad9"/><path d="M41 70A29 29 0 0 1 99 70" stroke="#8a6ad9"/></g></svg>';
   var SQUIRREL = '<svg viewBox="0 0 60 44" aria-hidden="true"><path d="M14 33C-3 31-5 6 11 3C7 12 12 20 23 25Z" fill="#b5651d" stroke="#4a2e1a" stroke-width="2" stroke-linejoin="round"/><path d="M9 8C6 15 9 22 15 26" fill="none" stroke="#e0a560" stroke-width="2.200" stroke-linecap="round"/><ellipse cx="28" cy="29" rx="14" ry="9" fill="#c4752a" stroke="#4a2e1a" stroke-width="2"/><ellipse cx="32" cy="32" rx="8" ry="4.500" fill="#f2dcc0"/><path d="M38 36L42 42M20 36L15 42" stroke="#4a2e1a" stroke-width="3" stroke-linecap="round"/><circle cx="46" cy="20" r="8" fill="#c4752a" stroke="#4a2e1a" stroke-width="2"/><path d="M43 14L45 5L50 13Z" fill="#c4752a" stroke="#4a2e1a" stroke-width="1.800" stroke-linejoin="round"/><circle cx="49" cy="18.500" r="1.700" fill="#1b1410"/><circle cx="54" cy="21.500" r="1.600" fill="#1b1410"/></svg>';
   var LADYBUG = '<svg viewBox="0 0 24 20" aria-hidden="true"><path d="M5 5L2 2M8 4L7 0.500M5 15L2 18M8 16L7 19.500" stroke="#2b1a10" stroke-width="1.2" stroke-linecap="round"/><circle cx="13" cy="10" r="8.500" fill="#e0342b" stroke="#2b1a10" stroke-width="1.8"/><path d="M13 1.500V18.500" stroke="#2b1a10" stroke-width="1.6"/><circle cx="9.500" cy="6.500" r="1.700" fill="#2b1a10"/><circle cx="9.500" cy="13.500" r="1.700" fill="#2b1a10"/><circle cx="17" cy="7" r="1.700" fill="#2b1a10"/><circle cx="17" cy="13" r="1.700" fill="#2b1a10"/><circle cx="3.500" cy="10" r="3.200" fill="#2b1a10"/></svg>';
   var HOTBALLOON = '<svg viewBox="0 0 40 60" aria-hidden="true"><path d="M20 2C34 2 38 16 34 26C32 32 26 38 24 41H16C14 38 8 32 6 26C2 16 6 2 20 2Z" fill="#f2c230" stroke="#4a2e1a" stroke-width="2.4" stroke-linejoin="round"/><path d="M14 3Q9 22 16 41M26 3Q31 22 24 41" fill="none" stroke="#e05060" stroke-width="3"/><path d="M16 41L17 49M24 41L23 49" stroke="#4a2e1a" stroke-width="1.600"/><rect x="15.500" y="49" width="9" height="7" rx="1.500" fill="#c89a5b" stroke="#4a2e1a" stroke-width="2"/></svg>';
@@ -878,6 +912,19 @@
     vogel: { ms: 5400, quiet: true, run: function () { addFx(BIRD, 'bk-bird', '', 5200); } },
     falter: { ms: 6400, quiet: true, run: function () { addFx(BUTTERFLY, 'bk-fl', 'left:14%;top:8%', 6300); addFx(BUTTERFLY, 'bk-fl', 'left:58%;top:-6%;animation-delay:.9s', 7200); } },
     blaetter: { ms: 6000, quiet: true, run: function () { var cs = ['#e8742a', '#d93a3a', '#f2c230', '#c45a1a', '#e0a020', '#b83a1a']; for (var i = 0; i < 6; i++) addFx(LEAF(cs[i]), 'bk-leaf', 'left:' + Math.round(rnd(6, 80)) + '%;--dx:' + Math.round(rnd(14, 34)) + 'px;animation-delay:' + (i * 0.55).toFixed(2) + 's', 6200 + i * 550); } },
+    wolken: { ms: 9400, quiet: true, run: function () {
+      addFx(CLOUD, 'bk-cloud', 'left:30%;top:-66%;width:40%', 8700);
+      addFx(CLOUD, 'bk-cloud', 'left:42%;top:-38%;width:28%;animation-duration:10s;animation-delay:1.3s', 11400);
+      addFx(CLOUD, 'bk-cloud', 'left:26%;top:-54%;width:34%;animation-duration:9s;animation-delay:2.6s', 11700); } },
+    sternenhimmel: { ms: 6000, quiet: true, run: function (t) {
+      [[0.2, '96%', '-34%'], [1.9, '88%', '-24%'], [3.6, '100%', '-40%']].forEach(function (a, i) {
+        addFx('', 'bk-ss', '--x0:' + a[1] + ';--y0:' + a[2] + ';animation-delay:' + a[0] + 's', (a[0] + 1.5) * 1000);
+        setTimeout(function () { if (t === tok) sparks(2); }, (a[0] + 1.1) * 1000);
+      });
+      for (var i = 0; i < 5; i++) addFx(SPARK, 'bk-tw', 'left:' + Math.round(rnd(6, 88)) + '%;top:' + Math.round(rnd(-60, -10)) + '%;animation-delay:' + (i * 0.5).toFixed(1) + 's', 7200); } },
+    regenbogen: { ms: 7200, quiet: true, run: function () { addFx(RAINBOW, 'bk-rain', '', 7100); } },
+    mond: { ms: 8200, quiet: true, run: function () { addFx(MOON, 'bk-moon', '', 8100); for (var i = 0; i < 6; i++) addFx(SPARK, 'bk-tw', 'left:' + Math.round(rnd(4, 90)) + '%;top:' + Math.round(rnd(-62, -8)) + '%;animation-delay:' + (i * 0.6).toFixed(1) + 's', 8000); } },
+    pusteblume: { ms: 6800, quiet: true, run: function () { for (var i = 0; i < 6; i++) addFx(SEED, 'bk-seed', 'left:' + Math.round(rnd(4, 70)) + '%;--dx:' + Math.round(rnd(30, 90)) + 'px;animation-delay:' + (i * 0.55).toFixed(2) + 's', 6200 + i * 550); } },
     nase: { ms: 6600, quiet: true, run: function () { var d = addFx(BUTTERFLY, 'bk-nose', '', 6300); setTimeout(function () { var w = d.querySelector('.bk-wing'); if (w) w.style.animationDuration = '.85s'; }, 2800); setTimeout(function () { var w = d.querySelector('.bk-wing'); if (w) w.style.animationDuration = '.2s'; }, 5200); } },
     eichhoernchen: { ms: 6400, quiet: true, run: function () { addFx(SQUIRREL, 'bk-sq', '', 6200); } },
     kaefer: { ms: 6600, quiet: true, run: function () { addFx(LADYBUG, 'bk-bug', '', 6400); } },
@@ -905,8 +952,8 @@
       setTimeout(function () { if (t === tok) showBubble('War ich nicht.', 1900); }, 3200);
     } }
   };
-  var SCENES = ['vogel', 'falter', 'blaetter', 'kaefer', 'gluehen', 'ballonfern', 'nase', 'eichhoernchen'];
-  var BASEW = { nase: 0.5, eichhoernchen: 0.5, vogel: 0.6, falter: 0.6, blaetter: 0.6, kaefer: 0.5, gluehen: 0.5, ballonfern: 0.5, eat: 0.9, cuke: 0.5, wish: 0.6, cup: 0.7, litter: 0.8 };
+  var SCENES = ['vogel', 'falter', 'blaetter', 'kaefer', 'gluehen', 'ballonfern', 'nase', 'eichhoernchen', 'wolken', 'sternenhimmel', 'regenbogen', 'mond', 'pusteblume'];
+  var BASEW = { wolken: 0.5, sternenhimmel: 0.5, regenbogen: 0.4, mond: 0.4, pusteblume: 0.5, nase: 0.5, eichhoernchen: 0.5, vogel: 0.6, falter: 0.6, blaetter: 0.6, kaefer: 0.5, gluehen: 0.5, ballonfern: 0.5, eat: 0.9, cuke: 0.5, wish: 0.6, cup: 0.7, litter: 0.8 };
   var NAMES = Object.keys(ACTIONS);
   var FRIEND_SAY = ['Das ist Luna, meine Freundin!', 'Luna passt heute mit auf. Zu zweit macht Lernen mehr Spaß!', 'Luna sagt: Du schaffst das!', 'Wir beide glauben an Dich!', 'Luna kommt gern zu Besuch, wenn Du fleißig bist.']; 
   var REDUCED_OK = ['kiss', 'tilt', 'ear', 'wave', 'tail'];
@@ -1223,7 +1270,7 @@
     ['a:litter', 'Katzenklo', 'Bitte nicht stören!'], ['a:carton', 'Karton', 'Wenn es passt, dann sitzt es.'], ['a:laser', 'Roter Punkt', 'Wo ist er hin?'],
     ['a:cuke', 'Gurke', 'Huch!'], ['a:soap', 'Seifenblasen', 'Plopp!'], ['a:knead', 'Milchtritt', 'Brot backen mit den Pfoten.'],
     ['a:wish', 'Sternschnuppe', 'Ein Wunsch für Dich.'], ['a:cup', 'Tasse', 'Ups.'], ['a:eat', 'Futterzeit', 'Nom nom nom.'],
-    ['a:vogel', 'Vogel', 'Zuschauen reicht.'], ['a:nase', 'Besuch auf der Nase', 'Ganz still halten!'], ['a:eichhoernchen', 'Eichhörnchen', 'Hui, ist das schnell!'], ['a:falter', 'Falter', 'Zwei Falter tanzen.'], ['a:blaetter', 'Herbstlaub', 'Blätter im Wind.'], ['a:kaefer', 'Marienkäfer', 'Ein kleiner Spaziergang.'], ['a:gluehen', 'Glühwürmchen', 'Sie leuchten leise.'], ['a:ballonfern', 'Heißluftballon', 'Weit, weit weg.'],
+    ['a:vogel', 'Vogel', 'Zuschauen reicht.'], ['a:wolken', 'Wolken', 'Schäfchen am Himmel.'], ['a:sternenhimmel', 'Sternenhimmel', 'Drei Sternschnuppen, drei Wünsche.'], ['a:regenbogen', 'Regenbogen-Blick', 'Nach dem Regen.'], ['a:mond', 'Mondschein', 'Gute Nacht, Mond.'], ['a:pusteblume', 'Pusteblume', 'Leise Flugsamen.'], ['a:nase', 'Besuch auf der Nase', 'Ganz still halten!'], ['a:eichhoernchen', 'Eichhörnchen', 'Hui, ist das schnell!'], ['a:falter', 'Falter', 'Zwei Falter tanzen.'], ['a:blaetter', 'Herbstlaub', 'Blätter im Wind.'], ['a:kaefer', 'Marienkäfer', 'Ein kleiner Spaziergang.'], ['a:gluehen', 'Glühwürmchen', 'Sie leuchten leise.'], ['a:ballonfern', 'Heißluftballon', 'Weit, weit weg.'],
     ['a:fish', 'Fischfang', 'Der springt davon!'], ['a:music', 'Singen', 'Miau-miau-miau, ein Lied!'], ['a:think', 'Geistesblitz', 'Ich habe eine Idee!'], ['a:photo', 'Fotoshooting', 'Bitte lächeln!'],
     ['a:cake', 'Kuchen', 'Wünsch Dir was!'], ['a:book', 'Leseratte', 'Lernen macht schlau.'], ['a:balloon', 'Luftballon', 'Hoch hinaus!'], ['a:snow', 'Schneeflocken', 'Brrr, kuschelig.'],
     ['s:confetti', 'Konfetti', 'Fünf richtige Antworten in Folge.'], ['s:rufen', 'Gerufen', 'Man munkelt: Miau tippen.'],
@@ -1305,6 +1352,11 @@
     's:meister': { cls: 'bk-happy', svg: '<g transform="translate(112 4) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g><path d="M4 60h36M0 84h44" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
     'a:nase': { svg: '<g transform="translate(86 90) scale(.75)">' + BUTTERFLY.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
     'a:eichhoernchen': { svg: '<g transform="translate(100 98) scale(1.25)">' + SQUIRREL.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M96 150h-30M92 142h-22" stroke="#8a9ca4" stroke-width="2.500" stroke-linecap="round"/>' },
+    'a:wolken': { svg: '<g transform="translate(116 4) scale(1.1)">' + CLOUD.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(6 20) scale(.7)">' + CLOUD.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:sternenhimmel': { svg: '<rect x="118" y="12" width="64" height="5" rx="2.500" fill="#f2c230" transform="rotate(26 150 14)" opacity=".95"/><rect x="100" y="-2" width="52" height="4" rx="2" fill="#f2c230" transform="rotate(26 126 0)" opacity=".7"/><rect x="146" y="44" width="44" height="4" rx="2" fill="#f2c230" transform="rotate(26 168 46)" opacity=".7"/>' + STAR(24, 20, 9, '#f2c230') + STAR(176, 100, 7, '#fff3a8') + STAR(30, 120, 6, '#fff3a8') },
+    'a:regenbogen': { svg: '<g transform="translate(14 -8) scale(1.3)">' + RAINBOW.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    'a:mond': { cls: 'bk-happy', svg: '<g transform="translate(138 4) scale(1.4)">' + MOON.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' + STAR(24, 20, 8, '#f2c230') + STAR(110, 2, 6, '#f2c230') + STAR(180, 100, 6, '#fff3a8') },
+    'a:pusteblume': { svg: '<g transform="translate(128 20) scale(1.5)">' + SEED.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(14 36) rotate(-14 10 12)">' + SEED.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(160 94) rotate(12 10 12) scale(.9)">' + SEED.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
     'a:vogel': { svg: '<g transform="translate(118 2) scale(1.5)">' + BIRD.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><path d="M6 36q20-18 46-8" fill="none" stroke="#8a9ca4" stroke-width="2.500" stroke-dasharray="3 6" stroke-linecap="round"/>' },
     'a:falter': { svg: '<g transform="translate(132 8) scale(1.1)">' + BUTTERFLY.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(14 28) scale(.8)">' + BUTTERFLY.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
     'a:blaetter': { svg: '<g transform="translate(130 6) rotate(30 10 12) scale(1.4)">' + LEAF('#e8742a').replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(20 20) rotate(-25 10 12) scale(1.2)">' + LEAF('#d93a3a').replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(160 90) rotate(60 10 12)">' + LEAF('#f2c230').replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },

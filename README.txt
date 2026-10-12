@@ -48,7 +48,7 @@ Kaetzchen: Fressen dauert ca. 9 s mit zufaelligen Geraeuschen (knuspern, lecken,
 
 Grenzen: Album-Vorstellungen höchstens 5 in 90 s und nur mit Guthaben; Zoomies höchstens 5 in 5 Minuten (auch aus dem Album); Streicheln unbegrenzt.
 
-Ruhige Szenen (kitten.js, ACTIONS mit quiet:true): Vogel, Falter, Herbstlaub, Marienkaefer, Gluehwuermchen, Heissluftballon, Schmetterling auf der Nase, Eichhoernchen. Kein Ton, kein Text, kein Sprung, immer am unteren Rand ohne Luna; nach einer richtigen Antwort (Lob wird ersetzt, ausser bei Serien 5/10/20, Geschenk und Luna-Ankuendigung) zu 50 % nach 2 s, sonst wie die anderen Besuche.
+Ruhige Szenen (kitten.js, ACTIONS mit quiet:true): Vogel, Falter, Herbstlaub, Marienkaefer, Gluehwuermchen, Heissluftballon, Schmetterling auf der Nase, Eichhoernchen, Wolken, Sternenhimmel, Regenbogen, Mond, Pusteblume. Kein Ton, kein Text, kein Sprung, immer am unteren Rand ohne Luna; nach einer richtigen Antwort (Lob wird ersetzt, ausser bei Serien 5/10/20, Geschenk und Luna-Ankuendigung) zu 50 % nach 2 s, sonst wie die anderen Besuche.
 
 Kaetzchen und Luna: Luna kommt jeden Tag neu (mem.lunaDay). Am neuen Tag gruesst das Kaetzchen von ihr; nach 1 / 3 / 5 richtigen Aufgaben
 (erster Versuch) des Tages gibt es zwei Ankuendigungen und dann ihren Besuch mit einem neuen Doppel-Sticker (d:*, 12 Stueck der Reihe nach).
