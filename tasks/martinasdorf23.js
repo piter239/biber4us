@@ -24,11 +24,11 @@
     if (same(e, CURVE)) return 'M' + POS.b[0] + ' ' + POS.b[1] + 'Q225 85 ' + POS.e[0] + ' ' + POS.e[1];
     return 'M' + p[0] + ' ' + p[1] + 'L' + q[0] + ' ' + q[1];
   }
-  function graph(edges, cls, showBad, label) {
+  function graph(edges, cls, markBad, label, reveal) {
     var s = '<svg class="t-martinasdorf23-g ' + (cls || '') + '" viewBox="0 0 590 390" role="img" aria-label="' + label + '" focusable="false">';
     edges.forEach(function (e) {
-      var bad = showBad && same(e, BAD);
-      s += '<path class="t-martinasdorf23-edge' + (bad ? ' bad' : '') + '" d="' + edgePath(e) + '"/>';
+      var cand = markBad && same(e, BAD);
+      s += '<path class="t-martinasdorf23-edge' + (cand ? ' cand' : '') + (cand && reveal ? ' bad' : '') + '" d="' + edgePath(e) + '"/>';
     });
     NODES.forEach(function (n) {
       s += n === 'M' ? '<circle class="t-martinasdorf23-m" cx="' + POS[n][0] + '" cy="' + POS[n][1] + '" r="26"/><text class="t-martinasdorf23-mt" x="' + POS[n][0] + '" y="' + (POS[n][1] + 10) + '" text-anchor="middle">M</text>' :
@@ -51,8 +51,8 @@
       lab.classList.toggle('wrong', mark === 'check' && id === choice && id !== SOLUTION);
       lab.classList.toggle('right', (mark === 'check' && id === choice && id === SOLUTION) || (mark === 'solution' && id === SOLUTION));
       var svgEl = lab.querySelector('svg');
-      var badEdge = svgEl.querySelector('.t-martinasdorf23-edge.bad');
-      if (badEdge) badEdge.style.display = locked || mark ? '' : 'none';
+      var candEdge = svgEl.querySelector('.t-martinasdorf23-edge.cand');   /* die Abkürzung wird erst nach dem Prüfen rot markiert, sie ist aber immer gezeichnet */
+      if (candEdge) candEdge.classList.toggle('bad', !!(locked || mark));
     });
   }
 
@@ -65,8 +65,6 @@
           h('span', { class: 't-martinasdorf23-gw' }));
         lab.querySelector('.t-martinasdorf23-gw').innerHTML = graph(optEdges(o), '', o.id === SOLUTION,
           'Zeichnung ' + o.id + ': sechs Häuser, Martinas Haus M, ' + optEdges(o).length + ' Wege');
-        var bad = lab.querySelector('.t-martinasdorf23-edge.bad');
-        if (bad) bad.style.display = 'none';
         return lab;
       }));
     var map = h('figure', { class: 't-martinasdorf23-map' },
@@ -90,7 +88,7 @@
       return '<div class="t-martinasdorf23-expl"><p>Martinas besondere Karte zeigt: Das Haus ganz rechts erreicht sie am schnellsten über <strong>drei</strong> Wege. ' +
         'In Zeichnung C gibt es aber einen Weg vom oberen Haus direkt dorthin (rot). Dann ginge es in nur <strong>zwei</strong> Wegen. Also kann C nicht die richtige Karte sein. ' +
         'Bei A, B und D gibt es keine Abkürzung, deshalb können sie die richtige Karte sein.</p>' +
-        '<div class="t-martinasdorf23-exfig">' + graph(optEdges(optOf('C')), 'big', true, 'Zeichnung C, der Weg oben nach rechts ist rot markiert') + '</div>' +
+        '<div class="t-martinasdorf23-exfig">' + graph(optEdges(optOf('C')), 'big', true, 'Zeichnung C, der Weg oben nach rechts ist rot markiert', true) + '</div>' +
         '<p>Martinas Karte ist ein <strong>Baum</strong>: Alle Häuser hängen zusammen, und zwischen zwei Häusern gibt es genau einen Weg. Weil sie alle Häuser der großen Karte enthält, ' +
         'nennt man sie einen <strong>Spannbaum</strong> des Graphen. Solche Wege findet man zum Beispiel mit der Breitensuche. Sie wird in Navigationssystemen und beim Planen von Netzen gebraucht.</p></div>';
     },
