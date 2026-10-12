@@ -14,6 +14,8 @@ window.BiberHelper = (function () {
   var AUTO_CLOSE = 45000;        /* ohne Reaktion zieht sich das Angebot zurück */
 
   function T() { if (window.BiberTrack) window.BiberTrack.log.apply(null, arguments); }
+  /* Wortlaut nur in der eigenen Familie des Besitzers mitprotokollieren; bei Gast-Familien nur Länge und Art */
+  function famMode() { try { return !!(window.BiberSync && window.BiberSync.mode && window.BiberSync.mode() === 'family'); } catch (e) { return false; } }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
   var lastInput = Date.now(), cur = { id: '', t0: 0 }, offered = {}, declined = {}, ignored = 0;
@@ -60,7 +62,7 @@ window.BiberHelper = (function () {
       '<button type="button" class="hf-ic" data-hf="tts" aria-label="Vorlesen an oder aus" aria-pressed="true">' + SPK + '</button>' +
       '<button type="button" class="hf-ic" data-hf="x" aria-label="Schließen">×</button></div>' +
       '<div class="hf-log" aria-live="polite"></div>' +
-      '<p class="hf-note">Was du hier sagst oder schreibst, können deine Eltern später lesen.</p>' +
+      '<p class="hf-note" id="hfNote">Was du hier sagst oder schreibst, können deine Eltern später lesen.</p>' +
       '<div class="hf-quick"><button type="button" data-hf="read">Lies die Aufgabe vor</button><button type="button" data-hf="tip">Ich brauche einen Tipp</button><button type="button" data-hf="no">Nein, danke</button></div>' +
       '<form class="hf-in"><input type="text" maxlength="400" autocomplete="off" placeholder="Erklär es der Katze …" aria-label="Deine Antwort an die Katze">' +
       '<button type="button" class="hf-mic" data-hf="mic" aria-label="Sprechen">' + MIC + '</button><button type="submit" class="hf-send">Senden</button></form>';
@@ -193,14 +195,14 @@ window.BiberHelper = (function () {
     busy = true; clearTimeout(autoTimer); stopSpeak();
     var info = taskInfo() || { title: '', story: '', question: '', howto: '', board: '' };
     addMsg('me', text);
-    T('h.say', taskId, mode, text.length, text);
+    T('h.say', taskId, mode, text.length, famMode() ? text : '');
     try { document.dispatchEvent(new CustomEvent('biber:help', { detail: { id: taskId } })); } catch (e) { /* ignorieren */ }
     var wait = addMsg('cat', 'Moment …'); wait.classList.add('hf-wait');
     var t0 = Date.now(), reply = await aiReply(info, text), how = 'ai';
     if (!reply) { how = 'script'; reply = scripted(); }
     else { turns.push({ role: 'user', content: text }); turns.push({ role: 'assistant', content: reply }); }
     wait.classList.remove('hf-wait'); wait.textContent = reply;
-    T('h.cat', taskId, how, reply.length, Date.now() - t0, reply);
+    T('h.cat', taskId, how, reply.length, Date.now() - t0, famMode() ? reply : '');
     speak(reply);
     replied = true; busy = false;
   }
@@ -218,6 +220,7 @@ window.BiberHelper = (function () {
     var info = taskInfo(); if (!info || open) return;
     build();
     open = true; taskId = info.id; offered[taskId] = Date.now(); turns = []; rung = 0; replied = false; openedAt = Date.now();
+    var hn = el.querySelector('#hfNote'); if (hn) hn.textContent = famMode() ? 'Was du hier sagst oder schreibst, können deine Eltern später lesen.' : 'Was du hier sagst oder schreibst, wird nicht gespeichert. Antwortet die Katze mit Claude, werden deine Worte dafür dorthin geschickt.';
     logEl.innerHTML = ''; el.hidden = false; el.classList.remove('hf-in-anim'); void el.offsetWidth; el.classList.add('hf-in-anim');
     var line = 'Kann ich mitmachen? Worum geht es bei der Aufgabe? Erklär es mir!';
     addMsg('cat', line);

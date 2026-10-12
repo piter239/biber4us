@@ -51,3 +51,5 @@ Ruhige Szenen (kitten.js, ACTIONS mit quiet:true): Vogel, Falter, Herbstlaub, Ma
 Kaetzchen und Luna: Luna kommt jeden Tag neu (mem.lunaDay). Am neuen Tag gruesst das Kaetzchen von ihr; nach 1 / 3 / 5 richtigen Aufgaben
 (erster Versuch) des Tages gibt es zwei Ankuendigungen und dann ihren Besuch mit einem neuen Doppel-Sticker (d:*, 12 Stueck der Reihe nach).
 Erfolgs-Sticker (m:*): 10/25/50/100 richtig, 3 in Folge, schwere Aufgabe, unter 20 s, zweiter Versuch, um Hilfe gebeten, Probelauf, 3/7 Tage.
+
+Familien, Privatsphaere, Klassen: siehe ARCHITEKTUR.md (Gast-Familien liegen unter data/users/<Konto>/ und sind auch fuer den Besitzer unlesbar; sync.js, klasse.js).

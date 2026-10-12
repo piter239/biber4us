@@ -79,7 +79,7 @@
         var r = p.results[id];
         res[id] = light ? { correct: r.correct, at: r.at } : r;
       });
-      return { id: p.id, name: p.name, legacy: !!p.legacy, created: p.created, upd: p.upd || '', adj: p.adj || 0, cleared: p.cleared || {}, results: res, runs: p.runs || [], kitten: readKitten(p) };
+      return { id: p.id, name: p.name, legacy: !!p.legacy, created: p.created, upd: p.upd || '', adj: p.adj || 0, cleared: p.cleared || {}, results: res, runs: p.runs || [], kitten: readKitten(p), cls: p.cls || null };
     });
     if (!out.length && !Object.keys(store.gone || {}).length) return null;
     return { v: 1, at: new Date().toISOString(), gone: store.gone || {}, profiles: out };
@@ -102,11 +102,12 @@
       if (!lp) {
         var hasLegacy = store.profiles.some(function (x) { return x.legacy; });
         lp = { id: rp.id, name: rp.name || '', klasse: 6, results: {}, legacy: !!rp.legacy && !hasLegacy, created: rp.created || new Date().toISOString(), upd: rp.upd || '', adj: rp.adj || 0, cleared: {} };
+        lp.cls = rp.cls || null;
         store.profiles.push(lp);
         changed = true;
       } else if ((rp.upd || '') > (lp.upd || '')) {
-        if (lp.name !== rp.name || (lp.adj || 0) !== (rp.adj || 0)) changed = true;
-        lp.name = rp.name; lp.adj = rp.adj || 0; lp.upd = rp.upd;
+        if (lp.name !== rp.name || (lp.adj || 0) !== (rp.adj || 0) || JSON.stringify(lp.cls || null) !== JSON.stringify(rp.cls || null)) changed = true;
+        lp.name = rp.name; lp.adj = rp.adj || 0; lp.upd = rp.upd; lp.cls = rp.cls || null;
       }
       lp.runs = lp.runs || [];
       (rp.runs || []).forEach(function (x) {
@@ -149,8 +150,23 @@
     syncNav();
   }
   function syncNav() {
-    var fam = document.querySelector('[data-nav="familie"]');
-    if (fam) fam.hidden = !(window.BiberSync && window.BiberSync.canAdmin());
+    var on = !!(window.BiberSync && window.BiberSync.state() === 'server');
+    ['familie', 'klasse'].forEach(function (n) { var a = document.querySelector('[data-nav="' + n + '"]'); if (a) a.hidden = !on; });
+    applyLogPolicy();
+  }
+  /* Aktivitätsprotokoll: nur in der eigenen Familie des Besitzers an; bei Gast-Familien nur, wenn das Konto es auf der Seite Familie einschaltet */
+  function logOptIn() { try { return window.localStorage.getItem('biber.log.optin') === '1'; } catch (e) { return false; } }
+  function applyLogPolicy() {
+    var B2 = window.BiberSync, T = window.BiberTrack, note = document.querySelector('.log-note');
+    if (!B2 || !T) return;
+    var st = B2.state(), mode = B2.mode(), allow = null, text = '';
+    if (st === 'local' || st === 'readonly') { allow = false; text = 'Diese Seite speichert nichts über dein Verhalten.'; }
+    else if (st === 'server') {
+      if (mode === 'family') { allow = true; text = 'Die Seite merkt sich, was angeklickt wird – und was man der Katze beim Helfen sagt oder schreibt (nur für die Eltern), um herauszufinden, was Spaß macht und beim Lösen hilft.'; }
+      else { allow = logOptIn(); text = allow ? 'Das Aktivitätsprotokoll ist eingeschaltet. Nur dein Konto kann es lesen (Seite Familie), sonst niemand.' : 'Diese Seite speichert nichts über dein Verhalten. Ein Protokoll nur für dich kannst du auf der Seite Familie einschalten.'; }
+    }
+    if (allow !== null && T.allowed() !== allow) T.setAllow(allow);
+    if (note && text) note.textContent = text;
   }
   function storageNote() {
     var st = window.BiberSync ? window.BiberSync.state() : 'local';
@@ -716,34 +732,89 @@
       (weak.length ? '<p class="note">Themen mit Fehlern: ' + weak.map(function (a) { return esc(a.area) + ' (' + a.right + '/' + a.done + ')'; }).join(', ') + '</p>' : '') +
       '</article>';
   }
+  function famTitles() { var t = {}; TASKS.forEach(function (x) { if (x.id) t[x.id] = x.title; }); return t; }
+  function ownCards() {
+    var live = store.profiles.filter(function (p) { return !isPristine(p); });
+    return live.length ? '<div class="fam-grid">' + live.map(function (p) { return profileCard(p, ''); }).join('') + '</div>' : '<p class="note">Noch keine Ergebnisse.</p>';
+  }
   function renderFamily() {
     var B2 = window.BiberSync;
-    app.innerHTML = '<section class="hero"><p class="eyebrow">Eltern-Übersicht</p><h1>Familie</h1><p class="lead">Alle Profile, die auf dem Server gespeichert sind.</p></section><div id="famBody"><p class="note">Lade …</p></div>';
-    if (!B2 || !B2.canAdmin()) { document.getElementById('famBody').innerHTML = '<p class="note">Diese Seite ist nur für den Besitzer und Editoren sichtbar.</p>'; return; }
-    B2.listAll().then(function (docs) {
+    app.innerHTML = '<section class="hero"><p class="eyebrow">Familie</p><h1>Familie</h1><p class="lead">Alle Profile deines Kontos mit ihren Ergebnissen. Ein Konto kann beliebig viele Familienmitglieder als Profile haben.</p></section><div id="famBody"><p class="note">Lade …</p></div>';
+    var body = document.getElementById('famBody');
+    if (!B2 || B2.state() !== 'server') { body.innerHTML = '<p class="note">Die Familien-Übersicht gibt es, wenn die Seite mit dem Server verbunden ist.</p>'; return; }
+    if (B2.canAdmin()) renderFamilyAdmin(body); else renderFamilyOwn(body);
+  }
+  /* Gast-Familie (oder Konto in der Familie des Besitzers): nur die eigenen Profile */
+  function renderFamilyOwn(body) {
+    var B2 = window.BiberSync, priv = B2.mode() === 'private', h = ownCards();
+    h += priv
+      ? '<section class="panel"><h2>Privat</h2><p>Alle Profile und Ergebnisse dieses Kontos sind nur für dich lesbar. Auch der Besitzer dieser Seite kann sie nicht sehen.</p>' +
+        '<details class="fam-join"><summary>Zur Familie des Besitzers gehören</summary><p class="note">Wenn du von den Eltern, denen diese Seite gehört, einen Familiencode bekommen hast (z. B. für das Konto eines Kindes), trägst du ihn hier ein. Danach können diese Eltern die Ergebnisse der Profile dieses Kontos lesen, und das Aktivitätsprotokoll ist an.</p>' +
+        '<form class="dlg-form" data-form="famjoin"><label>Familiencode<input id="famCode" type="text" maxlength="14" autocomplete="off" placeholder="XXXX-XXXX-XXXX"></label><div class="actions"><button class="btn" type="submit">Beitreten</button></div><p class="note" id="famMsg" role="status"></p></form></details></section>' +
+        '<section class="panel"><h2>Aktivitätsprotokoll</h2><p>Das Protokoll hält fest, was auf dieser Seite angeklickt wird (Aufgaben, Katze, Probelauf), damit du später sehen kannst, was Spaß macht und beim Lösen hilft. Es ist <b>standardmäßig aus</b> und nur für dein Konto lesbar.</p>' +
+        '<label class="fam-check"><input type="checkbox" id="logOpt"' + (logOptIn() ? ' checked' : '') + '> Protokoll auf diesem Gerät einschalten</label>' +
+        '<div class="actions"><button class="btn ghost" type="button" data-fam="showlog">Mein Protokoll ansehen</button><button class="btn ghost" type="button" data-fam="dellog">Protokoll löschen</button></div><div id="ownLog" class="log-sec"></div></section>'
+      : '<section class="panel"><h2>Familie des Besitzers</h2><p>Dieses Konto gehört zur Familie der Eltern, denen diese Seite gehört. Sie können die Ergebnisse und das Aktivitätsprotokoll der Profile dieses Kontos lesen.</p>' +
+        '<div class="actions"><button class="btn ghost" type="button" data-fam="leave">Familie verlassen (Stand wieder privat)</button></div><p class="note" id="famMsg" role="status"></p></section>';
+    body.innerHTML = h;
+  }
+  /* Besitzer und Editoren: alle Konten der eigenen Familie, Familiencode, Aktivitätsprotokoll */
+  function renderFamilyAdmin(body) {
+    var B2 = window.BiberSync;
+    Promise.all([B2.listAll(), B2.famCode(), B2.famMembers()]).then(function (res) {
+      var docs = res[0], code = res[1], mem = res[2];
       var ids = docs.map(function (d) { return d.uid; });
-      return B2.names(ids).then(function (nm) { return { docs: docs, nm: nm }; });
+      return B2.names(ids.concat(mem)).then(function (nm) { return { docs: docs, nm: nm, code: code, mem: mem }; });
     }).then(function (r) {
-      var body = document.getElementById('famBody');
-      if (!body || (location.hash || '') !== '#familie') return;
+      if (!document.getElementById('famBody') || (location.hash || '') !== '#familie') return;
       var cards = [];
       r.docs.forEach(function (d) {
         var who = (r.nm[d.uid] && r.nm[d.uid].name) || '';
         (d.data.profiles || []).forEach(function (p) { cards.push(profileCard(p, who)); });
       });
-      body.innerHTML = cards.length ? '<div class="fam-grid">' + cards.join('') + '</div>' +
-        '<p class="note">Die Ergebnisse stammen aus den Konten der Besucher, die die Seite mit Schreibrecht geöffnet haben.</p>'
-        : '<p class="note">Noch keine gespeicherten Profile.</p>';
+      var mem = r.mem.map(function (u) { return esc((r.nm[u] && r.nm[u].name) || u); }).join(', ');
+      body.innerHTML = (cards.length ? '<div class="fam-grid">' + cards.join('') + '</div>' : '<p class="note">Noch keine gespeicherten Profile.</p>') +
+        '<section class="panel"><h2>Deine Familie</h2><p>Dein eigenes Konto gehört immer dazu. Für weitere Konten (z. B. das Tablet eines Kindes) gibst du dort auf der Seite „Familie“ diesen Familiencode ein:</p>' +
+        '<p class="fam-code" aria-label="Familiencode">' + esc(r.code || '') + '</p>' +
+        '<p class="note">' + (mem ? 'Beigetreten: ' + mem + '.' : 'Bisher ist noch kein weiteres Konto beigetreten.') + ' Andere Eltern, mit denen du diese Seite teilst, sehen nichts von deiner Familie und du nichts von ihrer: Ihre Profile und Ergebnisse liegen in einem privaten Bereich, den auch du als Besitzer nicht lesen kannst.</p></section>';
       if (window.BiberProtokoll) {
         var host = document.createElement('section'); host.className = 'log-sec'; body.appendChild(host);
-        var titles = {}; TASKS.forEach(function (t) { if (t.id) titles[t.id] = t.title; });
-        window.BiberProtokoll.render(host, r.docs.map(function (d) { return d.uid; }), r.nm, titles);
+        window.BiberProtokoll.render(host, r.docs.map(function (d) { return d.uid; }), r.nm, famTitles());
       }
-    }).catch(function () {
-      var body = document.getElementById('famBody');
-      if (body) body.innerHTML = '<p class="note">Die Übersicht konnte nicht geladen werden.</p>';
-    });
+    }).catch(function () { body.innerHTML = '<p class="note">Die Übersicht konnte nicht geladen werden.</p>'; });
   }
+  document.addEventListener('submit', function (e) {
+    var f = e.target.closest && e.target.closest('[data-form="famjoin"]');
+    if (!f) return;
+    e.preventDefault();
+    var B2 = window.BiberSync, msg = document.getElementById('famMsg'), code = document.getElementById('famCode').value;
+    msg.textContent = 'Einen Moment …';
+    B2.joinFamily(code).then(function (ok) {
+      if (ok) { msg.textContent = 'Fertig. Dieses Konto gehört jetzt zur Familie.'; track('fam', 'join'); } else msg.textContent = 'Der Code hat nicht gepasst. Er sieht so aus: XXXX-XXXX-XXXX.';
+    }).catch(function () { msg.textContent = 'Das hat nicht geklappt. Versuche es später noch einmal.'; });
+  });
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'logOpt') {
+      try { window.localStorage.setItem('biber.log.optin', e.target.checked ? '1' : '0'); } catch (err) { /* ignorieren */ }
+      applyLogPolicy();
+    }
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-fam]');
+    if (!b) return;
+    var B2 = window.BiberSync, k = b.dataset.fam, msg = document.getElementById('famMsg');
+    if (k === 'leave') {
+      b.disabled = true;
+      B2.leaveFamily().then(function () { track('fam', 'leave'); renderFamily(); }).catch(function () { if (msg) msg.textContent = 'Das hat nicht geklappt.'; b.disabled = false; });
+    } else if (k === 'showlog') {
+      var host = document.getElementById('ownLog'); if (!host || !window.BiberProtokoll) return;
+      host.innerHTML = '<p class="note">Lade …</p>';
+      B2.listOwnLogs().then(function (docs) { window.BiberProtokoll.renderDocs(host, docs, famTitles()); });
+    } else if (k === 'dellog') {
+      b.disabled = true;
+      B2.deleteOwnLogs().then(function (n) { var host = document.getElementById('ownLog'); if (host) host.innerHTML = '<p class="note">' + n + ' Protokoll-Abschnitte gelöscht.</p>'; b.disabled = false; });
+    }
+  });
 
   /* ---------- Router und Umschalter ---------- */
   function syncControls() {
@@ -771,13 +842,14 @@
     abilityOf: function (p) { return abilityOf(p); }, taskD: function (t) { return taskD(t); }, areaOf: function (t) { return areaOf(t); },
     isReady: function (t) { return isReady(t); }, esc: esc, pts: pts, recordResult: recordResult,
     registerPage: function (name, fn) { pages[name] = fn; },
+    levelLabel: function (A) { return levelLabel(A); }, isPristine: function (p) { return isPristine(p); },
     track: track,
     nextTask: function () { var r = recommend(profile()).items[0]; return r ? { id: r.task.id, title: r.task.title } : null; }
   };
   function route() {
     if (taskId) { track('tl', taskId, Math.round((Date.now() - taskT0) / 1000)); taskId = null; }
     var h = (location.hash || '').replace(/^#/, '');
-    var page = h === 'bewertung' ? 'bewertung' : h === 'familie' ? 'familie' : h === 'probelauf' ? 'probelauf' : 'aufgaben';
+    var page = h === 'bewertung' ? 'bewertung' : h === 'familie' ? 'familie' : h === 'probelauf' ? 'probelauf' : /^klasse/.test(h) ? 'klasse' : 'aufgaben';
     document.querySelectorAll('.nav a').forEach(function (a) {
       a.setAttribute('aria-current', a.dataset.nav === page ? 'page' : 'false');
     });
@@ -785,6 +857,7 @@
     if (h === 'bewertung') { confirmReset = false; renderResults(); }
     else if (h === 'familie') renderFamily();
     else if (h === 'probelauf' && pages.probelauf) pages.probelauf();
+    else if (/^klasse/.test(h) && pages.klasse) pages.klasse(h);
     else if (h && byId(h)) renderTask(h);
     else renderOverview();
     window.scrollTo(0, 0);
@@ -847,7 +920,7 @@
   route();
   if (profile().setup) openProfiles(true);
   if (window.BiberSync) {
-    window.BiberSync.start({ snapshot: snapshot, merge: mergeRemote, merged: afterMerge });
+    window.BiberSync.start({ snapshot: snapshot, merge: mergeRemote, merged: afterMerge, modeChanged: function () { syncNav(); if ((location.hash || '') === '#familie') renderFamily(); } });
   }
 
   /* Kätzchen-Schalter im Seitenfuß (kitten.js ist eigenständig und per defer geladen) */

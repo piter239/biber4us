@@ -136,5 +136,20 @@ window.BiberProtokoll = (function () {
       });
     });
   }
-  return { render: render };
+  /* Eigenes Protokoll eines Kontos (Gast-Familie): Dokumente schon geladen */
+  function renderDocs(host, docs, titles) {
+    var all = sessionsOf(docs);
+    if (!all.length) { host.innerHTML = '<p class="note">Noch keine Einträge.</p>'; return; }
+    host.innerHTML = '<h3>Mein Protokoll</h3>' + all.map(function (s, i) {
+      var t0 = s.ev[0].t, t1 = s.ev[s.ev.length - 1].t;
+      return '<details class="log-ses"><summary><b>' + esc(dayTime(t0)) + '</b> · ' + esc(s.w || 'ohne Namen') + ' · ' + Math.max(1, Math.round((t1 - t0) / 60000)) + ' min<br><span class="note">' + esc(summary(s.ev)) + '</span></summary><div class="log-body" data-i="' + i + '"></div></details>';
+    }).join('');
+    host.querySelectorAll('details.log-ses').forEach(function (det) {
+      det.addEventListener('toggle', function () {
+        var b = det.querySelector('.log-body');
+        if (det.open && !b.dataset.done) { b.dataset.done = '1'; b.innerHTML = timeline(all[+b.dataset.i].ev, titles || {}); }
+      });
+    });
+  }
+  return { render: render, renderDocs: renderDocs };
 })();

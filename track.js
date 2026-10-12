@@ -3,8 +3,13 @@
    Felder sind durch Leerzeichen getrennt (Leerzeichen und % in Werten als %20 und %25). Es werden nur Handlungen gespeichert,
    keine Mausbewegungen und keine getippten Texte (außer den Antworten in Aufgaben beim Prüfen und dem, was man der helfenden Katze sagt oder schreibt, samt ihrer Antwort).
 
+   Das Protokoll ist nur an, wenn es ausdrücklich erlaubt ist: in der "eigenen Familie" des Besitzers (Modus family) immer,
+   bei Gast-Familien nur, wenn das Konto es auf der Seite Familie einschaltet (dann nur für das Konto selbst lesbar), ohne Server nie.
+   Bis das feststeht, sammelt track.js nur im Arbeitsspeicher; wird es nicht erlaubt, wird alles verworfen.
+
    Aufbau auf dem Server (nur wenn die db-Funktion der Artifact-Umgebung verfügbar ist):
-     logs/<Konto-Id>/c/<Sitzung>_<Nr>   ein Dokument je Abschnitt (höchstens 300 Zeilen, ca. 8 kB)
+     logs/<Konto-Id>/c/<Sitzung>_<Nr>   (Modus family) bzw. data/users/<Konto-Id>/log_<Sitzung>_<Nr> (Gast-Familie)
+       ein Dokument je Abschnitt (höchstens 300 Zeilen, ca. 8 kB)
        Felder: p Profil-Id, w Name des Profils (klein, ohne Leerzeichen), d Geräte-Id, h Gerätebeschreibung, s Sitzungs-Id,
                n Abschnittsnummer, b Beginn des Abschnitts (ms seit 1970), v Version der Seite, t die Zeilen
    Ohne Server bleibt das Protokoll (begrenzt) im Browser und wird beim nächsten Start mit Server nachgeschickt.
@@ -21,6 +26,7 @@ window.BiberTrack = (function () {
   var dev = '', desc = '', sid = '', pid = '', who = '', chunkNo = 0, cur = null, lastT = 0, lastAct = 0, idleSent = false;
   var pending = [];           /* Abschnitte, die noch nicht (vollständig) auf dem Server sind */
   var timer = 0, saveTimer = 0, busy = false, started = false, syncFns = null;
+  var allow = null;           /* null = noch unklar (nur Arbeitsspeicher), true = erlaubt, false = aus */
 
   function rid(n) { var s = ''; while (s.length < n) s += Math.floor(Math.random() * 36).toString(36); return s; }
   function esc(x) { return String(x == null ? '' : x).replace(/%/g, '%25').replace(/\s/g, '%20').slice(0, 300); }
@@ -56,6 +62,7 @@ window.BiberTrack = (function () {
   }
 
   function persistLocal() {
+    if (allow !== true) return;      /* vor der Entscheidung nichts auf dem Gerät ablegen */
     clearTimeout(saveTimer);
     saveTimer = setTimeout(function () {
       var data = pending.filter(function (c) { return c.lines.length; });
@@ -71,7 +78,7 @@ window.BiberTrack = (function () {
   }
 
   function log(code) {
-    if (!started) return;
+    if (!started || allow === false) return;
     var now = Date.now();
     if (cur && lastAct && now - lastAct > 30 * 60 * 1000 && code !== 'vis' && code !== 'sync') startSession();   /* lange Pause: neue Sitzung */
     if (idleSent && code !== 'vis' && code !== 'sync' && code !== 'idle' && code !== 'back') { idleSent = false; log('back', Math.round((now - lastAct) / 1000)); now = Date.now(); }
@@ -92,13 +99,14 @@ window.BiberTrack = (function () {
   /* ---------- Server ---------- */
   function ready() { return syncFns && syncFns.ready && syncFns.ready(); }
   async function flush() {
+    if (allow !== true) return;
     if (busy || !ready()) { if (pending.length) schedule(); return; }
     busy = true;
     try {
       var todo = pending.filter(function (c) { return c.dirty && c.lines.length; });
       for (var i = 0; i < todo.length; i++) {
         var c = todo[i], snapshotN = c.lines.length;
-        await syncFns.doc('logs/' + syncFns.uid() + '/c/' + c.id).set({ p: c.p, w: c.w, d: c.d, h: c.h, s: c.s, n: c.n, b: c.b, v: VER, t: c.lines.join('\n') });
+        await syncFns.doc(syncFns.logPath(c.id)).set({ p: c.p, w: c.w, d: c.d, h: c.h, s: c.s, n: c.n, b: c.b, v: VER, t: c.lines.join('\n') });
         if (c.lines.length === snapshotN) c.dirty = false;
         if (c.full && !c.dirty) pending.splice(pending.indexOf(c), 1);
       }
@@ -110,6 +118,7 @@ window.BiberTrack = (function () {
   }
 
   function restorePending() {
+    if (allow !== true) return;
     var raw = lsGet(LS_PEND);
     if (!raw) return;
     try {
@@ -195,6 +204,14 @@ window.BiberTrack = (function () {
       else if (started && cur) { cur.w = who; cur.dirty = true; }
     },
     useServer: function (fns) { syncFns = fns; flush(); },
+    /* Erlaubnis setzen (true/false). false verwirft alles bisher Gesammelte, auch auf dem Gerät. */
+    setAllow: function (v) {
+      var was = allow; allow = v;
+      if (v === false) { pending = []; cur = null; clearTimeout(timer); timer = 0; try { window.localStorage.removeItem(LS_PEND); } catch (e) { /* ignorieren */ } }
+      else if (v === true && was !== true) { restorePending(); persistLocal(); schedule(); }
+      else if (v === null) { /* unverändert */ }
+    },
+    allowed: function () { return allow; },
     flush: flush,
     state: function () { return { dev: dev, sid: sid, pending: pending.length }; }
   };
