@@ -131,6 +131,17 @@
     '.bk-wrap.bk-on{visibility:visible}',
     '[data-acc] .bk-bow{display:none}',
     '.bk-wrap.bk-live{pointer-events:auto;cursor:pointer}',
+    '.bk-friend.bk-on.bk-lv{pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}',
+    '.bk-mice{position:fixed;inset:0;z-index:2147483010;pointer-events:none;overflow:hidden}',
+    '.bk-gm{position:absolute;width:64px;height:38px;pointer-events:auto;touch-action:none;cursor:pointer;transition-property:left;transition-timing-function:linear}',
+    '.bk-gm::before{content:"";position:absolute;inset:-16px}',
+    '.bk-gm svg{width:100%;height:100%;display:block;animation:bk-scurry .16s ease-in-out infinite alternate}',
+    '.bk-gm.bk-l svg{transform:scaleX(-1)}',
+    '.bk-gm.bk-caught{pointer-events:none;transition:none;animation:bk-mcatch .55s ease-out 1 forwards}',
+    '.bk-mcount{position:fixed;top:76px;left:50%;transform:translateX(-50%);z-index:2147483011;padding:.3rem .8rem;border-radius:999px;background:var(--surface,#fff);color:var(--ink,#1b2b31);border:2px solid var(--accent,#0a86a6);font:700 15px/1.2 var(--font-body,system-ui,sans-serif);pointer-events:none;box-shadow:0 3px 10px rgba(0,0,0,.15)}',
+    '@keyframes bk-scurry{from{margin-top:0}to{margin-top:-4px}}',
+    '@keyframes bk-mcatch{0%{transform:translateY(0) rotate(0);opacity:1}40%{transform:translateY(-46px) rotate(-18deg);opacity:1}100%{transform:translateY(-70px) rotate(25deg) scale(.4);opacity:0}}',
+    '@media(max-width:520px){.bk-gm{width:54px;height:32px}}',
     '.bk-wrap:focus-visible{outline:3px solid var(--focus,#0a86a6);outline-offset:4px;border-radius:12px}',
     '.bk-peek{position:absolute;inset:0;transition:transform .55s cubic-bezier(.3,1.4,.5,1);transform:translateY(100%)}',
     '.bk-peek.bk-sneak{transform:translateY(var(--bk-sneak,48%))}',
@@ -739,13 +750,16 @@
     fwrap.setAttribute('aria-hidden', 'true');
     fpeek = document.createElement('div'); fpeek.className = 'bk-peek';
     fpeek.innerHTML = friendSvg();
+    var ffx = document.createElement('div'); ffx.className = 'bk-fx'; fpeek.appendChild(ffx);
     fwrap.appendChild(fpeek);
+    fwrap.addEventListener('click', onPetLuna);
+    fwrap.addEventListener('pointerdown', function (e) { if (mouseOn) e.stopPropagation(); });
     document.body.appendChild(fwrap);
   }
   function hideFriend() {
     friendOn = false;
     if (!fwrap) return;
-    fwrap.classList.remove('bk-on', 'bk-happy');
+    fwrap.classList.remove('bk-on', 'bk-happy', 'bk-lv');
     fpeek.className = 'bk-peek';
   }
   function placeFriend(s, x, y, W, vw, vh) {
@@ -758,7 +772,7 @@
     fwrap.style.transform = 'translate(-50%,-50%) rotate(' + SIDE_ROT[s] + 'deg)';
     fwrap.style.setProperty('--bk-sneak', '50%'); fwrap.style.setProperty('--bk-up', '17%');
     fpeek.className = 'bk-peek';
-    fwrap.classList.add('bk-on');
+    fwrap.classList.add('bk-on', 'bk-lv');
     friendOn = true;
   }
 
@@ -1105,7 +1119,7 @@
   }
   function onPet(e) {
     if (e) e.stopPropagation();
-    if (zoomOn) return;
+    if (zoomOn || mouseOn) return;
     var t = ++tok;
     var now = Date.now();
     petCount = now - lastPet < 1600 ? petCount + 1 : 1; lastPet = now;
@@ -1136,6 +1150,105 @@
       if (!await sleep(3100, t)) return;
       await leave(t);
     })();
+  }
+
+  /* Luna streicheln: Sie schnurrt (Herzchen, höhere Stimme). Dreimal schnell hintereinander: Mäusejagd (höchstens 3 Runden in 5 Minuten). */
+  var MOUSE_MAX = 3, MOUSE_WINDOW = 5 * 60000;
+  var LUNA_SAY = ['Luna schnurrt ganz leise.', 'Luna mag das!', 'Luna blinzelt Dich an.', 'Mrrrr … sagt Luna.', 'Luna schmiegt sich an.'];
+  var MOUSE_LIMIT_SAY = ['Die Mäuse haben sich versteckt. Später kommen sie wieder!', 'Luna ist müde von der Jagd. Erst mal die Aufgaben!'];
+  function miceAllowed() { var now = Date.now(); mem.mt = (mem.mt || []).filter(function (x) { return now - x < MOUSE_WINDOW; }); return mem.mt.length < MOUSE_MAX; }
+  var mouseOn = false, lunaPetN = 0, lunaPetT = 0;
+  function lunaHearts(n) {
+    var fxl = fpeek && fpeek.querySelector('.bk-fx'); if (!fxl) return;
+    for (var i = 0; i < n; i++) (function (i) {
+      setTimeout(function () {
+        var d = document.createElement('div'); d.className = 'bk-heart'; d.innerHTML = HEART;
+        d.setAttribute('style', 'left:' + rnd(30, 62) + '%;top:' + rnd(0, 22) + '%;--dx:' + Math.round(rnd(-26, 26)) + 'px');
+        fxl.appendChild(d); setTimeout(function () { d.remove(); }, 1800);
+      }, i * 230);
+    })(i);
+  }
+  function onPetLuna(e) {
+    if (e) e.stopPropagation();
+    if (zoomOn || mouseOn || !friendOn) return;
+    var t = ++tok, now = Date.now();
+    lunaPetN = now - lunaPetT < 1800 ? lunaPetN + 1 : 1; lunaPetT = now;
+    mem.lunaPets = (mem.lunaPets || 0) + 1; persist(); T('k.lpet', lunaPetN);
+    hideBubble(); clearActions();
+    fwrap.classList.add('bk-happy'); fpeek.classList.add('bk-a-happy');
+    stage('pop');
+    lunaHearts(lunaPetN > 2 ? 5 : 3);
+    try { if (navigator.vibrate) navigator.vibrate([25, 40, 25]); } catch (err) { /* ignorieren */ }
+    unlock('s:lunaherz');
+    if (lunaPetN >= 3) {
+      if (miceAllowed()) { lunaPetN = 0; mouseHunt(t); return; }
+      lunaPetN = 0; T('k.mlimit');
+      meow(1.35); showBubble(pick(MOUSE_LIMIT_SAY));
+    } else {
+      meow(rnd(1.28, 1.45)); setTimeout(function () { purr(1.8); }, 650);
+      showBubble(mem.lunaPets === 1 ? 'Luna schnurrt! Streichle sie öfter, vielleicht hat sie eine Idee …' : pick(LUNA_SAY));
+    }
+    (async function () {
+      if (!await sleep(3100, t)) return;
+      await leave(t);
+    })();
+  }
+  function squeak() {
+    tone(1900, 2900, 0.07, 'square', 0.05); tone(2600, 1700, 0.09, 'square', 0.045, 0.07);
+  }
+  /* Mäusejagd: Acht Mäuse flitzen über den Bildschirm, jede Maus antippen, bevor sie weg ist. */
+  async function mouseHunt(t) {
+    mem.mt = (mem.mt || []).concat([Date.now()]).slice(-MOUSE_MAX); persist();
+    unlock('s:maus1');
+    var N = 8, caught = 0, done = 0, layer = document.createElement('div'), cnt = document.createElement('div');
+    layer.className = 'bk-mice'; cnt.className = 'bk-mcount'; cnt.setAttribute('aria-hidden', 'true');
+    function upd() { cnt.textContent = 'Mäuse: ' + caught + ' von ' + N; }
+    upd();
+    document.body.appendChild(layer); document.body.appendChild(cnt);
+    mouseOn = true; T('k.mice', N);
+    meow(1.4); showBubble('Mäuse! Fang so viele, wie Du kannst!', 2000);
+    stage('pop');
+    function spawn(i) {
+      var vw = window.innerWidth, vh = window.innerHeight, mw = vw <= 520 ? 54 : 64;
+      var left = Math.random() < 0.5, y = rnd(vh * 0.38, vh - 60), dur = Math.max(1.5, 2.9 - i * 0.14 + rnd(-0.2, 0.3));
+      var m = document.createElement('div'); m.className = 'bk-gm' + (left ? ' bk-l' : '');
+      m.innerHTML = MOUSE; m.style.top = Math.round(y) + 'px';
+      m.style.left = (left ? vw + 10 : -mw - 10) + 'px'; m.style.transitionDuration = dur + 's';
+      layer.appendChild(m);
+      var over = false;
+      function end() { if (over) return; over = true; done++; setTimeout(function () { m.remove(); }, 600); }
+      m.addEventListener('pointerdown', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        if (over) return;
+        caught++; upd(); T('k.mhit', i + 1);
+        var r = m.getBoundingClientRect(); m.style.left = r.left + 'px';
+        m.classList.add('bk-caught'); squeak(); hitSound(false);
+        try { if (navigator.vibrate) navigator.vibrate(18); } catch (err) { /* ignorieren */ }
+        end();
+      });
+      m.addEventListener('transitionend', function () { if (!m.classList.contains('bk-caught')) end(); });
+      requestAnimationFrame(function () { requestAnimationFrame(function () { m.style.left = (left ? -mw - 10 : vw + 10) + 'px'; }); });
+      setTimeout(end, dur * 1000 + 300);
+    }
+    try {
+      if (!await sleep(900, t)) return;
+      for (var i = 0; i < N; i++) {
+        spawn(i);
+        if (!await sleep(rnd(620, 900), t)) return;
+      }
+      for (var w = 0; w < 40 && done < N; w++) { if (!await sleep(150, t)) return; }
+    } finally { layer.remove(); cnt.remove(); mouseOn = false; }
+    if (caught > (mem.mouseBest || 0)) mem.mouseBest = caught;
+    T('k.mend', caught); persist();
+    if (caught >= 5) unlock('s:maus5');
+    clearActions(); stage('pop');
+    wrap.classList.add('bk-happy'); fwrap.classList.add('bk-happy'); hearts(4); lunaHearts(4); sparks(3);
+    var msg = 'Die Mäuse sind weg! ' + caught + ' von ' + N + '. Noch einmal?';
+    if (caught >= 5) { hitSound(true); confetti(); msg = caught === N ? 'Alle ' + N + ' Mäuse gefangen! Luna ist begeistert!' : caught + ' von ' + N + ' Mäusen! Luna und ich sind stolz auf Dich!'; }
+    else if (caught === 0) msg = 'Die Mäuse waren zu flink. Beim nächsten Mal klappt es!';
+    meow(1.3); purr(2.2); showBubble(msg);
+    if (!await sleep(3000, t)) return;
+    await leave(t);
   }
 
   /* Geheimnis: fünfmal schnell streicheln gibt Zoomies. */
@@ -1274,7 +1387,7 @@
     ['a:fish', 'Fischfang', 'Der springt davon!'], ['a:music', 'Singen', 'Miau-miau-miau, ein Lied!'], ['a:think', 'Geistesblitz', 'Ich habe eine Idee!'], ['a:photo', 'Fotoshooting', 'Bitte lächeln!'],
     ['a:cake', 'Kuchen', 'Wünsch Dir was!'], ['a:book', 'Leseratte', 'Lernen macht schlau.'], ['a:balloon', 'Luftballon', 'Hoch hinaus!'], ['a:snow', 'Schneeflocken', 'Brrr, kuschelig.'],
     ['s:confetti', 'Konfetti', 'Fünf richtige Antworten in Folge.'], ['s:rufen', 'Gerufen', 'Man munkelt: Miau tippen.'],
-    ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:ahnung', 'Besuch angekündigt', 'Man munkelt: Das Kätzchen bekommt bald Besuch.'], ['s:ahnung2', 'Besuch unterwegs', 'Man munkelt: Jemand ist schon auf dem Weg zum Kätzchen.'], ['s:luna', 'Luna', 'Die Freundin des Kätzchens. Sie kommt, wenn Du fleißig löst.'], ['s:treffer', 'Treffer', 'Ein Zoomies-Kätzchen im Flug getroffen.'], ['s:meister', 'Zoomies-Meister', 'Drei Zoomies-Kätzchen in einem Durchgang getroffen.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'],
+    ['s:zoomies', 'Zoomies', 'Fünfmal schnell streicheln.'], ['s:ahnung', 'Besuch angekündigt', 'Man munkelt: Das Kätzchen bekommt bald Besuch.'], ['s:ahnung2', 'Besuch unterwegs', 'Man munkelt: Jemand ist schon auf dem Weg zum Kätzchen.'], ['s:luna', 'Luna', 'Die Freundin des Kätzchens. Sie kommt, wenn Du fleißig löst.'], ['s:treffer', 'Treffer', 'Ein Zoomies-Kätzchen im Flug getroffen.'], ['s:meister', 'Zoomies-Meister', 'Drei Zoomies-Kätzchen in einem Durchgang getroffen.'], ['s:hidden', 'Mimi', 'Die kleine versteckte Katze.'], ['s:lunaherz', 'Luna schnurrt', 'Man munkelt: Luna lässt sich streicheln.'], ['s:maus1', 'Mäusejagd', 'Man munkelt: Luna jagt gern etwas.'], ['s:maus5', 'Mäusefänger', 'Fünf Mäuse in einer Runde gefangen.'],
     ['m:bienchen', 'Fleißbienchen', 'Zehn Aufgaben richtig gelöst.', 'Löse zehn Aufgaben richtig im ersten Versuch.'],
     ['m:krone', 'Krönchen', 'Fünfundzwanzig Aufgaben richtig gelöst.', 'Löse 25 Aufgaben richtig im ersten Versuch.'],
     ['m:medaille', 'Medaille', 'Fünfzig Aufgaben richtig gelöst.', 'Löse 50 Aufgaben richtig im ersten Versuch.'],
@@ -1347,6 +1460,9 @@
     's:rufen': { svg: '<text x="116" y="30" font-family="system-ui,sans-serif" font-weight="800" font-size="28" fill="#0a86a6">Miau?</text>' },
     's:ahnung2': { svg: '<path d="M126 70l8-6 8 6-8 6zM150 52l8-6 8 6-8 6zM172 32l8-6 8 6-8 6z" fill="#0a86a6"/><text x="120" y="108" font-family="system-ui,sans-serif" font-weight="800" font-size="26" fill="#0a86a6">gleich!</text>' },
     's:ahnung': { svg: '<text x="128" y="40" font-family="system-ui,sans-serif" font-weight="800" font-size="34" fill="#0a86a6">Psst…</text><path d="M168 78l8 0M172 74v8" stroke="#e05060" stroke-width="4" stroke-linecap="round"/>' },
+    's:lunaherz': { cls: 'bk-happy', svg: '<g transform="translate(116 8) scale(1.7)">' + HEART.replace(/^<svg[^>]*>/, '<g color="#ef5d7a">').replace('</svg>', '</g>') + '</g><g transform="translate(140 70) scale(.9)">' + HEART.replace(/^<svg[^>]*>/, '<g color="#ff93bd">').replace('</svg>', '</g>') + '</g><text x="112" y="118" font-family="system-ui,sans-serif" font-weight="800" font-size="22" fill="#0a86a6">Mrrr</text>' },
+    's:maus1': { cls: 'bk-happy', svg: '<g transform="translate(124 96) scale(1.1)">' + MOUSE.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g>' },
+    's:maus5': { cls: 'bk-happy', svg: '<g transform="translate(130 20) scale(.8)">' + MOUSE.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(116 70) scale(.8)">' + MOUSE.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(136 118) scale(.8)">' + MOUSE.replace(/^<svg[^>]*>/, '').replace('</svg>', '') + '</g><g transform="translate(8 8) scale(1.1)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g>' },
     's:zoomies': { svg: '<path d="M4 60h36M0 84h44M8 108h32" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
     's:treffer': { cls: 'bk-happy', svg: '<g transform="translate(116 8)"><circle cx="30" cy="30" r="28" fill="#fff" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="17" fill="none" stroke="#e05060" stroke-width="5"/><circle cx="30" cy="30" r="6" fill="#e05060"/></g>' },
     's:meister': { cls: 'bk-happy', svg: '<g transform="translate(112 4) scale(1.5)">' + SPARK.replace(/^<svg[^>]*>/, '<g color="#f2c230">').replace('</svg>', '</g>') + '</g><path d="M4 60h36M0 84h44" stroke="#0a86a6" stroke-width="5" stroke-linecap="round"/>' },
@@ -1507,6 +1623,8 @@
     if (kind === 'd:') { visit({ action: pick(['kiss', 'wave', 'tilt']), side: sd, friend: true, prop: id, text: pick(DUO_SAY[id] || ['Wir sind zu zweit!']) }); return; }
     if (kind === 'm:') { visit({ action: pick(['wave', 'kiss', 'tilt']), side: sd, prop: id, text: M_SAY[id] || 'Gut gemacht!' }); return; }
     if (id === 's:luna') { visit({ action: 'kiss', side: sd, friend: true, text: 'Das ist Luna, meine Freundin!' }); return; }
+    if (id === 's:lunaherz') { visit({ action: 'kiss', side: sd, friend: true, text: 'Luna schnurrt ganz leise.' }); return; }
+    if (id === 's:maus1' || id === 's:maus5') { visit({ action: 'tilt', side: sd, friend: true, text: 'Psst, da war eine Maus! Streichle Luna dreimal schnell.' }); return; }
     if (id === 's:ahnung2') { visit({ action: 'tilt', side: sd, text: 'Meine Freundin ist schon unterwegs!' }); return; }
     if (id === 's:ahnung') { visit({ action: 'wave', side: sd, text: 'Psst… Bald bekomme ich Besuch!' }); return; }
     if (id === 's:confetti') { visit({ action: 'wave', side: sd, text: 'Konfetti!' }); setTimeout(confetti, 1600); return; }
