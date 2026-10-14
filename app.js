@@ -78,7 +78,7 @@
       var res = {};
       Object.keys(p.results).forEach(function (id) {
         var r = p.results[id];
-        res[id] = light ? { correct: r.correct, at: r.at } : r;
+        res[id] = light ? { correct: r.correct, at: r.at, fixed: r.fixed } : r;
       });
       var hd = {};
       Object.keys(p.hold || {}).forEach(function (id) {
@@ -130,6 +130,8 @@
         if (lp.cleared[id] && (r.at || '') <= lp.cleared[id]) return;
         var l = lp.results[id];
         if (!l || (r.at || '') < (l.at || '')) { lp.results[id] = r; changed = true; }
+        var cur = lp.results[id], fx = [cur.fixed, r.fixed].filter(Boolean).sort()[0];
+        if (fx && cur.fixed !== fx) { cur.fixed = fx; changed = true; }
       });
       lp.hold = lp.hold || {};
       Object.keys(rp.hold || {}).forEach(function (id) {
@@ -229,7 +231,8 @@
     if (!isReady(t)) return { cls: 'soon', label: 'folgt noch' };
     var r = resultOf(t);
     if (!r) return { cls: 'open', label: 'offen' };
-    return r.correct ? { cls: 'ok', label: 'richtig' } : { cls: 'bad', label: 'falsch' };
+    if (r.correct) return { cls: 'ok', label: 'richtig' };
+    return r.fixed ? { cls: 'fixed', label: '★ verbessert' } : { cls: 'bad', label: 'falsch' };
   }
   function groupsText(t) {
     return GROUPS.filter(function (g) { return inGroup(t, g); }).map(function (g) { return g.replace('-', '–') + ' ' + t.groups[g]; }).join(' · ');
@@ -285,7 +288,7 @@
     var A = abilityOf(p);
     var ready = TASKS.filter(function (t) { return t.id && isReady(t) && t.id !== excludeId; });
     var open = ready.filter(function (t) { return !p.results[t.id]; });
-    var wrong = ready.filter(function (t) { return p.results[t.id] && !p.results[t.id].correct; });
+    var wrong = ready.filter(function (t) { return p.results[t.id] && !p.results[t.id].correct && !p.results[t.id].fixed; });
     var answered = answeredTasks(p);
     var allRight = answered.length > 0 && wrong.length === 0 && answered.every(function (t) { return p.results[t.id].correct; });
     var items = [];
@@ -479,7 +482,9 @@
       else { cls = 'bad'; head = 'Nicht ganz. ' + (counts ? pts(points) + ' Punkte' : 'Versuch es noch einmal'); }
       var nx = nextAdaptive();
       st.last = [correct, points, counts, solution];
-      fb.innerHTML = '<div class="feedback ' + cls + '"><h2>' + head + '</h2>' +
+      var rs = resultOf(t), fixBanner = !solution && rs && rs.fixed && (correct || st.saved)
+        ? '<p class="fix-banner" role="status"><span class="fix-star" aria-hidden="true">★</span> <b>Verbessert!</b> Der erste Versuch war nicht richtig, danach hast Du es richtig gelöst. Aus einem Fehler zu lernen ist super!</p>' : '';
+      fb.innerHTML = '<div class="feedback ' + cls + '"><h2>' + head + '</h2>' + fixBanner +
         (st.note ? '<p class="note"><b>' + st.note + '</b></p>' : '') +
         (!solution && !counts ? '<p class="note">Das war ein Übungsversuch. Gewertet wird dein erster Versuch.</p>' : '') +
         '<div class="expl">' + explanation() + '</div>' +
@@ -495,7 +500,7 @@
     if (saved) {
       mod.setAnswer(saved.answer);
       lock(true);
-      st.checked = true;
+      st.checked = true; st.saved = true;
       refreshBar();
       showFeedback(saved.correct, pointsOf(t, saved), true, false);
     } else {
@@ -511,6 +516,7 @@
         var res = mod.evaluate();
         var counts = !resultOf(t);
         var priorWrong = !counts && !resultOf(t).correct;
+        var fixedNow = priorWrong && !!res.correct && !resultOf(t).fixed;
         var points = SCORING[level][res.correct ? 'right' : 'wrong'];
         track('ta', id, res.correct ? 1 : 0, counts ? 1 : 0, Math.round((Date.now() - taskT0) / 1000), JSON.stringify(res.answer));
         if (counts) {
@@ -521,11 +527,12 @@
           st.note = after.name !== before.name ? 'Neue Stufe im Biber-Niveau: ' + after.name + '!' : '';
           track('lvl', Math.round(abilityOf(profile()) * 10) / 10);
         }
+        if (fixedNow) { resultOf(t).fixed = new Date().toISOString(); profile().upd = resultOf(t).fixed; save(); track('tfix', id); }
         lock(true);
-        st.checked = true;
+        st.checked = true; st.saved = false;
         refreshBar();
         showFeedback(res.correct, points, counts, false);
-        document.dispatchEvent(new CustomEvent('biber:result', { detail: { correct: !!res.correct, id: id, counted: counts, level: level, secs: Math.round((Date.now() - taskT0) / 1000), priorWrong: priorWrong } }));
+        document.dispatchEvent(new CustomEvent('biber:result', { detail: { correct: !!res.correct, id: id, counted: counts, level: level, secs: Math.round((Date.now() - taskT0) / 1000), priorWrong: priorWrong, fixed: fixedNow } }));
         fb.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       } else if (act === 'reset' || act === 'retry') {
         track('tr', id, act);
@@ -566,6 +573,7 @@
     });
     var pct = tried ? Math.round(right / tried * 100) : 0;
     var alle = store.mode === 'alle';
+    var fixedN = scored.filter(function (t) { var r = resultOf(t); return r && !r.correct && r.fixed; }).length;
 
     var rows = list.map(function (t, i) {
       var s = statusOf(t);
@@ -589,7 +597,7 @@
 
     app.innerHTML =
       '<section class="intro"><p class="eyebrow">Auswertung · ' + (profile().name || 'Profil') + ' · ' + viewLabel() + '</p><h1>Bewertung</h1>' +
-      '<p>Dein Stand bei den ' + scored.length + ' spielbaren Aufgaben' + (alle ? '' : ' dieser Klassenstufe') + '. Gewertet wird jeweils der erste Versuch.</p></section>' +
+      '<p>Dein Stand bei den ' + scored.length + ' spielbaren Aufgaben' + (alle ? '' : ' dieser Klassenstufe') + '. Gewertet wird jeweils der erste Versuch.' + (fixedN ? ' <span class="chip fixed">★ verbessert</span> heißt: Der erste Versuch war falsch, später hast Du es richtig gelöst (' + fixedN + ' Mal). Die Punkte bleiben die vom ersten Versuch, aber das Abzeichen bleibt Dir.' : '') + '</p></section>' +
       '<div class="score-top">' +
       '<div class="stat hero"><span class="v num">' + total + ' <small>/ ' + maxPts + '</small></span><span class="l">Punkte</span></div>' +
       '<div class="stat"><span class="v num">' + right + ' <small>/ ' + tried + '</small></span><span class="l">richtig beantwortet</span></div>' +
@@ -749,7 +757,7 @@
     return '<article class="panel fam-card"><h2>' + esc(p.name || 'Profil') + (owner ? ' <span class="note">· Konto: ' + esc(owner) + '</span>' : '') + '</h2>' +
       '<p><b>' + lv.text + '</b> · ' + done.length + ' von ' + TASKS.filter(isReady).length + ' Aufgaben bearbeitet, ' + right.length + ' richtig' + (wrong.length ? ', ' + wrong.length + ' falsch' : '') + ' · zuletzt aktiv: ' + fmtDate(lastActive(p)) + '</p>' +
       '<div class="lvl-bar" role="img" aria-label="Niveau"><i style="width:' + lv.pct + '%"></i></div>' +
-      (wrong.length ? '<p class="note">Falsch im ersten Versuch: ' + wrong.map(function (t) { return esc(t.title); }).join(', ') + '</p>' : '') +
+      (wrong.length ? '<p class="note">Falsch im ersten Versuch: ' + wrong.map(function (t) { return esc(t.title) + (p.results[t.id].fixed ? ' ★ (später verbessert)' : ''); }).join(', ') + '</p>' : '') +
       holdLine(p) +
       (weak.length ? '<p class="note">Themen mit Fehlern: ' + weak.map(function (a) { return esc(a.area) + ' (' + a.right + '/' + a.done + ')'; }).join(', ') + '</p>' : '') +
       '</article>';

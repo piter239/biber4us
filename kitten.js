@@ -2020,6 +2020,7 @@
       if (d.counted !== false) earn(d.correct ? 3 : 1);
       if (mem.off) return;
       achieve(d);
+      if (d.correct && d.fixed) { streak = Math.max(streak, 0); api.cheer(pick(['Verbessert! Aus Fehlern wird man klug!', 'Du hast es noch einmal versucht und geschafft. Das ist das Beste!', 'Ein goldener Stern fürs Verbessern!'])); return; }
       if (d.correct) {
         if (d.counted !== false) {
           mem.correct = (mem.correct || 0) + 1; persist(); friendProgress();

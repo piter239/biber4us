@@ -165,6 +165,22 @@ main { max-width: 62rem; margin-inline: auto; padding: 1.5rem 1rem 3rem; }
 .chip.bad { background: var(--bad-bg); color: var(--bad); }
 .chip.soon { background: transparent; color: var(--muted); border: 1px dashed var(--line); font-weight: 500; }
 .chip.open { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+/* Verbessert: erster Versuch falsch, später richtig. Goldenes Abzeichen mit sanftem Glanz. */
+.chip.fixed {
+  color: #4a2f00; font-weight: 800; border: 1px solid #c98f00;
+  background: linear-gradient(120deg, #ffe58a 0%, #f6bd1a 45%, #ffe58a 55%, #f2b200 100%); background-size: 220% 100%;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.55) inset, 0 1px 6px rgba(201,143,0,.45);
+  animation: fix-shine 4.5s ease-in-out infinite;
+}
+@keyframes fix-shine { 0%, 55% { background-position: 100% 0; } 100% { background-position: 0 0; } }
+.fix-banner {
+  display: flex; align-items: center; gap: .6rem; margin: .4rem 0 .8rem; padding: .6rem .9rem; border-radius: 14px;
+  color: #4a2f00; border: 2px solid #c98f00; font-size: 1rem;
+  background: linear-gradient(120deg, #fff1b8, #ffd84d 55%, #fff1b8); box-shadow: 0 2px 12px rgba(201,143,0,.35);
+}
+.fix-banner .fix-star { font-size: 1.7rem; line-height: 1; color: #b97800; text-shadow: 0 1px 0 #fff6; animation: fix-pop .8s ease-out 1; }
+@keyframes fix-pop { 0% { transform: scale(.2) rotate(-40deg); opacity: 0; } 70% { transform: scale(1.35) rotate(12deg); opacity: 1; } 100% { transform: scale(1) rotate(0); } }
+@media (prefers-reduced-motion: reduce) { .chip.fixed, .fix-banner .fix-star { animation: none; } }
 .chip.einfach { background: var(--ok-bg); color: var(--ok); }
 .chip.mittel { background: color-mix(in srgb, var(--c2) 25%, transparent); }
 .chip.schwer { background: var(--bad-bg); color: var(--bad); }
