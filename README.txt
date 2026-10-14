@@ -43,6 +43,7 @@ Tipps, nie die Loesung. Antworten kommen von Claude ueber die Funktion "sample" 
 sonst feste Fragen. Sprechen/Vorlesen nutzt die Web-Speech-Funktionen des Browsers, falls vorhanden. Protokoll: h.* (ohne Texte).
 
 Probelauf: Aufbau wie im Wettbewerb je Klassenstufe (3-4: 9 Aufgaben / 30 Min, 5-6: 12 / 35, 7-13: 15 / 40; gleich viele einfach, mittel, schwer; Quelle: Hefte 2020-2024, Teil "Wettbewerb"). Aufgaben "passend zum Niveau" oder "laut Heft fuer die Klasse"; Zeit wahlweise +5 oder +10 Min.
+Testaufgaben (held-out): holdout.js, 24 Aufgaben der Hefte 2018/2019 (Klasse 5-6), nur im Probelauf, nie in Liste/Empfehlung/Niveau; Vergleich erwartet/tatsaechlich siehe ARCHITEKTUR.md.
 
 Kaetzchen: Fressen dauert ca. 9 s mit zufaelligen Geraeuschen (knuspern, lecken, schmatzen, schlucken, nom, mrrp, schluerfen, brummen); acht neue Vorstellungen (Fisch, Singen, Geistesblitz, Foto, Kuchen, Lesen, Ballon, Schnee) und sechs neue Doppel-Sticker.
 

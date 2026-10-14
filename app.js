@@ -2,6 +2,7 @@
   'use strict';
 
   var TASKS = window.BIBER_TASKS;
+  var HOLD = window.BIBER_HOLDOUT || [];   /* zurückgehaltene Testaufgaben: nur im Probelauf, nicht in TASKS */
   var SCORING = window.BIBER_SCORING;
   var B = window.Biber;
   var GROUPS = ['3-4', '5-6', '7-8', '9-10', '11-13'];
@@ -71,7 +72,7 @@
     try { var r = window.localStorage.getItem(kittenKey(p)); return r ? JSON.parse(r) : null; } catch (e) { return null; }
   }
   function kittenScore(k) { return k ? Object.keys(k.stickers || {}).length * 1000 + (k.giftN || 0) * 10 + (k.pets || 0) : -1; }
-  function isPristine(p) { return p.setup && !Object.keys(p.results).length; }
+  function isPristine(p) { return p.setup && !Object.keys(p.results).length && !Object.keys(p.hold || {}).length; }
   function snapshot(light) {
     var out = store.profiles.filter(function (p) { return !isPristine(p); }).map(function (p) {
       var res = {};
@@ -79,7 +80,12 @@
         var r = p.results[id];
         res[id] = light ? { correct: r.correct, at: r.at } : r;
       });
-      return { id: p.id, name: p.name, legacy: !!p.legacy, created: p.created, upd: p.upd || '', adj: p.adj || 0, cleared: p.cleared || {}, results: res, runs: p.runs || [], kitten: readKitten(p), cls: p.cls || null };
+      var hd = {};
+      Object.keys(p.hold || {}).forEach(function (id) {
+        var r = p.hold[id];
+        hd[id] = light ? { correct: r.correct, at: r.at, p: r.p } : r;
+      });
+      return { id: p.id, name: p.name, legacy: !!p.legacy, created: p.created, upd: p.upd || '', adj: p.adj || 0, cleared: p.cleared || {}, results: res, hold: hd, runs: p.runs || [], kitten: readKitten(p), cls: p.cls || null };
     });
     if (!out.length && !Object.keys(store.gone || {}).length) return null;
     return { v: 1, at: new Date().toISOString(), gone: store.gone || {}, profiles: out };
@@ -124,6 +130,11 @@
         if (lp.cleared[id] && (r.at || '') <= lp.cleared[id]) return;
         var l = lp.results[id];
         if (!l || (r.at || '') < (l.at || '')) { lp.results[id] = r; changed = true; }
+      });
+      lp.hold = lp.hold || {};
+      Object.keys(rp.hold || {}).forEach(function (id) {
+        var r = rp.hold[id], l = lp.hold[id];
+        if (!l || (r.at || '') < (l.at || '')) { lp.hold[id] = r; changed = true; }
       });
       if (kittenScore(rp.kitten) > kittenScore(readKitten(lp))) {
         try { window.localStorage.setItem(kittenKey(lp), JSON.stringify(rp.kitten)); } catch (e) { /* ignorieren */ }
@@ -185,6 +196,9 @@
 
   /* ---------- Aufgabenlisten ---------- */
   function byId(id) { return TASKS.filter(function (t) { return t.id === id; })[0]; }
+  function holdById(id) { return HOLD.filter(function (t) { return t.id === id; })[0]; }
+  function lookup(id) { return byId(id) || holdById(id); }
+  function holdOf(p) { return p.hold || (p.hold = {}); }
   function rankOf(t) { return TASKS.indexOf(t); }
   function inGroup(t, g) { return !!(t.groups && t.groups[g]); }
   function inView(t) { return store.mode === 'alle' ? !!t.groups : inGroup(t, store.group); }
@@ -718,6 +732,13 @@
     var d = new Date(iso);
     return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
   }
+  function holdLine(p) {
+    var hs = holdStats(p);
+    if (!hs.seen) return '';
+    if (!hs.n) return '<p class="note">Testaufgaben (nur im Probelauf): ' + hs.seen + ' gesehen, ohne Antwort.</p>';
+    var d = hs.right - hs.exp;
+    return '<p class="note">Testaufgaben (nur im Probelauf, nicht im Training): ' + hs.n + ' beantwortet, ' + hs.right + ' richtig. Das Niveau-Modell erwartete ' + (Math.round(hs.exp * 10) / 10).toString().replace('.', ',') + ' richtige (' + (d >= 0 ? '+' : '−') + (Math.round(Math.abs(d) * 10) / 10).toString().replace('.', ',') + ').</p>';
+  }
   function profileCard(p, owner) {
     var done = TASKS.filter(function (t) { return t.id && p.results[t.id]; });
     var right = done.filter(function (t) { return p.results[t.id].correct; });
@@ -729,10 +750,11 @@
       '<p><b>' + lv.text + '</b> · ' + done.length + ' von ' + TASKS.filter(isReady).length + ' Aufgaben bearbeitet, ' + right.length + ' richtig' + (wrong.length ? ', ' + wrong.length + ' falsch' : '') + ' · zuletzt aktiv: ' + fmtDate(lastActive(p)) + '</p>' +
       '<div class="lvl-bar" role="img" aria-label="Niveau"><i style="width:' + lv.pct + '%"></i></div>' +
       (wrong.length ? '<p class="note">Falsch im ersten Versuch: ' + wrong.map(function (t) { return esc(t.title); }).join(', ') + '</p>' : '') +
+      holdLine(p) +
       (weak.length ? '<p class="note">Themen mit Fehlern: ' + weak.map(function (a) { return esc(a.area) + ' (' + a.right + '/' + a.done + ')'; }).join(', ') + '</p>' : '') +
       '</article>';
   }
-  function famTitles() { var t = {}; TASKS.forEach(function (x) { if (x.id) t[x.id] = x.title; }); return t; }
+  function famTitles() { var t = {}; TASKS.concat(HOLD).forEach(function (x) { if (x.id) t[x.id] = x.title; }); return t; }
   function ownCards() {
     var live = store.profiles.filter(function (p) { return !isPristine(p); });
     return live.length ? '<div class="fam-grid">' + live.map(function (p) { return profileCard(p, ''); }).join('') + '</div>' : '<p class="note">Noch keine Ergebnisse.</p>';
@@ -836,8 +858,36 @@
     document.dispatchEvent(new CustomEvent('biber:credit', { detail: { n: correct ? 3 : 1, correct: !!correct } }));
     return true;
   }
+  /* Zurückgehaltene Aufgabe nach einem Probelauf eintragen (erster Versuch zählt). correct null = gesehen, aber nicht beantwortet.
+     extra: { p: erwartete Wahrscheinlichkeit (Niveau-Modell vor dem Lauf), A0: Niveau vor dem Lauf, lv: Stufe im Heft, run: Beginn des Laufs } */
+  function recordHold(id, correct, answer, extra) {
+    var h = holdOf(profile());
+    if (h[id]) return false;
+    var r = { correct: correct === null ? null : !!correct, at: new Date().toISOString() };
+    if (correct !== null) r.answer = answer;
+    if (extra) Object.keys(extra).forEach(function (k) { r[k] = extra[k]; });
+    h[id] = r;
+    save();
+    if (correct !== null) document.dispatchEvent(new CustomEvent('biber:credit', { detail: { n: correct ? 3 : 1, correct: !!correct } }));
+    return true;
+  }
+  /* Auswertung der zurückgehaltenen Aufgaben: erwartet (Niveau-Modell) gegen tatsächlich */
+  function holdStats(p, onlyRun) {
+    var h = holdOf(p), st = { n: 0, right: 0, exp: 0, brier: 0, seen: 0 };
+    HOLD.forEach(function (t) {
+      var r = h[t.id];
+      if (!r) return;
+      st.seen++;
+      if (r.correct === null || r.correct === undefined || r.p == null) return;
+      if (onlyRun && r.run !== onlyRun) return;
+      st.n++; st.exp += r.p; if (r.correct) st.right++;
+      st.brier += Math.pow((r.correct ? 1 : 0) - r.p, 2);
+    });
+    st.brier = st.n ? st.brier / st.n : 0;
+    return st;
+  }
   window.BiberApp = {
-    tasks: TASKS, B: B, app: app, SCORING: SCORING, store: store,
+    tasks: TASKS, hold: HOLD, B: B, lookup: lookup, holdById: holdById, holdOf: holdOf, recordHold: recordHold, holdStats: holdStats, expectedP: expectedP, app: app, SCORING: SCORING, store: store,
     profile: function () { return profile(); }, save: function () { save(); }, route: function () { route(); },
     abilityOf: function (p) { return abilityOf(p); }, taskD: function (t) { return taskD(t); }, areaOf: function (t) { return areaOf(t); },
     isReady: function (t) { return isReady(t); }, esc: esc, pts: pts, recordResult: recordResult,
@@ -859,6 +909,7 @@
     else if (h === 'probelauf' && pages.probelauf) pages.probelauf();
     else if (/^klasse/.test(h) && pages.klasse) pages.klasse(h);
     else if (h && byId(h)) renderTask(h);
+    else if (h && holdById(h) && pages.hold) pages.hold(h);
     else renderOverview();
     window.scrollTo(0, 0);
     document.dispatchEvent(new Event('biber:render'));

@@ -65,6 +65,19 @@ write owner; `classes` read+write interact. Dazu `user` mit Bereich `profile` un
 - Ein Konto mit mehreren Kindern: Alle Kinder teilen den Login. Wer für jedes Kind ein eigenes Konto möchte und die Ergebnisse
   zusammen sehen will, braucht ein eigenes Artifact als Besitzer (Kopie dieser Seite) und den Familiencode.
 
+## Zurückgehaltene Testaufgaben („held-out“)
+- `holdout.js` (`window.BIBER_HOLDOUT`) enthält 24 Aufgaben der Hefte 2018 und 2019, die im Heft für Klasse 5–6 eingestuft sind. Sie stehen
+  **nicht** in `BIBER_TASKS`: nie in der Aufgabenliste, nie als Empfehlung, nie im Biber-Niveau, nicht in der Klassen-Rangliste.
+- Nur der Probelauf zieht sie, bevorzugt solange sie dem Profil unbekannt sind (Modus „laut Heft“: zuerst unbekannte Testaufgaben je Stufe;
+  Modus „Niveau“: Bonus bei der Auswahl). Gilt nur für Klassenstufen, für die das Heft die Aufgabe einordnet (`groups`).
+- Beim Start speichert der Lauf das Niveau `A0`; beim Abgeben wird je Testaufgabe die erwartete Erfolgswahrscheinlichkeit
+  `p = expectedP(A0, taskD)` zusammen mit dem Ergebnis in `profile.hold[id]` abgelegt (`correct`, `answer`, `p`, `A0`, `lv`, `run`, `at`;
+  erster Versuch zählt; `correct: null` = im Lauf gesehen, aber nicht beantwortet). Das ändert das Niveau nicht.
+- Die Ergebnisseite zeigt „erwartet gegen tatsächlich“; die Seite „Familie“ fasst alle Läufe zusammen (`BiberApp.holdStats`). Protokoll: `r.val`.
+- Eine Testaufgabe ist „verbraucht“, sobald ein Lauf mit ihr abgegeben wurde (Lösung und Erklärung sind dann bekannt). Danach ist sie über
+  `#<id>` nur zum Nachschauen und Üben ohne Wertung erreichbar (vorher zeigt die Adresse nur einen Hinweis).
+- Sind alle 24 verbraucht, gilt die Aufgabenauswahl wie bisher; neue Testaufgaben kommen durch Einträge in `holdout.js` (und `tasks/<id>.js`) dazu.
+
 ## Anpassen für die eigene Familie / Schule
 1. Repository kopieren, `python3 tools/bundle.py <Ordner>` ausführen, mit dem Artifact-Werkzeug veröffentlichen (Dateien siehe `README.txt`).
 2. Die Rechte der Datenbank wie oben setzen (`capabilities`).
