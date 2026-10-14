@@ -1,0 +1,43 @@
+/* Aufgabe Passt der Schlüssel? (2018) */
+.t-passtderschluessel18-board { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+.t-passtderschluessel18-panel { background: var(--surface2); border-radius: 12px; padding: 0.6rem 0.7rem 0.8rem; min-width: 0; }
+.t-passtderschluessel18-panel h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.4rem; }
+.t-passtderschluessel18-keybox { position: relative; width: 100%; max-width: 26rem; }
+.t-passtderschluessel18-lockbox { max-width: 15rem; margin-inline: auto; }
+.t-passtderschluessel18-svg { display: block; width: 100%; height: auto; }
+.t-passtderschluessel18-cells { position: absolute; inset: 0; }
+.t-passtderschluessel18-cell { appearance: none; position: absolute; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; touch-action: manipulation; border-radius: 2px; }
+.t-passtderschluessel18-cell:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.t-passtderschluessel18-cell:focus-visible { outline: 3px solid var(--focus); outline-offset: -2px; }
+.t-passtderschluessel18-cell:disabled { cursor: default; }
+.t-passtderschluessel18-gc { fill: none; stroke: var(--muted); stroke-opacity: 0.55; stroke-width: 1.2; stroke-dasharray: 3 3; }
+.t-passtderschluessel18-gc.t-passtderschluessel18-on { fill: none; stroke: none; }
+.t-passtderschluessel18-key { fill: var(--muted); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.t-passtderschluessel18-hs { fill: color-mix(in srgb, var(--c4) 45%, var(--surface2)); }
+.t-passtderschluessel18-ch { fill: var(--surface); }
+.t-passtderschluessel18-kp { fill: var(--c2); stroke: var(--ink); stroke-width: 1.5; }
+.t-passtderschluessel18-dp { fill: var(--c1); stroke: var(--ink); stroke-width: 1.5; }
+.t-passtderschluessel18-spring { fill: none; stroke: var(--muted); stroke-width: 2; stroke-linejoin: round; }
+.t-passtderschluessel18-num { font: 700 13px var(--font-body); fill: var(--ink); }
+.t-passtderschluessel18-bd circle { stroke: none; }
+.t-passtderschluessel18-bd text { font: 800 12px var(--font-body); fill: var(--bg); }
+.t-passtderschluessel18-bd.t-passtderschluessel18-ok circle { fill: var(--ok); }
+.t-passtderschluessel18-bd.t-passtderschluessel18-bad circle { fill: var(--bad); }
+.t-passtderschluessel18-sl { fill: none; stroke: var(--ok); stroke-width: 2.5; }
+.t-passtderschluessel18-sh { fill: none; stroke-width: 5; stroke-linecap: round; }
+.t-passtderschluessel18-lk { stroke: none; }
+.t-passtderschluessel18-kh { fill: var(--bg); }
+.t-passtderschluessel18-sok.t-passtderschluessel18-sh { stroke: var(--ok); }
+.t-passtderschluessel18-sbad.t-passtderschluessel18-sh { stroke: var(--bad); }
+.t-passtderschluessel18-sok.t-passtderschluessel18-lk { fill: var(--ok); }
+.t-passtderschluessel18-sbad.t-passtderschluessel18-lk { fill: var(--bad); }
+.t-passtderschluessel18-ex { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; margin: 0.6rem 0; align-items: end; }
+.t-passtderschluessel18-fig { margin: 0; display: grid; gap: 0.3rem; min-width: 0; align-content: end; }
+.t-passtderschluessel18-fig figcaption { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+.t-passtderschluessel18-ex .t-passtderschluessel18-pic { background: var(--surface2); border-radius: 10px; padding: 0.3rem; }
+@media (max-width: 40rem) {
+  .t-passtderschluessel18-board { grid-template-columns: minmax(0, 1fr); }
+  .t-passtderschluessel18-lk-panel { order: -1; }
+  .t-passtderschluessel18-ex { grid-template-columns: minmax(0, 1fr); }
+  .t-passtderschluessel18-ex .t-passtderschluessel18-pic { max-width: 18rem; }
+}

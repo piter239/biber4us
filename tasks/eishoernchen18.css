@@ -1,0 +1,38 @@
+/* Aufgabe Eishörnchen (2018) */
+.t-eishoernchen18-flav { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; margin: 0.4rem 0 0.9rem; }
+.t-eishoernchen18-flav span { display: block; line-height: 0; }
+.t-eishoernchen18-flav svg { display: block; width: 64px; height: auto; max-width: 100%; }
+.t-eishoernchen18-steps { margin: 0.2rem 0 0.9rem; padding-left: 0; list-style: none; display: grid; gap: 0.3rem; }
+.t-eishoernchen18-board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+.t-eishoernchen18-card {
+  appearance: none; margin: 0; padding: 0.4rem 0.3rem 0.5rem; position: relative; min-width: 0;
+  display: grid; justify-items: center; gap: 0.3rem;
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius); cursor: pointer; touch-action: manipulation;
+  color: var(--ink);
+}
+.t-eishoernchen18-card:hover:not(:disabled) { border-color: var(--accent); }
+.t-eishoernchen18-card.sel { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.t-eishoernchen18-card.right { border-color: var(--ok); box-shadow: none; }
+.t-eishoernchen18-card.wrong { border-color: var(--bad); box-shadow: none; }
+.t-eishoernchen18-card:disabled { cursor: default; color: inherit; }
+.t-eishoernchen18-name { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--ink); }
+/* Die Kugeln stehen auf einer festen hellblauen Fläche wie im Heft, damit die Eissorten in beiden Themes gut zu erkennen sind */
+.t-eishoernchen18-pic { display: block; width: 100%; line-height: 0; background: #bfe6f8; border-radius: 6px; padding: 4px 6px 0; }
+.t-eishoernchen18-pic svg { display: block; width: 100%; max-width: 100px; height: auto; margin: 0 auto; }
+.t-eishoernchen18-mark {
+  position: absolute; top: -10px; right: -8px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; color: #fff; font-size: 1rem;
+}
+.t-eishoernchen18-card.right .t-eishoernchen18-mark { background: var(--ok); }
+.t-eishoernchen18-card.wrong .t-eishoernchen18-mark { background: var(--bad); }
+.t-eishoernchen18-strip { display: flex; flex-wrap: wrap; gap: 0.5rem 0.7rem; margin: 0.4rem 0 0.8rem; }
+.t-eishoernchen18-sc { display: grid; justify-items: center; gap: 0.15rem; line-height: 1; padding: 0.3rem 0.35rem 0.25rem; background: #bfe6f8; border-radius: 6px; border: 2px solid transparent; color: #15303a; }
+.t-eishoernchen18-sc svg { display: block; width: 40px; height: auto; }
+.t-eishoernchen18-sc i { font-style: normal; font-size: 0.72rem; font-weight: 700; }
+.t-eishoernchen18-sc.bad { border-color: var(--bad); }
+.t-eishoernchen18-sc.bad i { color: #b3261e; }
+@media (max-width: 30rem) {
+  .t-eishoernchen18-board { gap: 0.4rem; }
+  .t-eishoernchen18-card { padding: 0.3rem 0.15rem 0.4rem; }
+  .t-eishoernchen18-pic { padding: 3px 3px 0; }
+}

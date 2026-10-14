@@ -1,0 +1,35 @@
+/* Aufgabe Planet Z (2018) */
+.t-planetz18-row { display: block; max-width: 100%; height: auto; flex: 0 1 auto; }
+.t-planetz18-start { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 0.6rem; }
+.t-planetz18-start svg { display: inline-block; }
+.t-planetz18-rules { list-style: none; margin: 0.3rem 0 0.9rem; padding: 0; display: grid; gap: 0.5rem; }
+.t-planetz18-rule { display: flex; align-items: center; flex-wrap: wrap; gap: 0.3rem 0.6rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 0.3rem 0.8rem; }
+.t-planetz18-rn { font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; min-width: 1.6rem; }
+.t-planetz18-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.t-planetz18-arr { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; color: var(--ink); }
+.t-planetz18-arr b { font-size: 1.7rem; font-weight: 400; }
+.t-planetz18-arr i { font-style: normal; font-size: 0.78rem; font-weight: 700; color: var(--muted); }
+.t-planetz18-ex { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 0.3rem 0.4rem; margin: 0.4rem 0 0.9rem; }
+.t-planetz18-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: 0.7rem; }
+.t-planetz18-card {
+  appearance: none; margin: 0; padding: 0.5rem 0.7rem; position: relative; min-width: 0;
+  display: grid; grid-template-columns: 2rem minmax(0, 1fr); align-items: center; gap: 0.4rem;
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius); cursor: pointer; touch-action: manipulation; color: var(--ink);
+}
+.t-planetz18-card:hover:not(:disabled) { border-color: var(--accent); }
+.t-planetz18-card.sel { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.t-planetz18-card.right { border-color: var(--ok); background: var(--ok-bg); box-shadow: none; }
+.t-planetz18-card.wrong { border-color: var(--bad); background: var(--bad-bg); box-shadow: none; }
+.t-planetz18-card:disabled { cursor: default; color: inherit; }
+.t-planetz18-name { font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; }
+.t-planetz18-pic { display: block; min-width: 0; line-height: 0; }
+.t-planetz18-city { display: block; width: 100%; max-width: 21rem; height: auto; margin: 0 auto; }
+.t-planetz18-mark {
+  position: absolute; top: -10px; right: -8px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; color: #fff; font-size: 1rem;
+}
+.t-planetz18-card.right .t-planetz18-mark { background: var(--ok); }
+.t-planetz18-card.wrong .t-planetz18-mark { background: var(--bad); }
+.t-planetz18-why { margin: 0.3rem 0 0.8rem; padding-left: 1.2rem; display: grid; gap: 0.35rem; }
+.t-planetz18-st { display: inline-flex; align-items: flex-end; gap: 0.3rem; flex-wrap: nowrap; }
+.t-planetz18-st .t-planetz18-arr { margin-bottom: 0.4rem; }

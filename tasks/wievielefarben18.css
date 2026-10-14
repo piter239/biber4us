@@ -1,0 +1,43 @@
+/* Aufgabe Wie viele Farben? (Präfix t-wievielefarben18) */
+.t-wievielefarben18-board { display: grid; gap: 1.1rem; }
+.t-wievielefarben18-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.t-wievielefarben18-paint { display: grid; grid-template-columns: minmax(0, 28rem) auto; gap: 1rem 1.5rem; align-items: start; }
+.t-wievielefarben18-boardsvg { min-width: 0; }
+.t-wievielefarben18-svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.t-wievielefarben18-reg { stroke: none; cursor: pointer; }
+.t-wievielefarben18-reg:focus-visible { outline: none; stroke: var(--focus); stroke-width: 4; stroke-linejoin: round; }
+.t-wievielefarben18-reg.over { stroke: var(--accent); stroke-width: 4; }
+.t-wievielefarben18-boardsvg[aria-disabled] .t-wievielefarben18-reg { cursor: default; }
+.t-wievielefarben18-line { fill: none; stroke: var(--ink); stroke-width: 1.762; stroke-linejoin: miter; pointer-events: none; }
+.t-wievielefarben18-sws { display: grid; gap: 0.5rem; }
+.t-wievielefarben18-sw {
+  appearance: none; display: grid; grid-template-columns: 2.6rem auto; gap: 0.5rem; align-items: center; padding: 0.2rem 0.5rem 0.2rem 0.2rem;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 10px; cursor: grab; touch-action: none; font-weight: 600; text-align: left; user-select: none; -webkit-user-select: none;
+}
+.t-wievielefarben18-sw svg { display: block; width: 2.6rem; height: 2.6rem; pointer-events: none; }
+.t-wievielefarben18-sw:hover { border-color: var(--accent); }
+.t-wievielefarben18-sw[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); box-shadow: 0 0 0 2px var(--accent); }
+.t-wievielefarben18-sw:disabled { cursor: default; opacity: 0.6; }
+.t-wievielefarben18-ghost { position: fixed; z-index: 2147483000; width: 44px; height: 44px; margin: -22px 0 0 -22px; pointer-events: none; border: 2px solid var(--ink); border-radius: 6px; overflow: hidden; opacity: 0.9; }
+.t-wievielefarben18-ghost svg { display: block; width: 100%; height: 100%; }
+.t-wievielefarben18-ans { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; font-weight: 600; }
+.t-wievielefarben18-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.t-wievielefarben18-chip {
+  appearance: none; width: 2.8rem; height: 2.8rem; border-radius: 50%; border: 3px solid var(--line); background: var(--surface2); color: var(--ink);
+  font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; cursor: pointer; touch-action: manipulation;
+}
+.t-wievielefarben18-chip:hover { border-color: var(--accent); }
+.t-wievielefarben18-chip.selected { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.t-wievielefarben18-chip.right { background: var(--ok); border-color: var(--ok); color: #fff; }
+.t-wievielefarben18-chip.wrong { background: var(--bad); border-color: var(--bad); color: #fff; }
+.t-wievielefarben18-chip[aria-disabled="true"] { cursor: default; }
+.t-wievielefarben18-ex { max-width: 20rem; margin: 0.4rem 0; }
+.t-wievielefarben18-exs .t-wievielefarben18-reg { cursor: default; }
+.t-wievielefarben18-lc { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
+.t-wievielefarben18-lt { fill: #15303a; font-family: var(--font-display); font-weight: 700; font-size: 17px; }
+@media (max-width: 40rem) {
+  .t-wievielefarben18-paint { grid-template-columns: minmax(0, 1fr); }
+  .t-wievielefarben18-sws { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .t-wievielefarben18-sw { grid-template-columns: minmax(0, 1fr); justify-items: center; padding: 0.3rem; gap: 0.2rem; font-size: 0.85rem; }
+  .t-wievielefarben18-sw svg { width: 2.6rem; }
+}

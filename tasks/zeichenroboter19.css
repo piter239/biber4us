@@ -1,0 +1,31 @@
+/* Stile für zeichenroboter19 (Präfix t-zeichenroboter19-) */
+.t-zeichenroboter19-board { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; gap: 1rem; justify-items: center; }
+.t-zeichenroboter19-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; width: 100%; max-width: 26rem; }
+.t-zeichenroboter19-opt {
+  appearance: none; position: relative; display: grid; justify-items: center; gap: 0.15rem; padding: 0.4rem 0.4rem 0.5rem;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 14px; cursor: pointer; touch-action: manipulation; font: inherit; min-width: 0;
+}
+.t-zeichenroboter19-opt:hover { border-color: var(--accent); }
+.t-zeichenroboter19-opt[aria-disabled="true"] { cursor: default; }
+.t-zeichenroboter19-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-zeichenroboter19-opt.selected, .t-zeichenroboter19-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-zeichenroboter19-opt.right, .t-zeichenroboter19-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-zeichenroboter19-opt.wrong, .t-zeichenroboter19-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-zeichenroboter19-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; justify-self: start; }
+.t-zeichenroboter19-optgrid { display: block; width: 100%; max-width: 10rem; height: auto; pointer-events: none; }
+.t-zeichenroboter19-grid { display: block; width: 100%; height: auto; }
+.t-zeichenroboter19-bg { fill: #ffffff; }
+.t-zeichenroboter19-gl { stroke: #b9b9b9; stroke-width: 1; }
+.t-zeichenroboter19-ln { stroke: #1a0aa8; stroke-width: 2.4; stroke-linecap: square; }
+.t-zeichenroboter19-old { stroke: #9a93d9; stroke-width: 2; stroke-linecap: square; }
+.t-zeichenroboter19-robot { fill: #e01818; }
+.t-zeichenroboter19-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-zeichenroboter19-opt.wrong .t-zeichenroboter19-mark { background: var(--bad); }
+.t-zeichenroboter19-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; margin: 0.6rem 0; max-width: 34rem; }
+@media (min-width: 34rem) { .t-zeichenroboter19-figs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.t-zeichenroboter19-fig { margin: 0; text-align: center; font-size: 0.9rem; color: var(--muted); min-width: 0; }
+.t-zeichenroboter19-fig .t-zeichenroboter19-grid { max-width: 8.5rem; margin: 0 auto 0.15rem; border: 1px solid var(--line); border-radius: 4px; }
+.t-zeichenroboter19-note { font-size: 0.92rem; color: var(--muted); }

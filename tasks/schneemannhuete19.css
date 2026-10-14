@@ -1,0 +1,29 @@
+/* Aufgabe Schneemann-Hüte (2019) */
+.t-schneemannhuete19-board { position: relative; display: grid; gap: 0.7rem; max-width: 28rem; margin-inline: auto; }
+.t-schneemannhuete19-row { display: grid; grid-template-columns: 20% minmax(0, 1fr) 62%; align-items: center; min-width: 0; }
+.t-schneemannhuete19-gap { display: block; }
+.t-schneemannhuete19-card {
+  position: relative; appearance: none; display: block; width: 100%; padding: 3px; margin: 0; box-sizing: border-box;
+  background: var(--paper); border: 3px solid var(--line); border-radius: 10px; cursor: pointer; touch-action: manipulation; line-height: 0;
+}
+.t-schneemannhuete19-card.row { padding: 0; background: none; overflow: visible; }
+.t-schneemannhuete19-card img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.t-schneemannhuete19-card.row img { border-radius: 7px; }
+.t-schneemannhuete19-card:hover:not(:disabled) { border-color: var(--accent); }
+.t-schneemannhuete19-card.sel { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent); }
+.t-schneemannhuete19-card:disabled { cursor: default; }
+.t-schneemannhuete19-dot {
+  position: absolute; top: 50%; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%;
+  background: var(--c2); border: 3px solid var(--ink); box-sizing: border-box; touch-action: none; cursor: crosshair; line-height: 0;
+}
+.t-schneemannhuete19-dot::after { content: ''; position: absolute; inset: -12px; border-radius: 50%; }
+.t-schneemannhuete19-card.hat .t-schneemannhuete19-dot { right: -14px; }
+.t-schneemannhuete19-card.row .t-schneemannhuete19-dot { left: -14px; }
+.t-schneemannhuete19-card.sel .t-schneemannhuete19-dot { background: var(--accent); }
+.t-schneemannhuete19-card:disabled .t-schneemannhuete19-dot { cursor: default; }
+.t-schneemannhuete19-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.t-schneemannhuete19-line { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
+.t-schneemannhuete19-line.temp { stroke: var(--accent); stroke-dasharray: 2 8; }
+.t-schneemannhuete19-line.right { stroke: var(--ok); }
+.t-schneemannhuete19-line.wrong { stroke: var(--bad); }
+.t-schneemannhuete19-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

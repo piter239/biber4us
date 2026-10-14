@@ -1,0 +1,41 @@
+/* Stile für raumfahrt19 (Präfix t-raumfahrt19-) */
+.t-raumfahrt19-board { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; justify-items: center; min-width: 0; max-width: 100%; }
+.t-raumfahrt19-map { margin: 0; width: 100%; max-width: 44rem; min-width: 0; }
+.t-raumfahrt19-mapscroll { max-width: 100%; overflow-x: auto; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+.t-raumfahrt19-map img { display: block; width: 100%; height: auto; }
+.t-raumfahrt19-maphint { display: none; font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: 0.2rem; }
+.t-raumfahrt19-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; width: 100%; max-width: 40rem; }
+.t-raumfahrt19-opt {
+  appearance: none; position: relative; display: grid; justify-items: center; gap: 0.3rem; padding: 0.45rem 0.4rem 0.5rem;
+  background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 14px; cursor: pointer; touch-action: manipulation; font: inherit; min-width: 0;
+}
+.t-raumfahrt19-opt:hover { border-color: var(--accent); }
+.t-raumfahrt19-opt[aria-disabled="true"] { cursor: default; }
+.t-raumfahrt19-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-raumfahrt19-opt.selected, .t-raumfahrt19-opt.selected:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface2)); }
+.t-raumfahrt19-opt.right, .t-raumfahrt19-opt.right:hover { border-color: var(--ok); background: var(--ok-bg); }
+.t-raumfahrt19-opt.wrong, .t-raumfahrt19-opt.wrong:hover { border-color: var(--bad); background: var(--bad-bg); }
+.t-raumfahrt19-key { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+.t-raumfahrt19-pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.2rem; flex-wrap: nowrap;
+  min-height: 3rem; padding: 0.25rem 0.8rem; border-radius: 999px; background: #0d0a2e; vertical-align: middle; max-width: 100%; box-sizing: border-box;
+}
+.t-raumfahrt19-opt .t-raumfahrt19-pill { width: 100%; pointer-events: none; padding: 0.25rem 0.4rem; }
+.t-raumfahrt19-veh { display: inline-block; vertical-align: middle; height: 2.2rem; width: auto; flex: 0 1 auto; min-width: 0; }
+.t-raumfahrt19-pl { display: inline-block; vertical-align: middle; height: 1.8rem; width: auto; margin: 0 0.1rem; }
+p > .t-raumfahrt19-veh { height: 2.4rem; margin: 0 0.1rem; }
+.t-raumfahrt19-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-raumfahrt19-opt.wrong .t-raumfahrt19-mark { background: var(--bad); }
+.t-raumfahrt19-routes { margin: 0.4rem 0 0.6rem; padding-left: 1.1rem; display: grid; gap: 0.25rem; }
+@media (max-width: 40rem) {
+  .t-raumfahrt19-map img { width: 40rem; max-width: none; }
+  .t-raumfahrt19-maphint { display: block; }
+}
+@media (max-width: 34rem) {
+  .t-raumfahrt19-opts { grid-template-columns: minmax(0, 1fr); gap: 0.7rem; max-width: 22rem; }
+  .t-raumfahrt19-opt { grid-template-columns: auto minmax(0, 1fr); align-items: center; }
+  .t-raumfahrt19-opt .t-raumfahrt19-key { order: -1; padding-left: 0.3rem; }
+}

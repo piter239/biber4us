@@ -1,0 +1,46 @@
+/* Aufgabe Aufzüge (2018) */
+.t-aufzuege18-board { display: grid; gap: 0.8rem; border: 2px solid transparent; border-radius: var(--radius); padding: 0.2rem; }
+.t-aufzuege18-board.right { border-color: var(--ok); }
+.t-aufzuege18-board.wrong { border-color: var(--bad); }
+.t-aufzuege18-lifts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.t-aufzuege18-lift { display: grid; grid-template-rows: auto 1fr auto auto; gap: 0.4rem; min-width: 0; align-content: start; }
+.t-aufzuege18-top { display: flex; align-items: flex-end; justify-content: center; gap: 0.5rem; position: relative; padding-top: 0.8rem; }
+.t-aufzuege18-top::before { content: ""; position: absolute; left: 50%; top: 0; height: 1rem; border-left: 2px solid #5c1d12; }
+.t-aufzuege18-tag { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; background: #7a1010; color: #fff; font: 700 1.05rem var(--font-display); padding: 0.25rem 0.55rem 0.3rem; border-radius: 4px; }
+.t-aufzuege18-tag small { font-size: 0.65rem; font-weight: 600; }
+.t-aufzuege18-arrow { display: block; line-height: 0; }
+.t-aufzuege18-cabin {
+  display: flex; flex-wrap: wrap; align-content: flex-end; justify-content: center; gap: 0.2rem 0.3rem; min-height: 12.5rem; padding: 0.4rem 0.3rem;
+  background: #fffdf6; border: 6px solid #5c1d12; border-radius: 10px; box-shadow: 0 0 0 2px #c2a22c; touch-action: manipulation;
+}
+.t-aufzuege18-cabin.over, .t-aufzuege18-meadow.over { outline: 3px dashed var(--accent); outline-offset: 2px; }
+.t-aufzuege18-cabin.nope { animation: t-aufzuege18-shake 0.5s; border-color: #b3261e; }
+@keyframes t-aufzuege18-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+@media (prefers-reduced-motion: reduce) { .t-aufzuege18-cabin.nope { animation: none; } }
+.t-aufzuege18-scale { justify-self: center; min-width: 7.5rem; text-align: center; background: #fff; color: #1a1a1a; border: 3px solid #5c1d12; border-radius: 4px; padding: 0.1rem 0.8rem; font: 700 1.3rem var(--font-display); }
+.t-aufzuege18-scale b { color: #1b7a49; font-size: 1.8rem; margin-right: 0.15rem; }
+.t-aufzuege18-meadow { background: #72c730; border: 2px solid #4f9a1c; border-radius: 10px; padding: 0.5rem 0.4rem 0.3rem; min-height: 6.5rem; display: grid; gap: 0.4rem; touch-action: manipulation; }
+.t-aufzuege18-pool { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 0.2rem 0.5rem; }
+.t-aufzuege18-bv {
+  appearance: none; margin: 0; padding: 2px 3px; background: none; border: 2px solid transparent; border-radius: 8px; cursor: grab;
+  display: grid; justify-items: center; gap: 1px; touch-action: none; color: #1a1a1a; user-select: none; -webkit-user-select: none;
+}
+.t-aufzuege18-bv img { display: block; height: auto; pointer-events: none; -webkit-user-drag: none; }
+.t-aufzuege18-kg { font: 700 1rem var(--font-display); color: #1a1a1a; line-height: 1.1; }
+.t-aufzuege18-bv.sel { border-color: var(--accent); background: rgb(255 255 255 / 0.55); box-shadow: 0 0 0 2px #fff; }
+.t-aufzuege18-bv.lifted { opacity: 0.3; }
+.t-aufzuege18-bv:disabled { cursor: default; opacity: 1; color: #1a1a1a; }
+.t-aufzuege18-bv.ghost { position: fixed; z-index: 1000; pointer-events: none; opacity: 0.92; cursor: grabbing; background: rgb(255 255 255 / 0.5); border-color: var(--accent); }
+.t-aufzuege18-put { appearance: none; margin: 0; padding: 0.45rem 0.6rem; min-height: 2.5rem; background: var(--accent); color: var(--accent-ink); border: 0; border-radius: var(--radius); font: 700 0.95rem var(--font-body); cursor: pointer; touch-action: manipulation; }
+.t-aufzuege18-put.back { justify-self: center; background: #fff; color: #15303a; border: 2px solid #4f9a1c; }
+.t-aufzuege18-count { margin: 0; text-align: center; color: var(--muted); font-size: 0.95rem; }
+.t-aufzuege18-count b { color: var(--ink); }
+@media (max-width: 30rem) {
+  .t-aufzuege18-lifts { gap: 0.5rem; }
+  .t-aufzuege18-cabin { min-height: 11.5rem; padding: 0.3rem 0.1rem; border-width: 5px; gap: 0.15rem 0.1rem; }
+  .t-aufzuege18-board { --t-aufzuege18-k: 0.74; }
+  .t-aufzuege18-kg { font-size: 0.85rem; }
+  .t-aufzuege18-bv { padding: 1px 1px; }
+  .t-aufzuege18-scale { min-width: 6rem; font-size: 1.1rem; }
+  .t-aufzuege18-scale b { font-size: 1.5rem; }
+}

@@ -1,0 +1,46 @@
+/* Aufgabe Bibertaler (2019) */
+.t-bibertaler19-board { display: grid; gap: 1.25rem; justify-items: start; }
+.t-bibertaler19-board > section { width: 100%; min-width: 0; }
+.t-bibertaler19-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-bibertaler19-bag { position: relative; width: 100%; max-width: 21rem; aspect-ratio: 340 / 330; }
+.t-bibertaler19-bagsvg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.t-bibertaler19-bagshape { fill: var(--surface2); stroke: var(--line); stroke-width: 3; stroke-linejoin: round; }
+.t-bibertaler19-src {
+  position: absolute; width: 19%; aspect-ratio: 1; transform: translate(-50%, -50%); min-width: 44px;
+  appearance: none; padding: 0; border: 0; background: none; border-radius: 50%; cursor: pointer; touch-action: manipulation;
+}
+.t-bibertaler19-src:hover:not(:disabled) .t-bibertaler19-coin { box-shadow: 0 0 0 3px var(--accent); }
+.t-bibertaler19-src:active:not(:disabled) .t-bibertaler19-coin { transform: scale(0.94); }
+.t-bibertaler19-src:disabled { cursor: default; opacity: 0.55; }
+.t-bibertaler19-coin {
+  display: grid; place-items: center; width: 100%; height: 100%; aspect-ratio: 1; box-sizing: border-box; border-radius: 50%;
+  background: var(--slot); border: max(3px, 0.35em) solid var(--c2); color: var(--ink);
+  font: 800 1.35rem/1 var(--font-display); font-variant-numeric: tabular-nums; user-select: none;
+  transition: transform 0.08s;
+}
+.t-bibertaler19-tray {
+  position: relative; max-width: 30rem; padding: 0.7rem; border-radius: 12px; background: var(--surface2);
+  border: 3px solid var(--line); border-bottom-width: 6px;
+}
+.t-bibertaler19-slots { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0.4rem; }
+.t-bibertaler19-slot {
+  appearance: none; padding: 0; border: 0; aspect-ratio: 1; border-radius: 50%; background: color-mix(in srgb, var(--muted) 28%, var(--surface2));
+  display: block; min-width: 0;
+}
+.t-bibertaler19-slot.full { background: none; cursor: pointer; touch-action: manipulation; }
+.t-bibertaler19-slot.full:hover:not(:disabled) .t-bibertaler19-coin { box-shadow: 0 0 0 3px var(--bad); }
+.t-bibertaler19-slot.full:disabled { cursor: default; }
+.t-bibertaler19-slot .t-bibertaler19-coin { font-size: clamp(0.7rem, 3.4vw, 1.05rem); }
+.t-bibertaler19-tray.right { border-color: var(--ok); }
+.t-bibertaler19-tray.wrong { border-color: var(--bad); }
+.t-bibertaler19-mark {
+  position: absolute; top: -12px; right: -10px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  font: 800 1rem/1 var(--font-body); color: #fff; background: var(--ok);
+}
+.t-bibertaler19-tray.wrong .t-bibertaler19-mark { background: var(--bad); }
+.t-bibertaler19-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 30rem) {
+  .t-bibertaler19-slots { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+  .t-bibertaler19-slot .t-bibertaler19-coin { font-size: 1.15rem; }
+  .t-bibertaler19-tray { max-width: 17rem; }
+}

@@ -1,0 +1,21 @@
+/* Aufgabe Kleiner Teich (Präfix t-kleinerteich18) */
+.t-kleinerteich18-board { display: grid; gap: 1.2rem; }
+.t-kleinerteich18-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.5rem; max-width: 44rem; }
+.t-kleinerteich18-fig { margin: 0; display: grid; gap: 0.4rem; min-width: 0; justify-items: center; }
+.t-kleinerteich18-fig img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.t-kleinerteich18-fig figcaption { font-weight: 700; color: var(--muted); font-size: 0.95rem; }
+.t-kleinerteich18-sol { max-width: 24rem; margin: 0.4rem 0; }
+.t-kleinerteich18-ans { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; font-weight: 600; }
+.t-kleinerteich18-in {
+  width: 4.2rem; font: inherit; font-size: 1.4rem; font-weight: 700; text-align: center; padding: 0.35rem 0.4rem; border-radius: 10px;
+  border: 3px solid var(--line); background: var(--surface); color: var(--ink);
+}
+.t-kleinerteich18-in:focus { border-color: var(--accent); outline: none; }
+.t-kleinerteich18-in.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-kleinerteich18-in.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-kleinerteich18-in:disabled { opacity: 1; -webkit-text-fill-color: var(--ink); }
+.t-kleinerteich18-hint.ok { color: var(--ok); }
+.t-kleinerteich18-hint.bad { color: var(--bad); }
+@media (max-width: 34rem) {
+  .t-kleinerteich18-figs { grid-template-columns: minmax(0, 1fr); max-width: 22rem; }
+}

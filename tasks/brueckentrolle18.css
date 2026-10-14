@@ -1,0 +1,50 @@
+/* Aufgabe Brückentrolle (Präfix t-brueckentrolle18) */
+.t-brueckentrolle18-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); gap: 1.2rem 2rem; align-items: start; }
+.t-brueckentrolle18-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.t-brueckentrolle18-opts { display: grid; gap: 0.6rem; position: sticky; top: 4.5rem; min-width: 0; }
+.t-brueckentrolle18-opt {
+  appearance: none; position: relative; display: grid; grid-template-columns: 2rem 2.4rem minmax(0, 1fr); gap: 0.7rem; align-items: center; text-align: left;
+  width: 100%; padding: 0.6rem 0.8rem; background: var(--surface2); color: var(--ink); border: 3px solid var(--line); border-radius: 12px; cursor: pointer; touch-action: manipulation;
+}
+.t-brueckentrolle18-opt:hover { border-color: var(--accent); }
+.t-brueckentrolle18-opt.selected { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface2)); }
+.t-brueckentrolle18-opt.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-brueckentrolle18-opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-brueckentrolle18-opt[aria-disabled="true"] { cursor: default; }
+.t-brueckentrolle18-opt[aria-disabled="true"]:hover { border-color: var(--line); }
+.t-brueckentrolle18-opt.selected[aria-disabled="true"]:hover { border-color: var(--accent); }
+.t-brueckentrolle18-opt.right[aria-disabled="true"]:hover { border-color: var(--ok); }
+.t-brueckentrolle18-opt.wrong[aria-disabled="true"]:hover { border-color: var(--bad); }
+.t-brueckentrolle18-letter {
+  display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--surface); border: 2px solid var(--line);
+  font-family: var(--font-display); font-weight: 700;
+}
+.t-brueckentrolle18-opt.selected .t-brueckentrolle18-letter { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.t-brueckentrolle18-oi svg { display: block; width: 2.4rem; height: auto; background: var(--paper); border-radius: 6px; padding: 2px; }
+.t-brueckentrolle18-ot { font-weight: 600; line-height: 1.3; }
+.t-brueckentrolle18-mark {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--ok);
+}
+.t-brueckentrolle18-opt.wrong .t-brueckentrolle18-mark { background: var(--bad); }
+.t-brueckentrolle18-figure { min-width: 0; }
+.t-brueckentrolle18-svg { display: block; width: 100%; height: auto; max-width: 22rem; margin-inline: auto; }
+.t-brueckentrolle18-mount { fill: color-mix(in srgb, var(--c6) 30%, var(--surface2)); stroke: color-mix(in srgb, var(--c6) 55%, var(--surface2)); stroke-width: 1.5; }
+.t-brueckentrolle18-river { fill: none; stroke: color-mix(in srgb, var(--c4) 72%, var(--surface)); stroke-width: 15; stroke-linejoin: round; }
+.t-brueckentrolle18-tbg { fill: var(--paper); stroke: var(--slot-line); stroke-width: 2; }
+.t-brueckentrolle18-tile.act .t-brueckentrolle18-tbg { fill: color-mix(in srgb, var(--c2) 38%, var(--paper)); stroke: var(--c2); stroke-width: 3.5; }
+.t-brueckentrolle18-arrow { fill: none; stroke: var(--c4); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.t-brueckentrolle18-bridge { fill: color-mix(in srgb, var(--muted) 42%, var(--paper)); stroke: var(--muted); stroke-width: 1.5; stroke-linejoin: round; }
+.t-brueckentrolle18-hole { fill: color-mix(in srgb, var(--c4) 72%, var(--surface)); }
+.t-brueckentrolle18-num { fill: var(--surface); stroke-width: 3; }
+.t-brueckentrolle18-numt { font-family: var(--font-display); font-weight: 700; font-size: 19px; }
+.t-brueckentrolle18-who { fill: var(--ink); font-weight: 700; font-size: 13px; font-family: var(--font-body); }
+.t-brueckentrolle18-face { fill: var(--paper); stroke: var(--muted); stroke-width: 1.5; }
+.t-brueckentrolle18-cloud { fill: var(--paper); stroke: var(--muted); stroke-width: 2; stroke-linejoin: round; }
+.t-brueckentrolle18-badge circle { fill: var(--paper); stroke: var(--accent); stroke-width: 2.5; }
+.t-brueckentrolle18-badge.chg circle { stroke: var(--c2); stroke-width: 3.5; }
+.t-brueckentrolle18-res { margin: 0.2rem 0 0.6rem; padding-left: 1.2rem; display: grid; gap: 0.2rem; }
+@media (max-width: 44rem) {
+  .t-brueckentrolle18-board { grid-template-columns: minmax(0, 1fr); }
+  .t-brueckentrolle18-opts { position: static; }
+}

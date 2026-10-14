@@ -1,0 +1,33 @@
+/* Aufgabe Bäume-Band (2018) */
+.t-baeumeband18-box { display: grid; gap: 1.1rem; min-width: 0; }
+.t-baeumeband18-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.t-baeumeband18-f { margin: 0; display: grid; gap: 0.4rem; min-width: 0; align-content: start; }
+.t-baeumeband18-f figcaption { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+.t-baeumeband18-panel { background: var(--surface); border: 2px solid var(--line); border-radius: 12px; padding: 0.3rem; }
+.t-baeumeband18-svg { display: block; width: 100%; height: auto; }
+.t-baeumeband18-tree { fill: var(--c6); stroke: var(--ink); stroke-width: 4; }
+.t-baeumeband18-band { fill: none; stroke: var(--c2); stroke-width: 5; stroke-linejoin: round; }
+.t-baeumeband18-badge { fill: var(--c2); stroke: var(--ink); stroke-width: 4; }
+.t-baeumeband18-num { font: 800 22px var(--font-body); fill: var(--bg); }
+.t-baeumeband18-fig { max-width: 26rem; background: var(--surface); border-radius: 12px; padding: 0.3rem; }
+.t-baeumeband18-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; }
+.t-baeumeband18-opt { display: block; position: relative; cursor: pointer; min-width: 0; }
+.t-baeumeband18-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-baeumeband18-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.15rem; padding: 0.6rem 0.4rem; border: 3px solid var(--line);
+  border-radius: 12px; background: var(--surface); position: relative; text-align: center; min-height: 4.4rem; justify-content: center;
+}
+.t-baeumeband18-opt input:checked + .t-baeumeband18-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-baeumeband18-opt input:focus-visible + .t-baeumeband18-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-baeumeband18-opt input:disabled { cursor: default; }
+.t-baeumeband18-opt.right .t-baeumeband18-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-baeumeband18-opt.wrong .t-baeumeband18-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-baeumeband18-let { font-weight: 800; color: var(--muted); }
+.t-baeumeband18-val { font-weight: 700; font-size: 1.1rem; }
+.t-baeumeband18-mark { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: var(--bg); font-weight: 800; font-size: 0.95rem; }
+.t-baeumeband18-opt.right .t-baeumeband18-mark { background: var(--ok); }
+.t-baeumeband18-opt.wrong .t-baeumeband18-mark { background: var(--bad); }
+@media (max-width: 30rem) {
+  .t-baeumeband18-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-baeumeband18-figs { gap: 0.5rem; }
+}
