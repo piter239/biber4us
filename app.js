@@ -562,13 +562,14 @@
   }
   function dayData(p) {
     var days = {};
+    function day(k) { return days[k] = days[k] || { k: k, ids: {}, fixed: 0 }; }
     Object.keys(p.results || {}).forEach(function (id) {
       if (!byId(id)) return;
       var r = p.results[id], k = dayKey(r.at), kf = r.fixed && !r.correct ? dayKey(r.fixed) : null;
-      if (k) { days[k] = days[k] || { k: k, total: 0, fixed: 0 }; days[k].total++; }
-      if (kf) { days[kf] = days[kf] || { k: kf, total: 0, fixed: 0 }; days[kf].fixed++; }
+      if (k) day(k).ids[id] = 1;
+      if (kf) { var d = day(kf); d.ids[id] = 1; d.fixed++; }   /* eine Nachbesserung ist auch eine Bearbeitung */
     });
-    return Object.keys(days).sort().map(function (k) { return days[k]; }).filter(function (d) { return d.total > 0 || d.fixed > 0; });
+    return Object.keys(days).sort().map(function (k) { var d = days[k]; d.total = Object.keys(d.ids).length; return d; }).filter(function (d) { return d.total > 0; });
   }
   function dayChart(p) {
     var data = dayData(p);
@@ -581,21 +582,22 @@
     var g = '';
     for (var v = 0; v <= top; v += step) g += '<line class="dc-grid" x1="' + padL + '" x2="' + (W - 4) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text class="dc-ax" x="' + (padL - 6) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + v + '</text>';
     data.forEach(function (d, i) {
-      var x0 = padL + i * gw + (gw - 2 * bw - 4) / 2;
-      function bar(v, cls, x, what) {
+      var x0 = padL + i * gw + (gw - bw) / 2;
+      function bar(v, cls, x, what, above) {
         if (!v) return '';
         var h = Math.max(3, ch * v / top), r = Math.min(4, h);
         return '<path class="' + cls + '" d="M' + x + ' ' + (padT + ch) + 'V' + (padT + ch - h + r) + 'Q' + x + ' ' + (padT + ch - h) + ' ' + (x + r) + ' ' + (padT + ch - h) + 'H' + (x + bw - r) + 'Q' + (x + bw) + ' ' + (padT + ch - h) + ' ' + (x + bw) + ' ' + (padT + ch - h + r) + 'V' + (padT + ch) + 'Z"><title>' + lab(d.k) + ': ' + v + ' ' + what + '</title></path>' +
-          '<text class="dc-val" x="' + (x + bw / 2) + '" y="' + (padT + ch - h - 5) + '" text-anchor="middle">' + v + '</text>';
+          (above ? '<text class="dc-val" x="' + (x + bw / 2) + '" y="' + (padT + ch - h - 5) + '" text-anchor="middle">' + v + '</text>'
+            : (h >= 17 ? '<text class="dc-val dc-in" x="' + (x + bw / 2) + '" y="' + (padT + ch - h + 14) + '" text-anchor="middle">' + v + '</text>' : ''));
       }
-      g += bar(d.total, 'dc-a', x0, d.total === 1 ? 'Aufgabe bearbeitet' : 'Aufgaben bearbeitet') + bar(d.fixed, 'dc-b', x0 + bw + 4, d.fixed === 1 ? 'Nachbesserung gelungen' : 'Nachbesserungen gelungen');
+      g += bar(d.total, 'dc-a', x0, d.total === 1 ? 'Aufgabe bearbeitet' : 'Aufgaben bearbeitet', true) + bar(d.fixed, 'dc-b', x0, d.fixed === 1 ? 'davon 1 Nachbesserung gelungen' : 'davon ' + d.fixed + ' Nachbesserungen gelungen', false);
       g += '<text class="dc-ax" x="' + (padL + i * gw + gw / 2) + '" y="' + (H - 12) + '" text-anchor="middle">' + lab(d.k) + '</text>';
     });
     var rows = data.map(function (d) { return '<tr><td>' + lab(d.k) + '</td><td class="r num">' + d.total + '</td><td class="r num">' + d.fixed + '</td></tr>'; }).join('');
     var sum = data.reduce(function (a, d) { return a + d.total; }, 0), sumF = data.reduce(function (a, d) { return a + d.fixed; }, 0);
-    return '<div class="dc-legend"><span><i class="dc-sw dc-a"></i> Aufgaben bearbeitet</span><span><i class="dc-sw dc-b"></i> ★ Nachbesserungen gelungen</span></div>' +
+    return '<div class="dc-legend"><span><i class="dc-sw dc-a"></i> Aufgaben bearbeitet</span><span><i class="dc-sw dc-b"></i> davon ★ nachgebessert</span></div>' +
       '<div class="dc-scroll"><svg class="dc" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Aufgaben pro Tag: ' + sum + ' bearbeitet an ' + data.length + ' Tagen, ' + sumF + ' Nachbesserungen gelungen">' + g + '</svg></div>' +
-      '<details class="dc-tbl"><summary>Als Tabelle</summary><div class="tbl-wrap"><table class="res"><thead><tr><th>Tag</th><th class="r">bearbeitet</th><th class="r">★ nachgebessert</th></tr></thead><tbody>' + rows + '</tbody></table></div></details>';
+      '<details class="dc-tbl"><summary>Als Tabelle</summary><div class="tbl-wrap"><table class="res"><thead><tr><th>Tag</th><th class="r">bearbeitet</th><th class="r">davon ★ nachgebessert</th></tr></thead><tbody>' + rows + '</tbody></table></div></details>';
   }
 
   /* ---------- Bewertung ---------- */

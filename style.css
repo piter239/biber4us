@@ -416,5 +416,6 @@ table.res { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-widt
 .dc-grid { stroke: var(--line); stroke-width: 1; }
 .dc-ax { fill: var(--muted); font-size: 11.5px; }
 .dc-val { fill: var(--ink); font-size: 12px; font-weight: 700; }
+.dc-val.dc-in { fill: #3d2700; }
 .dc-tbl, .dc-fam { margin-top: .5rem; }
 .dc-tbl summary, .dc-fam summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: .9rem; }
