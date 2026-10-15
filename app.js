@@ -551,6 +551,53 @@
     });
   }
 
+  /* ---------- Aufgaben pro Tag ----------
+     Nur Tage mit Aktivität. Zwei Reihen: bearbeitete Aufgaben (erster Versuch, richtig oder falsch, ohne Aufschlüsselung) und
+     gelungene Nachbesserungen (falscher erster Versuch, später richtig gelöst). Falsche Versuche werden nicht eigens gezeigt. */
+  function dayKey(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return null;
+    function z(n) { return (n < 10 ? '0' : '') + n; }
+    return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate());
+  }
+  function dayData(p) {
+    var days = {};
+    Object.keys(p.results || {}).forEach(function (id) {
+      if (!byId(id)) return;
+      var r = p.results[id], k = dayKey(r.at), kf = r.fixed && !r.correct ? dayKey(r.fixed) : null;
+      if (k) { days[k] = days[k] || { k: k, total: 0, fixed: 0 }; days[k].total++; }
+      if (kf) { days[kf] = days[kf] || { k: kf, total: 0, fixed: 0 }; days[kf].fixed++; }
+    });
+    return Object.keys(days).sort().map(function (k) { return days[k]; }).filter(function (d) { return d.total > 0 || d.fixed > 0; });
+  }
+  function dayChart(p) {
+    var data = dayData(p);
+    if (!data.length) return '<p class="note">Noch keine bearbeiteten Aufgaben.</p>';
+    var max = 0; data.forEach(function (d) { max = Math.max(max, d.total, d.fixed); });
+    var step = max <= 5 ? 1 : max <= 10 ? 2 : max <= 25 ? 5 : 10, top = Math.ceil(max / step) * step;
+    var gw = 64, bw = 22, padL = 30, padT = 20, padB = 34, H = 210, ch = H - padT - padB, W = padL + data.length * gw + 8;
+    function y(v) { return padT + ch - ch * v / top; }
+    function lab(k) { var a = k.split('-'), d = new Date(+a[0], +a[1] - 1, +a[2]); return d.toLocaleDateString('de-DE', { weekday: 'short' }).replace('.', '') + ' ' + a[2] + '.' + a[1] + '.'; }
+    var g = '';
+    for (var v = 0; v <= top; v += step) g += '<line class="dc-grid" x1="' + padL + '" x2="' + (W - 4) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text class="dc-ax" x="' + (padL - 6) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + v + '</text>';
+    data.forEach(function (d, i) {
+      var x0 = padL + i * gw + (gw - 2 * bw - 4) / 2;
+      function bar(v, cls, x, what) {
+        if (!v) return '';
+        var h = Math.max(3, ch * v / top), r = Math.min(4, h);
+        return '<path class="' + cls + '" d="M' + x + ' ' + (padT + ch) + 'V' + (padT + ch - h + r) + 'Q' + x + ' ' + (padT + ch - h) + ' ' + (x + r) + ' ' + (padT + ch - h) + 'H' + (x + bw - r) + 'Q' + (x + bw) + ' ' + (padT + ch - h) + ' ' + (x + bw) + ' ' + (padT + ch - h + r) + 'V' + (padT + ch) + 'Z"><title>' + lab(d.k) + ': ' + v + ' ' + what + '</title></path>' +
+          '<text class="dc-val" x="' + (x + bw / 2) + '" y="' + (padT + ch - h - 5) + '" text-anchor="middle">' + v + '</text>';
+      }
+      g += bar(d.total, 'dc-a', x0, d.total === 1 ? 'Aufgabe bearbeitet' : 'Aufgaben bearbeitet') + bar(d.fixed, 'dc-b', x0 + bw + 4, d.fixed === 1 ? 'Nachbesserung gelungen' : 'Nachbesserungen gelungen');
+      g += '<text class="dc-ax" x="' + (padL + i * gw + gw / 2) + '" y="' + (H - 12) + '" text-anchor="middle">' + lab(d.k) + '</text>';
+    });
+    var rows = data.map(function (d) { return '<tr><td>' + lab(d.k) + '</td><td class="r num">' + d.total + '</td><td class="r num">' + d.fixed + '</td></tr>'; }).join('');
+    var sum = data.reduce(function (a, d) { return a + d.total; }, 0), sumF = data.reduce(function (a, d) { return a + d.fixed; }, 0);
+    return '<div class="dc-legend"><span><i class="dc-sw dc-a"></i> Aufgaben bearbeitet</span><span><i class="dc-sw dc-b"></i> ★ Nachbesserungen gelungen</span></div>' +
+      '<div class="dc-scroll"><svg class="dc" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Aufgaben pro Tag: ' + sum + ' bearbeitet an ' + data.length + ' Tagen, ' + sumF + ' Nachbesserungen gelungen">' + g + '</svg></div>' +
+      '<details class="dc-tbl"><summary>Als Tabelle</summary><div class="tbl-wrap"><table class="res"><thead><tr><th>Tag</th><th class="r">bearbeitet</th><th class="r">★ nachgebessert</th></tr></thead><tbody>' + rows + '</tbody></table></div></details>';
+  }
+
   /* ---------- Bewertung ---------- */
   var confirmReset = false;
   function renderResults() {
@@ -603,6 +650,7 @@
       '<div class="stat"><span class="v num">' + right + ' <small>/ ' + tried + '</small></span><span class="l">richtig beantwortet</span></div>' +
       '<div class="stat"><span class="v num">' + pct + ' <small>%</small></span><span class="l">Trefferquote</span></div>' +
       '<div class="stat"><span class="v num">' + tried + ' <small>/ ' + scored.length + '</small></span><span class="l">Aufgaben bearbeitet</span></div></div>' +
+      '<section class="panel"><h2>Aufgaben pro Tag</h2>' + dayChart(profile()) + '</section>' +
       '<section class="panel"><h2>Nach Schwierigkeit</h2><div class="tbl-wrap"><table class="res"><thead><tr><th>Stufe</th><th class="r">Aufgaben</th><th class="r">bearbeitet</th><th class="r">richtig</th><th class="r">Punkte</th></tr></thead><tbody>' + levels + '</tbody></table></div></section>' +
       '<section class="panel"><h2>Deine Themen</h2><div class="tbl-wrap"><table class="res"><thead><tr><th>Thema</th><th class="r">Aufgaben</th><th class="r">bearbeitet</th><th class="r">richtig</th></tr></thead><tbody>' +
       areaStats(profile()).sort(function (x, y) { return y.n - x.n; }).map(function (x) { return '<tr><td>' + x.area + '</td><td class="r num">' + x.n + '</td><td class="r num">' + x.done + '</td><td class="r num">' + x.right + '</td></tr>'; }).join('') +
@@ -757,6 +805,7 @@
     return '<article class="panel fam-card"><h2>' + esc(p.name || 'Profil') + (owner ? ' <span class="note">· Konto: ' + esc(owner) + '</span>' : '') + '</h2>' +
       '<p><b>' + lv.text + '</b> · ' + done.length + ' von ' + TASKS.filter(isReady).length + ' Aufgaben bearbeitet, ' + right.length + ' richtig' + (wrong.length ? ', ' + wrong.length + ' falsch' : '') + ' · zuletzt aktiv: ' + fmtDate(lastActive(p)) + '</p>' +
       '<div class="lvl-bar" role="img" aria-label="Niveau"><i style="width:' + lv.pct + '%"></i></div>' +
+      '<details class="dc-fam"><summary>Aufgaben pro Tag</summary>' + dayChart(p) + '</details>' +
       (wrong.length ? '<p class="note">Falsch im ersten Versuch: ' + wrong.map(function (t) { return esc(t.title) + (p.results[t.id].fixed ? ' ★ (später verbessert)' : ''); }).join(', ') + '</p>' : '') +
       holdLine(p) +
       (weak.length ? '<p class="note">Themen mit Fehlern: ' + weak.map(function (a) { return esc(a.area) + ' (' + a.right + '/' + a.done + ')'; }).join(', ') + '</p>' : '') +

@@ -43,6 +43,7 @@ Tipps, nie die Loesung. Antworten kommen von Claude ueber die Funktion "sample" 
 sonst feste Fragen. Sprechen/Vorlesen nutzt die Web-Speech-Funktionen des Browsers, falls vorhanden. Protokoll: h.* (ohne Texte).
 
 Probelauf: Aufbau wie im Wettbewerb je Klassenstufe (3-4: 9 Aufgaben / 30 Min, 5-6: 12 / 35, 7-13: 15 / 40; gleich viele einfach, mittel, schwer; Quelle: Hefte 2020-2024, Teil "Wettbewerb"). Aufgaben "passend zum Niveau" oder "laut Heft fuer die Klasse"; Zeit wahlweise +5 oder +10 Min.
+Aufgaben pro Tag: Balkendiagramm (nur Tage mit Aktivitaet) auf der Seite Bewertung und in der Familien-Karte: bearbeitete Aufgaben (erster Versuch) und gelungene Nachbesserungen; falsche Versuche werden nicht eigens gezeigt.
 Verbessert: war der erste Versuch falsch und ein spaeterer Uebungsversuch richtig, bekommt die Aufgabe das goldene Abzeichen "verbessert" (results[id].fixed); die Punkte bleiben die des ersten Versuchs, die Aufgabe gilt nicht mehr als Wiederholungskandidat.
 Testaufgaben (held-out): holdout.js, 24 Aufgaben der Hefte 2018/2019 (Klasse 5-6), nur im Probelauf, nie in Liste/Empfehlung/Niveau; Vergleich erwartet/tatsaechlich siehe ARCHITEKTUR.md.
 
