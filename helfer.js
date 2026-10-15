@@ -257,6 +257,7 @@ window.BiberHelper = (function () {
     if (now - cur.t0 < OFFER_AFTER || now - lastInput > PRESENT) return;
     if (offered[info.id] && now - offered[info.id] < AGAIN) return;
     if (window.BiberKitten && window.BiberKitten.stats && !window.BiberKitten.stats().enabled) return;
+    if (window.BiberApp && window.BiberApp.helpAuto && !window.BiberApp.helpAuto()) return;   /* Schalter im Seitenfuß: Hilfe nicht von selbst anbieten */
     show('auto');
   }, 4000);
 

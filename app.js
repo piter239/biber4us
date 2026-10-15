@@ -85,7 +85,7 @@
         var r = p.hold[id];
         hd[id] = light ? { correct: r.correct, at: r.at, p: r.p } : r;
       });
-      return { id: p.id, name: p.name, legacy: !!p.legacy, created: p.created, upd: p.upd || '', adj: p.adj || 0, cleared: p.cleared || {}, results: res, hold: hd, runs: p.runs || [], kitten: readKitten(p), cls: p.cls || null };
+      return { id: p.id, name: p.name, legacy: !!p.legacy, created: p.created, upd: p.upd || '', adj: p.adj || 0, cleared: p.cleared || {}, results: res, hold: hd, runs: p.runs || [], kitten: readKitten(p), cls: p.cls || null, noHelp: !!p.noHelp };
     });
     if (!out.length && !Object.keys(store.gone || {}).length) return null;
     return { v: 1, at: new Date().toISOString(), gone: store.gone || {}, profiles: out };
@@ -108,12 +108,12 @@
       if (!lp) {
         var hasLegacy = store.profiles.some(function (x) { return x.legacy; });
         lp = { id: rp.id, name: rp.name || '', klasse: 6, results: {}, legacy: !!rp.legacy && !hasLegacy, created: rp.created || new Date().toISOString(), upd: rp.upd || '', adj: rp.adj || 0, cleared: {} };
-        lp.cls = rp.cls || null;
+        lp.cls = rp.cls || null; lp.noHelp = !!rp.noHelp;
         store.profiles.push(lp);
         changed = true;
       } else if ((rp.upd || '') > (lp.upd || '')) {
-        if (lp.name !== rp.name || (lp.adj || 0) !== (rp.adj || 0) || JSON.stringify(lp.cls || null) !== JSON.stringify(rp.cls || null)) changed = true;
-        lp.name = rp.name; lp.adj = rp.adj || 0; lp.upd = rp.upd; lp.cls = rp.cls || null;
+        if (lp.name !== rp.name || (lp.adj || 0) !== (rp.adj || 0) || JSON.stringify(lp.cls || null) !== JSON.stringify(rp.cls || null) || !!lp.noHelp !== !!rp.noHelp) changed = true;
+        lp.name = rp.name; lp.adj = rp.adj || 0; lp.upd = rp.upd; lp.cls = rp.cls || null; lp.noHelp = !!rp.noHelp;
       }
       lp.runs = lp.runs || [];
       (rp.runs || []).forEach(function (x) {
@@ -949,6 +949,7 @@
     tasks: TASKS, hold: HOLD, B: B, lookup: lookup, holdById: holdById, holdOf: holdOf, recordHold: recordHold, holdStats: holdStats, expectedP: expectedP, app: app, SCORING: SCORING, store: store,
     profile: function () { return profile(); }, save: function () { save(); }, route: function () { route(); },
     abilityOf: function (p) { return abilityOf(p); }, taskD: function (t) { return taskD(t); }, areaOf: function (t) { return areaOf(t); },
+    helpAuto: function () { return !profile().noHelp; },
     isReady: function (t) { return isReady(t); }, esc: esc, pts: pts, recordResult: recordResult,
     registerPage: function (name, fn) { pages[name] = fn; },
     levelLabel: function (A) { return levelLabel(A); }, isPristine: function (p) { return isPristine(p); },
@@ -1034,8 +1035,22 @@
   }
 
   /* Kätzchen-Schalter im Seitenfuß (kitten.js ist eigenständig und per defer geladen) */
-  var bkToggle = document.getElementById('bkToggle'), bkMute = document.getElementById('bkMute'), bkStat = document.getElementById('bkStat');
+  var bkToggle = document.getElementById('bkToggle'), bkMute = document.getElementById('bkMute'), bkStat = document.getElementById('bkStat'), bkHelp = document.getElementById('bkHelp');
+  function helpSync() {
+    if (!bkHelp) return;
+    var on = !profile().noHelp;
+    bkHelp.textContent = 'Hilfe automatisch anbieten: ' + (on ? 'an' : 'aus');
+    bkHelp.setAttribute('aria-pressed', String(on));
+  }
+  if (bkHelp) {
+    bkHelp.addEventListener('click', function () {
+      var p = profile(); p.noHelp = !p.noHelp; p.upd = new Date().toISOString(); save(); helpSync(); track('help.auto', p.noHelp ? 0 : 1);
+    });
+    document.addEventListener('biber:render', helpSync);
+    helpSync();
+  }
   function bkSync() {
+    helpSync();
     var K = window.BiberKitten;
     if (!K || !bkToggle) return;
     var s = K.stats();
