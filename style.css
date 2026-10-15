@@ -130,7 +130,7 @@ img { max-width: 100%; }
   text-decoration: none;
 }
 .brand span { color: var(--accent); }
-.nav { display: flex; gap: 0.25rem; }
+.nav { display: flex; flex-wrap: wrap; gap: 0.25rem; }
 .nav a {
   color: var(--ink);
   text-decoration: none;
@@ -419,3 +419,7 @@ table.res { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-widt
 .dc-val.dc-in { fill: #3d2700; }
 .dc-tbl, .dc-fam { margin-top: .5rem; }
 .dc-tbl summary, .dc-fam summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: .9rem; }
+.fam-grid > *, .fam-card { min-width: 0; }
+.dc-scroll { overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+.fam-card { grid-template-columns: minmax(0, 1fr); }
+.fam-card > * { min-width: 0; }

@@ -576,9 +576,10 @@
     if (!data.length) return '<p class="note">Noch keine bearbeiteten Aufgaben.</p>';
     var max = 0; data.forEach(function (d) { max = Math.max(max, d.total, d.fixed); });
     var step = max <= 5 ? 1 : max <= 10 ? 2 : max <= 25 ? 5 : 10, top = Math.ceil(max / step) * step;
-    var gw = 64, bw = 22, padL = 30, padT = 20, padB = 34, H = 210, ch = H - padT - padB, W = padL + data.length * gw + 8;
+    var gw = 44, bw = 20, padL = 28, padT = 20, padB = 40, H = 216, ch = H - padT - padB, W = padL + data.length * gw + 8;
     function y(v) { return padT + ch - ch * v / top; }
-    function lab(k) { var a = k.split('-'), d = new Date(+a[0], +a[1] - 1, +a[2]); return d.toLocaleDateString('de-DE', { weekday: 'short' }).replace('.', '') + ' ' + a[2] + '.' + a[1] + '.'; }
+    function wd(k) { var a = k.split('-'); return new Date(+a[0], +a[1] - 1, +a[2]).toLocaleDateString('de-DE', { weekday: 'short' }).replace('.', ''); }
+    function lab(k) { var a = k.split('-'); return wd(k) + ' ' + a[2] + '.' + a[1] + '.'; }
     var g = '';
     for (var v = 0; v <= top; v += step) g += '<line class="dc-grid" x1="' + padL + '" x2="' + (W - 4) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text class="dc-ax" x="' + (padL - 6) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + v + '</text>';
     data.forEach(function (d, i) {
@@ -591,7 +592,7 @@
             : (h >= 17 ? '<text class="dc-val dc-in" x="' + (x + bw / 2) + '" y="' + (padT + ch - h + 14) + '" text-anchor="middle">' + v + '</text>' : ''));
       }
       g += bar(d.total, 'dc-a', x0, d.total === 1 ? 'Aufgabe bearbeitet' : 'Aufgaben bearbeitet', true) + bar(d.fixed, 'dc-b', x0, d.fixed === 1 ? 'davon 1 Nachbesserung gelungen' : 'davon ' + d.fixed + ' Nachbesserungen gelungen', false);
-      g += '<text class="dc-ax" x="' + (padL + i * gw + gw / 2) + '" y="' + (H - 12) + '" text-anchor="middle">' + lab(d.k) + '</text>';
+      g += '<text class="dc-ax" x="' + (padL + i * gw + gw / 2) + '" y="' + (H - 22) + '" text-anchor="middle">' + wd(d.k) + '</text><text class="dc-ax" x="' + (padL + i * gw + gw / 2) + '" y="' + (H - 9) + '" text-anchor="middle">' + d.k.slice(8) + '.' + d.k.slice(5, 7) + '.</text>';
     });
     var rows = data.map(function (d) { return '<tr><td>' + lab(d.k) + '</td><td class="r num">' + d.total + '</td><td class="r num">' + d.fixed + '</td></tr>'; }).join('');
     var sum = data.reduce(function (a, d) { return a + d.total; }, 0), sumF = data.reduce(function (a, d) { return a + d.fixed; }, 0);
@@ -599,6 +600,11 @@
       '<div class="dc-scroll"><svg class="dc" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Aufgaben pro Tag: ' + sum + ' bearbeitet an ' + data.length + ' Tagen, ' + sumF + ' Nachbesserungen gelungen">' + g + '</svg></div>' +
       '<details class="dc-tbl"><summary>Als Tabelle</summary><div class="tbl-wrap"><table class="res"><thead><tr><th>Tag</th><th class="r">bearbeitet</th><th class="r">davon ★ nachgebessert</th></tr></thead><tbody>' + rows + '</tbody></table></div></details>';
   }
+
+  /* Diagramm: bei vielen Tagen seitlich scrollen, zuerst die neuesten Tage zeigen */
+  function dcEnd() { setTimeout(function () { document.querySelectorAll('.dc-scroll').forEach(function (e) { if (e.scrollWidth > e.clientWidth) e.scrollLeft = e.scrollWidth; }); }, 0); }
+  document.addEventListener('biber:render', dcEnd);
+  document.addEventListener('toggle', dcEnd, true);
 
   /* ---------- Bewertung ---------- */
   var confirmReset = false;
