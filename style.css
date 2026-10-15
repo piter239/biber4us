@@ -423,3 +423,7 @@ table.res { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-widt
 .dc-scroll { overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
 .fam-card { grid-template-columns: minmax(0, 1fr); }
 .fam-card > * { min-width: 0; }
+/* Tabelle zum Diagramm: kompakt, drei schmale Spalten */
+.dc-tbl table.res { width: auto; min-width: 0; font-size: 0.88rem; }
+.dc-tbl .res th, .dc-tbl .res td { padding: 0.28rem 0.55rem; white-space: nowrap; }
+.dc-tbl .res th { letter-spacing: 0.02em; font-size: 0.72rem; }

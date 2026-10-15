@@ -598,7 +598,7 @@
     var sum = data.reduce(function (a, d) { return a + d.total; }, 0), sumF = data.reduce(function (a, d) { return a + d.fixed; }, 0);
     return '<div class="dc-legend"><span><i class="dc-sw dc-a"></i> Aufgaben bearbeitet</span><span><i class="dc-sw dc-b"></i> davon ★ nachgebessert</span></div>' +
       '<div class="dc-scroll"><svg class="dc" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Aufgaben pro Tag: ' + sum + ' bearbeitet an ' + data.length + ' Tagen, ' + sumF + ' Nachbesserungen gelungen">' + g + '</svg></div>' +
-      '<details class="dc-tbl"><summary>Als Tabelle</summary><div class="tbl-wrap"><table class="res"><thead><tr><th>Tag</th><th class="r">bearbeitet</th><th class="r">davon ★ nachgebessert</th></tr></thead><tbody>' + rows + '</tbody></table></div></details>';
+      '<details class="dc-tbl"><summary>Als Tabelle</summary><div class="tbl-wrap"><table class="res"><thead><tr><th>Tag</th><th class="r">bearbeitet</th><th class="r">★ nachgebessert</th></tr></thead><tbody>' + rows + '</tbody></table></div></details>';
   }
 
   /* Diagramm: bei vielen Tagen seitlich scrollen, zuerst die neuesten Tage zeigen */
