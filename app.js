@@ -62,6 +62,7 @@
     if (window.BiberKitten && window.BiberKitten.setProfile) window.BiberKitten.setProfile(window.BIBER_PROFILE.key, p.name);
   }
   syncKitten();
+  if (migrate()) { try { window.localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) { /* ignorieren */ } }
 
   /* ---------- Abgleich mit dem Server (sync.js) ----------
      Pro Konto ein Dokument mit allen Profilen. Zusammenführen: Profile vereinigen; je Aufgabe zählt das früheste Ergebnis
@@ -89,6 +90,16 @@
     });
     if (!out.length && !Object.keys(store.gone || {}).length) return null;
     return { v: 1, at: new Date().toISOString(), gone: store.gone || {}, profiles: out };
+  }
+  /* Korrektur: Bis 17.10.2026, 15:46 UTC waren in "Flüssige Schichten" die drei kleinen Flaschen auf den Kopf gestellt gezeichnet.
+     Die gespiegelte Antwort (von unten: violett, grün, gelb, rot, blau) war für das gezeigte Bild richtig und zählt als richtig. */
+  function migrate() {
+    var SCH_FLIP = 'violett,gruen,gelb,rot,blau', SCH_CUTOFF = '2026-10-17T15:46:00Z', ch = false;
+    (store.profiles || []).forEach(function (p) {
+      var r = p.results && p.results.schichten21;
+      if (r && !r.correct && (r.at || '') < SCH_CUTOFF && Array.isArray(r.answer) && r.answer.join(',') === SCH_FLIP) { r.correct = true; delete r.fixed; ch = true; }
+    });
+    return ch;
   }
   var mergeNeedsPick = false;
   function mergeRemote(remote) {
@@ -148,6 +159,7 @@
       store.current = store.profiles[0].id;
       if (store.profiles.length > 1) mergeNeedsPick = true;
     }
+    if (migrate()) changed = true;
     if (changed) {
       try { window.localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) { /* ignorieren */ }
     }
