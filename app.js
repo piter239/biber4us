@@ -98,6 +98,7 @@
     (store.profiles || []).forEach(function (p) {
       var r = p.results && p.results.schichten21;
       if (r && !r.correct && (r.at || '') < SCH_CUTOFF && Array.isArray(r.answer) && r.answer.join(',') === SCH_FLIP) { r.correct = true; delete r.fixed; ch = true; }
+      Object.keys(p.results || {}).forEach(function (id) { var x = p.results[id]; if (x && x.correct && x.fixed) { delete x.fixed; ch = true; } });   /* Abzeichen nur bei falschem ersten Versuch */
     });
     return ch;
   }
@@ -141,7 +142,7 @@
         if (lp.cleared[id] && (r.at || '') <= lp.cleared[id]) return;
         var l = lp.results[id];
         if (!l || (r.at || '') < (l.at || '')) { lp.results[id] = r; changed = true; }
-        var cur = lp.results[id], fx = [cur.fixed, r.fixed].filter(Boolean).sort()[0];
+        var cur = lp.results[id], fx = cur.correct ? null : [cur.fixed, r.fixed].filter(Boolean).sort()[0];
         if (fx && cur.fixed !== fx) { cur.fixed = fx; changed = true; }
       });
       lp.hold = lp.hold || {};
