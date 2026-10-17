@@ -39,6 +39,7 @@
   function smallBottle(layers, nr) {
     var bands = [];
     for (var i = 0; i < N; i++) bands.push(layers[i] ? h('div', { class: P + 'band ' + P + 'l-' + layers[i] }) : h('div', { class: P + 'band ' + P + 'air' }));
+    bands.reverse();   /* Slot 0 = ganz unten, die Spalte läuft aber von oben nach unten */
     var label = 'Flasche ' + nr + ', von unten nach oben: ' + layers.map(function (l) { return LIQ[l].name; }).join(', ');
     return h('figure', { class: P + 'small', role: 'img', 'aria-label': label },
       h('div', { class: P + 'bottle' }, glass(), h('div', { class: P + 'stack' }, bands)),
