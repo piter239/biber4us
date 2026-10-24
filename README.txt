@@ -46,6 +46,7 @@ Probelauf: Aufbau wie im Wettbewerb je Klassenstufe (3-4: 9 Aufgaben / 30 Min, 5
 Hilfe automatisch anbieten: Schalter im Seitenfuss (pro Profil, wird mit dem Profil synchronisiert, Standard an). Aus = die Katze fragt nicht von selbst, die Taste "Katze um Hilfe bitten" bleibt.
 Aufgaben pro Tag: Balkendiagramm (nur Tage mit Aktivitaet) auf der Seite Bewertung und in der Familien-Karte: bearbeitete Aufgaben (erster Versuch) und gelungene Nachbesserungen; falsche Versuche werden nicht eigens gezeigt.
 Verbessert: war der erste Versuch falsch und ein spaeterer Uebungsversuch richtig, bekommt die Aufgabe das goldene Abzeichen "verbessert" (results[id].fixed); die Punkte bleiben die des ersten Versuchs, die Aufgabe gilt nicht mehr als Wiederholungskandidat.
+Zeitkontrolle: Schalter im Probelauf (pro Profil, Standard an). Aus = keine Uhr, kein Zeitlimit, Abgabe nur per Knopf; Zeit je Aufgabe (r.tm, run.sp, rec.tasks[].secs) wird trotzdem gemessen und im Ergebnis angezeigt.
 Testaufgaben (held-out): holdout.js, 24 Aufgaben der Hefte 2018/2019 (Klasse 5-6), nur im Probelauf, nie in Liste/Empfehlung/Niveau; Vergleich erwartet/tatsaechlich siehe ARCHITEKTUR.md.
 
 Kaetzchen: Fressen dauert ca. 9 s mit zufaelligen Geraeuschen (knuspern, lecken, schmatzen, schlucken, nom, mrrp, schluerfen, brummen); acht neue Vorstellungen (Fisch, Singen, Geistesblitz, Foto, Kuchen, Lesen, Ballon, Schnee) und sechs neue Doppel-Sticker.
