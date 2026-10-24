@@ -331,7 +331,8 @@
     }).join('');
     var rows = rec.tasks.map(function (x, i) {
       var t = taskOf(x.id);
-      var st = x.correct === true ? '<span class="chip ok">richtig</span>' : x.correct === false ? '<span class="chip bad">falsch</span>' : '<span class="chip soon">keine Antwort</span>';
+      var hr = x.hold ? A.holdOf(A.profile())[x.id] : null;
+      var st = x.correct === true ? '<span class="chip ok">richtig</span>' : x.correct === false ? (hr && hr.fixed ? '<span class="chip fixed">★ verbessert</span>' : '<span class="chip bad">falsch</span>') : '<span class="chip soon">keine Antwort</span>';
       return '<tr><td class="num">' + (i + 1) + '</td><td><a href="#' + x.id + '">' + (t ? t.title : x.id) + '</a>' + (x.hold ? ' <span class="chip soon" title="Zurückgehaltene Testaufgabe, die nur im Probelauf vorkommt">Testaufgabe</span>' : '') + '</td><td><span class="chip ' + x.level + '">' + x.level + '</span></td><td>' + st + '</td><td class="r num">' + (x.secs ? mmss(x.secs) : '–') + '</td><td class="r num">' + pts(x.pts) + '</td></tr>';
     }).join('');
     app.innerHTML =
@@ -413,10 +414,12 @@
       '<div class="board-shell"><div class="board-mount" data-mount></div><div class="board-foot"><span class="status-line" role="status" data-status></span><div class="actions" data-bar></div></div></div>' +
       '<div data-feedback></div><nav class="task-nav"><a class="btn ghost" href="#probelauf">Probelauf</a></nav></article>';
     var el2 = app.querySelector('[data-mount]'), bar = app.querySelector('[data-bar]'), fb = app.querySelector('[data-feedback]'), stt = app.querySelector('[data-status]');
-    var st = { checked: false };
+    var st = { checked: false, saved: false, t0: Date.now() };
     function expl() { return typeof mod.explanation === 'function' ? mod.explanation() : (mod.explanation || ''); }
     function feedback(correct, solution) {
-      fb.innerHTML = '<div class="feedback ' + (solution ? 'info' : correct ? 'ok' : 'bad') + '"><h2>' + (solution ? 'So geht es' : correct ? 'Richtig!' : 'Nicht ganz.') + '</h2>' +
+      var fixBanner = !solution && r.fixed && (correct || st.saved)
+        ? '<p class="fix-banner" role="status"><span class="fix-star" aria-hidden="true">★</span> <b>Verbessert!</b> Der erste Versuch im Probelauf war nicht richtig, danach hast Du es richtig gelöst. Aus einem Fehler zu lernen ist super!</p>' : '';
+      fb.innerHTML = '<div class="feedback ' + (solution ? 'info' : correct ? 'ok' : 'bad') + '"><h2>' + (solution ? 'So geht es' : correct ? 'Richtig!' : 'Nicht ganz.') + '</h2>' + fixBanner +
         (r.correct === null && !solution ? '<p class="note">Das war ein Übungsversuch, er zählt nicht.</p>' : '') +
         '<div class="expl">' + expl() + '</div><div class="actions">' +
         (!correct && !solution ? '<button class="btn ghost" type="button" data-hold="solution">Lösung zeigen</button>' : '') +
@@ -431,14 +434,22 @@
     mod.mount(el2, { group: '5-6', level: lv, locked: function () { return false; }, changed: function () { if (!st.checked) refresh(); } });
     if (r.correct !== null && r.answer !== undefined) {
       try { mod.setAnswer(r.answer); } catch (e) { /* ignorieren */ }
-      mod.lock(true); st.checked = true; refresh(); feedback(!!r.correct, false);
+      mod.lock(true); st.checked = true; st.saved = true; refresh(); feedback(!!r.correct, false);
     } else refresh();
     app.querySelector('.task').addEventListener('click', function (e) {
       var b = e.target.closest('[data-hold]'); if (!b) return;
       var a = b.dataset.hold;
-      if (a === 'check') { if (!mod.isComplete()) return; var res = mod.evaluate(); mod.lock(true); st.checked = true; refresh(); feedback(!!res.correct, false); }
-      else if (a === 'reset' || a === 'retry') { mod.reset(); mod.lock(false); st.checked = false; fb.innerHTML = ''; refresh(); }
-      else if (a === 'solution') { mod.showSolution(); mod.lock(true); feedback(true, true); }
+      if (a === 'check') {
+        if (!mod.isComplete()) return;
+        var res = mod.evaluate(), secs = Math.round((Date.now() - st.t0) / 1000);
+        var fixedNow = r.correct === false && !!res.correct && !r.fixed && A.markHoldFixed(id);
+        A.track('hta', id, res.correct ? 1 : 0, secs, JSON.stringify(res.answer));
+        if (fixedNow) A.track('hfix', id);
+        mod.lock(true); st.checked = true; st.saved = false; refresh(); feedback(!!res.correct, false);
+        try { document.dispatchEvent(new CustomEvent('biber:result', { detail: { correct: !!res.correct, id: id, counted: false, level: lv, secs: secs, priorWrong: r.correct === false, fixed: fixedNow } })); } catch (e2) { /* ignorieren */ }
+      }
+      else if (a === 'reset' || a === 'retry') { A.track('htr', id, a); mod.reset(); mod.lock(false); st.checked = false; st.saved = false; st.t0 = Date.now(); fb.innerHTML = ''; refresh(); }
+      else if (a === 'solution') { A.track('htsol', id); mod.showSolution(); mod.lock(true); feedback(true, true); }
     });
   }
 

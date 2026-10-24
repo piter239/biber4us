@@ -84,7 +84,7 @@
       var hd = {};
       Object.keys(p.hold || {}).forEach(function (id) {
         var r = p.hold[id];
-        hd[id] = light ? { correct: r.correct, at: r.at, p: r.p } : r;
+        hd[id] = light ? { correct: r.correct, at: r.at, p: r.p, fixed: r.fixed } : r;
       });
       return { id: p.id, name: p.name, legacy: !!p.legacy, created: p.created, upd: p.upd || '', adj: p.adj || 0, cleared: p.cleared || {}, results: res, hold: hd, runs: p.runs || [], kitten: readKitten(p), cls: p.cls || null, noHelp: !!p.noHelp };
     });
@@ -149,6 +149,8 @@
       Object.keys(rp.hold || {}).forEach(function (id) {
         var r = rp.hold[id], l = lp.hold[id];
         if (!l || (r.at || '') < (l.at || '')) { lp.hold[id] = r; changed = true; }
+        var cur = lp.hold[id], fx = cur.correct === false ? [cur.fixed, r.fixed].filter(Boolean).sort()[0] : null;
+        if (fx && cur.fixed !== fx) { cur.fixed = fx; changed = true; }
       });
       if (kittenScore(rp.kitten) > kittenScore(readKitten(lp))) {
         try { window.localStorage.setItem(kittenKey(lp), JSON.stringify(rp.kitten)); } catch (e) { /* ignorieren */ }
@@ -582,6 +584,14 @@
       if (k) day(k).ids[id] = 1;
       if (kf) { var d = day(kf); d.ids[id] = 1; d.fixed++; }   /* eine Nachbesserung ist auch eine Bearbeitung */
     });
+    /* Testaufgaben aus dem Probelauf (nur beantwortete) zählen genauso */
+    Object.keys(p.hold || {}).forEach(function (id) {
+      var r = p.hold[id];
+      if (r.correct === null || r.correct === undefined) return;
+      var k = dayKey(r.at), kf = r.fixed && !r.correct ? dayKey(r.fixed) : null;
+      if (k) day(k).ids['h:' + id] = 1;
+      if (kf) { var d = day(kf); d.ids['h:' + id] = 1; d.fixed++; }
+    });
     return Object.keys(days).sort().map(function (k) { var d = days[k]; d.total = Object.keys(d.ids).length; return d; }).filter(function (d) { return d.total > 0; });
   }
   function dayChart(p) {
@@ -949,6 +959,13 @@
     if (correct !== null) document.dispatchEvent(new CustomEvent('biber:credit', { detail: { n: correct ? 3 : 1, correct: !!correct } }));
     return true;
   }
+  /* Testaufgabe nach falschem ersten Versuch später richtig geübt: Abzeichen "verbessert" (wie bei den normalen Aufgaben) */
+  function markHoldFixed(id) {
+    var r = holdOf(profile())[id];
+    if (!r || r.correct !== false || r.fixed) return false;
+    r.fixed = new Date().toISOString(); profile().upd = r.fixed; save();
+    return true;
+  }
   /* Auswertung der zurückgehaltenen Aufgaben: erwartet (Niveau-Modell) gegen tatsächlich */
   function holdStats(p, onlyRun) {
     var h = holdOf(p), st = { n: 0, right: 0, exp: 0, brier: 0, seen: 0 };
@@ -965,7 +982,7 @@
     return st;
   }
   window.BiberApp = {
-    tasks: TASKS, hold: HOLD, B: B, lookup: lookup, holdById: holdById, holdOf: holdOf, recordHold: recordHold, holdStats: holdStats, expectedP: expectedP, app: app, SCORING: SCORING, store: store,
+    tasks: TASKS, hold: HOLD, B: B, lookup: lookup, holdById: holdById, holdOf: holdOf, recordHold: recordHold, markHoldFixed: markHoldFixed, holdStats: holdStats, expectedP: expectedP, app: app, SCORING: SCORING, store: store,
     profile: function () { return profile(); }, save: function () { save(); }, route: function () { route(); },
     abilityOf: function (p) { return abilityOf(p); }, taskD: function (t) { return taskD(t); }, areaOf: function (t) { return areaOf(t); },
     helpAuto: function () { return !profile().noHelp; },
