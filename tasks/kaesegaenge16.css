@@ -1,0 +1,37 @@
+/* Aufgabe Käsegänge (2016) */
+.t-kaese16-rules { margin: 0.2rem 0 0.4rem; padding-left: 1.4rem; }
+.t-kaese16-box { --k-water: #91d8f5; --k-line: #00b1e0; --k-rim: #c9edfb; min-width: 0; }
+.t-kaese16-scene { display: grid; gap: 0.6rem; justify-items: start; min-width: 0; }
+.t-kaese16-mouse { display: block; width: 8.5rem; height: auto; max-width: 40%; }
+.t-kaese16-svgwrap { width: 100%; min-width: 0; background: var(--paper); border-radius: 12px; padding: 0.4rem 0.4rem 0.2rem; }
+.t-kaese16-svg { display: block; width: 100%; height: auto; max-height: 72vh; user-select: none; -webkit-user-select: none; }
+.t-kaese16-outline rect { fill: var(--k-line); stroke: var(--k-line); stroke-width: 12; }
+.t-kaese16-water rect { fill: var(--k-water); }
+.t-kaese16-rim { fill: var(--k-rim); stroke: var(--k-line); stroke-width: 5; }
+.t-kaese16-cheese { fill: #ffe227; stroke: #f5b02a; stroke-width: 4; stroke-linejoin: round; }
+.t-kaese16-edge { fill: none; stroke: #f5b02a; stroke-width: 4; stroke-linecap: round; }
+.t-kaese16-hole { fill: #e8b13a; }
+.t-kaese16-steam { fill: none; stroke: #f5b02a; stroke-width: 4; stroke-linecap: round; }
+.t-kaese16-sign { cursor: pointer; outline: none; }
+.t-kaese16-sign.locked { cursor: default; }
+.t-kaese16-hit { fill: transparent; }
+.t-kaese16-board { fill: #f4dcc2; stroke: #7a5a3c; stroke-width: 4; }
+.t-kaese16-post { fill: #7a5a3c; }
+.t-kaese16-num { font-family: var(--font-display); font-weight: 700; font-size: 58px; fill: #3a2a1a; pointer-events: none; }
+.t-kaese16-dot { fill: #ffcd2e; stroke: #f39200; stroke-width: 5; }
+.t-kaese16-sign:hover:not(.locked) .t-kaese16-board { fill: #ffe9d0; }
+.t-kaese16-sign.selected .t-kaese16-board { stroke: var(--accent); stroke-width: 9; fill: #ffe9d0; }
+.t-kaese16-sign.selected .t-kaese16-dot { fill: var(--accent); stroke: #fff; }
+.t-kaese16-sign:focus-visible .t-kaese16-hit { stroke: var(--focus); stroke-width: 6; stroke-dasharray: 14 8; rx: 14; }
+.t-kaese16-sign.right .t-kaese16-board { stroke: var(--ok); stroke-width: 9; }
+.t-kaese16-sign.wrong .t-kaese16-board { stroke: var(--bad); stroke-width: 9; }
+.t-kaese16-route { fill: none; stroke-width: 14; stroke-linejoin: round; stroke-linecap: round; opacity: 0.95; }
+.t-kaese16-route.ok { stroke: var(--ok); }
+.t-kaese16-route.bad { stroke: var(--bad); }
+.t-kaese16-end circle { stroke: #fff; stroke-width: 4; }
+.t-kaese16-end.ok circle { fill: var(--ok); }
+.t-kaese16-end.bad circle { fill: var(--bad); }
+.t-kaese16-end text { fill: #fff; font-weight: 800; font-size: 30px; font-family: var(--font-body); }
+.t-kaese16-ends { margin: 0.4rem 0 0.8rem; padding-left: 1.3rem; }
+.t-kaese16-ends li { margin: 0.2rem 0; }
+@media (prefers-reduced-motion: reduce) { .t-kaese16-route { transition: none !important; } }

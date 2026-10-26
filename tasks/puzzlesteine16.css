@@ -1,0 +1,34 @@
+/* Aufgabe Puzzlesteine (2016) */
+.t-puzzle16-box { display: grid; gap: 1.2rem; min-width: 0; }
+.t-puzzle16-box > section { min-width: 0; }
+.t-puzzle16-box h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-puzzle16-tray { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.5rem; max-width: 40rem; background: var(--surface2); border-radius: 12px; padding: 0.7rem; min-height: 6rem; align-items: start; }
+.t-puzzle16-piece {
+  appearance: none; display: grid; gap: 0.15rem; justify-items: center; padding: 0.25rem 0.1rem 0.2rem; margin: 0; min-width: 0;
+  background: var(--paper); border: 3px solid transparent; border-radius: 10px; cursor: pointer; touch-action: manipulation; color: #15303a; font: inherit;
+}
+.t-puzzle16-piece:hover:not(:disabled) { border-color: var(--accent); }
+.t-puzzle16-piece:focus-visible, .t-puzzle16-pair:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-puzzle16-piece.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-puzzle16-piece.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, var(--paper)); }
+.t-puzzle16-piece.dragging { opacity: 0.4; }
+.t-puzzle16-piece:disabled, .t-puzzle16-pair:disabled { cursor: default; }
+.t-puzzle16-piece.shake { animation: t-puzzle16-shake 0.4s; border-color: var(--bad); }
+@keyframes t-puzzle16-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
+@media (max-width: 30rem) { .t-puzzle16-tray { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: reduce) { .t-puzzle16-piece.shake { animation: none; } }
+.t-puzzle16-svg { display: block; width: 100%; height: auto; pointer-events: none; }
+.t-puzzle16-shape { --pz-fill: #ff4538; --pz-line: #1922fb; fill: var(--pz-fill); stroke: var(--pz-line); stroke-width: 1.8; stroke-linejoin: miter; }
+.t-puzzle16-no { font-size: 0.85rem; font-weight: 700; color: #556d76; pointer-events: none; }
+.t-puzzle16-pairs { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.5rem, 11rem)); gap: 0.7rem; min-height: 5rem; align-items: start; }
+.t-puzzle16-pair {
+  appearance: none; display: grid; gap: 0.15rem; justify-items: center; padding: 0.35rem 0.3rem 0.25rem; margin: 0; min-width: 0;
+  background: var(--paper); border: 3px solid var(--line); border-radius: 10px; cursor: pointer; touch-action: manipulation; color: #15303a; font: inherit;
+}
+.t-puzzle16-pair:hover:not(:disabled) { border-color: var(--accent); }
+.t-puzzle16-pair.right { border-color: var(--ok); }
+.t-puzzle16-pair.wrong { border-color: var(--bad); }
+.t-puzzle16-none { margin: 0; color: var(--muted); font-size: 0.95rem; grid-column: 1 / -1; align-self: center; }
+.t-puzzle16-count { margin: 0.6rem 0 0; font-weight: 700; }
+.t-puzzle16-sol { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.5rem 0 0.8rem; }
+.t-puzzle16-sol .t-puzzle16-svg { width: 9.5rem; max-width: 45%; background: var(--paper); border-radius: 8px; padding: 0.3rem; }

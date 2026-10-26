@@ -1,0 +1,48 @@
+/* Aufgabe Flaggen am Strand (2016) */
+.t-flag16-box { --fl-blue: #3e54a5; --fl-red: #e12926; --fl-green: #009047; --fl-yellow: #ffd528; --fl-gray: #929292; --fl-white: #ffffff;
+  display: grid; gap: 1.2rem; min-width: 0; }
+.t-flag16-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(8rem, 13rem); gap: 1.2rem 1.6rem; align-items: start; min-width: 0; }
+.t-flag16-legs { display: grid; gap: 1rem; min-width: 0; }
+.t-flag16-leg { background: var(--paper); color: #15303a; border-radius: 10px; padding: 0.7rem 0.9rem; min-width: 0; }
+.t-flag16-leg h3 { margin: 0 0 0.5rem; font-family: var(--font-body); font-size: 0.95rem; font-weight: 700; }
+.t-flag16-leg ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.7rem 1.2rem; }
+.t-flag16-leg li { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: 0.6rem; align-items: center; min-width: 0; flex: 1 1 13rem; }
+.t-flag16-flag { display: block; width: 100%; height: auto; border-radius: 2px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.3); }
+.t-flag16-leg li span { font-size: 0.95rem; line-height: 1.3; }
+.t-flag16-fig { margin: 0; background: var(--paper); border-radius: 10px; padding: 0.6rem 0.6rem 0.4rem; text-align: center; color: #15303a; min-width: 0; }
+.t-flag16-pole { display: block; width: 100%; max-width: 11rem; height: auto; margin: 0 auto; }
+.t-flag16-fig figcaption { font-size: 0.85rem; color: #556d76; margin-top: 0.2rem; }
+.t-flag16-blue { fill: var(--fl-blue); }
+.t-flag16-red { fill: var(--fl-red); }
+.t-flag16-green { fill: var(--fl-green); }
+.t-flag16-yellow { fill: var(--fl-yellow); }
+.t-flag16-gray { fill: var(--fl-gray); }
+.t-flag16-white { fill: var(--fl-white); }
+.t-flag16-stange { fill: #7a3416; }
+.t-flag16-knauf { fill: #ffe066; }
+.t-flag16-sand { fill: #ddbb3f; stroke: #b99a2f; stroke-width: 1.2; }
+.t-flag16-grass { fill: #48b648; stroke: #007a3f; stroke-width: 0.4; }
+.t-flag16-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+.t-flag16-opt { display: block; position: relative; cursor: pointer; min-width: 0; }
+.t-flag16-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-flag16-card {
+  display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 0.8rem; border: 3px solid var(--line); border-radius: 12px;
+  background: var(--surface); position: relative; min-height: 4rem; height: 100%;
+}
+.t-flag16-opt input:checked + .t-flag16-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-flag16-opt input:focus-visible + .t-flag16-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-flag16-opt input:disabled { cursor: default; }
+.t-flag16-opt.right .t-flag16-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-flag16-opt.wrong .t-flag16-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-flag16-let { font-weight: 800; color: var(--muted); }
+.t-flag16-txt { min-width: 0; line-height: 1.3; }
+.t-flag16-mark { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 0.95rem; }
+.t-flag16-opt.right .t-flag16-mark { background: var(--ok); }
+.t-flag16-opt.wrong .t-flag16-mark { background: var(--bad); }
+@media (max-width: 40rem) {
+  .t-flag16-top { grid-template-columns: minmax(0, 1fr); }
+  .t-flag16-fig { max-width: 14rem; justify-self: center; width: 100%; }
+}
+@media (max-width: 34rem) {
+  .t-flag16-opts { grid-template-columns: minmax(0, 1fr); }
+}
