@@ -1,0 +1,50 @@
+/* Aufgabe 3D-Labyrinth */
+.t-labyrinth3d16-board { display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); gap: 1.25rem 2rem; align-items: start; min-width: 0; }
+.t-labyrinth3d16-mazewrap { min-width: 0; background: var(--surface2); border-radius: var(--radius); padding: 0.5rem; }
+.t-labyrinth3d16-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.t-labyrinth3d16-frame line { stroke: var(--muted); stroke-width: 1.2; opacity: 0.6; }
+.t-labyrinth3d16-frame line.back { stroke-dasharray: 3 4; opacity: 0.4; }
+.t-labyrinth3d16-field { fill: color-mix(in srgb, var(--muted) 55%, var(--surface)); stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+.t-labyrinth3d16-field.hole { fill: var(--surface); stroke-dasharray: 5 4; stroke-width: 1.6; }
+.t-labyrinth3d16-field.goal { fill: var(--c2); }
+.t-labyrinth3d16-edge { fill: var(--ink); opacity: 0.55; }
+.t-labyrinth3d16-goaltxt { fill: var(--ink); font: 800 12px var(--font-display); text-anchor: middle; }
+.t-labyrinth3d16-lvl { fill: var(--muted); font: 600 11px var(--font-body); }
+.t-labyrinth3d16-trail { fill: none; stroke: var(--c1); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0.8; }
+.t-labyrinth3d16-ball { transition: transform 0.38s ease; will-change: transform; }
+.t-labyrinth3d16-ballc { fill: var(--c1); stroke: var(--ink); stroke-width: 2.2; }
+.t-labyrinth3d16-shine { fill: #fff; opacity: 0.55; }
+.t-labyrinth3d16-shadow { fill: var(--ink); opacity: 0.25; }
+@media (prefers-reduced-motion: reduce) { .t-labyrinth3d16-ball { transition: none; } }
+.t-labyrinth3d16-controls { display: grid; gap: 0.9rem; min-width: 0; align-content: start; }
+.t-labyrinth3d16-comp { max-width: 9.5rem; color: var(--ink); }
+.t-labyrinth3d16-compass { display: block; width: 100%; height: auto; overflow: visible; color: var(--accent); }
+.t-labyrinth3d16-arrow { stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+.t-labyrinth3d16-dirtxt { fill: var(--ink); font: 800 17px var(--font-display); text-anchor: middle; }
+.t-labyrinth3d16-lab { display: grid; gap: 0.3rem; font-weight: 700; }
+.t-labyrinth3d16-input {
+  width: 100%; min-width: 0; padding: 0.6rem 0.8rem; font: 700 1.3rem/1.2 var(--font-display); letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink); background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius);
+}
+.t-labyrinth3d16-input:focus-visible { border-color: var(--accent); }
+.t-labyrinth3d16-input:disabled { opacity: 0.7; }
+.t-labyrinth3d16-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-labyrinth3d16-dir, .t-labyrinth3d16-del, .t-labyrinth3d16-try {
+  appearance: none; margin: 0; min-height: 2.75rem; border-radius: var(--radius); cursor: pointer; touch-action: manipulation; font-weight: 700;
+}
+.t-labyrinth3d16-dir {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; min-width: 3.4rem; padding: 0.3rem 0.7rem;
+  color: var(--ink); background: var(--surface); border: 2px solid var(--line);
+}
+.t-labyrinth3d16-dir b { font-family: var(--font-display); font-size: 1.15rem; }
+.t-labyrinth3d16-dir span { color: var(--accent); font-size: 1.1rem; }
+.t-labyrinth3d16-dir:hover:not(:disabled) { border-color: var(--accent); }
+.t-labyrinth3d16-del { padding: 0.3rem 0.8rem; color: var(--ink); background: transparent; border: 2px solid var(--line); }
+.t-labyrinth3d16-try { padding: 0.5rem 1.2rem; color: var(--accent-ink); background: var(--accent); border: 2px solid var(--accent); }
+.t-labyrinth3d16-dir:disabled, .t-labyrinth3d16-del:disabled, .t-labyrinth3d16-try:disabled { opacity: 0.45; cursor: not-allowed; }
+.t-labyrinth3d16-cap { color: var(--muted); font-size: 0.95rem; min-height: 1.5em; }
+@media (max-width: 40rem) {
+  .t-labyrinth3d16-board { grid-template-columns: minmax(0, 1fr); }
+  .t-labyrinth3d16-mazewrap { max-width: 15rem; margin-inline: auto; width: 100%; }
+  .t-labyrinth3d16-comp { max-width: 7.5rem; }
+}

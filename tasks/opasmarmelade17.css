@@ -1,0 +1,61 @@
+/* Aufgabe Opas Marmelade */
+.t-opasmarmelade17-steps { margin: 0; padding-left: 1.3rem; display: grid; gap: 0.15rem; }
+.t-opasmarmelade17-board { display: grid; gap: 1rem; min-width: 0; }
+.t-opasmarmelade17-pal { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+.t-opasmarmelade17-tool {
+  appearance: none; display: flex; align-items: center; gap: 0.6rem; min-width: 0; margin: 0; text-align: left;
+  padding: 0.5rem 0.7rem; min-height: 3.4rem; cursor: grab; touch-action: manipulation;
+  background: var(--surface); color: var(--ink); border: 2px solid var(--line); border-radius: var(--radius);
+}
+.t-opasmarmelade17-tool .t-opasmarmelade17-jar { flex: none; width: 1.5rem; height: 1.95rem; }
+.t-opasmarmelade17-tt { display: grid; min-width: 0; line-height: 1.2; }
+.t-opasmarmelade17-tt small { color: var(--muted); font-size: 0.85rem; }
+.t-opasmarmelade17-tool.t-opasmarmelade17-W { border-left: 8px solid var(--c2); }
+.t-opasmarmelade17-tool.t-opasmarmelade17-F { border-left: 8px solid var(--c5); }
+.t-opasmarmelade17-tool.t-opasmarmelade17-C { border-left: 8px solid var(--c6); }
+.t-opasmarmelade17-tool:hover:not(:disabled) { border-color: var(--accent); }
+.t-opasmarmelade17-tool.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-opasmarmelade17-tool:disabled { cursor: default; color: var(--ink); }
+.t-opasmarmelade17-grid { display: grid; gap: 0.3rem; min-width: 0; border: 2px solid var(--line); border-radius: var(--radius); padding: 0.4rem; background: var(--surface); }
+.t-opasmarmelade17-grid.done.ok { border-color: var(--ok); }
+.t-opasmarmelade17-grid.done.bad { border-color: var(--bad); }
+.t-opasmarmelade17-axis, .t-opasmarmelade17-line { display: grid; grid-template-columns: 3.9rem minmax(0, 1fr); gap: 0.4rem; align-items: stretch; min-width: 0; }
+.t-opasmarmelade17-ticks { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); text-align: center; color: var(--muted); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+.t-opasmarmelade17-who { display: flex; align-items: center; font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; letter-spacing: 0.03em; }
+.t-opasmarmelade17-cells { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); grid-template-rows: 3.4rem; min-width: 0; }
+.t-opasmarmelade17-cell {
+  appearance: none; grid-row: 1; margin: 0; padding: 0; min-width: 0; cursor: default; touch-action: manipulation;
+  background: color-mix(in srgb, var(--accent) 9%, var(--surface)); border: 1px solid var(--line); border-radius: 0;
+}
+.t-opasmarmelade17-cell.armed { cursor: pointer; }
+.t-opasmarmelade17-cell.armed:hover:not(:disabled), .t-opasmarmelade17-cell.over { background: color-mix(in srgb, var(--accent) 28%, var(--surface)); }
+.t-opasmarmelade17-cell:disabled { cursor: default; }
+.t-opasmarmelade17-block {
+  appearance: none; grid-row: 1; position: relative; margin: 0; padding: 0; min-width: 0; display: grid; place-items: center;
+  color: var(--ink); border: 0; border-radius: 4px; box-shadow: inset 0 0 0 2px var(--surface); cursor: pointer; touch-action: manipulation;
+}
+.t-opasmarmelade17-block:disabled { cursor: default; color: var(--ink); }
+.t-opasmarmelade17-block.t-opasmarmelade17-W { background: var(--c2); }
+.t-opasmarmelade17-block.t-opasmarmelade17-F { background: var(--c5); }
+.t-opasmarmelade17-block.t-opasmarmelade17-C { background: var(--c6); }
+.t-opasmarmelade17-block .t-opasmarmelade17-jar { width: min(1.4rem, 80%); height: 1.9rem; }
+.t-opasmarmelade17-block.loose { opacity: 0.4; }
+.t-opasmarmelade17-no {
+  position: absolute; top: 1px; left: 1px; min-width: 1.05rem; height: 1.05rem; padding: 0 0.15rem; border-radius: 999px; display: grid; place-items: center;
+  background: var(--surface); color: var(--ink); font: 700 0.72rem/1 var(--font-body); border: 1px solid var(--ink);
+}
+.t-opasmarmelade17-jar { display: block; overflow: visible; }
+.t-opasmarmelade17-glass { fill: var(--surface); }
+.t-opasmarmelade17-jam { fill: var(--bad); }
+.t-opasmarmelade17-outline { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+.t-opasmarmelade17-lid { fill: var(--c2); stroke: var(--ink); stroke-width: 1.2; }
+.t-opasmarmelade17-expl { max-width: 40rem; }
+@media (max-width: 40rem) {
+  .t-opasmarmelade17-pal { grid-template-columns: minmax(0, 1fr); }
+  .t-opasmarmelade17-axis, .t-opasmarmelade17-line { grid-template-columns: 2.9rem minmax(0, 1fr); gap: 0.25rem; }
+  .t-opasmarmelade17-who { font-size: 0.72rem; letter-spacing: 0; }
+  .t-opasmarmelade17-cells { grid-template-rows: 3.1rem; }
+  .t-opasmarmelade17-grid { padding: 0.3rem; }
+  .t-opasmarmelade17-no { min-width: 0.9rem; height: 0.9rem; font-size: 0.62rem; }
+  .t-opasmarmelade17-block .t-opasmarmelade17-jar { width: 80%; height: 1.6rem; }
+}

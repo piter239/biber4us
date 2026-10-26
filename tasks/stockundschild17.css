@@ -1,0 +1,48 @@
+/* Aufgabe Stock und Schild */
+.t-stockundschild17-wrap { display: grid; gap: 1.25rem; min-width: 0; max-width: 40rem; }
+.t-stockundschild17-wrap > section { min-width: 0; }
+.t-stockundschild17-wrap h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin-bottom: 0.6rem; }
+.t-stockundschild17-pool { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.4rem; }
+.t-stockundschild17-img { display: block; width: 100%; height: auto; aspect-ratio: 300 / 313; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+.t-stockundschild17-tile, .t-stockundschild17-home {
+  appearance: none; margin: 0; padding: 2px; min-width: 0; border: 3px solid transparent; border-radius: 9px;
+  background: var(--paper); box-shadow: 0 1px 4px rgb(0 0 0 / 0.25); cursor: grab; touch-action: manipulation;
+}
+.t-stockundschild17-home { background: var(--surface2); box-shadow: none; border: 2px dashed var(--line); cursor: pointer; aspect-ratio: 300 / 313; }
+.t-stockundschild17-home:disabled { cursor: default; }
+.t-stockundschild17-tile.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-stockundschild17-tile:disabled { cursor: default; }
+.t-stockundschild17-tile.dragging, .t-stockundschild17-cell.dragging { opacity: 0.4; }
+.t-stockundschild17-field { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.35rem; }
+.t-stockundschild17-cell {
+  appearance: none; position: relative; margin: 0; padding: 2px; min-width: 0; aspect-ratio: 300 / 313; display: grid; place-items: center;
+  background: var(--slot); border: 3px dashed var(--slot-line); border-radius: 9px; cursor: pointer; touch-action: manipulation;
+}
+.t-stockundschild17-cell.filled { background: var(--paper); border-style: solid; border-color: var(--line); cursor: grab; }
+.t-stockundschild17-cell.fixed { background: var(--paper); border-style: solid; border-color: var(--muted); cursor: default; }
+.t-stockundschild17-cell.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-stockundschild17-cell.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.t-stockundschild17-cell:disabled { cursor: default; }
+.t-stockundschild17-cell.right { border-color: var(--ok); border-style: solid; }
+.t-stockundschild17-cell.wrong { border-color: var(--bad); border-style: solid; }
+.t-stockundschild17-solved .t-stockundschild17-cell { border-color: var(--ok); }
+.t-stockundschild17-ph { display: block; width: 100%; height: 100%; }
+.t-stockundschild17-mark {
+  position: absolute; top: -10px; right: -8px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.9rem; color: #fff; z-index: 2;
+}
+.t-stockundschild17-cell.right .t-stockundschild17-mark { background: var(--ok); }
+.t-stockundschild17-cell.wrong .t-stockundschild17-mark { background: var(--bad); }
+/* Pfeile an der Seite, in die der Stock zeigt (nach dem Prüfen) */
+.t-stockundschild17-arrow { position: absolute; width: 0; height: 0; z-index: 1; pointer-events: none; border: 8px solid transparent; }
+.t-stockundschild17-arrow.N { top: -2px; left: calc(50% - 8px); border-bottom-color: currentColor; border-top-width: 0; }
+.t-stockundschild17-arrow.S { bottom: -2px; left: calc(50% - 8px); border-top-color: currentColor; border-bottom-width: 0; }
+.t-stockundschild17-arrow.W { left: -2px; top: calc(50% - 8px); border-right-color: currentColor; border-left-width: 0; }
+.t-stockundschild17-arrow.E { right: -2px; top: calc(50% - 8px); border-left-color: currentColor; border-right-width: 0; }
+.t-stockundschild17-arrow.ok { color: var(--ok); }
+.t-stockundschild17-arrow.bad { color: var(--bad); }
+.t-stockundschild17-small { max-width: 26rem; gap: 0.25rem; }
+.t-stockundschild17-small .t-stockundschild17-cell { cursor: default; padding: 1px; border-width: 2px; }
+@media (max-width: 40rem) {
+  .t-stockundschild17-pool { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

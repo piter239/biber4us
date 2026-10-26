@@ -1,0 +1,42 @@
+/* Aufgabe Kreiselstadt */
+.t-kreiselstadt17-board { display: grid; gap: 1rem; min-width: 0; }
+.t-kreiselstadt17-map { min-width: 0; background: var(--surface); border-radius: var(--radius); padding: 0.5rem; }
+.t-kreiselstadt17-svg { display: block; width: 100%; height: auto; max-width: 52rem; margin-inline: auto; }
+.t-kreiselstadt17-road-out { fill: none; stroke: var(--ink); stroke-width: 26; stroke-linecap: butt; }
+.t-kreiselstadt17-road-in { fill: none; stroke: var(--surface); stroke-width: 17; stroke-linecap: butt; }
+.t-kreiselstadt17-ring { fill: var(--surface); stroke: var(--ink); stroke-width: 6; }
+.t-kreiselstadt17-isle { fill: var(--surface2); stroke: var(--ink); stroke-width: 5; }
+.t-kreiselstadt17-node { cursor: pointer; outline: none; }
+.t-kreiselstadt17-node:hover .t-kreiselstadt17-isle { fill: color-mix(in srgb, var(--accent) 22%, var(--surface)); }
+.t-kreiselstadt17-node:focus-visible .t-kreiselstadt17-ring { stroke: var(--focus); stroke-width: 11; }
+.t-kreiselstadt17-node.marked .t-kreiselstadt17-isle { fill: var(--c2); }
+.t-kreiselstadt17-locked .t-kreiselstadt17-node { cursor: default; }
+.t-kreiselstadt17-arc { fill: none; stroke: var(--ink); stroke-width: 4.5; stroke-linecap: round; }
+.t-kreiselstadt17-head { fill: var(--ink); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.t-kreiselstadt17-route { fill: none; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.t-kreiselstadt17-route.ex { stroke: var(--ok); }
+.t-kreiselstadt17-route.sol { stroke: var(--c1); }
+.t-kreiselstadt17-gate { fill: var(--ink); font: 800 66px var(--font-display); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.t-kreiselstadt17-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+.t-kreiselstadt17-opt {
+  appearance: none; position: relative; display: flex; align-items: center; gap: 0.6rem; min-width: 0; margin: 0;
+  padding: 0.7rem 0.9rem; text-align: left; background: var(--surface); color: var(--ink);
+  border: 2px solid var(--line); border-radius: var(--radius); cursor: pointer; touch-action: manipulation; min-height: 3rem;
+}
+.t-kreiselstadt17-opt b { font-family: var(--font-display); font-size: 1.25rem; color: var(--accent); }
+.t-kreiselstadt17-opt:hover:not(:disabled) { border-color: var(--accent); }
+.t-kreiselstadt17-opt.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.t-kreiselstadt17-opt.right { border-color: var(--ok); background: var(--ok-bg); box-shadow: none; }
+.t-kreiselstadt17-opt.wrong { border-color: var(--bad); background: var(--bad-bg); box-shadow: none; }
+.t-kreiselstadt17-opt:disabled { cursor: default; color: var(--ink); }
+.t-kreiselstadt17-mark {
+  position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.95rem; color: #fff;
+}
+.t-kreiselstadt17-opt.right .t-kreiselstadt17-mark { background: var(--ok); }
+.t-kreiselstadt17-opt.wrong .t-kreiselstadt17-mark { background: var(--bad); }
+.t-kreiselstadt17-expmap { background: var(--surface); border-radius: var(--radius); padding: 0.5rem; max-width: 34rem; }
+.t-kreiselstadt17-expmap .t-kreiselstadt17-svg { max-width: 100%; }
+@media (max-width: 30rem) {
+  .t-kreiselstadt17-opts { grid-template-columns: minmax(0, 1fr); }
+}
