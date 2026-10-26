@@ -1,0 +1,50 @@
+/* Aufgabe Kreisch! (2017) */
+.t-kr17-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.t-kr17-tab { border-collapse: collapse; width: 100%; max-width: 40rem; table-layout: fixed; margin: 0.3rem 0; }
+.t-kr17-tab th, .t-kr17-tab td { border: 1px solid var(--line); padding: 0.3rem 0.25rem; text-align: center; vertical-align: middle; background: var(--surface); }
+.t-kr17-tab thead th { font-family: var(--font-display); font-size: 0.95rem; background: var(--surface2); }
+.t-kr17-tab thead td { border-color: transparent; background: none; }
+.t-kr17-tab tbody th { width: 4.6rem; font-size: 0.9rem; }
+.t-kr17-tab tbody th img { display: block; width: 2.4rem; height: auto; margin: 0 auto 0.1rem; }
+.t-kr17-arrows { display: block; width: 100%; max-width: 4.6rem; height: auto; margin: 0 auto; }
+.t-kr17-arr.t-kr17-elena { fill: var(--c5); }
+.t-kr17-arr.t-kr17-dustin { fill: var(--c6); }
+.t-kr17-path { fill: none; stroke-width: 3; stroke-linecap: round; }
+.t-kr17-path.t-kr17-elena { stroke: var(--c5); }
+.t-kr17-path.t-kr17-dustin { stroke: var(--c6); }
+.t-kr17-head.t-kr17-elena { fill: var(--c5); }
+.t-kr17-head.t-kr17-dustin { fill: var(--c6); }
+.t-kr17-wrap { display: grid; gap: 1rem; max-width: 34rem; }
+.t-kr17-floor { padding: 0.5rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.t-kr17-svg { display: block; width: 100%; height: auto; }
+.t-kr17-cell { fill: var(--surface2); stroke: var(--line); stroke-width: 1; }
+.t-kr17-ghost { opacity: 0.4; }
+.t-kr17-board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+.t-kr17-card {
+  appearance: none; display: flex; align-items: center; gap: 0.6rem; width: 100%; min-width: 0; margin: 0; padding: 0.7rem 0.8rem; position: relative;
+  text-align: left; background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius); cursor: pointer; touch-action: manipulation;
+}
+.t-kr17-card:hover:not(:disabled) { border-color: var(--accent); }
+.t-kr17-card.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.t-kr17-card.right { border-color: var(--ok); background: var(--ok-bg); box-shadow: none; }
+.t-kr17-card.wrong { border-color: var(--bad); background: var(--bad-bg); box-shadow: none; }
+.t-kr17-card:disabled { cursor: default; color: inherit; }
+.t-kr17-letter { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; color: var(--muted); }
+.t-kr17-val { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--ink); }
+.t-kr17-mark {
+  position: absolute; top: -10px; right: -8px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; color: #fff; font-size: 1rem;
+}
+.t-kr17-card.right .t-kr17-mark { background: var(--ok); }
+.t-kr17-card.wrong .t-kr17-mark { background: var(--bad); }
+.t-kr17-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+.t-kr17-fig { margin: 0; display: grid; gap: 0.3rem; align-content: start; padding: 0.5rem; background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius); min-width: 0; }
+.t-kr17-fig.t-kr17-good { border-color: var(--ok); background: var(--ok-bg); }
+.t-kr17-fig figcaption { font-size: 0.95rem; }
+.t-kr17-fig p { font-size: 0.9rem; color: var(--muted); }
+@media (max-width: 40rem) {
+  .t-kr17-figs { grid-template-columns: minmax(0, 1fr); }
+  .t-kr17-tab thead th { font-size: 0.8rem; }
+  .t-kr17-tab tbody th { width: 3.6rem; font-size: 0.8rem; }
+  .t-kr17-tab tbody th img { width: 2rem; }
+}
