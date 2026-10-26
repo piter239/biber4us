@@ -1,0 +1,43 @@
+/* Aufgabe Nachrichtendienst */
+.t-nachrichtendienst17-board { display: grid; gap: 1.2rem; }
+.t-nachrichtendienst17-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-nachrichtendienst17-board section { min-width: 0; }
+.t-nachrichtendienst17-hint { margin: 0 0 0.6rem; color: var(--muted); font-size: 0.95rem; }
+.t-nachrichtendienst17-img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.t-nachrichtendienst17-ex { display: grid; grid-template-columns: repeat(3, minmax(0, 9rem)); gap: 0.5rem; }
+.t-nachrichtendienst17-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 0.6rem; }
+.t-nachrichtendienst17-card {
+  appearance: none; margin: 0; padding: 4px; background: none; border: 3px solid transparent; border-radius: 10px; cursor: pointer; touch-action: manipulation; min-width: 0;
+}
+.t-nachrichtendienst17-card:hover:not(:disabled) { border-color: var(--line); }
+.t-nachrichtendienst17-card.sel { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-nachrichtendienst17-card:disabled { cursor: default; }
+.t-nachrichtendienst17-card img { pointer-events: none; }
+.t-nachrichtendienst17-live { margin: 0.6rem 0 0; font-size: 0.95rem; color: var(--muted); overflow-wrap: anywhere; }
+.t-nachrichtendienst17-live strong { color: var(--ink); letter-spacing: 0.04em; }
+.t-nachrichtendienst17-opts { display: grid; gap: 0.6rem; }
+.t-nachrichtendienst17-opt {
+  appearance: none; display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); align-items: center; gap: 0.4rem;
+  width: 100%; margin: 0; padding: 0.7rem 0.8rem; text-align: left; position: relative; color: var(--ink);
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius); cursor: pointer; touch-action: manipulation;
+}
+.t-nachrichtendienst17-opt:hover:not(:disabled) { border-color: var(--accent); }
+.t-nachrichtendienst17-opt.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.t-nachrichtendienst17-opt.right { border-color: var(--ok); background: var(--ok-bg); box-shadow: none; }
+.t-nachrichtendienst17-opt.wrong { border-color: var(--bad); background: var(--bad-bg); box-shadow: none; }
+.t-nachrichtendienst17-opt:disabled { cursor: default; color: inherit; }
+.t-nachrichtendienst17-letter { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; }
+.t-nachrichtendienst17-word { font: 700 1.15rem var(--font-body); letter-spacing: 0.05em; overflow-wrap: anywhere; }
+.t-nachrichtendienst17-mark {
+  position: absolute; top: -10px; right: -8px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; color: #fff; font-size: 1rem;
+}
+.t-nachrichtendienst17-opt.right .t-nachrichtendienst17-mark { background: var(--ok); }
+.t-nachrichtendienst17-opt.wrong .t-nachrichtendienst17-mark { background: var(--bad); }
+.t-nachrichtendienst17-sol { display: grid; grid-template-columns: repeat(5, minmax(0, 7rem)); gap: 0.3rem; margin: 0.5rem 0 0.8rem; }
+@media (max-width: 40rem) {
+  .t-nachrichtendienst17-ex { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .t-nachrichtendienst17-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.3rem; }
+  .t-nachrichtendienst17-card { padding: 2px; border-width: 2px; }
+  .t-nachrichtendienst17-sol { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

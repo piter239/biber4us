@@ -1,0 +1,42 @@
+/* Aufgabe Bitte lächeln! */
+.t-bittelaecheln17-board { display: grid; gap: 1.1rem; }
+.t-bittelaecheln17-legend { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+.t-bittelaecheln17-fig { margin: 0; display: grid; gap: 0.35rem; align-content: start; min-width: 0; }
+.t-bittelaecheln17-fig figcaption { font-size: 0.9rem; color: var(--muted); }
+.t-bittelaecheln17-fig figcaption strong { color: var(--ink); }
+.t-bittelaecheln17-fig .t-bittelaecheln17-face { width: 100%; max-width: 9rem; }
+.t-bittelaecheln17-face, .t-bittelaecheln17-mini { display: block; height: auto; aspect-ratio: 1; overflow: visible; }
+.t-bittelaecheln17-frame { fill: var(--surface); stroke: var(--muted); stroke-width: 1.4; }
+.t-bittelaecheln17-dot { fill: var(--ink); }
+.t-bittelaecheln17-line { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.t-bittelaecheln17-zone { fill: none; stroke: var(--bad); stroke-width: 1.8; stroke-linejoin: round; }
+.t-bittelaecheln17-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
+.t-bittelaecheln17-card {
+  appearance: none; display: grid; gap: 0.35rem; margin: 0; padding: 0.55rem; text-align: left; position: relative;
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius); cursor: pointer; touch-action: manipulation; min-width: 0;
+}
+.t-bittelaecheln17-card:hover:not(:disabled) { border-color: var(--accent); }
+.t-bittelaecheln17-card.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.t-bittelaecheln17-card.right { border-color: var(--ok); background: var(--ok-bg); box-shadow: none; }
+.t-bittelaecheln17-card.wrong { border-color: var(--bad); background: var(--bad-bg); box-shadow: none; }
+.t-bittelaecheln17-card:disabled { cursor: default; color: inherit; }
+.t-bittelaecheln17-card .t-bittelaecheln17-face { width: 100%; }
+.t-bittelaecheln17-letter { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--ink); }
+.t-bittelaecheln17-mark {
+  position: absolute; top: -10px; right: -8px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; color: #fff; font-size: 1rem;
+}
+.t-bittelaecheln17-card.right .t-bittelaecheln17-mark { background: var(--ok); }
+.t-bittelaecheln17-card.wrong .t-bittelaecheln17-mark { background: var(--bad); }
+.t-bittelaecheln17-why { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem 1rem; margin: 0.5rem 0 0.9rem; }
+.t-bittelaecheln17-whyitem { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0.6rem; align-items: start; }
+.t-bittelaecheln17-whyitem strong { display: block; }
+.t-bittelaecheln17-whyitem.ok strong { color: var(--ok); }
+.t-bittelaecheln17-whyitem span { color: var(--muted); font-size: 0.93rem; }
+.t-bittelaecheln17-mini { width: 4.5rem; }
+@media (max-width: 40rem) {
+  .t-bittelaecheln17-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-bittelaecheln17-legend { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.4rem; }
+  .t-bittelaecheln17-fig figcaption { font-size: 0.8rem; }
+  .t-bittelaecheln17-why { grid-template-columns: minmax(0, 1fr); }
+}

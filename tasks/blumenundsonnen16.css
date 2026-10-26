@@ -1,0 +1,40 @@
+/* Aufgabe Blumen und Sonnen (2016) */
+.t-blumenundsonnen16-box { display: grid; gap: 1.1rem; min-width: 0; }
+.t-blumenundsonnen16-sym { width: 30px; height: 30px; flex: none; display: block; }
+.t-blumenundsonnen16-strip { display: inline-flex; flex-wrap: wrap; gap: 2px; align-items: center; vertical-align: middle; max-width: 100%; }
+.t-blumenundsonnen16-strip.t-blumenundsonnen16-big { display: flex; padding: 0.4rem 0.5rem; background: var(--paper); border-radius: 10px; border: 1px solid var(--line); }
+.t-blumenundsonnen16-big .t-blumenundsonnen16-sym { width: 34px; height: 34px; }
+.t-blumenundsonnen16-block { display: grid; gap: 0.4rem; min-width: 0; }
+.t-blumenundsonnen16-cap { margin: 0.4rem 0 0; font-weight: 600; }
+.t-blumenundsonnen16-block .t-blumenundsonnen16-cap:first-child { margin-top: 0; }
+.t-blumenundsonnen16-table { border-collapse: collapse; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; max-width: 100%; }
+.t-blumenundsonnen16-table caption { text-align: left; font-weight: 600; padding-bottom: 0.35rem; caption-side: top; }
+.t-blumenundsonnen16-table th, .t-blumenundsonnen16-table td { border: 1px solid var(--line); padding: 0.25rem 0.5rem; text-align: left; }
+.t-blumenundsonnen16-table thead th { font-size: 0.85rem; color: var(--muted); }
+.t-blumenundsonnen16-table tbody th { font-weight: 800; width: 5.5rem; }
+.t-blumenundsonnen16-ans { width: 100%; }
+.t-blumenundsonnen16-ans .t-blumenundsonnen16-sym { width: 24px; height: 24px; }
+.t-blumenundsonnen16-ans tr.hit th, .t-blumenundsonnen16-ans tr.hit td { background: var(--ok-bg); }
+.t-blumenundsonnen16-res { font-weight: 700; white-space: nowrap; }
+.t-blumenundsonnen16-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; }
+.t-blumenundsonnen16-opt { display: block; position: relative; cursor: pointer; min-width: 0; }
+.t-blumenundsonnen16-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-blumenundsonnen16-card {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.7rem 0.6rem; border: 3px solid var(--line);
+  border-radius: 12px; background: var(--surface); position: relative; min-height: 3.4rem;
+}
+.t-blumenundsonnen16-opt input:checked + .t-blumenundsonnen16-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-blumenundsonnen16-opt input:focus-visible + .t-blumenundsonnen16-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-blumenundsonnen16-opt input:disabled { cursor: default; }
+.t-blumenundsonnen16-opt.right .t-blumenundsonnen16-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-blumenundsonnen16-opt.wrong .t-blumenundsonnen16-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-blumenundsonnen16-let { font-weight: 800; color: var(--muted); }
+.t-blumenundsonnen16-val { font-weight: 700; font-size: 1.1rem; overflow-wrap: anywhere; }
+.t-blumenundsonnen16-mark { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: var(--bg); font-weight: 800; font-size: 0.95rem; }
+.t-blumenundsonnen16-opt.right .t-blumenundsonnen16-mark { background: var(--ok); }
+.t-blumenundsonnen16-opt.wrong .t-blumenundsonnen16-mark { background: var(--bad); }
+@media (max-width: 40rem) {
+  .t-blumenundsonnen16-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-blumenundsonnen16-big .t-blumenundsonnen16-sym { width: 28px; height: 28px; }
+  .t-blumenundsonnen16-ans .t-blumenundsonnen16-sym { width: 20px; height: 20px; }
+}

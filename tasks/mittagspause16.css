@@ -1,0 +1,58 @@
+/* Aufgabe Mittagspause (2016) */
+.t-mittagspause16-box { display: grid; gap: 1.2rem; min-width: 0; }
+.t-mittagspause16-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.t-mittagspause16-tab { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); }
+.t-mittagspause16-tab th, .t-mittagspause16-tab td { border: 1px solid var(--line); padding: 0.35rem 0.55rem; text-align: left; vertical-align: middle; }
+.t-mittagspause16-tab thead th { color: var(--accent); font-size: 0.9rem; }
+.t-mittagspause16-tab tbody th { font-weight: 600; }
+.t-mittagspause16-tn { display: flex; align-items: center; gap: 0.6rem; }
+.t-mittagspause16-tile { display: grid; place-items: center; background: var(--paper); border-radius: 8px; box-shadow: 0 1px 3px rgb(0 0 0 / 0.2); padding: 4px; }
+.t-mittagspause16-tile img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+.t-mittagspause16-small { width: 44px; height: 44px; flex: none; }
+.t-mittagspause16-rushc { color: var(--bad); font-weight: 700; white-space: nowrap; }
+.t-mittagspause16-board { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; }
+.t-mittagspause16-board > section { min-width: 0; }
+.t-mittagspause16-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-mittagspause16-pool { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+.t-mittagspause16-gap { min-height: 6.4rem; border-radius: 10px; background: var(--surface2); }
+.t-mittagspause16-act { appearance: none; padding: 0.3rem; border: 3px solid transparent; background: none; border-radius: 12px; cursor: grab; touch-action: manipulation; display: grid; gap: 0.3rem; justify-items: center; align-content: start; font: inherit; color: var(--ink); min-width: 0; }
+.t-mittagspause16-act.selected { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-mittagspause16-act:disabled { cursor: default; }
+.t-mittagspause16-act.dragging, .t-mittagspause16-slot.dragging { opacity: 0.4; }
+.t-mittagspause16-act:focus-visible, .t-mittagspause16-slot:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-mittagspause16-act .t-mittagspause16-tile, .t-mittagspause16-slot .t-mittagspause16-tile { width: 100%; height: 5rem; box-sizing: border-box; }
+.t-mittagspause16-nm { font-size: 0.85rem; font-weight: 700; text-align: center; line-height: 1.15; overflow-wrap: anywhere; hyphens: auto; }
+.t-mittagspause16-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+.t-mittagspause16-step { display: grid; gap: 0.25rem; min-width: 0; justify-items: stretch; }
+.t-mittagspause16-no { font-weight: 800; color: var(--muted); text-align: center; }
+.t-mittagspause16-slot {
+  appearance: none; width: 100%; min-height: 7.2rem; padding: 0.3rem; border: 3px dashed var(--slot-line); background: var(--slot); color: var(--ink);
+  border-radius: 12px; display: grid; place-items: center; align-content: center; gap: 0.25rem; cursor: pointer; position: relative; touch-action: manipulation; font: inherit; min-width: 0;
+}
+.t-mittagspause16-slot.filled { border-style: solid; }
+.t-mittagspause16-slot.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--slot)); }
+.t-mittagspause16-slot.right { border-color: var(--ok); border-style: solid; }
+.t-mittagspause16-slot.wrong { border-color: var(--bad); border-style: solid; }
+.t-mittagspause16-slot:disabled { cursor: default; }
+.t-mittagspause16-ph { color: var(--muted); font-size: 0.85rem; text-align: center; }
+.t-mittagspause16-mark { position: absolute; top: -9px; right: -4px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 0.95rem; color: #fff; }
+.t-mittagspause16-slot.right .t-mittagspause16-mark { background: var(--ok); }
+.t-mittagspause16-slot.wrong .t-mittagspause16-mark { background: var(--bad); }
+.t-mittagspause16-tlwrap { max-width: 100%; margin: 0.5rem 0; }
+.t-mittagspause16-time { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.8rem; }
+.t-mittagspause16-time caption { text-align: left; color: var(--muted); font-size: 0.85rem; padding-bottom: 0.3rem; }
+.t-mittagspause16-time th, .t-mittagspause16-time td { border: 1px solid var(--line); padding: 0; text-align: center; height: 1.7rem; }
+.t-mittagspause16-time thead th { font-size: 0.7rem; color: var(--muted); font-weight: 600; height: auto; }
+.t-mittagspause16-time tbody th { text-align: left; width: 5.2rem; padding: 0 0.3rem; font-weight: 600; overflow-wrap: anywhere; line-height: 1.1; }
+.t-mittagspause16-time thead th:first-child { width: 5.2rem; }
+.t-mittagspause16-c.rush { background: color-mix(in srgb, var(--bad) 35%, var(--surface)); }
+.t-mittagspause16-c.act { font-weight: 800; color: var(--ok); outline: 2px solid var(--ok); outline-offset: -2px; background: var(--ok-bg); }
+.t-mittagspause16-c.act.rush { background: var(--bad-bg); }
+@media (max-width: 40rem) {
+  .t-mittagspause16-nm { font-size: 0.75rem; }
+  .t-mittagspause16-act .t-mittagspause16-tile, .t-mittagspause16-slot .t-mittagspause16-tile { height: 3.6rem; }
+  .t-mittagspause16-slot { min-height: 5.8rem; padding: 0.2rem; }
+  .t-mittagspause16-tab th, .t-mittagspause16-tab td { padding: 0.3rem 0.4rem; font-size: 0.88rem; }
+  .t-mittagspause16-small { width: 36px; height: 36px; }
+  .t-mittagspause16-time tbody th, .t-mittagspause16-time thead th:first-child { width: 4.2rem; font-size: 0.72rem; }
+}

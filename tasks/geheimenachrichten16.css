@@ -1,0 +1,41 @@
+/* Aufgabe Geheime Nachrichten (2016) */
+.t-geheimenachrichten16-box { display: grid; gap: 1.1rem; min-width: 0; }
+.t-geheimenachrichten16-mono { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; letter-spacing: 0.06em; overflow-wrap: anywhere; }
+.t-geheimenachrichten16-boris { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 1.5rem; align-items: start; }
+.t-geheimenachrichten16-boris p, .t-geheimenachrichten16-berta p { margin: 0 0 0.6rem; }
+.t-geheimenachrichten16-steps { min-width: 0; }
+.t-geheimenachrichten16-msg { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-weight: 800; font-size: 1.2rem; letter-spacing: 0.1em; overflow-wrap: anywhere; color: var(--accent); }
+.t-geheimenachrichten16-grid { border-collapse: collapse; background: var(--paper); width: max-content; max-width: 100%; }
+.t-geheimenachrichten16-grid td { border: 2px solid var(--accent); width: 2.4rem; height: 2.4rem; text-align: center; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-weight: 800; font-size: 1.25rem; color: var(--accent); padding: 0; }
+.t-geheimenachrichten16-expl { margin: 0.4rem 0; }
+.t-geheimenachrichten16-notes td { border-color: var(--line); }
+.t-geheimenachrichten16-cell { width: 100%; height: 100%; box-sizing: border-box; border: 0; background: transparent; text-align: center; font: inherit; color: var(--ink); text-transform: uppercase; padding: 0; border-radius: 0; }
+.t-geheimenachrichten16-cell:focus { outline: 3px solid var(--focus); outline-offset: -3px; background: var(--surface); }
+.t-geheimenachrichten16-notes-box { border: 1px dashed var(--line); border-radius: 10px; padding: 0.5rem 0.8rem; background: var(--surface); }
+.t-geheimenachrichten16-notes-box summary { cursor: pointer; font-weight: 700; padding: 0.2rem 0; }
+.t-geheimenachrichten16-hint { color: var(--muted); font-size: 0.92rem; margin: 0.3rem 0 0.6rem; }
+.t-geheimenachrichten16-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+.t-geheimenachrichten16-opt { display: block; position: relative; cursor: pointer; min-width: 0; }
+.t-geheimenachrichten16-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-geheimenachrichten16-card {
+  display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 0.8rem; border: 3px solid var(--line);
+  border-radius: 12px; background: var(--surface); position: relative; min-height: 3.4rem;
+}
+.t-geheimenachrichten16-opt input:checked + .t-geheimenachrichten16-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-geheimenachrichten16-opt input:focus-visible + .t-geheimenachrichten16-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-geheimenachrichten16-opt input:disabled { cursor: default; }
+.t-geheimenachrichten16-opt.right .t-geheimenachrichten16-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-geheimenachrichten16-opt.wrong .t-geheimenachrichten16-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-geheimenachrichten16-let { font-weight: 800; color: var(--muted); }
+.t-geheimenachrichten16-val { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-weight: 700; font-size: 1rem; letter-spacing: 0.05em; overflow-wrap: anywhere; min-width: 0; }
+.t-geheimenachrichten16-mark { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: var(--bg); font-weight: 800; font-size: 0.95rem; }
+.t-geheimenachrichten16-opt.right .t-geheimenachrichten16-mark { background: var(--ok); }
+.t-geheimenachrichten16-opt.wrong .t-geheimenachrichten16-mark { background: var(--bad); }
+@media (max-width: 40rem) {
+  .t-geheimenachrichten16-boris { grid-template-columns: minmax(0, 1fr); }
+  .t-geheimenachrichten16-grid td { width: 2.2rem; height: 2.2rem; }
+}
+@media (max-width: 30rem) {
+  .t-geheimenachrichten16-opts { grid-template-columns: minmax(0, 1fr); }
+  .t-geheimenachrichten16-val { font-size: 0.92rem; letter-spacing: 0.02em; }
+}

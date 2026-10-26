@@ -1,0 +1,44 @@
+/* Aufgabe Gartentor */
+.t-gartentor17-board { display: grid; gap: 1.1rem; }
+.t-gartentor17-board h3 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-family: var(--font-body); font-weight: 700; margin: 0 0 0.6rem; }
+.t-gartentor17-scene { display: block; width: 100%; max-width: 26rem; height: auto; margin: 0 auto; border-radius: 8px; }
+.t-gartentor17-known { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.t-gartentor17-msg { margin: 0; padding: 0.5rem 0.6rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); display: grid; gap: 0.3rem; align-content: start; min-width: 0; }
+.t-gartentor17-msg figcaption { font-size: 0.92rem; text-align: center; }
+.t-gartentor17-msg.new { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.t-gartentor17-msg.old figcaption { color: var(--muted); }
+.t-gartentor17-gate { display: block; width: 100%; height: auto; overflow: visible; }
+.t-gartentor17-stone { fill: var(--surface2); stroke: var(--muted); stroke-width: 2; stroke-linejoin: round; }
+.t-gartentor17-hole { fill: var(--bg); stroke: var(--muted); stroke-width: 1.2; }
+.t-gartentor17-stick { fill: none; stroke: var(--c2); stroke-width: 5; stroke-linecap: round; }
+.t-gartentor17-twig { fill: none; stroke: var(--c2); stroke-width: 3; stroke-linecap: round; }
+.t-gartentor17-hit { fill: transparent; cursor: pointer; }
+.t-gartentor17-play { display: grid; gap: 0.6rem; max-width: 22rem; }
+.t-gartentor17-hint { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.95rem; }
+.t-gartentor17-togs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+.t-gartentor17-tog {
+  appearance: none; margin: 0; padding: 0.5rem 0.4rem; font: inherit; font-weight: 700; color: var(--ink); cursor: pointer; touch-action: manipulation;
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius);
+}
+.t-gartentor17-tog.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.t-gartentor17-tog:disabled { cursor: default; opacity: 0.7; }
+.t-gartentor17-status { margin: 0; min-height: 2.8em; font-size: 0.95rem; }
+.t-gartentor17-answer { display: flex; align-items: center; gap: 0.6rem; position: relative; flex-wrap: wrap; }
+.t-gartentor17-answer label { font-weight: 700; }
+.t-gartentor17-in {
+  width: 5rem; padding: 0.55rem 0.7rem; font: 800 1.4rem var(--font-display); text-align: center; color: var(--ink);
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius);
+}
+.t-gartentor17-in:focus { border-color: var(--accent); outline: 3px solid color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-gartentor17-in.right { border-color: var(--ok); background: var(--ok-bg); }
+.t-gartentor17-in.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.t-gartentor17-mark { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: #fff; }
+.t-gartentor17-mark.ok { background: var(--ok); }
+.t-gartentor17-mark.bad { background: var(--bad); }
+.t-gartentor17-all { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; margin: 0.6rem 0 0.9rem; }
+.t-gartentor17-all .t-gartentor17-msg { padding: 0.35rem 0.4rem; }
+.t-gartentor17-all .t-gartentor17-msg figcaption { font-size: 0.8rem; }
+@media (max-width: 40rem) {
+  .t-gartentor17-all { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-gartentor17-msg figcaption { font-size: 0.85rem; }
+}
