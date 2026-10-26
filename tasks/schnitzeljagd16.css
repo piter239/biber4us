@@ -1,0 +1,33 @@
+/* Aufgabe Vegetarische Schnitzeljagd (2016) */
+.t-schnitzeljagd16-fig { margin: 0.6rem 0 0; text-align: center; }
+.t-schnitzeljagd16-zoom { display: block; font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+.t-schnitzeljagd16-fig a { display: inline-block; max-width: 100%; border-radius: 12px; }
+.t-schnitzeljagd16-fig a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.t-schnitzeljagd16-garden { display: inline-block; width: 100%; max-width: 34rem; height: auto; }
+.t-schnitzeljagd16-box { display: grid; gap: 1rem; min-width: 0; }
+.t-schnitzeljagd16-opts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.6rem; }
+.t-schnitzeljagd16-opt { display: grid; gap: 0.25rem; position: relative; cursor: pointer; min-width: 0; }
+.t-schnitzeljagd16-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-schnitzeljagd16-card {
+  display: flex; flex-direction: column; align-items: center; padding: 0.5rem 0.4rem; border: 3px solid var(--line);
+  border-radius: 12px; background: var(--paper); position: relative; min-width: 0; height: 100%;
+}
+.t-schnitzeljagd16-let { font-weight: 800; color: var(--muted); }
+.t-schnitzeljagd16-icon { display: grid; place-items: center; width: 100%; height: 5rem; }
+.t-schnitzeljagd16-pic { display: block; max-width: 100%; max-height: 5rem; width: auto; height: auto; user-select: none; pointer-events: none; }
+.t-schnitzeljagd16-opt input:checked + .t-schnitzeljagd16-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-schnitzeljagd16-opt input:focus-visible + .t-schnitzeljagd16-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-schnitzeljagd16-opt input:disabled { cursor: default; }
+.t-schnitzeljagd16-opt.right .t-schnitzeljagd16-card { border-color: var(--ok); }
+.t-schnitzeljagd16-opt.wrong .t-schnitzeljagd16-card { border-color: var(--bad); }
+.t-schnitzeljagd16-mark { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 0.95rem; }
+.t-schnitzeljagd16-opt.right .t-schnitzeljagd16-mark { background: var(--ok); }
+.t-schnitzeljagd16-opt.wrong .t-schnitzeljagd16-mark { background: var(--bad); }
+.t-schnitzeljagd16-chain { list-style: none; margin: 0.7rem 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.t-schnitzeljagd16-chain li { display: grid; justify-items: center; gap: 0.3rem; padding: 0.4rem; border-radius: 10px; background: var(--surface2); min-width: 4.8rem; }
+.t-schnitzeljagd16-cimg { display: grid; place-items: center; height: 3.8rem; width: 100%; background: var(--paper); border-radius: 7px; padding: 0.2rem; }
+.t-schnitzeljagd16-cimg img { max-height: 3.4rem; max-width: 100%; width: auto; height: auto; }
+.t-schnitzeljagd16-cname { font-weight: 700; font-size: 0.9rem; }
+@media (max-width: 40rem) {
+  .t-schnitzeljagd16-opts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

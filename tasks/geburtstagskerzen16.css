@@ -1,0 +1,38 @@
+/* Aufgabe Geburtstagskerzen (2016) */
+.t-geburtstagskerzen16-rules { margin: 0.4rem 0 0.8rem; padding-left: 1.3rem; }
+.t-geburtstagskerzen16-rules li { margin: 0.35rem 0; }
+.t-geburtstagskerzen16-box { display: grid; gap: 1.4rem; min-width: 0; }
+.t-geburtstagskerzen16-ex { list-style: none; margin: 0.5rem 0 0.4rem; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.5rem; }
+.t-geburtstagskerzen16-ex li { display: grid; gap: 0.3rem; min-width: 0; align-content: end; text-align: center; }
+.t-geburtstagskerzen16-cap { font-size: 0.9rem; font-weight: 700; line-height: 1.2; min-height: 2.2em; display: flex; align-items: flex-end; justify-content: center; }
+.t-geburtstagskerzen16-pic { display: block; background: var(--paper); border: 2px solid var(--line); border-radius: 8px; padding: 0.15rem; min-width: 0; }
+.t-geburtstagskerzen16-svg { display: block; width: 100%; height: auto; }
+.t-geburtstagskerzen16-opts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.6rem; }
+.t-geburtstagskerzen16-opt { display: block; position: relative; cursor: pointer; min-width: 0; }
+.t-geburtstagskerzen16-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-geburtstagskerzen16-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.3rem; padding: 0.5rem 0.4rem 0.55rem; border: 3px solid var(--line);
+  border-radius: 12px; background: var(--surface); position: relative; min-width: 0; height: 100%;
+}
+.t-geburtstagskerzen16-card .t-geburtstagskerzen16-pic { width: 100%; }
+.t-geburtstagskerzen16-opt input:checked + .t-geburtstagskerzen16-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-geburtstagskerzen16-opt input:focus-visible + .t-geburtstagskerzen16-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-geburtstagskerzen16-opt input:disabled { cursor: default; }
+.t-geburtstagskerzen16-opt.right .t-geburtstagskerzen16-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-geburtstagskerzen16-opt.wrong .t-geburtstagskerzen16-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-geburtstagskerzen16-let { font-weight: 800; color: var(--muted); align-self: flex-start; }
+.t-geburtstagskerzen16-mark { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 0.95rem; }
+.t-geburtstagskerzen16-opt.right .t-geburtstagskerzen16-mark { background: var(--ok); }
+.t-geburtstagskerzen16-opt.wrong .t-geburtstagskerzen16-mark { background: var(--bad); }
+.t-geburtstagskerzen16-sums { list-style: none; margin: 0.6rem 0; padding: 0; display: grid; gap: 0.25rem; max-width: 26rem; }
+.t-geburtstagskerzen16-sums li { padding: 0.2rem 0.6rem; border-radius: 8px; background: var(--surface2); }
+@media (max-width: 40rem) {
+  .t-geburtstagskerzen16-opts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .t-geburtstagskerzen16-ex { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 30rem) {
+  .t-geburtstagskerzen16-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 26rem) {
+  .t-geburtstagskerzen16-cap { font-size: 0.82rem; }
+}

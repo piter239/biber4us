@@ -1,0 +1,35 @@
+/* Aufgabe Arten (2016) */
+.t-arten16-figure { width: 100%; max-width: 34rem; justify-self: center; margin: 0.6rem 0; box-sizing: border-box; }
+.t-arten16-tree { position: relative; width: 100%; }
+.t-arten16-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.t-arten16-line { stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.t-arten16-node {
+  position: absolute; transform: translateX(-50%); height: 30px; display: grid; place-items: center; padding: 0 0.4rem;
+  background: var(--surface); border: 1.5px solid var(--ink); border-radius: 3px; font-size: 0.95rem; line-height: 1; white-space: nowrap;
+}
+.t-arten16-box { display: grid; gap: 0.9rem; min-width: 0; }
+.t-arten16-opts { display: grid; gap: 0.6rem; }
+.t-arten16-opt { display: block; position: relative; cursor: pointer; min-width: 0; }
+.t-arten16-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-arten16-card {
+  display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.9rem; border: 3px solid var(--line);
+  border-radius: 12px; background: var(--surface); position: relative; min-width: 0; min-height: 3.2rem;
+}
+.t-arten16-let { font-weight: 800; color: var(--muted); }
+.t-arten16-txt { min-width: 0; font-weight: 600; }
+.t-arten16-opt input:checked + .t-arten16-card { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-arten16-opt input:focus-visible + .t-arten16-card { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-arten16-opt input:disabled { cursor: default; }
+.t-arten16-opt.right .t-arten16-card { border-color: var(--ok); background: var(--ok-bg); }
+.t-arten16-opt.wrong .t-arten16-card { border-color: var(--bad); background: var(--bad-bg); }
+.t-arten16-mark { position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 0.95rem; }
+.t-arten16-opt.right .t-arten16-mark { background: var(--ok); }
+.t-arten16-opt.wrong .t-arten16-mark { background: var(--bad); }
+.t-arten16-why { margin: 0.5rem 0; padding-left: 1.2rem; }
+.t-arten16-why li { margin: 0.3rem 0; }
+@media (max-width: 30rem) {
+  .t-arten16-node { font-size: 0.76rem; padding: 0 0.25rem; height: 28px; }
+}
+@media (max-width: 22.5rem) {
+  .t-arten16-node { font-size: 0.64rem; padding: 0 0.2rem; }
+}
