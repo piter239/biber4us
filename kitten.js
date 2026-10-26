@@ -1301,7 +1301,7 @@
   }
 
   /* ---------- Zeitplan ---------- */
-  var paused = false;
+  var paused = false, idleVisits = 0, idleSeenAct = 0, idleStopped = false;
   function canVisit() {
     if (mem.off || paused || document.hidden || busy || userBusy) return false;
     var el = document.activeElement;
@@ -1329,6 +1329,12 @@
         return;
       }
       var idle = Date.now() - lastActivity > 75000;
+      /* Wer weggegangen ist (Tab offen, keine Eingabe), bekommt höchstens zwei "Aufmunterungen"; erst nach neuer Aktivität geht es weiter */
+      if (idle) {
+        if (lastActivity !== idleSeenAct) { idleSeenAct = lastActivity; idleVisits = 0; }
+        if (idleVisits >= 2) { if (!idleStopped) { idleStopped = true; T('k.idlestop'); } timer = setTimeout(tick, 30000); return; }
+        idleVisits++;
+      } else idleStopped = false;
       visit(idle ? { kind: 'hard', action: pick(['tilt', 'wave', 'kiss', 'tail']) } : {});
     }, delay != null ? delay : (pendingFriend ? 6000 : rnd(CFG.min, CFG.max)));
   }

@@ -1,4 +1,4 @@
-/* Zurückgehaltene Testaufgaben ("held-out validation set"): Aufgaben der Hefte 2018 und 2019, die im Niveau-Training nie vorkommen.
+/* Zurückgehaltene Testaufgaben ("held-out validation set"): Aufgaben der Hefte 2016 bis 2019, die im Niveau-Training nie vorkommen.
    Sie stehen nicht in der Aufgabenliste (window.BIBER_TASKS), werden nie vorgeschlagen und fließen nicht ins Biber-Niveau ein.
    Der Probelauf zieht sie bevorzugt (wenn die Aufgabe für die gewählte Klassenstufe im Heft eingestuft ist) und vergleicht, wie viele richtige Antworten
    das Niveau-Modell erwartet hat mit dem, was das Profil wirklich geschafft hat. Ergebnisse stehen im Profil unter hold.
@@ -28,5 +28,34 @@ window.BIBER_HOLDOUT = [
   { id: 'kleinerteich18', title: 'Kleiner Teich', topic: 'Algorithmik, Zusammenhang, Suche', page: 43, year: 2018, d: 0.5405, groups: {'5-6': 'schwer', '7-8': 'mittel', '9-10': 'einfach'}, holdout: true },
   { id: 'planetz18', title: 'Planet Z', topic: 'Formale Sprachen, kontextfreie Grammatik, Compiler', page: 51, year: 2018, d: 0.6757, groups: {'5-6': 'mittel', '7-8': 'einfach'}, holdout: true },
   { id: 'eishoernchen18', title: 'Eishörnchen', topic: 'Programmieren, Wiederholung, Wortproblem', page: 27, year: 2018, d: 0.7297, groups: {'5-6': 'mittel', '7-8': 'einfach'}, holdout: true },
-  { id: 'wievielefarben18', title: 'Wie viele Farben?', topic: 'Algorithmik, schwierige Probleme, Färbeproblem', page: 61, year: 2018, d: 0.8649, groups: {'3-4': 'mittel', '5-6': 'schwer'}, holdout: true }
+  { id: 'wievielefarben18', title: 'Wie viele Farben?', topic: 'Algorithmik, schwierige Probleme, Färbeproblem', page: 61, year: 2018, d: 0.8649, groups: {'3-4': 'mittel', '5-6': 'schwer'}, holdout: true },
+  /* Hefte 2017 und 2016 (zweite Tranche; bei 2016 ist d aus der Heft-Einstufung für Klasse 5-6 geschätzt, weil die Heftliste dort nicht nach Schwierigkeit sortiert ist) */
+  { id: 'nachrichtendienst17', title: 'Nachrichtendienst', topic: 'Internet-Protokoll, Datenpakete', page: 43, year: 2017, d: 0.0263, groups: {'3-4': 'mittel', '5-6': 'einfach'}, holdout: true },
+  { id: 'fuenfhoelzchen17', title: 'Fünf Hölzchen', topic: 'Programmieren, Anweisung, Zustandsänderung', page: 19, year: 2017, d: 0.0789, groups: {'3-4': 'schwer', '5-6': 'mittel'}, holdout: true },
+  { id: 'ehrenname17', title: 'Ehrenname', topic: 'Zeichenersetzung, Codierung, Verschlüsselung', page: 17, year: 2017, d: 0.1316, groups: {'5-6': 'mittel', '7-8': 'einfach'}, holdout: true },
+  { id: 'parkplaetze17', title: 'Parkplätze', topic: 'Logik, Funktion ODER', page: 46, year: 2017, d: 0.1579, groups: {'3-4': 'einfach', '5-6': 'einfach'}, holdout: true },
+  { id: 'lecker17', title: 'Lecker!', topic: 'Programmieren, Speicherinhalte tauschen', page: 38, year: 2017, d: 0.1842, groups: {'3-4': 'schwer', '5-6': 'mittel'}, holdout: true },
+  { id: 'klammerschmuck17', title: 'Klammerschmuck', topic: 'Syntax, Klammern', page: 29, year: 2017, d: 0.2105, groups: {'5-6': 'schwer', '7-8': 'mittel'}, holdout: true },
+  { id: 'platztausch17', title: 'Platz! Tausch!', topic: 'Algorithmik, Sortieren durch Platztausch', page: 49, year: 2017, d: 0.2368, groups: {'5-6': 'einfach', '7-8': 'einfach'}, holdout: true },
+  { id: 'bittelaecheln17', title: 'Bitte lächeln!', topic: 'Mustererkennung, künstliche Intelligenz, Verlässlichkeit', page: 15, year: 2017, d: 0.2632, groups: {'3-4': 'mittel', '5-6': 'einfach'}, holdout: true },
+  { id: 'kreiselstadt17', title: 'Kreiselstadt', topic: 'Programmieren, homogene Struktur', page: 32, year: 2017, d: 0.3158, groups: {'5-6': 'schwer', '9-10': 'einfach'}, holdout: true },
+  { id: 'kreisch17', title: 'Kreisch!', topic: 'Parallelität, Prozess, Ressourcen', page: 30, year: 2017, d: 0.3421, groups: {'5-6': 'mittel'}, holdout: true },
+  { id: 'stockundschild17', title: 'Stock und Schild', topic: 'Algorithmik, Backtracking, logisches Denken', page: 56, year: 2017, d: 0.3947, groups: {'5-6': 'schwer', '7-8': 'mittel', '9-10': 'einfach'}, holdout: true },
+  { id: 'honomakato17', title: 'Honomakato', topic: 'Datenstruktur, zusammenhängender Graph, Brücke', page: 25, year: 2017, d: 0.4211, groups: {'5-6': 'schwer', '7-8': 'mittel', '9-10': 'einfach'}, holdout: true },
+  { id: 'gartentor17', title: 'Gartentor', topic: 'Binärcode, Zeichensysteme', page: 21, year: 2017, d: 0.4474, groups: {'3-4': 'mittel', '5-6': 'einfach'}, holdout: true },
+  { id: 'kurzesprogramm17', title: 'Kurzes Programm', topic: 'Programmieren, Wiederholung, bedingte Anweisung', page: 35, year: 2017, d: 0.6842, groups: {'5-6': 'mittel', '7-8': 'einfach'}, holdout: true },
+  { id: 'opasmarmelade17', title: 'Opas Marmelade', topic: 'Planen, parallele Prozesse', page: 44, year: 2017, d: 0.8421, groups: {'5-6': 'schwer'}, holdout: true },
+  { id: 'puzzlesteine16', title: 'Puzzlesteine', topic: 'Algorithmus, Optimierung, Greedy-Methode', page: 52, year: 2016, d: 0.1018, groups: {'3-4': 'mittel', '5-6': 'einfach'}, holdout: true },
+  { id: 'flaggenamstrand16', title: 'Flaggen am Strand', topic: 'Codierung, Bedeutung, Unicode', page: 24, year: 2016, d: 0.1393, groups: {'3-4': 'mittel', '5-6': 'einfach'}, holdout: true },
+  { id: 'labyrinth3d16', title: '3D-Labyrinth', topic: 'Programmieren, Anweisungsfolge, Programmstrukturen', page: 7, year: 2016, d: 0.1728, groups: {'5-6': 'mittel', '7-8': 'einfach'}, holdout: true },
+  { id: 'regelregal16', title: 'Regel-Regal', topic: 'Regelmenge, Strukturen, Handlungen', page: 53, year: 2016, d: 0.1767, groups: {'5-6': 'einfach'}, holdout: true },
+  { id: 'geburtstagskerzen16', title: 'Geburtstagskerzen', topic: 'Binärsystem, Binäre Informationsdarstellung', page: 30, year: 2016, d: 0.2103, groups: {'5-6': 'mittel', '7-8': 'einfach'}, holdout: true },
+  { id: 'kaesegaenge16', title: 'Käsegänge', topic: 'Programmieren, Ereignis, Mensch-Computer-Schnittstelle (GUI)', page: 38, year: 2016, d: 0.2142, groups: {'3-4': 'schwer', '5-6': 'einfach'}, holdout: true },
+  { id: 'zugleich16', title: 'Zugleich', topic: 'Parallelität, Supercomputer, Computer-Cluster', page: 64, year: 2016, d: 0.2477, groups: {'5-6': 'mittel', '7-8': 'einfach'}, holdout: true },
+  { id: 'schnitzeljagd16', title: 'Vegetarische Schnitzeljagd', topic: 'Datenstrukturen, einfach verkettete Liste, Listenelement', page: 61, year: 2016, d: 0.2853, groups: {'3-4': 'schwer', '5-6': 'mittel'}, holdout: true },
+  { id: 'blumenundsonnen16', title: 'Blumen und Sonnen', topic: 'Codierung, Datenkompression, Präfixcode', page: 12, year: 2016, d: 0.359, groups: {'5-6': 'schwer', '7-8': 'einfach'}, holdout: true },
+  { id: 'geheimenachrichten16', title: 'Geheime Nachrichten', topic: 'Kryptologie, Datenschutz', page: 31, year: 2016, d: 0.389, groups: {'5-6': 'schwer', '9-10': 'einfach'}, holdout: true },
+  { id: 'arten16', title: 'Arten', topic: 'Wissensrepräsentation, Objektorientierung, Vererbung', page: 8, year: 2016, d: 0.419, groups: {'5-6': 'schwer', '7-8': 'mittel', '9-10': 'einfach'}, holdout: true },
+  { id: 'brueckenbach16', title: 'Brücken-Bach', topic: 'Algorithmus, Graphen, Brücken', page: 16, year: 2016, d: 0.449, groups: {'5-6': 'schwer', '7-8': 'mittel'}, holdout: true },
+  { id: 'mittagspause16', title: 'Mittagspause', topic: 'Planen, Constraints, Optimierung', page: 48, year: 2016, d: 0.479, groups: {'5-6': 'schwer', '7-8': 'mittel'}, holdout: true }
 ];
