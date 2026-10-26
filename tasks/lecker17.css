@@ -1,0 +1,40 @@
+/* Aufgabe Lecker! */
+.t-lecker17-wrap { display: grid; gap: 0.6rem; }
+.t-lecker17-scene {
+  display: flex; align-items: flex-end; gap: 0; background: var(--paper); border-radius: 10px; padding: 0.5rem 0.5rem 0;
+  overflow: hidden; user-select: none; -webkit-user-select: none;
+}
+.t-lecker17-ben { position: relative; flex: 159 1 0; min-width: 0; aspect-ratio: 159 / 157; }
+.t-lecker17-plank { position: relative; flex: 367 1 0; min-width: 0; aspect-ratio: 367 / 150; }
+.t-lecker17-ben > img, .t-lecker17-plank > img { display: block; width: 100%; height: 100%; pointer-events: none; -webkit-user-drag: none; }
+.t-lecker17-slot {
+  appearance: none; position: absolute; padding: 0; margin: 0; border: 0; background: none; border-radius: 8px;
+  cursor: pointer; touch-action: manipulation; overflow: visible; font: inherit; color: inherit;
+}
+.t-lecker17-slot:disabled { cursor: default; }
+.t-lecker17-slot.has { cursor: grab; }
+.t-lecker17-slot:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+.t-lecker17-log { position: absolute; display: block; height: auto; max-width: none; pointer-events: none; -webkit-user-drag: none; }
+.t-lecker17-hole {
+  position: absolute; left: 6%; width: 88%; top: 82%; height: 19%; border: 2px dashed rgb(120 60 20 / 0.55); border-radius: 6px;
+  background: rgb(255 235 158 / 0.45); box-sizing: border-box;
+}
+.t-lecker17-slot.selected::after {
+  content: ''; position: absolute; left: -8%; right: -8%; top: 76%; bottom: -3%; border: 3px solid var(--accent); border-radius: 8px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); pointer-events: none;
+}
+.t-lecker17-slot.over .t-lecker17-hole { border-color: var(--accent); background: rgb(255 235 158 / 0.9); }
+.t-lecker17-slot.dragging { opacity: 0.45; }
+.t-lecker17-badge {
+  position: absolute; left: 50%; top: 122%; transform: translateX(-50%); min-width: 2.6em; padding: 0.05em 0.5em; border-radius: 99px;
+  font: 700 0.85rem/1.4 var(--font-body); text-align: center; color: #fff; white-space: nowrap; pointer-events: none;
+}
+.t-lecker17-slot.right .t-lecker17-badge { background: var(--ok); }
+.t-lecker17-slot.wrong .t-lecker17-badge { background: var(--bad); }
+.t-lecker17-msg { margin: 0; min-height: 1.3em; font-size: 0.95rem; color: var(--muted); }
+@media (max-width: 40rem) {
+  .t-lecker17-scene { flex-wrap: wrap; padding: 0.5rem 0.25rem 0; }
+  .t-lecker17-ben { flex: 0 0 52%; max-width: 230px; }
+  .t-lecker17-plank { flex: 1 1 100%; }
+  .t-lecker17-badge { font-size: 0.75rem; }
+}

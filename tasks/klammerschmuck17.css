@@ -1,0 +1,35 @@
+/* Aufgabe Klammerschmuck */
+.t-klammerschmuck17-g { height: 56px; width: auto; max-width: none; display: inline-block; vertical-align: middle; -webkit-user-drag: none; }
+.t-klammerschmuck17-small { height: 40px; }
+.t-klammerschmuck17-pairs { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; }
+.t-klammerschmuck17-pair, .t-klammerschmuck17-ex {
+  display: inline-flex; align-items: center; gap: 0.3rem; background: var(--paper); border-radius: 8px; padding: 0.3rem 0.7rem;
+}
+.t-klammerschmuck17-examples { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; }
+.t-klammerschmuck17-ex { gap: 0.15rem; }
+.t-klammerschmuck17-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 0.75rem; }
+.t-klammerschmuck17-opt {
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 0.5rem; padding: 0.6rem 0.75rem;
+  background: var(--paper); border: 3px solid var(--line); border-radius: 10px; cursor: pointer; min-height: 4.2rem; color: #15303a;
+}
+.t-klammerschmuck17-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.t-klammerschmuck17-opt:focus-within { outline: 3px solid var(--focus); outline-offset: 2px; }
+.t-klammerschmuck17-opt:hover { border-color: var(--accent); }
+.t-klammerschmuck17-opt.chosen { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.t-klammerschmuck17-opt.right { border-color: var(--ok); box-shadow: none; }
+.t-klammerschmuck17-opt.wrong { border-color: var(--bad); box-shadow: none; }
+.t-klammerschmuck17-letter { font: 700 1.1rem var(--font-body); }
+.t-klammerschmuck17-band { display: flex; flex-wrap: nowrap; align-items: center; justify-content: center; gap: 0.1rem; min-width: 0; }
+.t-klammerschmuck17-band .t-klammerschmuck17-g { height: 52px; }
+.t-klammerschmuck17-mark {
+  position: absolute; top: -12px; right: -10px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.95rem; color: #fff; pointer-events: none;
+}
+.t-klammerschmuck17-opt.right .t-klammerschmuck17-mark { background: var(--ok); }
+.t-klammerschmuck17-opt.wrong .t-klammerschmuck17-mark { background: var(--bad); }
+.t-klammerschmuck17-opt input:disabled { cursor: default; }
+@media (max-width: 26rem) {
+  .t-klammerschmuck17-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+  .t-klammerschmuck17-opt { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 0.2rem; padding: 0.5rem 0.3rem; }
+  .t-klammerschmuck17-band .t-klammerschmuck17-g { height: 44px; }
+}
