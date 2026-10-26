@@ -278,7 +278,6 @@
     drag = pal.getAttribute('data-pal');
     e.dataTransfer.setData('text/plain', drag);
     e.dataTransfer.effectAllowed = 'copy';
-    setTimeout(function () { if (drag && el) el.classList.add('t-kurzesprogramm17-dragging'); }, 0);
   }
   function onDragOver(e) {
     var ins = e.target.closest && e.target.closest('[data-ins]');
@@ -292,10 +291,9 @@
     if (!ins || !drag || locked) return;
     e.preventDefault();
     var t = drag; drag = null;
-    el.classList.remove('t-kurzesprogramm17-dragging');
     insert(JSON.parse(ins.getAttribute('data-ins')), +ins.getAttribute('data-idx'), t);
   }
-  function onDragEnd() { drag = null; el.classList.remove('t-kurzesprogramm17-dragging'); [].forEach.call(el.querySelectorAll('.over'), function (n) { n.classList.remove('over'); }); }
+  function onDragEnd() { drag = null; [].forEach.call(el.querySelectorAll('.over'), function (n) { n.classList.remove('over'); }); }
 
   function fresh() { prog = []; armed = null; robot = { x: START.x, y: START.y, d: START.d }; msg = ''; stopRun(); }
 

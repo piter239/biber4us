@@ -66,7 +66,7 @@ write owner; `classes` read+write interact. Dazu `user` mit Bereich `profile` un
   zusammen sehen will, braucht ein eigenes Artifact als Besitzer (Kopie dieser Seite) und den Familiencode.
 
 ## Zurückgehaltene Testaufgaben („held-out“)
-- `holdout.js` (`window.BIBER_HOLDOUT`) enthält 24 Aufgaben der Hefte 2018 und 2019, die im Heft für Klasse 5–6 eingestuft sind. Sie stehen
+- `holdout.js` (`window.BIBER_HOLDOUT`) enthält 52 Aufgaben der Hefte 2016 bis 2019, die im Heft für Klasse 5–6 eingestuft sind (2018/2019: 24, 2017: 15, 2016: 13; bei 2016 ist `d` aus der Einstufung geschätzt, weil die Heftliste dort nicht nach Schwierigkeit sortiert ist). Sie stehen
   **nicht** in `BIBER_TASKS`: nie in der Aufgabenliste, nie als Empfehlung, nie im Biber-Niveau, nicht in der Klassen-Rangliste.
 - Nur der Probelauf zieht sie, bevorzugt solange sie dem Profil unbekannt sind (Modus „laut Heft“: zuerst unbekannte Testaufgaben je Stufe;
   Modus „Niveau“: Bonus bei der Auswahl). Gilt nur für Klassenstufen, für die das Heft die Aufgabe einordnet (`groups`).

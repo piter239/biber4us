@@ -48,7 +48,7 @@ Aufgaben pro Tag: Balkendiagramm (nur Tage mit Aktivitaet) auf der Seite Bewertu
 Verbessert: war der erste Versuch falsch und ein spaeterer Uebungsversuch richtig, bekommt die Aufgabe das goldene Abzeichen "verbessert" (results[id].fixed); die Punkte bleiben die des ersten Versuchs, die Aufgabe gilt nicht mehr als Wiederholungskandidat.
 Testaufgaben ansehen/ueben (#<id> nach dem Probelauf): Uebungsversuche werden protokolliert (hta, htr, htsol, hfix); war der Lauf-Versuch falsch und ein Uebungsversuch richtig, gibt es das goldene Abzeichen "verbessert" (hold[id].fixed). Das Tagesdiagramm zaehlt Testaufgaben mit.
 Zeitkontrolle: Schalter im Probelauf (pro Profil, Standard an). Aus = keine Uhr, kein Zeitlimit, Abgabe nur per Knopf; Zeit je Aufgabe (r.tm, run.sp, rec.tasks[].secs) wird trotzdem gemessen und im Ergebnis angezeigt.
-Testaufgaben (held-out): holdout.js, 24 Aufgaben der Hefte 2018/2019 (Klasse 5-6), nur im Probelauf, nie in Liste/Empfehlung/Niveau; Vergleich erwartet/tatsaechlich siehe ARCHITEKTUR.md.
+Testaufgaben (held-out): holdout.js, 52 Aufgaben der Hefte 2016-2019 (Klasse 5-6), nur im Probelauf, nie in Liste/Empfehlung/Niveau; Vergleich erwartet/tatsaechlich siehe ARCHITEKTUR.md.
 
 Kaetzchen: Fressen dauert ca. 9 s mit zufaelligen Geraeuschen (knuspern, lecken, schmatzen, schlucken, nom, mrrp, schluerfen, brummen); acht neue Vorstellungen (Fisch, Singen, Geistesblitz, Foto, Kuchen, Lesen, Ballon, Schnee) und sechs neue Doppel-Sticker.
 
